@@ -24,7 +24,8 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
 
 ## Design and content
 
-- Use concise, practical headings and labels: Trips, Map, Route, Accommodation,
+- Use concise, practical headings and labels: Next trip, Trips, Visited atlas,
+  Route, Accommodation,
   Daily itinerary, Preparations, and Official sources. Use direct equivalents
   for Chinese pages.
 - Remove ornamental prose, motivational statements, promotional language,
@@ -36,6 +37,10 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
 - Preserve a modern visual style through typography, spacing, the warm cream /
   forest green / terracotta palette, images, and interactive maps.
 - Keep mobile layouts readable, controls accessible, and navigation direct.
+- The homepage is an overview: highlight the next trip, provide compact trip
+  links, and show an atlas of visited places. Trip previews show only covers,
+  titles, countries, dates, status, and links. Keep routes, day/night totals,
+  schedules, accommodation, and other itinerary details on the trip pages.
 - Show useful information: dates, routes, schedules, transport, accommodation,
   booking states, walking details, and official sources.
 - Preserve uncertainty and distinguish reference departures from confirmed
@@ -51,8 +56,22 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   `tripPlaceholders` holds year-only entries; `tripCollection` combines them.
 - Only dated trips may enter date formatting, duration, and travel-status
   calculations. Do not supply fake dates for placeholders.
-- The homepage features a dated itinerary. Its trip/country totals include
-  placeholders; its day total includes only trips with known dates.
+- `selectNextTrip()` chooses a trip whose inclusive UTC date range is current,
+  then the earliest upcoming dated trip. Completed trips, ended plans, and
+  year-only placeholders cannot be selected. Show an honest empty state when
+  no dated trip qualifies.
+- Header and homepage use compact `TripPreview` metadata. Their next-trip
+  highlight and date-based status labels refresh at load, page restore,
+  return to a visible tab, and UTC midnight without a new deployment.
+- `aggregateVisitedAtlas()` includes only explicitly completed trips. Dates
+  alone never establish that a place was visited. When recording completion,
+  make the trip's destinations reflect actual visits: remove skipped stops
+  and correct the route/details as needed. Reuse stable destination IDs for
+  the same place across trips so the atlas deduplicates within a country.
+- The visited atlas shows aggregate places, country counts, and links to
+  completed trips, without itinerary route lines or planned destinations.
+  With no recorded visits, show a simple world graphic and empty state;
+  do not load an interactive map or show unusable controls.
 - `src/pages/trips/[slug]/index.astro` chooses between `TripItinerary.astro`
   and `TripPlaceholder.astro`. New entries also belong in the sitemap.
 - Keep Leaflet maps, destination lists, expand/collapse, and itinerary printing.

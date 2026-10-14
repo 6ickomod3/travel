@@ -1,42 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
+import NextTrip from '../components/NextTrip.astro';
 import TripStatus from '../components/TripStatus.astro';
-import TravelMap from '../components/TravelMap.astro';
+import VisitedAtlas from '../components/VisitedAtlas.astro';
 import { trips, tripCollection } from '../data/trips';
-import { compareTripEntries, durationDays, formatDateRange, formatDate, isPlaceholderTrip, tripYear } from '../lib/trips';
+import { aggregateVisitedAtlas, compareTripEntries, formatDateRange, isPlaceholderTrip, selectNextTrip } from '../lib/trips';
+import { toTripPreview } from '../lib/trip-previews';
 import { withBase } from '../lib/urls';
 import imageCredits from '../../public/images/credits.json';
-import type { TripDestination } from '../data/trips';
 
 const orderedTrips = [...tripCollection].sort(compareTripEntries);
-const featured = [...trips].sort((a, b) => b.startDate.localeCompare(a.startDate))[0];
-const totalDays = trips.reduce((sum, trip) => sum + durationDays(trip), 0);
-const totalCountries = new Set(tripCollection.map((trip) => trip.countryCode)).size;
-const featuredChapter = String(tripCollection.findIndex(trip => trip.slug === featured?.slug) + 1).padStart(2, '0');
-const featuredZh = featured?.language === 'zh-CN';
-const featuredLocale = featuredZh ? 'zh-CN' : 'en-US';
-const featuredRoute = featured?.mapRoute?.map(id => featured.destinations.find(stop => stop.id === id)).filter((stop): stop is TripDestination => !!stop);
-const featuredCredit = (imageCredits.images as Array<{file: string; source: string; license: string; licenseUrl: string; author?: string}>).find(image => `/images/${image.file}` === featured?.cover);
+const nextTrip = selectNextTrip(trips.map(toTripPreview));
+const visitedAtlas = aggregateVisitedAtlas(tripCollection);
+const shareTrip = nextTrip ?? orderedTrips[0];
+const collectionCredits = imageCredits.images.filter(image => orderedTrips.some(trip => trip.cover === `/images/${image.file}`));
 ---
-<Layout image={featured?.cover} imageAlt={featured?.coverAlt}>
-  <section class="home-hero container" aria-labelledby="hero-title">
-    <div class="hero-copy">
-      <h1 id="hero-title">Travel<br /><em>itineraries</em></h1>
-      <div class="hero-actions"><a class="button button-primary" href="#collection">View trips <Icon name="arrow-right" size={19} /></a><a class="text-link" href="#atlas">View map <Icon name="globe" size={18} /></a></div>
-    </div>
-    {featured && <a class="hero-photo-link" href={withBase(`trips/${featured.slug}/`)} lang={featured.language ?? 'en'} aria-label={featuredZh ? `查看${featured.title}，${formatDateRange(featured, featuredLocale)}` : `Explore ${featured.title}, ${formatDateRange(featured)}`} data-astro-prefetch>
-      <div class="hero-photo">
-        <img src={withBase(featured.cover)} alt={featured.coverAlt} width="1800" height="1201" fetchpriority="high" />
-        <div class="photo-topline"><span>{featuredZh ? '行程' : 'ITINERARY'}</span><span>{featured.countryCode} / {featured.startDate.slice(0, 4)}</span></div>
-        <span class="photo-japanese" lang={featured.countryCode === 'JP' ? 'ja' : 'en'} aria-hidden="true">{featured.countryCode === 'JP' ? '日本' : featured.countryCode}</span>
-        <div class="hero-photo-bottom"><div><span class="photo-eyebrow">{featuredZh ? '旅行' : 'TRIP'} {featuredChapter}</span><h2>{featured.country}</h2><p>{formatDateRange(featured, featuredLocale)} <span>·</span> {durationDays(featured)}{featuredZh ? '天' : ' days'}</p></div><span class="photo-arrow"><Icon name="arrow-up-right" size={25} /></span></div>
-      </div>
-      <div class="photo-caption"><span>{featured.title}</span><span>{featuredZh ? '查看行程' : 'View itinerary'} <Icon name="arrow-up-right" size={14} /></span></div>
-    </a>}
-  </section>
-
-  <div class="collection-ticker"><div class="container ticker-inner"><div class="ticker-stats"><span><strong>{String(tripCollection.length).padStart(2, '0')}</strong> {tripCollection.length === 1 ? 'trip' : 'trips'}</span><span><strong>{String(totalDays).padStart(2, '0')}</strong> days planned</span><span><strong>{String(totalCountries).padStart(2, '0')}</strong> {totalCountries === 1 ? 'country' : 'countries'}</span></div></div></div>
+<Layout description="The next trip, a collection of trips, and an atlas of visited places." image={shareTrip?.cover} imageAlt={shareTrip?.coverAlt}>
+  <NextTrip trip={nextTrip} />
 
   <section class="collection-section container section-space" id="collection" aria-labelledby="collection-title">
     <div class="section-heading"><h2 id="collection-title">Trips</h2></div>
@@ -46,31 +27,23 @@ const featuredCredit = (imageCredits.images as Array<{file: string; source: stri
         const placeholder = isPlaceholderTrip(trip);
         const isZh = trip.language === 'zh-CN';
         const tripUrl = withBase(`trips/${trip.slug}/`);
-        const chapter = String(tripCollection.findIndex(item => item.slug === trip.slug) + 1).padStart(2, '0');
+        const image = imageCredits.images.find(record => `/images/${record.file}` === trip.cover);
         return <article class:list={['trip-card', { 'trip-card-coming-soon': placeholder }]} data-trip-card data-trip-kind={trip.status === 'completed' ? 'completed' : 'planned'} lang={trip.language ?? 'en'}>
-          <a class="trip-card-cover" href={tripUrl} data-astro-prefetch aria-label={isZh ? `查看${trip.title}` : `View ${trip.title}`}><img src={withBase(trip.cover)} alt={trip.coverAlt} width="1800" height={placeholder ? '1200' : '1201'} loading="lazy" /><span class="trip-card-number">{isZh ? '旅行' : 'TRIP'} {chapter}</span><span class="trip-card-arrow"><Icon name="arrow-up-right" size={24} /></span></a>
+          <a class="trip-card-cover" href={tripUrl} data-astro-prefetch aria-label={isZh ? `查看${trip.title}` : `View ${trip.title}`}><img src={withBase(trip.cover)} alt={trip.coverAlt} width={image?.width ?? 1800} height={image?.height ?? 1200} loading="lazy" /></a>
           <div class="trip-card-body">
-            <div class="trip-card-meta"><span>{trip.country} <span class="meta-divider">/</span> {tripYear(trip)}</span><TripStatus trip={trip} /></div>
-            <h3><a href={tripUrl} data-astro-prefetch>{trip.title}</a></h3>
-            {!placeholder && <p>{trip.summary}</p>}
-            {placeholder ? <>
-              <div class="trip-card-details"><span><Icon name="calendar" size={16} /> {trip.year}</span><span>{isZh ? '日期待定' : 'Dates to be decided'}</span></div>
-              <div class="trip-card-placeholder"><a class="text-link" href={tripUrl} data-astro-prefetch>{isZh ? '查看旅行' : 'View trip'} <Icon name="arrow-right" size={16} /></a></div>
-            </> : <>
-              <div class="trip-card-details"><span><Icon name="calendar" size={16} /> {formatDateRange(trip, isZh ? 'zh-CN' : 'en-US')}</span><span>{durationDays(trip)}{isZh ? `天 · ${durationDays(trip) - 1}晚` : ' days'}</span></div>
-              <div class="trip-card-route"><span>{isZh ? (trip.itineraryStatus === 'agreed' ? '确定路线' : '计划路线') : (trip.itineraryStatus === 'agreed' ? 'THE ROUTE' : 'SUGGESTED ROUTE')}</span><p>{(trip.routeSummary ?? trip.destinations.map(stop => stop.name)).join(' → ')}</p></div>
-            </>}
+            <div class="trip-card-meta"><span>{trip.country}</span><TripStatus trip={trip} /></div>
+            <h3><a href={tripUrl} data-astro-prefetch><span>{trip.title}</span><Icon name="arrow-up-right" size={18} /></a></h3>
+            <p class="trip-card-date">{placeholder ? `${trip.year} · ${isZh ? '日期待定' : 'Dates to be decided'}` : formatDateRange(trip, isZh ? 'zh-CN' : 'en-US')}</p>
           </div>
         </article>;
       })}
     </div>
     <div class="collection-empty" data-trip-empty hidden><Icon name="compass" size={37} /><h3>No trips to show</h3><button class="text-link" type="button" data-reset-filter>Show all trips <Icon name="arrow-right" size={17} /></button></div>
     <p class="sr-only" data-filter-status aria-live="polite">Showing {tripCollection.length} {tripCollection.length === 1 ? 'trip' : 'trips'}.</p>
+    {collectionCredits.length > 0 && <div class="collection-image-credits image-credits">{collectionCredits.map(image => <p>Photo: <a href={image.source} target="_blank" rel="noopener noreferrer">{'author' in image ? image.author : 'Photo source'}</a> · <a href={image.licenseUrl} target="_blank" rel="noopener noreferrer">{image.license}</a>{'changes' in image && <> · {image.changes}</>}</p>)}</div>}
   </section>
 
-  {featured && <section class="atlas-section section-space" id="atlas" aria-labelledby="atlas-title"><div class="container"><div class="section-heading"><h2 id="atlas-title">Map</h2></div><div class="atlas-layout"><aside class="atlas-sidebar" lang={featured.language ?? 'en'}><div class="atlas-sidebar-heading"><span class="atlas-small-label"><Icon name="compass" size={17} /> {featuredZh ? '目的地' : 'DESTINATIONS'}</span><h3>{featured.country}</h3><p>{formatDateRange(featured, featuredLocale)} · {featuredZh ? '行程路线' : 'Travel route'}</p></div><div class="atlas-stops">{featured.destinations.map((stop, index) => <div class="atlas-stop"><button type="button" data-map-select="home-atlas" data-stop-id={stop.id} aria-pressed="false" disabled><span class="stop-number">{String(index + 1).padStart(2, '0')}</span><span class="stop-copy"><strong>{stop.name}</strong><span>{stop.description}</span></span><Icon name="arrow-up-right" size={19} /></button><a class="city-map-link" href={`https://www.google.com/maps/search/?api=1&query=${stop.lat},${stop.lng}`} target="_blank" rel="noopener noreferrer">{featuredZh ? `在地图上查看${stop.name}` : `Open ${stop.name} in Maps`} <Icon name="external" size={12} /></a></div>)}</div><a class="atlas-trip-link" href={withBase(`trips/${featured.slug}/`)} data-astro-prefetch>{featuredZh ? '查看完整行程' : 'View itinerary'} <Icon name="arrow-right" size={18} /></a></aside><TravelMap id="home-atlas" destinations={featured.destinations} route={featuredRoute} country={featured.country} locale={featured.language ?? 'en'} dateLabel={formatDate(featured.startDate, { month: 'long', year: 'numeric', day: undefined }, featuredLocale)} label={featuredZh ? '日本行程地图' : `${featured.country} travel map`} /></div><p class="route-note" lang={featured.language ?? 'en'}>{featuredZh ? '连线包含返回与换乘，表示旅行顺序；地图上的地点为概略位置。' : 'Lines show the order of the trip, including return journeys. Locations are approximate.'}</p></div></section>}
-
-  {featuredCredit && <div class="container home-image-credit image-credits">Photo: <a href={featuredCredit.source} target="_blank" rel="noopener noreferrer">{featuredCredit.author ?? 'Wikimedia Commons'}</a> / <a href={featuredCredit.licenseUrl} target="_blank" rel="noopener noreferrer">{featuredCredit.license}</a>. Resized and converted to WebP.</div>}
+  <VisitedAtlas atlas={visitedAtlas} />
 </Layout>
 
 <script>

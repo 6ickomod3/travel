@@ -1,0 +1,103 @@
+---
+import TravelMap from './TravelMap.astro';
+import Icon from './Icon.astro';
+import type { VisitedAtlas as AtlasData, VisitedLocation } from '../lib/trips';
+import { withBase } from '../lib/urls';
+
+interface Props {
+  atlas: AtlasData;
+  mapId?: string;
+  locale?: 'en' | 'zh-CN';
+}
+
+const { atlas, mapId = 'visited-atlas', locale = 'en' } = Astro.props;
+const isZh = locale === 'zh-CN';
+const regionNames = new Intl.DisplayNames([locale], { type: 'region' });
+const countryName = (location: VisitedLocation) => /^[A-Z]{2}$/.test(location.countryCode)
+  ? regionNames.of(location.countryCode) ?? location.country
+  : location.country;
+const locations = atlas.locations.map(location => ({
+  ...location,
+  name: isZh ? location.name : location.englishName || location.name,
+  country: countryName(location),
+}));
+const hasLocations = locations.length > 0;
+---
+
+<section class="visited-atlas-section container" id="atlas" aria-labelledby="visited-atlas-title" lang={locale}>
+  <div class="visited-atlas-heading">
+    <h2 id="visited-atlas-title">{isZh ? '足迹地图' : 'Visited atlas'}</h2>
+    {hasLocations && <p>{atlas.locationCount} {isZh ? '个地点' : atlas.locationCount === 1 ? 'place' : 'places'} <span aria-hidden="true">·</span> {atlas.countryCount} {isZh ? '个国家' : atlas.countryCount === 1 ? 'country' : 'countries'}</p>}
+  </div>
+
+  {hasLocations ? <div class="visited-atlas-layout">
+    <div class="visited-atlas-map">
+      <TravelMap id={mapId} destinations={locations} mode="visited" label={isZh ? '已到访地点地图' : 'Map of visited places'} locale={locale} />
+    </div>
+    <ul class="visited-location-list" aria-label={isZh ? '已到访地点与旅行' : 'Visited places and trips'}>
+      {locations.map(location => <li class="visited-location">
+        <button type="button" class="visited-location-select" data-map-select={mapId} data-stop-id={location.id} aria-pressed="false" aria-label={isZh ? `在地图上查看${location.name}` : `Show ${location.name} on the map`} disabled>
+          <span><strong>{location.name}</strong><small>{location.country}</small></span>
+          <Icon name="arrow-up-right" size={18} />
+        </button>
+        <ul class="visited-location-trips" aria-label={isZh ? `${location.name}的旅行` : `Trips to ${location.name}`}>
+          {location.trips.map(trip => <li><a href={withBase(`trips/${trip.slug}/`)}>{trip.title}<Icon name="arrow-right" size={13} /></a></li>)}
+        </ul>
+      </li>)}
+    </ul>
+  </div> : <div class="visited-atlas-empty">
+    <img src={withBase('images/atlas-world.svg')} alt="" aria-hidden="true" width="1000" height="500" loading="lazy" />
+    <p>{isZh ? '尚未记录已到访地点。' : 'No visited places recorded yet.'}</p>
+  </div>}
+</section>
+
+<style>
+  .visited-atlas-section { padding-block: 42px 64px; }
+  .visited-atlas-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px 24px; margin-bottom: 24px; }
+  .visited-atlas-heading h2 { font-family: var(--serif); font-size: clamp(37px, 4vw, 53px); font-weight: 400; letter-spacing: -.7px; line-height: 1.08; }
+  .visited-atlas-heading > p { color: var(--ink-soft); font-size: 12px; }
+  .visited-atlas-heading > p span { margin-inline: 7px; }
+  .visited-atlas-empty { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 30px; padding: 24px 40px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-deep); }
+  .visited-atlas-empty img { display: block; width: 100%; max-width: 430px; height: auto; margin-inline: auto; }
+  .visited-atlas-empty p { color: var(--ink-soft); font-size: 16px; line-height: 1.6; }
+  .visited-atlas-layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(240px, 1fr); align-items: start; gap: 28px; }
+  .visited-atlas-map { min-width: 0; }
+  .visited-atlas-map :global(.travel-map-visited) { min-height: 420px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .visited-location-list { margin: 0; padding: 0; list-style: none; max-height: 420px; overflow-y: auto; overscroll-behavior: contain; }
+  .visited-location { padding: 17px 0; border-bottom: 1px solid var(--line); }
+  .visited-location:first-child { padding-top: 0; }
+  .visited-location-select { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; padding: 0; border: 0; background: transparent; text-align: left; }
+  .visited-location-select > span { display: grid; gap: 4px; min-width: 0; }
+  .visited-location-select strong { font-size: 14px; line-height: 1.5; font-weight: 500; }
+  .visited-location-select small { color: var(--ink-soft); font-size: 11px; }
+  .visited-location-select > svg { flex-shrink: 0; color: var(--ink-soft); }
+  .visited-location-select:hover strong, .visited-location-select[aria-pressed='true'] strong { color: var(--accent-deep); }
+  .visited-location-select:disabled { cursor: default; }
+  .visited-location-trips { display: grid; gap: 5px; list-style: none; margin: 11px 0 0; padding: 0; }
+  .visited-location-trips a { display: inline-flex; align-items: baseline; gap: 8px; color: var(--ink-soft); font-size: 11px; line-height: 1.7; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+  .visited-location-trips a > svg { flex-shrink: 0; }
+  .visited-location-trips a:hover { color: var(--accent-deep); }
+  .visited-atlas-map :global(.travel-marker-visited .marker-core) { width: 20px; height: 20px; }
+  .visited-atlas-map :global(.visited-marker-dot) { display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--paper); }
+  .visited-atlas-map :global(.visited-map-popup) { font-family: var(--sans); }
+  .visited-atlas-map :global(.visited-map-popup strong) { display: block; font-size: 14px; line-height: 1.5; }
+  .visited-atlas-map :global(.visited-map-popup .visited-popup-country) { margin: 4px 0 0; color: var(--ink-soft); font-size: 11px; }
+  .visited-atlas-map :global(.visited-map-popup ul) { display: grid; gap: 7px; list-style: none; margin: 12px 0 0; padding: 0; }
+  .visited-atlas-map :global(.visited-map-popup a) { color: var(--accent-deep); font-size: 12px; line-height: 1.6; text-decoration: underline; text-underline-offset: 3px; }
+
+  @media (max-width: 800px) {
+    .visited-atlas-section { padding-block: 34px 48px; }
+    .visited-atlas-empty { padding: 22px 28px; gap: 20px; }
+    .visited-atlas-layout { grid-template-columns: minmax(0, 1.4fr) minmax(210px, 1fr); gap: 20px; }
+  }
+  @media (max-width: 600px) {
+    .visited-atlas-section { padding-block: 28px 40px; }
+    .visited-atlas-heading { margin-bottom: 20px; }
+    .visited-atlas-empty { grid-template-columns: 1fr; gap: 14px; padding: 22px; text-align: center; }
+    .visited-atlas-empty img { max-width: 300px; }
+    .visited-atlas-empty p { font-size: 14px; }
+    .visited-atlas-layout { grid-template-columns: 1fr; }
+    .visited-atlas-map :global(.travel-map-visited) { min-height: 340px; }
+    .visited-location-list { max-height: none; }
+  }
+</style>

@@ -1,31 +1,41 @@
 ---
 import Icon from './Icon.astro';
 import type { TripDestination } from '../data/trips';
+import type { VisitedLocation } from '../lib/trips';
 interface Props {
   id: string;
-  destinations: TripDestination[];
+  destinations: (TripDestination | VisitedLocation)[];
   route?: TripDestination[];
   variant?: 'atlas' | 'route';
+  mode?: 'itinerary' | 'visited';
   label?: string;
   country?: string;
   dateLabel?: string;
   locale?: 'zh-CN' | 'en';
 }
-const { id, destinations, route = destinations, variant = 'atlas', label, country = 'Japan', dateLabel = 'November 2026', locale = 'en' } = Astro.props;
+const { id, destinations, route: suppliedRoute, variant = 'atlas', mode = 'itinerary', label, country = 'Japan', dateLabel = 'November 2026', locale = 'en' } = Astro.props;
 const isZh = locale === 'zh-CN';
+const isVisited = mode === 'visited';
+const route = isVisited ? [] : suppliedRoute ?? destinations;
+const hint = isVisited
+  ? isZh ? '点击地点查看相关旅行。' : 'Select a place to view its trips.'
+  : isZh ? '拖动地图，点击地点查看详情。' : 'Drag the map. Select a destination for details.';
+const defaultLabel = isVisited
+  ? isZh ? '已到访地点地图' : 'Map of visited places'
+  : isZh ? '旅行地图' : 'Travel map';
 ---
-<div class:list={['travel-map', `travel-map-${variant}`]} data-map-wrapper={id} lang={locale}>
-  <div class="map-canvas" data-travel-map={id} data-destinations={JSON.stringify(destinations)} data-route={JSON.stringify(route)} data-variant={variant} data-locale={locale} aria-label={label ?? (isZh ? '旅行地图' : 'Travel map')}>
+<div class:list={['travel-map', `travel-map-${variant}`, { 'travel-map-visited': isVisited }]} data-map-wrapper={id} lang={locale}>
+  <div class="map-canvas" data-travel-map={id} data-destinations={JSON.stringify(destinations)} data-route={JSON.stringify(route)} data-variant={variant} data-mode={mode} data-locale={locale} aria-label={label ?? defaultLabel}>
     <div class="map-loading"><Icon name="globe" size={34} /><span>{isZh ? '地图加载中…' : 'Loading map…'}</span></div>
   </div>
-  <div class="map-top-label"><span class="status-dot"></span> {country} <span class="map-label-divider">/</span> {dateLabel}</div>
+  {!isVisited && <div class="map-top-label"><span class="status-dot"></span> {country} <span class="map-label-divider">/</span> {dateLabel}</div>}
   <div class="map-buttons" aria-label={isZh ? '地图操作' : 'Map controls'}>
-    <button class="map-reset" type="button" data-map-reset={id} aria-label={isZh ? '查看全部地点' : 'Show all destinations'} disabled><Icon name="compass" size={20} /></button>
+    <button class="map-reset" type="button" data-map-reset={id} aria-label={isZh ? '查看全部地点' : isVisited ? 'Show all visited places' : 'Show all destinations'} disabled><Icon name="compass" size={20} /></button>
     <button type="button" data-map-zoom-in={id} aria-label={isZh ? '放大地图' : 'Zoom in'} disabled><Icon name="plus" size={19} /></button>
     <button type="button" data-map-zoom-out={id} aria-label={isZh ? '缩小地图' : 'Zoom out'} disabled><Icon name="minus" size={19} /></button>
   </div>
-  <p class="map-hint" data-map-status={id} aria-live="polite">{isZh ? '拖动地图，点击地点查看详情。' : 'Drag the map. Select a destination for details.'}</p>
-  <noscript><p class="map-noscript">{isZh ? '互动地图需要启用 JavaScript。也可以使用地点旁的地图链接查看。' : 'The interactive map needs JavaScript. Explore each stop using the city links beside it.'}</p></noscript>
+  <p class="map-hint" data-map-status={id} aria-live="polite">{hint}</p>
+  <noscript><p class="map-noscript">{isVisited ? isZh ? '互动地图需要启用 JavaScript。相关旅行可通过地点列表中的链接查看。' : 'The interactive map needs JavaScript. Trip links are available in the place list.' : isZh ? '互动地图需要启用 JavaScript。也可以使用地点旁的地图链接查看。' : 'The interactive map needs JavaScript. Explore each stop using the city links beside it.'}</p></noscript>
 </div>
 <script>
   import '../scripts/maps';

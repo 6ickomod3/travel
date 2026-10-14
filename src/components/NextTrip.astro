@@ -1,0 +1,41 @@
+---
+import Icon from './Icon.astro';
+import type { TripPreview } from '../lib/trip-previews';
+import { displayStatus, formatDateRange, statusLabel } from '../lib/trips';
+import { withBase } from '../lib/urls';
+
+interface Props { trip?: TripPreview; }
+const { trip } = Astro.props;
+const locale = trip?.language ?? 'en';
+const today = new Date().toISOString().slice(0, 10);
+const current = trip && trip.startDate <= today && trip.endDate >= today;
+const titleBreak = trip?.title.search(/[，,]/) ?? -1;
+const titleParts = trip ? (titleBreak >= 0
+  ? [trip.title.slice(0, titleBreak + 1), trip.title.slice(titleBreak + 1).trim()]
+  : [trip.title]) : [];
+---
+<section class="next-trip-section container" id="next-trip" data-next-trip-region aria-label={current ? 'Current trip' : 'Next trip'}>
+  <div class="next-trip-layout" data-next-trip-feature hidden={!trip}>
+    <div class="next-trip-copy">
+      <p class="eyebrow" data-next-trip-heading>{current ? 'CURRENT TRIP' : 'NEXT TRIP'}</p>
+      <h1 data-next-trip-title lang={locale}>{titleParts.map((part, index) => <>{index > 0 && <wbr />}<span class="next-trip-title-part">{part}</span></>)}</h1>
+      <div class="next-trip-meta" lang={locale} data-next-trip-meta>
+        <span data-next-trip-country>{trip?.country}</span>
+        <time data-next-trip-dates datetime={trip?.startDate}>{trip && formatDateRange(trip, locale === 'zh-CN' ? 'zh-CN' : 'en-US')}</time>
+        <span class="trip-status"><span class="status-dot"></span><span data-next-trip-status>{trip && statusLabel(displayStatus(trip), locale)}</span></span>
+      </div>
+      <a class="button button-primary next-trip-action" data-next-trip-open href={trip ? withBase(`trips/${trip.slug}/`) : withBase()} data-astro-prefetch>View trip <Icon name="arrow-right" size={18} /></a>
+    </div>
+    <figure class="next-trip-figure">
+      <a data-next-trip-open href={trip ? withBase(`trips/${trip.slug}/`) : withBase()} data-astro-prefetch aria-label={trip ? `View ${trip.title}` : undefined}>
+        <img data-next-trip-image lang={locale} src={trip && withBase(trip.cover)} alt={trip?.coverAlt ?? ''} width={trip?.imageWidth ?? 1800} height={trip?.imageHeight ?? 1200} fetchpriority="high" />
+      </a>
+      <figcaption class="image-credits" lang={locale} data-next-trip-credit>{trip?.imageCredit ? <><a href={trip.imageCredit.source} target="_blank" rel="noopener noreferrer">{trip.imageCredit.author ?? 'Photo source'}</a><span aria-hidden="true"> · </span><a href={trip.imageCredit.licenseUrl} target="_blank" rel="noopener noreferrer">{trip.imageCredit.license}</a>{trip.imageCredit.changes && <> · {trip.imageCredit.changes}</>}</> : trip?.coverCredit}</figcaption>
+    </figure>
+  </div>
+  <div class="next-trip-empty" data-next-trip-empty hidden={Boolean(trip)}>
+    <p class="eyebrow">NEXT TRIP</p>
+    <h1>No upcoming trip scheduled</h1>
+    <a class="text-link" href="#collection">View trips <Icon name="arrow-right" size={17} /></a>
+  </div>
+</section>

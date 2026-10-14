@@ -1,17 +1,24 @@
 import 'leaflet/dist/leaflet.css';
 import type { TripDestination } from '../data/trips';
+import type { VisitedLocation } from '../lib/trips';
+import { withBase } from '../lib/urls';
+
+type MapDestination = TripDestination | VisitedLocation;
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 async function initializeMap(element: HTMLElement) {
   const id = element.dataset.travelMap!;
   const isZh = element.dataset.locale === 'zh-CN';
-  const hint = isZh ? '拖动地图，点击地点查看详情。' : 'Drag the map. Select a destination for details.';
+  const isVisited = element.dataset.mode === 'visited';
+  const hint = isVisited
+    ? isZh ? '点击地点查看相关旅行。' : 'Select a place to view its trips.'
+    : isZh ? '拖动地图，点击地点查看详情。' : 'Drag the map. Select a destination for details.';
   const status = document.querySelector<HTMLElement>(`[data-map-status="${id}"]`);
-  let destinations: TripDestination[];
+  let destinations: MapDestination[];
   try {
     destinations = JSON.parse(element.dataset.destinations || '[]');
-    const route: TripDestination[] = JSON.parse(element.dataset.route || element.dataset.destinations || '[]');
+    const route: MapDestination[] = isVisited ? [] : JSON.parse(element.dataset.route || element.dataset.destinations || '[]');
     if (!destinations.length) throw new Error('No destinations');
     const L = await import('leaflet');
     element.replaceChildren();
@@ -20,7 +27,7 @@ async function initializeMap(element: HTMLElement) {
       zoomControl: false,
       scrollWheelZoom: false,
       attributionControl: true,
-      minZoom: 2,
+      minZoom: isVisited ? 0 : 2,
       maxZoom: 18,
       zoomSnap: 0.25,
       worldCopyJump: true,
@@ -35,9 +42,15 @@ async function initializeMap(element: HTMLElement) {
     let selectedMarker: import('leaflet').Marker | undefined;
     const reset = () => {
       selectedMarker?.closeTooltip();
+      if (isVisited) selectedMarker?.closePopup();
       selectedMarker = undefined;
       const compact = element.clientWidth < 500;
-      map.fitBounds(bounds.pad(0.04), { padding: [compact ? 18 : 40, compact ? 50 : 65], maxZoom: 9, animate: !reducedMotion });
+      const firstPoint = points[0];
+      if (isVisited && points.length === 1 && firstPoint) {
+        map.setView(firstPoint, 5, { animate: !reducedMotion });
+      } else {
+        map.fitBounds(bounds.pad(isVisited ? 0.06 : 0.04), { padding: [compact ? 18 : 40, compact ? 50 : 65], maxZoom: isVisited ? 7 : 9, animate: !reducedMotion });
+      }
       document.querySelectorAll<HTMLButtonElement>(`[data-map-select="${id}"]`).forEach((button) => button.setAttribute('aria-pressed', 'false'));
       if (status) status.textContent = hint;
     };
@@ -49,37 +62,66 @@ async function initializeMap(element: HTMLElement) {
     }).addTo(map);
     let errors = 0;
     tileLayer.on('tileerror', () => {
-      if (++errors >= 3 && status) status.textContent = isZh ? '地图底图暂时无法加载，可以通过地点链接查看。' : 'Map tiles are unavailable. The stop list and city links still work.';
+      if (++errors >= 3 && status) status.textContent = isVisited
+        ? isZh ? '地图底图暂时无法加载，地点列表中的旅行链接仍可使用。' : 'Map tiles are unavailable. Trip links still work.'
+        : isZh ? '地图底图暂时无法加载，可以通过地点链接查看。' : 'Map tiles are unavailable. The stop list and city links still work.';
     });
 
-    L.polyline(routePoints, { color: '#dd6745', weight: 2.5, opacity: 0.8, dashArray: '5 7', interactive: false }).addTo(map);
+    if (!isVisited) L.polyline(routePoints, { color: '#dd6745', weight: 2.5, opacity: 0.8, dashArray: '5 7', interactive: false }).addTo(map);
     const markers = destinations.map((stop, index) => {
       const label = document.createElement('span');
       label.textContent = stop.name;
       const marker = L.marker([stop.lat, stop.lng], {
         title: stop.name,
-        alt: isZh ? `${stop.name}，路线地点 ${index + 1}` : `${stop.name}, route stop ${index + 1}`,
+        alt: isVisited
+          ? isZh ? `${stop.name}，已到访地点` : `${stop.name}, visited place`
+          : isZh ? `${stop.name}，路线地点 ${index + 1}` : `${stop.name}, route stop ${index + 1}`,
         icon: L.divIcon({
-          className: 'travel-marker',
-          html: `<span class="marker-core">${index + 1}</span>`,
+          className: isVisited ? 'travel-marker travel-marker-visited' : 'travel-marker',
+          html: isVisited ? '<span class="marker-core"><span class="visited-marker-dot" aria-hidden="true"></span></span>' : `<span class="marker-core">${index + 1}</span>`,
           iconSize: [30, 30],
           iconAnchor: [15, 15],
         }),
       }).addTo(map);
       marker.bindTooltip(label, { direction: 'top', offset: [0, -18], className: 'travel-map-tooltip' });
+      if (isVisited && 'trips' in stop) {
+        const popup = document.createElement('div');
+        popup.className = 'visited-map-popup';
+        const name = document.createElement('strong');
+        name.textContent = stop.name;
+        const country = document.createElement('p');
+        country.className = 'visited-popup-country';
+        country.textContent = stop.country;
+        const trips = document.createElement('ul');
+        stop.trips.forEach((trip) => {
+          const item = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = withBase(`trips/${trip.slug}/`);
+          link.textContent = trip.title;
+          item.append(link);
+          trips.append(item);
+        });
+        popup.append(name, country, trips);
+        marker.bindPopup(popup, { minWidth: 180, maxWidth: 280 });
+      }
       marker.on('click', () => select(index));
       return marker;
     });
 
     function select(index: number) {
       const stop = destinations[index];
-      if (!stop) return;
+      const marker = markers[index];
+      if (!stop || !marker) return;
       selectedMarker?.closeTooltip();
+      if (isVisited) selectedMarker?.closePopup();
       map.flyTo([stop.lat, stop.lng], isAtlas ? 8 : 11, { animate: !reducedMotion, duration: 0.8 });
-      markers[index].openTooltip();
-      selectedMarker = markers[index];
+      if (isVisited) marker.openPopup();
+      else marker.openTooltip();
+      selectedMarker = marker;
       document.querySelectorAll<HTMLButtonElement>(`[data-map-select="${id}"]`).forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.stopId === stop.id)));
-      if (status) status.textContent = `${stop.name} · ${stop.description}`;
+      if (status) status.textContent = isVisited && 'country' in stop
+        ? `${stop.name} · ${stop.country}`
+        : 'description' in stop ? `${stop.name} · ${stop.description}` : stop.name;
     }
 
     document.querySelectorAll<HTMLButtonElement>(`[data-map-select="${id}"]`).forEach((button) => {
@@ -95,9 +137,13 @@ async function initializeMap(element: HTMLElement) {
     element.replaceChildren();
     const message = document.createElement('p');
     message.className = 'map-fallback';
-    message.textContent = isZh ? '地图暂时无法加载，请通过各地点的地图链接查看。' : 'Map unavailable. Use the destination links to open Google Maps.';
+    message.textContent = isVisited
+      ? isZh ? '地图暂时无法加载，请使用地点列表中的旅行链接。' : 'Map unavailable. Use the trip links in the place list.'
+      : isZh ? '地图暂时无法加载，请通过各地点的地图链接查看。' : 'Map unavailable. Use the destination links to open Google Maps.';
     element.append(message);
-    if (status) status.textContent = isZh ? '可使用地点旁的地图链接查看行程路线。' : 'Use the destination links to view the route.';
+    if (status) status.textContent = isVisited
+      ? isZh ? '地点列表中的旅行链接仍可使用。' : 'Trip links are available in the place list.'
+      : isZh ? '可使用地点旁的地图链接查看行程路线。' : 'Use the destination links to view the route.';
   }
 }
 

@@ -10,6 +10,8 @@ Live: [Trips](https://6ickomod3.github.io/travel/) · [Japan 2026](https://6icko
 
 The site uses concise labels and factual travel information. The Idea/About section, editable travel notebooks, and ornamental prose have been removed. Visual design comes from typography, spacing, images, and interactive maps.
 
+The homepage highlights the current or next dated trip, links to each trip through compact cards, and shows a visited atlas. Routes, schedules, accommodation, and other itinerary details live on the individual trip pages. The next-trip highlight and date-based status labels update with the calendar in the browser, including after returning to an open tab.
+
 ## Run locally
 
 Install Node.js 24 (minimum 22.13) and pnpm. The project uses the pnpm version recorded in `package.json`.
@@ -46,7 +48,13 @@ Edit `src/data/trips.ts`, following the Japan entry. Give each new trip a unique
 
 Trip entries automatically appear on the homepage and generate a `/trips/{slug}/` page. On GitHub Pages, those pages live under `/travel/`, such as `/travel/trips/japan-2026/`.
 
-For a trip with no itinerary yet, add a `TripPlaceholder` to `tripPlaceholders`, following UK ’26. Give it a year, title, country, and cover; exact dates and activities can wait. These entries appear in the collection and generate a placeholder page. Once plans are ready, replace the placeholder with a dated entry in `trips`, keeping the same slug and URL. The homepage highlights trips with an itinerary; its day count includes only known trip dates.
+For a trip with no itinerary yet, add a `TripPlaceholder` to `tripPlaceholders`, following UK ’26. Give it a year, title, country, and cover; exact dates and activities can wait. These entries appear in the collection and generate a placeholder page. Once plans are ready, replace the placeholder with a dated entry in `trips`, keeping the same slug and URL. The next-trip highlight chooses a current trip first, then the earliest future start; placeholders, completed trips, and past plans are excluded.
+
+## Record visited places
+
+Set a dated trip's `status` to `completed` after confirming it was taken. Before doing so, make its destinations reflect the places actually visited: remove skipped stops and update the trip details as needed. Keep each destination's ID stable when revisiting the same place on another trip.
+
+The visited atlas automatically combines destinations from explicitly completed trips, deduplicates places within each country, and links each place to its completed trips. It shows no planned destinations or route lines. Calendar dates alone never mark a trip as completed. Until visits are recorded, the homepage shows a world graphic and an empty state.
 
 Trip content lives in the repository. Because the website is public, keep booking confirmation codes, passport details, and private reservation files out of published content.
 

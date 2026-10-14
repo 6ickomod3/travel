@@ -7,13 +7,3 @@ const placeholder = isPlaceholderTrip(trip);
 const label = placeholder ? placeholderStatusLabel(locale) : statusLabel(displayStatus(trip), locale);
 ---
 <span class="trip-status" data-trip-status data-start-date={placeholder ? undefined : trip.startDate} data-end-date={placeholder ? undefined : trip.endDate} data-status={trip.status} data-placeholder={placeholder ? 'true' : undefined} data-locale={locale}><span class="status-dot"></span><span data-status-label>{label}</span></span>
-<script>
-  import { displayStatus, statusLabel, placeholderStatusLabel } from '../lib/trips';
-  import type { TripStatus } from '../data/trips';
-  document.querySelectorAll<HTMLElement>('[data-trip-status]').forEach((element) => {
-    const label = element.querySelector('[data-status-label]');
-    if (label) label.textContent = element.dataset.placeholder === 'true'
-      ? placeholderStatusLabel(element.dataset.locale)
-      : statusLabel(displayStatus({ startDate: element.dataset.startDate!, endDate: element.dataset.endDate!, status: element.dataset.status as TripStatus }), element.dataset.locale);
-  });
-</script>

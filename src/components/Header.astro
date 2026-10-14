@@ -3,19 +3,26 @@ import Brand from './Brand.astro';
 import Icon from './Icon.astro';
 import { withBase } from '../lib/urls';
 import { trips } from '../data/trips';
+import { selectNextTrip } from '../lib/trips';
+import { toTripPreview } from '../lib/trip-previews';
 interface Props { lang?: 'zh-CN' | 'en'; }
 const { lang = 'en' } = Astro.props;
 const isZh = lang === 'zh-CN';
-const latestTrip = [...trips].sort((a, b) => b.startDate.localeCompare(a.startDate))[0];
+const previews = trips.map(toTripPreview);
+const nextTrip = selectNextTrip(previews);
+const previewJSON = JSON.stringify(previews).replace(/</g, '\\u003c');
 ---
 <header class="site-header">
   <div class="header-inner container">
     <a class="brand-link" href={withBase()} aria-label={isZh ? 'Elsewhere 首页' : 'Elsewhere home'}><Brand /></a>
     <nav class="primary-nav" aria-label={isZh ? '主导航' : 'Main navigation'}>
       <a href={`${withBase()}#collection`}>{isZh ? '旅行' : 'Trips'}</a>
-      <a href={`${withBase()}#atlas`}>{isZh ? '地图' : 'Map'}</a>
+      <a href={`${withBase()}#atlas`}>{isZh ? '足迹地图' : 'Atlas'}</a>
     </nav>
-    {latestTrip && <a class="header-trip" href={withBase(`trips/${latestTrip.slug}/`)} data-astro-prefetch><span class="status-dot"></span> {latestTrip.country} {isZh ? latestTrip.startDate.slice(0, 4) : `’${latestTrip.startDate.slice(2, 4)}`} <Icon name="arrow-up-right" size={16} /></a>}
-
+    <a class="header-trip" data-next-trip-header hidden={!nextTrip} href={nextTrip ? withBase(`trips/${nextTrip.slug}/`) : withBase()} aria-label={nextTrip ? `View ${nextTrip.title}` : undefined} data-astro-prefetch><span class="status-dot"></span><span data-next-trip-header-label>{nextTrip && `${nextTrip.country} ${isZh ? nextTrip.startDate.slice(0, 4) : `’${nextTrip.startDate.slice(2, 4)}`}`}</span><Icon name="arrow-up-right" size={16} /></a>
   </div>
 </header>
+<script type="application/json" is:inline data-next-trip-candidates set:html={previewJSON}></script>
+<script>
+  import '../scripts/next-trip';
+</script>
