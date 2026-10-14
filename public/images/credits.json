@@ -1,0 +1,46 @@
+{
+  "images": [
+    {
+      "file": "japan-fuji.webp",
+      "source": "https://images.unsplash.com/photo-1528164344705-47542687000d",
+      "license": "Unsplash License",
+      "licenseUrl": "https://unsplash.com/license",
+      "alt": "Mount Fuji beyond Fujiyoshida, with Chureito Pagoda in the foreground."
+    },
+    {
+      "file": "japan-kyoto.webp",
+      "source": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e",
+      "license": "Unsplash License",
+      "licenseUrl": "https://unsplash.com/license",
+      "alt": "Two visitors in kimono on a Kyoto street leading to Yasaka Pagoda."
+    },
+    {
+      "file": "japan-tokyo.webp",
+      "source": "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc",
+      "license": "Unsplash License",
+      "licenseUrl": "https://unsplash.com/license",
+      "alt": "Tokyo Tower above city streets, reflected in a puddle at sunset."
+    }
+  ],
+  "fonts": [
+    {
+      "family": "DM Sans",
+      "files": [
+        "dm-sans-latin.woff2"
+      ],
+      "source": "https://fonts.google.com/specimen/DM+Sans",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "../fonts/DM-Sans-OFL.txt"
+    },
+    {
+      "family": "Instrument Serif",
+      "files": [
+        "instrument-serif-regular.woff2",
+        "instrument-serif-italic.woff2"
+      ],
+      "source": "https://fonts.google.com/specimen/Instrument+Serif",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "../fonts/Instrument-Serif-OFL.txt"
+    }
+  ]
+}

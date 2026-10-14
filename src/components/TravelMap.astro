@@ -1,0 +1,29 @@
+---
+import Icon from './Icon.astro';
+import type { TripDestination } from '../data/trips';
+interface Props {
+  id: string;
+  destinations: TripDestination[];
+  variant?: 'atlas' | 'route';
+  label?: string;
+  country?: string;
+  dateLabel?: string;
+}
+const { id, destinations, variant = 'atlas', label = 'Travel map', country = 'Japan', dateLabel = 'November 2026' } = Astro.props;
+---
+<div class:list={['travel-map', `travel-map-${variant}`]} data-map-wrapper={id}>
+  <div class="map-canvas" data-travel-map={id} data-destinations={JSON.stringify(destinations)} data-variant={variant} aria-label={label}>
+    <div class="map-loading"><Icon name="globe" size={34} /><span>The world is opening up…</span></div>
+  </div>
+  <div class="map-top-label"><span class="status-dot"></span> {country} <span class="map-label-divider">/</span> {dateLabel}</div>
+  <div class="map-buttons" aria-label="Map controls">
+    <button class="map-reset" type="button" data-map-reset={id} aria-label="Show all destinations" disabled><Icon name="compass" size={20} /></button>
+    <button type="button" data-map-zoom-in={id} aria-label="Zoom in" disabled><Icon name="plus" size={19} /></button>
+    <button type="button" data-map-zoom-out={id} aria-label="Zoom out" disabled><Icon name="minus" size={19} /></button>
+  </div>
+  <p class="map-hint" data-map-status={id} aria-live="polite">Drag to explore. Choose a stop to take a closer look.</p>
+  <noscript><p class="map-noscript">The interactive map needs JavaScript. Explore each stop using the city links beside it.</p></noscript>
+</div>
+<script>
+  import '../scripts/maps';
+</script>

@@ -1,0 +1,40 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Icon from '../../../components/Icon.astro';
+import TripStatus from '../../../components/TripStatus.astro';
+import TravelMap from '../../../components/TravelMap.astro';
+import { trips, type Trip } from '../../../data/trips';
+import { durationDays, formatDateRange, formatDate } from '../../../lib/trips';
+import { withBase } from '../../../lib/urls';
+
+export function getStaticPaths() {
+  return trips.map(trip => ({ params: { slug: trip.slug }, props: { trip } }));
+}
+interface Props { trip: Trip; }
+const { trip } = Astro.props;
+const chapter = String(trips.findIndex(item => item.slug === trip.slug) + 1).padStart(2, '0');
+const comma = trip.title.indexOf(',');
+const titleLead = comma >= 0 ? trip.title.slice(0, comma + 1) : trip.title;
+const titleTail = comma >= 0 ? trip.title.slice(comma + 1).trim() : '';
+const cityName = (id: string) => trip.destinations.find(stop => stop.id === id)?.name || id;
+const isJapan = trip.countryCode === 'JP';
+const monthLabel = formatDate(trip.startDate, { month: 'long', year: 'numeric', day: undefined });
+const destinationDays = (id: string) => trip.days.filter(day => day.destinationId === id).length;
+---
+<Layout title={`${trip.title} — ${formatDateRange(trip)} | Elsewhere`} description={`${trip.summary} ${formatDateRange(trip)}. Explore the suggested route and daily itinerary.`} image={trip.cover}>
+  <div class="trip-breadcrumb container"><a href={`${withBase()}#collection`}><Icon name="arrow-left" size={14} /> The collection</a><span aria-hidden="true">/</span><span>{trip.country} {trip.startDate.slice(0, 4)}</span></div>
+  <section class="trip-hero container" aria-labelledby="trip-title"><div class="trip-hero-copy"><p class="eyebrow"><span class="tiny-star" aria-hidden="true">✳</span> CHAPTER {chapter} / {trip.country.toUpperCase()}</p><h1 id="trip-title">{titleLead}{titleTail && <><br /><em>{titleTail}.</em></>}</h1><p>{trip.summary}</p><div class="trip-facts"><span><Icon name="calendar" size={16} /> {formatDateRange(trip)}</span><span><Icon name="sun" size={16} /> {durationDays(trip)} days</span><TripStatus trip={trip} /></div><div class="trip-hero-actions"><a class="button button-primary" href="#itinerary">The day-by-day <Icon name="arrow-down" size={16} /></a><button class="button button-secondary" type="button" data-print-trip><Icon name="download" size={15} /> Print itinerary</button></div></div><div class="trip-hero-image"><img src={withBase(trip.cover)} alt={trip.coverAlt} width="1800" height="1171" fetchpriority="high" /><span class="trip-image-caption">{trip.country.toUpperCase()} / A LITTLE INSPIRATION</span></div></section>
+
+  <nav class="trip-subnav" aria-label="Trip sections"><div class="container"><div class="trip-subnav-links"><a href="#route">The route</a><a href="#itinerary">Day by day</a><a href="#notebook">The notebook</a></div><span class="trip-subnav-note"><span class="status-dot"></span> An itinerary taking shape</span></div></nav>
+  <div class="planning-note container"><Icon name="compass" size={21} /><div><strong>A starting point, with room to change.</strong><p>{trip.routeNote}</p></div></div>
+
+  <section class="route-section container" id="route" aria-labelledby="route-title"><div class="section-heading"><div><p class="eyebrow">01 / THE ROUTE</p><h2 id="route-title">Connect <em>the dots.</em></h2></div><p class="section-intro">{trip.destinations.length} suggested stops. {durationDays(trip)} days.<br />A little movement, a little time to settle in.</p></div><div class="trip-route-layout"><TravelMap id="trip-route" destinations={trip.destinations} variant="route" label={`Suggested ${trip.country} itinerary map`} country={trip.country} dateLabel={monthLabel} /><aside class="route-stops"><p>THE SUGGESTED STOPS</p>{trip.destinations.map((stop, index) => <div class="route-stop"><button type="button" data-map-select="trip-route" data-stop-id={stop.id} aria-pressed="false" disabled><span>0{index + 1}</span><span><strong>{stop.name}</strong><small>{destinationDays(stop.id)} {destinationDays(stop.id) === 1 ? 'day' : 'days'} in the draft</small></span><Icon name="arrow-up-right" size={17} /></button><a class="city-map-link" href={`https://www.google.com/maps/search/?api=1&query=${stop.lat},${stop.lng}`} target="_blank" rel="noopener noreferrer">Explore in Google Maps <Icon name="external" size={12} /></a></div>)}<p class="route-note">The lines connect cities, rather than show exact train routes. Flights, stays, and transport are still to be decided.</p></aside></div></section>
+
+  <section class="itinerary-section container" id="itinerary" aria-labelledby="itinerary-title"><div class="section-heading"><div><p class="eyebrow">02 / DAY BY DAY</p><h2 id="itinerary-title">A plan, <em>with breathing room.</em></h2></div><p class="section-intro">Ideas to start with, not a race to finish.<br />Open a day and see what’s possible.</p></div><div class="itinerary-toolbar"><p>Suggested itinerary · {formatDateRange(trip)}</p><button type="button" class="expand-button" data-expand-days aria-expanded="false">Expand all days <Icon name="plus" size={15} /></button></div><div class="itinerary-list">{trip.days.map((day, index) => <details class="itinerary-day" open={index === 0}><summary><span class="day-index">DAY {String(index + 1).padStart(2, '0')}</span><span class="day-date"><time datetime={day.date}>{formatDate(day.date)}</time><small>{formatDate(day.date, { weekday: 'short', month: undefined, day: undefined })}</small></span><span class="day-title">{day.title}</span><span class="day-city">{cityName(day.destinationId)}</span><Icon name="chevron-down" size={17} class="day-chevron" /></summary><div class="day-content"><p>{day.description}</p><span class="day-ideas-title">IDEAS TO EXPLORE · {cityName(day.destinationId).toUpperCase()}</span><ul class="day-ideas">{day.ideas.map(idea => <li>{idea}</li>)}</ul></div></details>)}</div></section>
+
+  <section class="trip-notebook-section container" id="notebook" aria-labelledby="notebook-title"><div class="section-heading"><div><p class="eyebrow">03 / THE NOTEBOOK</p><h2 id="notebook-title">Keep <em>the little things.</em></h2></div><p class="section-intro">A cafe. A side street. Something someone said.<br />Leave a few breadcrumbs for yourself.</p></div><div class="notebook-layout">{isJapan ? <div class="notebook-photo"><img src={withBase('images/japan-kyoto.webp')} alt="Yasaka Pagoda above a traditional street in Kyoto" width="1000" height="667" loading="lazy" /><div class="notebook-photo-caption"><span>KYOTO / SLOW DOWN A LITTLE</span><p>Some streets are<br /><em>worth getting lost in.</em></p></div></div> : <div class="notebook-photo"><img src={withBase(trip.cover)} alt={trip.coverAlt} width="1800" height="1171" loading="lazy" /><div class="notebook-photo-caption"><span>{trip.country.toUpperCase()} / STAY CURIOUS</span><p>A few things<br /><em>worth remembering.</em></p></div></div>}<div class="notebook-panel"><h3>Notes for the journey.</h3><p>For places to save and ideas to come back to. Notes stay in this browser on this device.</p><label for="trip-notes">Your notes</label><textarea id="trip-notes" data-trip-notes data-notes-key={`elsewhere:notes:${trip.slug}`} data-trip-slug={trip.slug} placeholder="That little coffee shop someone recommended…&#10;A neighborhood to wander through…&#10;Something worth making time for…"></textarea><div class="notebook-bottom"><span class="notebook-save-status" data-notes-status role="status">Ready when you are.</span><button class="notebook-export" type="button" data-export-notes>Export notes <Icon name="download" size={14} /></button></div></div></div><p class="image-credits">Inspiration photography: {trip.coverCredit.replace('Photo: ', '')}. {isJapan && 'Additional Kyoto photography: Unsplash.'} <a href={withBase('images/credits.json')} target="_blank" rel="noopener noreferrer">Photo sources</a>.</p></section>
+</Layout>
+
+<script>
+  import '../../../scripts/trip';
+</script>

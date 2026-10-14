@@ -1,0 +1,19 @@
+---
+import Brand from './Brand.astro';
+import Icon from './Icon.astro';
+import { withBase } from '../lib/urls';
+import { trips } from '../data/trips';
+const latestTrip = [...trips].sort((a, b) => b.startDate.localeCompare(a.startDate))[0];
+---
+<header class="site-header">
+  <div class="header-inner container">
+    <a class="brand-link" href={withBase()} aria-label="Elsewhere home"><Brand /></a>
+    <nav class="primary-nav" aria-label="Main navigation">
+      <a href={`${withBase()}#collection`}>The collection</a>
+      <a href={`${withBase()}#atlas`}>The atlas</a>
+      <a class="nav-about" href={`${withBase()}#about`}>The idea</a>
+    </nav>
+    {latestTrip && <a class="header-trip" href={withBase(`trips/${latestTrip.slug}/`)} data-astro-prefetch><span class="status-dot"></span> {latestTrip.country} ’{latestTrip.startDate.slice(2, 4)} <Icon name="arrow-up-right" size={16} /></a>}
+
+  </div>
+</header>

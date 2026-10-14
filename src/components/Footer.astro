@@ -1,0 +1,12 @@
+---
+import Brand from './Brand.astro';
+import Icon from './Icon.astro';
+import { withBase } from '../lib/urls';
+---
+<footer class="site-footer">
+  <div class="container footer-main">
+    <div><a class="brand-link" href={withBase()} aria-label="Elsewhere home"><Brand /></a><p>For the places that stay with you.</p></div>
+    <a class="footer-back" href="#top">Back to the top <Icon name="arrow-up-right" size={18} /></a>
+  </div>
+  <div class="container footer-bottom"><span>A personal atlas. Always a work in progress.</span><span>Made for the journey <span aria-hidden="true">↗</span></span></div>
+</footer>
