@@ -6,7 +6,7 @@ import '../styles/global.css';
 
 interface Props { title?: string; description?: string; image?: string; imageAlt?: string; lang?: 'zh-CN' | 'en'; }
 const {
-  title = 'Elsewhere — travel itineraries',
+  title = 'The Journey Atlas — travel itineraries',
   description = 'Personal travel itineraries with maps, daily schedules, accommodation, and booking details.',
   image = '/images/trips/japan-2026/miyajima.webp',
   imageAlt = 'Miyajima torii gate, Japan.',
@@ -37,6 +37,7 @@ const fontFaces = `
     {isZh && <link rel="preload" href={withBase('fonts/noto-serif-sc-display.woff2')} as="font" type="font/woff2" crossorigin />}
     <style is:inline set:html={fontFaces}></style>
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The Journey Atlas" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />

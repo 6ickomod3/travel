@@ -1,4 +1,4 @@
-# Elsewhere
+# The Journey Atlas
 
 A personal travel website with a next-trip highlight, trip pages, and a visited atlas. Each trip has its own content, original source submissions, and planning history.
 

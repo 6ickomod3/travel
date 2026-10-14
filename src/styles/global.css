@@ -54,8 +54,7 @@ button:disabled { cursor: default; opacity: .5; }
 .site-header { border-bottom: 1px solid var(--line); }
 .header-inner { height: 94px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
 .brand-link { display: inline-flex; }
-.brand { display: inline-flex; align-items: center; gap: 10px; font-size: 26px; font-weight: 600; letter-spacing: -1.1px; line-height: 1; }
-.brand-period { color: var(--accent); }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-size: 26px; font-weight: 600; letter-spacing: -1.1px; line-height: 1; white-space: nowrap; }
 .brand-symbol { margin-top: 2px; }
 .brand-light { color: var(--paper); }
 .primary-nav { display: flex; align-items: center; gap: 32px; font-size: 12px; }

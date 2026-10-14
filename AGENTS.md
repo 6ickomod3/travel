@@ -12,7 +12,7 @@
 
 ## Purpose
 
-Elsewhere is an evergreen personal travel website for practical trip planning.
+The Journey Atlas is an evergreen personal travel website for practical trip planning.
 The user owns the repository at https://github.com/6ickomod3/travel and publishes
 the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
 

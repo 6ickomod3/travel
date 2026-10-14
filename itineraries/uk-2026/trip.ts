@@ -12,5 +12,5 @@ export default {
     summary: "Itinerary coming soon.",
   cover: "/images/trips/uk-2026/cover.svg",
     coverAlt: "An illustrated UK 2026 travel stamp in forest green and warm cream.",
-    coverCredit: "Original illustration created for Elsewhere.",
+    coverCredit: "Original illustration created for The Journey Atlas.",
   } satisfies TripPlaceholder;
