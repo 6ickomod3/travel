@@ -1,0 +1,52 @@
+{
+  "images": [
+    {
+      "file": "atlas-world.svg",
+      "kind": "illustration",
+      "source": "/images/shared/atlas-world.svg",
+      "author": "Elsewhere",
+      "credit": "Original world illustration created for Elsewhere.",
+      "alt": "A simplified world outline without location markers.",
+      "width": 1000,
+      "height": 500
+    }
+  ],
+  "fontDirectory": "../../fonts/",
+  "fonts": [
+    {
+      "family": "DM Sans",
+      "files": [
+        "dm-sans-latin.woff2"
+      ],
+      "source": "https://fonts.google.com/specimen/DM+Sans",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "../../fonts/DM-Sans-OFL.txt"
+    },
+    {
+      "family": "Instrument Serif",
+      "files": [
+        "instrument-serif-regular.woff2",
+        "instrument-serif-italic.woff2"
+      ],
+      "source": "https://fonts.google.com/specimen/Instrument+Serif",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "../../fonts/Instrument-Serif-OFL.txt"
+    },
+    {
+      "family": "Noto Serif SC",
+      "files": [
+        "noto-serif-sc-display.woff2"
+      ],
+      "source": "https://fonts.google.com/noto/specimen/Noto+Serif+SC",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "../../fonts/Noto-Serif-SC-OFL.txt",
+      "style": "normal",
+      "weight": "400 700",
+      "subsetFile": "../../fonts/noto-serif-sc-display-subset.txt",
+      "characters": 565,
+      "hanCharacters": 450,
+      "sourceFont": "https://raw.githubusercontent.com/google/fonts/main/ofl/notoserifsc/NotoSerifSC%5Bwght%5D.ttf",
+      "subsetMethod": "Local FontTools/Brotli subset from generic public font"
+    }
+  ]
+}

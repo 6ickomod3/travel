@@ -1,5 +1,5 @@
 import type { Trip } from '../data/trips';
-import imageCredits from '../../public/images/credits.json';
+import { getImageCredit, getLicensedImageCredit } from './image-credits';
 
 export interface PreviewImageCredit {
   source: string;
@@ -17,15 +17,16 @@ export type TripPreview = Pick<Trip,
 /** Small public metadata payload; itinerary details stay on the trip pages. */
 export function toTripPreview(trip: Trip): TripPreview {
   const { slug, title, country, countryCode, startDate, endDate, status, language, cover, coverAlt, coverCredit } = trip;
-  const image = imageCredits.images.find(record => `/images/${record.file}` === cover);
+  const image = getImageCredit(cover);
+  const photo = getLicensedImageCredit(cover);
   return {
     slug, title, country, countryCode, startDate, endDate, status, language, cover, coverAlt, coverCredit,
     imageWidth: image?.width ?? 1800,
     imageHeight: image?.height ?? 1200,
-    imageCredit: image ? {
-      source: image.source, license: image.license, licenseUrl: image.licenseUrl,
-      author: 'author' in image ? image.author : undefined,
-      changes: 'changes' in image ? image.changes : undefined,
+    imageCredit: photo ? {
+      source: photo.source, license: photo.license, licenseUrl: photo.licenseUrl,
+      author: photo.author,
+      changes: photo.changes,
     } : undefined,
   };
 }

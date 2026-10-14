@@ -6,7 +6,7 @@ import TravelMap from './TravelMap.astro';
 import { tripCollection, type Trip, type TripDestination, type TripStay } from '../data/trips';
 import { durationDays, formatDateRange, formatDate } from '../lib/trips';
 import { withBase } from '../lib/urls';
-import imageCredits from '../../public/images/credits.json';
+import { getImageCredit, getLicensedImageCredit } from '../lib/image-credits';
 
 interface Props { trip: Trip; }
 const { trip } = Astro.props;
@@ -16,6 +16,7 @@ const dateLocale = isZh ? 'zh-CN' : 'en-US';
 const text = (zh: string, en: string) => isZh ? zh : en;
 const date = (value: string, options: Intl.DateTimeFormatOptions = {}) => formatDate(value, options, dateLocale);
 const dateRange = formatDateRange(trip, dateLocale);
+const dayNumber = (dayDate: string) => durationDays({ startDate: trip.startDate, endDate: dayDate });
 const number = (value: number) => new Intl.NumberFormat(dateLocale, { maximumFractionDigits: 1 }).format(value);
 const chapter = String(tripCollection.findIndex(item => item.slug === trip.slug) + 1).padStart(2, '0');
 const titleBreak = trip.title.search(/[，,]/);
@@ -48,20 +49,8 @@ const stayById = (id?: string) => stays.find(stay => stay.id === id);
 const stayStatus = (stay: TripStay) => stay.status === 'booked' ? text('已订', 'Booked') : text('待确认', 'Awaiting confirmation');
 const hasPreparations = checklist.length > 0 || practicalNotes.length > 0;
 const photoCredit = trip.coverCredit.replace(/^(?:Photo:|图片来源：|图片：)\s*/i, '');
-interface ImageCredit {
-  file: string;
-  source: string;
-  license: string;
-  licenseUrl: string;
-  author?: string;
-  changes?: string;
-  width?: number;
-  height?: number;
-  objectPosition?: string;
-}
-const creditRecords = imageCredits.images as ImageCredit[];
-const heroPath = trip.cover.replace(/^\//, '');
-const heroCredit = creditRecords.find(image => `images/${image.file}` === heroPath);
+const heroImage = getImageCredit(trip.cover);
+const heroCredit = getLicensedImageCredit(trip.cover);
 ---
 <Layout
   lang={locale}
@@ -95,11 +84,11 @@ const heroCredit = creditRecords.find(image => `images/${image.file}` === heroPa
       </div>
       <figure class="trip-hero-figure">
         <div class="trip-hero-image">
-          <img src={withBase(trip.cover)} alt={trip.coverAlt} width={heroCredit?.width ?? 1800} height={heroCredit?.height ?? 1200} style={`object-position: ${heroCredit?.objectPosition ?? '50% 50%'}`} fetchpriority="high" />
+          <img src={withBase(trip.cover)} alt={trip.coverAlt} width={heroImage?.width ?? 1800} height={heroImage?.height ?? 1200} style={`object-position: ${heroImage?.objectPosition ?? '50% 50%'}`} fetchpriority="high" />
           <span class="trip-image-caption">{trip.country}</span>
         </div>
         <figcaption class="trip-photo-credits">
-          {heroCredit ? <><span>{text('主图：', 'Cover photo: ')}</span><a href={heroCredit.source} target="_blank" rel="noopener noreferrer">{heroCredit.author ?? text('照片原页', 'Original photo')}</a><span aria-hidden="true"> · </span><a href={heroCredit.licenseUrl} target="_blank" rel="noopener noreferrer">{heroCredit.license}</a>{heroCredit.changes && <span class="photo-changes">{text(heroCredit.changes, 'Resized and converted to WebP; no crop saved.')}</span>}</> : <><span>{text('主图：', 'Cover photo: ')}{photoCredit}</span><span aria-hidden="true"> · </span><a href={withBase('images/credits.json')} target="_blank" rel="noopener noreferrer">{text('照片来源与授权', 'Photo sources and licenses')}</a></>}
+          {heroCredit ? <><span>{text('主图：', 'Cover photo: ')}</span><a href={heroCredit.source} target="_blank" rel="noopener noreferrer">{heroCredit.author ?? text('照片原页', 'Original photo')}</a><span aria-hidden="true"> · </span><a href={heroCredit.licenseUrl} target="_blank" rel="noopener noreferrer">{heroCredit.license}</a>{heroCredit.changes && <span class="photo-changes">{text(heroCredit.changes, 'Resized and converted to WebP; no crop saved.')}</span>}</> : <><span>{text('主图：', 'Cover photo: ')}{photoCredit}</span>{heroImage && <><span aria-hidden="true"> · </span><a href={withBase(heroImage.creditsPath)} target="_blank" rel="noopener noreferrer">{text('照片来源与授权', 'Photo sources and licenses')}</a></>}</>}
         </figcaption>
       </figure>
     </section>
@@ -181,7 +170,7 @@ const heroCredit = creditRecords.find(image => `images/${image.file}` === heroPa
           const overnight = stayById(day.overnightId);
           return <details class="itinerary-day" open={index === 0}>
             <summary>
-              <span class="day-index">{text('第', 'DAY ')}{String(index + 1).padStart(2, '0')}{isZh && '天'}</span>
+              <span class="day-index">{text('第', 'DAY ')}{String(dayNumber(day.date)).padStart(2, '0')}{isZh && '天'}</span>
               <span class="day-date"><time datetime={day.date}>{date(day.date)}</time><small>{date(day.date, { weekday: 'short', month: undefined, day: undefined })}</small></span>
               <span class="day-title">{day.title}</span><span class="day-city">{cityName(day.destinationId)}</span><Icon name="chevron-down" size={17} class="day-chevron" />
             </summary>

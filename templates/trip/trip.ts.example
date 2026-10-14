@@ -1,0 +1,19 @@
+import type { TripPlaceholder } from '../../src/data/types';
+
+// Example only. Replace every value before renaming this file to trip.ts.
+const trip = {
+  kind: 'placeholder',
+  slug: 'replace-this-slug',
+  title: 'New trip',
+  country: 'Country',
+  countryCode: 'XX',
+  year: 2027,
+  status: 'planning',
+  language: 'en',
+  summary: 'Itinerary coming soon.',
+  cover: '/images/trips/replace-this-slug/cover.svg',
+  coverAlt: 'Describe the actual cover image.',
+  coverCredit: 'Record the actual image attribution.',
+} satisfies TripPlaceholder;
+
+export default trip;

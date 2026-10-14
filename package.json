@@ -7,9 +7,10 @@
   "engines": { "node": ">=22.13.0" },
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
-    "build": "astro check && astro build",
+    "build": "node --experimental-strip-types scripts/check-content.mjs && astro check && astro build",
     "preview": "astro preview --host 127.0.0.1",
-    "check": "astro check"
+    "check": "node --experimental-strip-types scripts/check-content.mjs && astro check",
+    "check:content": "node --experimental-strip-types scripts/check-content.mjs"
   },
   "dependencies": {
     "astro": "7.3.8",

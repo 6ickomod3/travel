@@ -1,28 +1,28 @@
 {
   "images": [
     {
-      "file": "japan-fuji.webp",
+      "file": "archive/fuji.webp",
       "source": "https://images.unsplash.com/photo-1528164344705-47542687000d",
       "license": "Unsplash License",
       "licenseUrl": "https://unsplash.com/license",
       "alt": "Mount Fuji beyond Fujiyoshida, with Chureito Pagoda in the foreground."
     },
     {
-      "file": "japan-kyoto.webp",
+      "file": "archive/kyoto.webp",
       "source": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e",
       "license": "Unsplash License",
       "licenseUrl": "https://unsplash.com/license",
       "alt": "Two visitors in kimono on a Kyoto street leading to Yasaka Pagoda."
     },
     {
-      "file": "japan-tokyo.webp",
+      "file": "archive/tokyo.webp",
       "source": "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc",
       "license": "Unsplash License",
       "licenseUrl": "https://unsplash.com/license",
       "alt": "Tokyo Tower above city streets, reflected in a puddle at sunset."
     },
     {
-      "file": "japan-miyajima.webp",
+      "file": "miyajima.webp",
       "source": "https://commons.wikimedia.org/wiki/File:Itsukushima-jinja_torii_at_sunset,_Miyajima,_Japan,_20240816_1812_4144.jpg",
       "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Itsukushima-jinja_torii_at_sunset%2C_Miyajima%2C_Japan%2C_20240816_1812_4144.jpg",
       "author": "Jakub Hałun",
@@ -37,7 +37,7 @@
       "attributionRequired": true
     },
     {
-      "file": "japan-kumano.webp",
+      "file": "kumano.webp",
       "source": "https://commons.wikimedia.org/wiki/File:Kumano_Kodo_pilgrimage_route_Nakahechi_From_Gyuba-Dojiguchi_To_Chikatsuyu_World_heritage_%E7%86%8A%E9%87%8E%E5%8F%A4%E9%81%93_%E4%B8%AD%E8%BE%BA%E8%B7%AF_%E7%89%9B%E9%A6%AC%E7%AB%A5%E5%AD%90%E5%8F%A3%EF%BD%9E%E8%BF%91%E9%9C%B248.JPG",
       "author": "Nekosuki",
       "license": "CC BY-SA 4.0",
@@ -49,43 +49,6 @@
       "objectPosition": "50% 48%",
       "attributionRequired": true,
       "caption": "熊野古道中边路 · 近露附近的林间路标"
-    }
-  ],
-  "fonts": [
-    {
-      "family": "DM Sans",
-      "files": [
-        "dm-sans-latin.woff2"
-      ],
-      "source": "https://fonts.google.com/specimen/DM+Sans",
-      "license": "SIL Open Font License 1.1",
-      "licenseFile": "../fonts/DM-Sans-OFL.txt"
-    },
-    {
-      "family": "Instrument Serif",
-      "files": [
-        "instrument-serif-regular.woff2",
-        "instrument-serif-italic.woff2"
-      ],
-      "source": "https://fonts.google.com/specimen/Instrument+Serif",
-      "license": "SIL Open Font License 1.1",
-      "licenseFile": "../fonts/Instrument-Serif-OFL.txt"
-    },
-    {
-      "family": "Noto Serif SC",
-      "files": [
-        "noto-serif-sc-display.woff2"
-      ],
-      "source": "https://fonts.google.com/noto/specimen/Noto+Serif+SC",
-      "license": "SIL Open Font License 1.1",
-      "licenseFile": "../fonts/Noto-Serif-SC-OFL.txt",
-      "style": "normal",
-      "weight": "400 700",
-      "subsetFile": "../fonts/noto-serif-sc-display-subset.txt",
-      "characters": 565,
-      "hanCharacters": 450,
-      "sourceFont": "https://raw.githubusercontent.com/google/fonts/main/ofl/notoserifsc/NotoSerifSC%5Bwght%5D.ttf",
-      "subsetMethod": "Local FontTools/Brotli subset from generic public font"
     }
   ]
 }

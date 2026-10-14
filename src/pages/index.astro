@@ -8,13 +8,16 @@ import { trips, tripCollection } from '../data/trips';
 import { aggregateVisitedAtlas, compareTripEntries, formatDateRange, isPlaceholderTrip, selectNextTrip } from '../lib/trips';
 import { toTripPreview } from '../lib/trip-previews';
 import { withBase } from '../lib/urls';
-import imageCredits from '../../public/images/credits.json';
+import { getImageCredit, getLicensedImageCredit } from '../lib/image-credits';
 
 const orderedTrips = [...tripCollection].sort(compareTripEntries);
 const nextTrip = selectNextTrip(trips.map(toTripPreview));
 const visitedAtlas = aggregateVisitedAtlas(tripCollection);
 const shareTrip = nextTrip ?? orderedTrips[0];
-const collectionCredits = imageCredits.images.filter(image => orderedTrips.some(trip => trip.cover === `/images/${image.file}`));
+const collectionCredits = [...new Set(orderedTrips.map(trip => trip.cover))].flatMap(cover => {
+  const image = getLicensedImageCredit(cover);
+  return image ? [image] : [];
+});
 ---
 <Layout description="The next trip, a collection of trips, and an atlas of visited places." image={shareTrip?.cover} imageAlt={shareTrip?.coverAlt}>
   <NextTrip trip={nextTrip} />
@@ -27,7 +30,7 @@ const collectionCredits = imageCredits.images.filter(image => orderedTrips.some(
         const placeholder = isPlaceholderTrip(trip);
         const isZh = trip.language === 'zh-CN';
         const tripUrl = withBase(`trips/${trip.slug}/`);
-        const image = imageCredits.images.find(record => `/images/${record.file}` === trip.cover);
+        const image = getImageCredit(trip.cover);
         return <article class:list={['trip-card', { 'trip-card-coming-soon': placeholder }]} data-trip-card data-trip-kind={trip.status === 'completed' ? 'completed' : 'planned'} lang={trip.language ?? 'en'}>
           <a class="trip-card-cover" href={tripUrl} data-astro-prefetch aria-label={isZh ? `查看${trip.title}` : `View ${trip.title}`}><img src={withBase(trip.cover)} alt={trip.coverAlt} width={image?.width ?? 1800} height={image?.height ?? 1200} loading="lazy" /></a>
           <div class="trip-card-body">

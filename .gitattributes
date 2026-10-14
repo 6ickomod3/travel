@@ -1,0 +1,2 @@
+# Preserve source bytes and intentional formatting, including Markdown hard breaks.
+itineraries/*/inputs/** -text -whitespace

@@ -5,6 +5,7 @@ dist/
 .env
 .env.*
 !.env.example
+# Private trip inputs and reservation documents.
 .local/
 test-results/
 playwright-report/

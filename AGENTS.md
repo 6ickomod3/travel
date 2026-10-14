@@ -5,28 +5,27 @@
 - Write all internal project context, guidelines, documentation, plans, handoffs,
   and code comments in English. Keep this file in English when updating it.
 - Public website content can be English or Chinese. Follow each trip's
-  `language` field; Japan 2026 is in Simplified Chinese and UK 2026 is in English.
+  `language` field.
 - Chat with the user in the language appropriate to their latest message.
 - Chinese itinerary text, destination names, image descriptions, source labels,
   and font glyph subsets are public content, not internal instructions.
 
-## Purpose and current content
+## Purpose
 
 Elsewhere is an evergreen personal travel website for practical trip planning.
 The user owns the repository at https://github.com/6ickomod3/travel and publishes
 the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
 
-- Japan 2026: November 13–21, nine days, two travelers, with an agreed itinerary.
-  Its route covers Osaka, Hiroshima, Miyajima, Kii-Tanabe, Kumano Kodo,
-  Kawayu Onsen, and Nara.
-- UK 2026: a placeholder with a year only. Dates and itinerary are undecided.
-  Keep the existing `uk-2026` slug when adding its itinerary later.
+- Each trip owns its current content, source submissions, and English decision
+  history under `itineraries/<slug>/`. Read that trip's `history.md` before
+  updating its plan. Keep trip-specific facts out of the shared guidelines.
+- Follow `docs/content-workflow.md` for source ingestion, conflict handling,
+  templates, and private storage.
 
 ## Design and content
 
 - Use concise, practical headings and labels: Next trip, Trips, Visited atlas,
-  Route, Accommodation,
-  Daily itinerary, Preparations, and Official sources. Use direct equivalents
+  Route, Accommodation, Daily itinerary, Preparations, and Official sources. Use direct equivalents
   for Chinese pages.
 - Remove ornamental prose, motivational statements, promotional language,
   abstract section names, and repeated descriptions of the same information.
@@ -52,8 +51,25 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
 - Astro builds static pages. The package uses pnpm and Node.js 24 in CI.
 - Keep the GitHub Pages base path `/travel/`, the trailing slash convention,
   and `withBase()` for internal links and local assets.
-- `src/data/trips.ts` is the content registry. `trips` holds dated itineraries;
-  `tripPlaceholders` holds year-only entries; `tripCollection` combines them.
+- `itineraries/<slug>/trip.ts` is the sole structured plan for that trip.
+  Its folder and slug must match; keep the slug stable through later changes.
+- `src/data/types.ts` defines shared content types. Trip modules default-export
+  objects checked with `satisfies Trip` or `satisfies TripPlaceholder` and
+  import types directly from this file, never from the registry. Use explicit
+  `.ts` extensions for any runtime imports between content modules so the
+  Node.js content check can load them.
+- `src/data/trips.ts` is a small registry with eager discovery of
+  `itineraries/*/trip.ts`. It re-exports shared types and exposes `trips` for
+  dated itineraries, `tripPlaceholders` for year-only entries, and the combined
+  `tripCollection`. New trip folders automatically receive pages and sitemap
+  entries. Duplicate slugs and folder/slug mismatches fail validation.
+- Use `templates/trip/` to create a trip package. Rename `trip.ts.example` only
+  after replacing its example values; templates are excluded from discovery.
+- Keep each trip's public images and `credits.json` under
+  `public/images/trips/<slug>/`; retained unused images belong in `archive/`.
+  Shared illustrations and font metadata belong in `public/images/shared/`.
+  Fonts remain in `public/fonts/`. Use `src/lib/image-credits.ts` for credit
+  lookup by full public image path.
 - Only dated trips may enter date formatting, duration, and travel-status
   calculations. Do not supply fake dates for placeholders.
 - `selectNextTrip()` chooses a trip whose inclusive UTC date range is current,
@@ -73,13 +89,32 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   With no recorded visits, show a simple world graphic and empty state;
   do not load an interactive map or show unusable controls.
 - `src/pages/trips/[slug]/index.astro` chooses between `TripItinerary.astro`
-  and `TripPlaceholder.astro`. New entries also belong in the sitemap.
+  and `TripPlaceholder.astro` for every discovered entry.
 - Keep Leaflet maps, destination lists, expand/collapse, and itinerary printing.
   Images and fonts are local assets; map tiles come from OpenStreetMap.
 
+## Source submissions
+
+- Archive each publishable user submission separately in that trip's `inputs/`
+  before editing the structured plan. Preserve original text and language;
+  append a new file for later submissions instead of rewriting old sources.
+- Record the origin, archive date, applied changes, explicit superseding
+  decisions, and open questions in that trip's English `history.md`.
+- Apply clear additions and corrections. A partial submission replaces only
+  the facts it explicitly changes. Keep accepted decisions when a new input
+  is silent; ask about genuine unresolved contradictions while continuing
+  independent updates.
+- Keep raw-input provenance in the history. `Trip.sources` is the list of
+  official reference links displayed on the website.
+- Tracked archives are public on GitHub even though they are not website pages.
+  Private originals and reservation documents belong in ignored
+  `.local/trips/<slug>/` storage. Do not commit or publish private codes or
+  documents. Ignored files need a separate private backup when required.
+
 ## Verification and publication
 
-- Run `pnpm build` to check types and build the static site.
+- Run `pnpm build` to check content references and images, check types, and
+  build the static site. `pnpm check:content` runs only the content checks.
 - Verify the changed pages and relevant controls in a browser, including a
   narrow mobile viewport when layout changes. Use focused checks.
 - Preserve the existing GitHub Actions Pages workflow. Push authorized site
