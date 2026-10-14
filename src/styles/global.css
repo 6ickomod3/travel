@@ -10,8 +10,8 @@
   --accent: #dd6745;
   --accent-deep: #b94628;
   --line: #23372c24;
-  --serif: 'Instrument Serif', Georgia, serif;
-  --sans: 'DM Sans', system-ui, sans-serif;
+  --serif: 'Instrument Serif', 'Noto Serif SC', 'Songti SC', Georgia, serif;
+  --sans: 'DM Sans', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -317,6 +317,74 @@ button:disabled { cursor: default; opacity: .5; }
 .not-found h1 { font-family: var(--serif); font-size: 65px; line-height: 1.1; margin-top: 20px; }
 .not-found p { margin-top: 15px; color: var(--ink-soft); font-size: 13px; }
 .not-found .button { margin-top: 25px; }
+
+/* Give Chinese text the space and rhythm it needs. */
+:lang(zh-CN) { --serif: 'Noto Serif SC', 'Songti SC', SimSun, serif; }
+.hero-photo-link:lang(zh-CN) .hero-photo-bottom h2 { font-size: 76px; line-height: 1.2; letter-spacing: .04em; }
+.hero-photo-link:lang(zh-CN) .photo-topline { letter-spacing: .08em; }
+.hero-photo-link:lang(zh-CN) .hero-photo img, .trip-card:lang(zh-CN) .trip-card-cover img, .trip-page-zh .trip-hero-image img { object-position: 50% 55%; }
+.trip-card:lang(zh-CN) h3 { font-size: 34px; line-height: 1.45; }
+.trip-card:lang(zh-CN) .trip-card-body > p { font-size: 13px; line-height: 1.95; }
+.trip-card:lang(zh-CN) .trip-card-details { gap: 12px; flex-wrap: wrap; font-size: 11px; }
+.trip-card:lang(zh-CN) .trip-card-route { flex-direction: column; align-items: flex-start; gap: 7px; }
+.trip-card:lang(zh-CN) .trip-card-route > p { font-size: 11px; line-height: 1.9; }
+.atlas-stops { max-height: 360px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #bfc5b7 transparent; }
+.atlas-sidebar:lang(zh-CN) .atlas-sidebar-heading h3 { font-size: 49px; line-height: 1.3; }
+.atlas-sidebar:lang(zh-CN) .atlas-sidebar-heading > p { font-size: 10px; }
+.atlas-sidebar:lang(zh-CN) .stop-copy strong { font-size: 14px; }
+.atlas-sidebar:lang(zh-CN) .stop-copy > span { font-size: 11px; line-height: 1.8; }
+.atlas-sidebar:lang(zh-CN) .city-map-link { font-size: 10px; }
+.travel-map:lang(zh-CN) .map-top-label { font-size: 11px; }
+.travel-map:lang(zh-CN) .map-hint { font-size: 11px; }
+.home-image-credit { margin-top: 0; padding-bottom: 25px; }
+.trip-page-zh .trip-hero-copy h1 { font-size: clamp(52px, 5.4vw, 76px); line-height: 1.3; letter-spacing: .025em; }
+.trip-page-zh .trip-hero-copy > p:not(.eyebrow) { font-size: 14px; line-height: 2; }
+.trip-page-zh .eyebrow { font-size: 11px; letter-spacing: .12em; }
+.trip-page-zh .section-heading h2 { font-size: clamp(31px, 3vw, 41px); line-height: 1.5; letter-spacing: .015em; }
+.trip-page-zh .section-intro { font-size: 12px; line-height: 1.9; }
+.trip-page-zh .trip-facts { font-size: 12px; gap: 15px; }
+.trip-page-zh .planning-note strong { font-size: 13px; }
+.trip-page-zh .planning-note p { font-size: 12px; }
+.trip-page-zh .route-stop strong { font-size: 15px; }
+.trip-page-zh .route-stop small { font-size: 11px; line-height: 1.7; }
+.trip-page-zh .route-stop > .city-map-link { font-size: 10px; }
+.trip-page-zh .route-note { font-size: 12px; line-height: 1.9; }
+.trip-page-zh .route-stops { max-height: 590px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #bfc5b7 transparent; }
+.trip-page-zh .day-title { font-size: 24px; line-height: 1.6; }
+.trip-page-zh .day-date { font-size: 12px; }
+.trip-page-zh .day-date small { font-size: 10px; letter-spacing: 0; }
+.trip-page-zh .day-city { font-size: 11px; }
+.trip-page-zh .day-content > p { font-size: 14px; line-height: 2; }
+.trip-page-zh .itinerary-toolbar p, .trip-page-zh .expand-button { font-size: 12px; }
+.trip-page-zh .notebook-panel h3 { font-size: 29px; line-height: 1.5; }
+.trip-page-zh .notebook-panel > p { font-size: 12px; line-height: 1.9; }
+.trip-page-zh .notebook-panel label { font-size: 12px; }
+.trip-page-zh .notebook-panel textarea { font-size: 14px; }
+.trip-page-zh .notebook-save-status, .trip-page-zh .notebook-export { font-size: 11px; }
+.trip-page-zh .notebook-photo-caption > p { font-size: 32px; line-height: 1.5; }
+.trip-page-zh .image-credits { font-size: 10px; line-height: 1.9; }
+
+@media (max-width: 800px) {
+  .trip-page-zh .day-title { font-size: 21px; }
+  .trip-page-zh .trip-facts { font-size: 11px; }
+}
+
+@media (max-width: 600px) {
+  .trip-card:lang(zh-CN) h3 { font-size: 29px; }
+  .hero-photo-link:lang(zh-CN) .hero-photo-bottom h2 { font-size: 65px; }
+  .atlas-stops { max-height: 300px; }
+  .atlas-sidebar:lang(zh-CN) .stop-copy { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .atlas-sidebar:lang(zh-CN) .atlas-sidebar-heading h3 { font-size: 39px; }
+  .travel-map:lang(zh-CN) .map-top-label { font-size: 9px; }
+  .travel-map:lang(zh-CN) .map-hint { font-size: 10px; }
+  .trip-page-zh .trip-hero-copy h1 { font-size: 53px; }
+  .trip-page-zh .route-stops { max-height: none; overflow: visible; }
+  .trip-page-zh .day-content { padding-left: 0; padding-right: 0; }
+  .trip-page-zh .itinerary-day summary { grid-template-columns: 24px 58px minmax(0, 1fr) 16px; gap: 9px; }
+  .trip-page-zh .section-heading h2 { font-size: 30px; }
+  .trip-page-zh .notebook-bottom { align-items: flex-start; }
+  .trip-page-zh .notebook-save-status { max-width: 65%; }
+}
 
 @media (min-width: 1500px) {
   .home-hero { gap: 78px; padding-block: 68px 75px; }

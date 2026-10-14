@@ -1,15 +1,15 @@
 ---
 import type { Trip } from '../data/trips';
-import { displayStatus } from '../lib/trips';
-interface Props { trip: Trip; }
-const { trip } = Astro.props;
+import { displayStatus, statusLabel } from '../lib/trips';
+interface Props { trip: Trip; locale?: 'zh-CN' | 'en'; }
+const { trip, locale = trip.language ?? 'en' } = Astro.props;
 ---
-<span class="trip-status" data-trip-status data-start-date={trip.startDate} data-end-date={trip.endDate} data-status={trip.status}><span class="status-dot"></span><span data-status-label>{displayStatus(trip)}</span></span>
+<span class="trip-status" data-trip-status data-start-date={trip.startDate} data-end-date={trip.endDate} data-status={trip.status} data-locale={locale}><span class="status-dot"></span><span data-status-label>{statusLabel(displayStatus(trip), locale)}</span></span>
 <script>
-  import { displayStatus } from '../lib/trips';
+  import { displayStatus, statusLabel } from '../lib/trips';
   import type { TripStatus } from '../data/trips';
   document.querySelectorAll<HTMLElement>('[data-trip-status]').forEach((element) => {
     const label = element.querySelector('[data-status-label]');
-    if (label) label.textContent = displayStatus({ startDate: element.dataset.startDate!, endDate: element.dataset.endDate!, status: element.dataset.status as TripStatus });
+    if (label) label.textContent = statusLabel(displayStatus({ startDate: element.dataset.startDate!, endDate: element.dataset.endDate!, status: element.dataset.status as TripStatus }), element.dataset.locale);
   });
 </script>

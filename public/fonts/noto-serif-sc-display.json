@@ -1,0 +1,25 @@
+{
+  "family": "Noto Serif SC",
+  "style": "normal",
+  "weight": "400 700",
+  "characters": 565,
+  "hanCharacters": 450,
+  "bytes": 220364,
+  "axes": [
+    {
+      "tag": "wght",
+      "min": 400.0,
+      "default": 400.0,
+      "max": 700.0
+    }
+  ],
+  "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/notoserifsc/NotoSerifSC%5Bwght%5D.ttf",
+  "sourceSha256": "050080d9255a86808f2945bffac582b31ef32bc36411ce29563b4961670c66f9",
+  "licenseSource": "https://raw.githubusercontent.com/google/fonts/main/ofl/notoserifsc/OFL.txt",
+  "subsetFile": "noto-serif-sc-display-subset.txt",
+  "tools": {
+    "fontTools": "4.66.1",
+    "brotli": "1.2.0"
+  },
+  "regeneration": "Download the generic public source font. Read required characters from the subset file locally; use FontTools Subsetter with those Unicode values, constrain the wght axis to 400..700, and save as WOFF2 with Brotli. External requests contain only generic public resource URLs; all text processing stays local."
+}

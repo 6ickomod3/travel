@@ -4,22 +4,25 @@ import Footer from '../components/Footer.astro';
 import { withBase } from '../lib/urls';
 import '../styles/global.css';
 
-interface Props { title?: string; description?: string; image?: string; }
+interface Props { title?: string; description?: string; image?: string; lang?: 'zh-CN' | 'en'; }
 const {
   title = 'Elsewhere — a personal travel atlas',
   description = 'A home for every journey. Explore the plans, places, and little discoveries in a personal travel atlas, starting with Japan in November 2026.',
-  image = '/images/japan-fuji.webp',
+  image = '/images/japan-miyajima.webp',
+  lang = 'en',
 } = Astro.props;
+const isZh = lang === 'zh-CN';
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const shareImage = new URL(withBase(image), Astro.site);
 const fontFaces = `
   @font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; font-display: swap; src: url('${withBase('fonts/instrument-serif-regular.woff2')}') format('woff2'); }
   @font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url('${withBase('fonts/instrument-serif-italic.woff2')}') format('woff2'); }
   @font-face { font-family: 'DM Sans'; font-style: normal; font-weight: 400 700; font-display: swap; src: url('${withBase('fonts/dm-sans-latin.woff2')}') format('woff2'); }
+  @font-face { font-family: 'Noto Serif SC'; font-style: normal; font-weight: 400 700; font-display: swap; src: url('${withBase('fonts/noto-serif-sc-display.woff2')}') format('woff2'); }
 `;
 ---
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,20 +33,22 @@ const fontFaces = `
     <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
     <link rel="preload" href={withBase('fonts/instrument-serif-regular.woff2')} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={withBase('fonts/dm-sans-latin.woff2')} as="font" type="font/woff2" crossorigin />
+    {isZh && <link rel="preload" href={withBase('fonts/noto-serif-sc-display.woff2')} as="font" type="font/woff2" crossorigin />}
     <style is:inline set:html={fontFaces}></style>
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={shareImage} />
-    <meta property="og:image:alt" content="A little inspiration for the journey" />
+    <meta property="og:image:alt" content={isZh ? '旅途中的风景' : 'A little inspiration for the journey'} />
+    <meta property="og:locale" content={isZh ? 'zh_CN' : 'en_US'} />
     <meta name="twitter:card" content="summary_large_image" />
     <slot name="head" />
   </head>
   <body id="top">
-    <a class="skip-link" href="#main">Skip to content</a>
-    <Header />
+    <a class="skip-link" href="#main">{isZh ? '跳到正文' : 'Skip to content'}</a>
+    <Header lang={lang} />
     <main id="main"><slot /></main>
-    <Footer />
+    <Footer lang={lang} />
   </body>
 </html>

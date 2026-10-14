@@ -34,12 +34,13 @@ export function durationDays(trip: TripDates): number {
   return Math.round((end.getTime() - start.getTime()) / DAY_IN_MS) + 1;
 }
 
-/** Format a date in English, always using the supplied calendar day in UTC. */
+/** Keep the supplied calendar day in UTC when formatting in any language. */
 export function formatDate(
   date: string,
   options: Intl.DateTimeFormatOptions = {},
+  locale = "en-US",
 ): string {
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat(locale, {
     month: "short",
     day: "numeric",
     ...options,
@@ -48,7 +49,7 @@ export function formatDate(
 }
 
 /** Compact ranges such as "Nov 13–21, 2026" also work across months and years. */
-export function formatDateRange(trip: TripDates): string {
+export function formatDateRange(trip: TripDates, locale = "en-US"): string {
   const start = calendarDate(trip.startDate);
   const end = calendarDate(trip.endDate);
 
@@ -56,19 +57,43 @@ export function formatDateRange(trip: TripDates): string {
     throw new RangeError("A trip's end date must be on or after its start date.");
   }
 
+  if (locale.startsWith("zh")) {
+    const year = start.getUTCFullYear();
+    const endYear = end.getUTCFullYear();
+    const month = start.getUTCMonth() + 1;
+    const endMonth = end.getUTCMonth() + 1;
+    const day = start.getUTCDate();
+    const endDay = end.getUTCDate();
+    if (trip.startDate === trip.endDate) return `${year}年${month}月${day}日`;
+    if (year !== endYear) return `${year}年${month}月${day}日–${endYear}年${endMonth}月${endDay}日`;
+    if (month !== endMonth) return `${year}年${month}月${day}日–${endMonth}月${endDay}日`;
+    return `${year}年${month}月${day}–${endDay}日`;
+  }
+
   if (trip.startDate === trip.endDate) {
-    return formatDate(trip.startDate, { year: "numeric" });
+    return formatDate(trip.startDate, { year: "numeric" }, locale);
   }
 
   if (start.getUTCFullYear() !== end.getUTCFullYear()) {
-    return `${formatDate(trip.startDate, { year: "numeric" })} – ${formatDate(trip.endDate, { year: "numeric" })}`;
+    return `${formatDate(trip.startDate, { year: "numeric" }, locale)} – ${formatDate(trip.endDate, { year: "numeric" }, locale)}`;
   }
 
   if (start.getUTCMonth() === end.getUTCMonth()) {
-    return `${formatDate(trip.startDate)}–${end.getUTCDate()}, ${end.getUTCFullYear()}`;
+    return `${formatDate(trip.startDate, {}, locale)}–${end.getUTCDate()}, ${end.getUTCFullYear()}`;
   }
 
-  return `${formatDate(trip.startDate)} – ${formatDate(trip.endDate)}, ${end.getUTCFullYear()}`;
+  return `${formatDate(trip.startDate, {}, locale)} – ${formatDate(trip.endDate, {}, locale)}, ${end.getUTCFullYear()}`;
+}
+
+export function statusLabel(status: DisplayStatus, locale = "en"): string {
+  if (!locale.startsWith("zh")) return status;
+  return {
+    Planning: "筹备中",
+    Upcoming: "即将出发",
+    Traveling: "旅途中",
+    Past: "往期计划",
+    Completed: "已完成",
+  }[status];
 }
 
 /**
