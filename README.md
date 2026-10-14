@@ -4,7 +4,7 @@ A personal travel website for planning trips and keeping the memories afterward.
 
 ## Run locally
 
-Install Node.js 24 (minimum 22.12) and pnpm. The project uses the pnpm version recorded in `package.json`.
+Install Node.js 24 (minimum 22.13) and pnpm. The project uses the pnpm version recorded in `package.json`.
 
 From this folder, run:
 
