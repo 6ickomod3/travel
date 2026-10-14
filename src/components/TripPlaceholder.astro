@@ -1,0 +1,156 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from './Icon.astro';
+import TripStatus from './TripStatus.astro';
+import type { TripPlaceholder as PlaceholderTrip } from '../data/trips';
+import { tripCollection } from '../data/trips';
+import { withBase } from '../lib/urls';
+
+interface Props { trip: PlaceholderTrip; }
+const { trip } = Astro.props;
+const chapter = String(tripCollection.findIndex(item => item.slug === trip.slug) + 1).padStart(2, '0');
+const yearTitle = trip.title.match(/^(.*?)\s+([’']\d{2})$/);
+const titleLead = yearTitle?.[1] ?? trip.title;
+const titleTail = yearTitle?.[2];
+---
+<Layout
+  lang="en"
+  title={`${trip.title} | Elsewhere`}
+  description={`${trip.summary} Itinerary coming soon. Travel dates are still to be decided.`}
+  image={trip.cover}
+>
+  <div class="placeholder-page">
+    <div class="trip-breadcrumb container">
+      <a href={`${withBase()}#collection`}><Icon name="arrow-left" size={14} /> The collection</a>
+      <span aria-hidden="true">/</span>
+      <span>{trip.country} {trip.year}</span>
+    </div>
+
+    <section class="placeholder-hero container" aria-labelledby="placeholder-title">
+      <div class="placeholder-hero-copy">
+        <p class="eyebrow"><span class="tiny-star" aria-hidden="true">✳</span> CHAPTER {chapter} / {trip.country.toUpperCase()}</p>
+        <h1 id="placeholder-title">{titleLead}{titleTail && <>{' '}<em>{titleTail}</em></>}</h1>
+        <p class="placeholder-description">{trip.summary}</p>
+        <div class="placeholder-facts">
+          <span><Icon name="calendar" size={16} /> {trip.year}</span>
+          <span>Dates to be decided</span>
+          <TripStatus trip={trip} locale="en" />
+        </div>
+        <div class="placeholder-actions">
+          <a class="button button-primary" href="#notebook">Leave a note <Icon name="arrow-down" size={16} /></a>
+          <a class="text-link" href={`${withBase()}#collection`}>Back to the collection <Icon name="arrow-right" size={17} /></a>
+        </div>
+      </div>
+      <figure class="placeholder-artwork">
+        <div class="placeholder-artwork-frame"><img src={withBase(trip.cover)} alt={trip.coverAlt} width="1800" height="1200" fetchpriority="high" /></div>
+        <figcaption><span>{trip.country.toUpperCase()} / {trip.year}</span><span>{trip.coverCredit}</span></figcaption>
+      </figure>
+    </section>
+
+    <section class="placeholder-plan container" aria-labelledby="placeholder-plan-title">
+      <div class="placeholder-plan-icon" aria-hidden="true"><Icon name="compass" size={34} /></div>
+      <div class="placeholder-plan-copy">
+        <p class="eyebrow">A NEW CHAPTER</p>
+        <h2 id="placeholder-plan-title">Itinerary <em>coming soon.</em></h2>
+        <p>Dates are still to be decided. The itinerary will find its place here as plans take shape.</p>
+      </div>
+      <span class="placeholder-plan-mark" aria-hidden="true">↗</span>
+    </section>
+
+    <section class="placeholder-notebook container" id="notebook" aria-labelledby="placeholder-notebook-title">
+      <div class="placeholder-notebook-copy">
+        <p class="eyebrow">THE NOTEBOOK</p>
+        <h2 id="placeholder-notebook-title">A place for<br /><em>first ideas.</em></h2>
+        <p>A recommendation to save. A place that catches your eye. A little inspiration for the next journey.</p>
+        <span class="placeholder-notebook-signoff">Room for what comes next. <span aria-hidden="true">↗</span></span>
+      </div>
+      <div class="notebook-panel placeholder-notebook-panel">
+        <h3>Notes for the journey.</h3>
+        <p>Notes stay in this browser on this device. Export a copy to keep them.</p>
+        <label for="trip-notes">Your notes</label>
+        <textarea id="trip-notes" data-trip-notes data-notes-key={`elsewhere:notes:${trip.slug}`} data-trip-slug={trip.slug} placeholder="A place someone recommended…&#10;Something to look into…&#10;A small reason to go…"></textarea>
+        <div class="notebook-bottom"><span class="notebook-save-status" data-notes-status role="status">Ready when you are.</span><button class="notebook-export" type="button" data-export-notes>Export notes <Icon name="download" size={14} /></button></div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<script>
+  import '../scripts/trip';
+</script>
+
+<style>
+  .placeholder-hero { display: grid; grid-template-columns: 1fr 1.03fr; align-items: center; gap: 65px; padding-block: 55px 67px; }
+  .placeholder-hero-copy h1 { margin-top: 25px; font-family: var(--serif); font-size: clamp(74px, 7.2vw, 106px); line-height: 1.03; letter-spacing: -1.8px; }
+  .placeholder-hero-copy h1 em { color: var(--accent-deep); }
+  .placeholder-description { max-width: 380px; margin-top: 24px; color: var(--ink-soft); font-size: 13px; line-height: 1.9; }
+  .placeholder-facts { display: flex; flex-wrap: wrap; align-items: center; gap: 13px 21px; margin-top: 27px; font-size: 11px; }
+  .placeholder-facts > span { display: inline-flex; align-items: center; gap: 7px; }
+  .placeholder-facts svg { color: var(--ink-soft); }
+  .placeholder-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 24px; margin-top: 28px; }
+  .placeholder-artwork { margin: 0; min-width: 0; }
+  .placeholder-artwork-frame { aspect-ratio: 3 / 2; overflow: hidden; border-radius: 6px 70px 6px 6px; background: var(--paper-deep); border: 1px solid var(--line); box-shadow: 0 18px 45px #23372c08; }
+  .placeholder-artwork img { width: 100%; height: 100%; object-fit: contain; }
+  .placeholder-artwork figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 7px 15px; margin-top: 13px; color: var(--ink-soft); font-size: 9px; line-height: 1.8; }
+  .placeholder-artwork figcaption > span:first-child { letter-spacing: .08em; }
+  .placeholder-plan { display: grid; grid-template-columns: 48px minmax(0, 1fr) 40px; align-items: center; gap: 28px; padding: 39px 42px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper-deep); }
+  .placeholder-plan-icon { display: grid; place-items: center; width: 48px; height: 48px; color: var(--accent-deep); }
+  .placeholder-plan-copy h2 { margin-top: 12px; font-family: var(--serif); font-size: 42px; line-height: 1.13; }
+  .placeholder-plan-copy h2 em { color: var(--accent-deep); }
+  .placeholder-plan-copy > p:last-child { margin-top: 13px; max-width: 610px; font-size: 12px; line-height: 1.9; color: var(--ink-soft); }
+  .placeholder-plan-mark { font-family: var(--serif); font-size: 43px; color: var(--accent-deep); }
+  .placeholder-notebook { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 55px; padding-block: 75px 85px; }
+  .placeholder-notebook-copy { padding-top: 12px; }
+  .placeholder-notebook-copy h2 { margin-top: 17px; font-family: var(--serif); font-size: 54px; line-height: 1.09; letter-spacing: -.6px; }
+  .placeholder-notebook-copy h2 em { color: var(--accent-deep); }
+  .placeholder-notebook-copy > p:not(.eyebrow) { margin-top: 21px; max-width: 335px; font-size: 13px; line-height: 1.9; color: var(--ink-soft); }
+  .placeholder-notebook-signoff { display: inline-flex; align-items: center; gap: 10px; margin-top: 32px; font-size: 11px; color: var(--ink-soft); }
+  .placeholder-notebook-signoff > span { color: var(--accent-deep); font-size: 19px; }
+  .placeholder-notebook-panel { padding: 28px; }
+  .placeholder-notebook-panel > p { font-size: 12px; line-height: 1.9; }
+  .placeholder-notebook-panel label { font-size: 11px; }
+  .placeholder-notebook-panel textarea { min-height: 168px; font-size: 13px; }
+  .placeholder-notebook-panel .notebook-save-status, .placeholder-notebook-panel .notebook-export { font-size: 11px; }
+
+  @media (max-width: 1000px) {
+    .placeholder-hero { gap: 39px; }
+    .placeholder-hero-copy h1 { font-size: 86px; }
+    .placeholder-actions { gap: 13px 17px; }
+    .placeholder-notebook { gap: 38px; }
+  }
+  @media (max-width: 800px) {
+    .placeholder-hero { gap: 28px; padding-block: 40px 51px; }
+    .placeholder-hero-copy h1 { font-size: 75px; }
+    .placeholder-description { font-size: 12px; }
+    .placeholder-facts { font-size: 10px; gap: 11px 14px; }
+    .placeholder-actions .button { font-size: 11px; padding-inline: 16px; }
+    .placeholder-actions .text-link { font-size: 10px; }
+    .placeholder-artwork-frame { border-top-right-radius: 49px; }
+    .placeholder-plan { padding: 29px; gap: 20px; grid-template-columns: 40px minmax(0, 1fr); }
+    .placeholder-plan-mark { display: none; }
+    .placeholder-plan-copy h2 { font-size: 37px; }
+    .placeholder-notebook { gap: 29px; padding-block: 56px 65px; }
+    .placeholder-notebook-copy h2 { font-size: 47px; }
+    .placeholder-notebook-panel { padding: 23px; }
+  }
+  @media (max-width: 600px) {
+    .placeholder-hero { grid-template-columns: 1fr; gap: 32px; padding-block: 31px 37px; }
+    .placeholder-hero-copy h1 { font-size: clamp(74px, 18vw, 89px); margin-top: 21px; }
+    .placeholder-description { max-width: 340px; font-size: 13px; margin-top: 21px; }
+    .placeholder-facts { margin-top: 23px; font-size: 11px; }
+    .placeholder-actions { margin-top: 24px; gap: 13px 20px; }
+    .placeholder-actions .text-link { font-size: 11px; }
+    .placeholder-artwork-frame { border-top-right-radius: 44px; }
+    .placeholder-artwork figcaption { font-size: 9px; }
+    .placeholder-plan { padding: 26px 23px; gap: 12px; grid-template-columns: 1fr; }
+    .placeholder-plan-icon { width: 35px; height: 35px; justify-content: start; }
+    .placeholder-plan-copy h2 { font-size: 36px; }
+    .placeholder-plan-copy > p:last-child { font-size: 13px; }
+    .placeholder-notebook { grid-template-columns: 1fr; gap: 28px; padding-block: 43px 53px; }
+    .placeholder-notebook-copy { padding-top: 0; }
+    .placeholder-notebook-copy h2 { font-size: 46px; }
+    .placeholder-notebook-copy > p:not(.eyebrow) { max-width: 100%; }
+    .placeholder-notebook-signoff { margin-top: 20px; }
+    .placeholder-notebook-panel { padding: 23px; }
+  }
+</style>

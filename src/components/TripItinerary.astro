@@ -1,0 +1,407 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from './Icon.astro';
+import TripStatus from './TripStatus.astro';
+import TravelMap from './TravelMap.astro';
+import { tripCollection, type Trip, type TripDestination, type TripStay } from '../data/trips';
+import { durationDays, formatDateRange, formatDate } from '../lib/trips';
+import { withBase } from '../lib/urls';
+import imageCredits from '../../public/images/credits.json';
+
+interface Props { trip: Trip; }
+const { trip } = Astro.props;
+const isZh = trip.language === 'zh-CN';
+const locale = isZh ? 'zh-CN' : 'en';
+const dateLocale = isZh ? 'zh-CN' : 'en-US';
+const text = (zh: string, en: string) => isZh ? zh : en;
+const date = (value: string, options: Intl.DateTimeFormatOptions = {}) => formatDate(value, options, dateLocale);
+const dateRange = formatDateRange(trip, dateLocale);
+const number = (value: number) => new Intl.NumberFormat(dateLocale, { maximumFractionDigits: 1 }).format(value);
+const chapter = String(tripCollection.findIndex(item => item.slug === trip.slug) + 1).padStart(2, '0');
+const comma = trip.title.search(/[，,]/);
+const titleLead = comma >= 0 ? trip.title.slice(0, comma + 1) : trip.title;
+const titleTail = comma >= 0 ? trip.title.slice(comma + 1).trim() : '';
+const cityName = (id: string) => trip.destinations.find(stop => stop.id === id)?.name || id;
+const isThisJapan = trip.slug === 'japan-2026';
+const isAgreed = trip.itineraryStatus === 'agreed';
+const monthLabel = date(trip.startDate, { month: 'long', year: 'numeric', day: undefined });
+const destinationDays = (id: string) => trip.days.filter(day => day.destinationId === id).length;
+const route = (trip.mapRoute?.length ? trip.mapRoute : trip.destinations.map(stop => stop.id))
+  .map(id => trip.destinations.find(stop => stop.id === id))
+  .filter((stop): stop is TripDestination => Boolean(stop));
+const stays = trip.stays ?? [];
+const checklist = trip.checklist ?? [];
+const practicalNotes = trip.practicalNotes ?? [];
+const sources = trip.sources ?? [];
+const getSourceById = (id: string) => sources.find(source => source.id === id);
+const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
+  const source = getSourceById(id);
+  return source ? [source] : [];
+});
+const nightsBetween = (checkIn: string, checkOut: string) => durationDays({ startDate: checkIn, endDate: checkOut }) - 1;
+const stayNights = (stay: TripStay) => stay.checkIns.reduce((total, segment) => total + nightsBetween(segment.checkIn, segment.checkOut), 0);
+const totalNights = stays.reduce((total, stay) => total + stayNights(stay), 0);
+const bookedNights = stays.filter(stay => stay.status === 'booked').reduce((total, stay) => total + stayNights(stay), 0);
+const pendingNights = totalNights - bookedNights;
+const stayById = (id?: string) => stays.find(stay => stay.id === id);
+const stayStatus = (stay: TripStay) => stay.status === 'booked' ? text('已订', 'Booked') : text('待确认', 'Awaiting confirmation');
+const hasPreparations = checklist.length > 0 || practicalNotes.length > 0;
+let nextSection = 1;
+const sectionNumbers = {
+  route: nextSection++,
+  stays: stays.length > 0 ? nextSection++ : 0,
+  itinerary: nextSection++,
+  preparations: hasPreparations ? nextSection++ : 0,
+  notebook: nextSection++,
+  sources: sources.length > 0 ? nextSection++ : 0,
+};
+const eyebrow = (index: number, label: string) => `${String(index).padStart(2, '0')} / ${label}`;
+const photoCredit = trip.coverCredit.replace(/^(?:Photo:|图片来源：|图片：)\s*/i, '');
+interface ImageCredit {
+  file: string;
+  source: string;
+  license: string;
+  licenseUrl: string;
+  author?: string;
+  changes?: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+  objectPosition?: string;
+  caption?: string;
+}
+const creditRecords = imageCredits.images as ImageCredit[];
+const heroPath = trip.cover.replace(/^\//, '');
+const notebookPath = isThisJapan ? 'images/japan-kumano.webp' : heroPath;
+const heroCredit = creditRecords.find(image => `images/${image.file}` === heroPath);
+const notebookCredit = creditRecords.find(image => `images/${image.file}` === notebookPath);
+const photoAttributions = creditRecords.filter(image => [heroPath, notebookPath].includes(`images/${image.file}`));
+---
+<Layout
+  lang={locale}
+  title={`${trip.title} — ${dateRange} | Elsewhere`}
+  description={`${trip.summary} ${dateRange}${text('。', '. ')}${text('查看每日时间表、住宿安排、行前待办与官方资料。', 'Explore the route, daily itinerary, and travel notes.')}`}
+  image={trip.cover}
+>
+  <div class:list={['trip-page', { 'trip-page-zh': isZh }]}>
+    <div class="trip-breadcrumb container">
+      <a href={`${withBase()}#collection`}><Icon name="arrow-left" size={14} /> {text('旅行集', 'The collection')}</a>
+      <span aria-hidden="true">/</span>
+      <span>{trip.country} {trip.startDate.slice(0, 4)}</span>
+    </div>
+
+    <section class="trip-hero container" aria-labelledby="trip-title">
+      <div class="trip-hero-copy">
+        <p class="eyebrow"><span class="tiny-star" aria-hidden="true">✳</span> {text('旅程', 'CHAPTER')} {chapter} / {trip.country.toUpperCase()}</p>
+        <h1 id="trip-title">{titleLead}{titleTail && <><br /><em>{titleTail}{!isZh && !/[.!?]$/.test(titleTail) && '.'}</em></>}</h1>
+        <p>{trip.summary}</p>
+        <div class="trip-facts">
+          <span><Icon name="calendar" size={16} /> {dateRange}</span>
+          <span><Icon name="sun" size={16} /> {durationDays(trip)} {text('天', 'days')}{totalNights > 0 && <> · {totalNights} {text('晚', 'nights')}</>}</span>
+          {trip.travelers && <span>{trip.travelers} {text('人同行', trip.travelers === 1 ? 'traveler' : 'travelers')}</span>}
+          <TripStatus trip={trip} locale={locale} />
+        </div>
+        <div class="trip-hero-actions">
+          <a class="button button-primary" href="#itinerary">{text('查看每日行程', 'The day-by-day')} <Icon name="arrow-down" size={16} /></a>
+          <button class="button button-secondary" type="button" data-print-trip><Icon name="download" size={15} /> {text('打印行程', 'Print itinerary')}</button>
+        </div>
+      </div>
+      <div class="trip-hero-image">
+        <img src={withBase(trip.cover)} alt={trip.coverAlt} width={heroCredit?.width ?? 1800} height={heroCredit?.height ?? 1200} style={`object-position: ${heroCredit?.objectPosition ?? '50% 50%'}`} fetchpriority="high" />
+        <span class="trip-image-caption">{trip.country.toUpperCase()} / {text('旅途的一幅风景', 'A LITTLE INSPIRATION')}</span>
+      </div>
+    </section>
+
+    <nav class="trip-subnav" aria-label={text('行程章节', 'Trip sections')}>
+      <div class="container">
+        <div class="trip-subnav-links rich-subnav-links">
+          <a href="#route">{text('路线', 'The route')}</a>
+          {stays.length > 0 && <a href="#stays">{text('住宿', 'Stays')}</a>}
+          <a href="#itinerary">{text('每日行程', 'Day by day')}</a>
+          {hasPreparations && <a href="#preparations">{text('行前待办', 'Before you go')}</a>}
+          <a href="#notebook">{text('笔记', 'The notebook')}</a>
+          {sources.length > 0 && <a href="#sources">{text('资料', 'Sources')}</a>}
+        </div>
+        <span class="trip-subnav-note"><span class="status-dot"></span> {isAgreed ? text('行程已商定', 'Itinerary agreed') : text('行程慢慢成形', 'An itinerary taking shape')}</span>
+      </div>
+    </nav>
+
+    <div class="planning-note container">
+      <Icon name="compass" size={21} />
+      <div>
+        <strong>{isAgreed ? text('日程已确定，预订逐项落实。', 'The itinerary is agreed; reservations are being arranged.') : text('一个起点，留些调整的空间。', 'A starting point, with room to change.')}</strong>
+        <p>{trip.routeNote}</p>
+      </div>
+    </div>
+
+    <section class="route-section container" id="route" aria-labelledby="route-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">{eyebrow(sectionNumbers.route, text('旅行路线', 'THE ROUTE'))}</p><h2 id="route-title">{text('连起，', 'Connect ')}<em>{text('沿途的风景。', 'the dots.')}</em></h2></div>
+        <p class="section-intro">{trip.destinations.length} {text('个目的地', 'destinations')} · {durationDays(trip)} {text('天行程', 'days')}{trip.walkingSummary && <><br />{text('古道徒步', 'Trail walking')} {trip.walkingSummary.days} {text('天', 'days')} · {text('约', 'about ')}{number(trip.walkingSummary.distanceKm)} {text('公里', 'km')}</>}</p>
+      </div>
+      {Boolean(trip.routeSummary?.length) && <ol class="route-overview" aria-label={text('行程顺序', 'Journey sequence')} role="list">{trip.routeSummary!.map((stop, index) => <li><span>{stop}</span>{index < trip.routeSummary!.length - 1 && <span aria-hidden="true" class="route-overview-arrow">→</span>}</li>)}</ol>}
+      <div class="trip-route-layout">
+        <TravelMap id="trip-route" destinations={trip.destinations} route={route} variant="route" label={text(`${trip.country}旅行路线地图`, `${trip.country} itinerary map`)} country={trip.country} dateLabel={monthLabel} locale={locale} />
+        <aside class="route-stops">
+          <p>{text('沿途目的地', 'THE STOPS')}</p>
+          {trip.destinations.map((stop, index) => <div class="route-stop">
+            <button type="button" data-map-select="trip-route" data-stop-id={stop.id} aria-pressed="false" disabled>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <span><strong>{stop.name}</strong><small>{isAgreed ? stop.description : `${destinationDays(stop.id)} ${text('天行程', destinationDays(stop.id) === 1 ? 'day in the plan' : 'days in the plan')}`}</small></span>
+              <Icon name="arrow-up-right" size={17} />
+            </button>
+            <a class="city-map-link" href={`https://www.google.com/maps/search/?api=1&query=${stop.lat},${stop.lng}`} target="_blank" rel="noopener noreferrer">{text(`在地图中查看${stop.name}`, `Explore ${stop.name} in Google Maps`)} <Icon name="external" size={12} /></a>
+          </div>)}
+          <p class="route-note">{text('连线示意行程顺序。铁路、巴士与古道的具体走法请结合每日安排和官方地图查看。', 'The lines show the order of destinations. Use the daily schedule and official maps for transport and walking details.')}</p>
+        </aside>
+      </div>
+    </section>
+
+    {stays.length > 0 && <section class="trip-stays-section container" id="stays" aria-labelledby="stays-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">{eyebrow(sectionNumbers.stays, text('住宿安排', 'WHERE TO STAY'))}</p><h2 id="stays-title">{totalNights} {text('晚住宿，', 'nights, ')}<em>{text('安心落脚。', 'a place to settle.')}</em></h2></div>
+        <p class="section-intro">{stays.length} {text('处住宿记录', 'stay records')}<br />{bookedNights} {text('晚已订', 'nights booked')} · {pendingNights} {text('晚待确认', 'nights awaiting confirmation')}</p>
+      </div>
+      <div class="stay-summary" aria-label={text('住宿预订概况', 'Accommodation booking summary')}>
+        <span><Icon name="check" size={16} /> <strong>{bookedNights}</strong> {text('晚已有预订记录', 'nights have booking records')}</span>
+        <span><Icon name="calendar" size={16} /> <strong>{pendingNights}</strong> {text('晚需要确认', 'nights need confirmation')}</span>
+        <span>{text('住宿日期按入住、退房计算。', 'Nights are counted from check-in to check-out.')}</span>
+      </div>
+      <div class="stay-grid">
+        {stays.map(stay => <article class="stay-card" id={`stay-${stay.id}`}>
+          <div class="stay-card-top"><p class="stay-location"><Icon name="pin" size={14} /> {stay.location}</p><span class:list={['stay-status', { 'stay-status-booked': stay.status === 'booked' }]}>{stay.status === 'booked' && <Icon name="check" size={12} />}{stayStatus(stay)}</span></div>
+          <h3>{stay.name}</h3>
+          <dl class="stay-dates">
+            {stay.checkIns.map(segment => <div><dt>{text('入住 / 退房', 'Check-in / check-out')}</dt><dd><time datetime={segment.checkIn}>{date(segment.checkIn)}</time><span aria-hidden="true"> → </span><time datetime={segment.checkOut}>{date(segment.checkOut)}</time><span class="stay-night-count">{nightsBetween(segment.checkIn, segment.checkOut)} {text('晚', 'nights')}</span></dd></div>)}
+          </dl>
+          <ul class="stay-notes">{stay.notes.map(note => <li>{note}</li>)}</ul>
+        </article>)}
+      </div>
+    </section>}
+
+    <section class="itinerary-section container" id="itinerary" aria-labelledby="itinerary-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">{eyebrow(sectionNumbers.itinerary, text('每日行程', 'DAY BY DAY'))}</p><h2 id="itinerary-title">{text('每天的节奏，', 'A plan, ')}<em>{text('一眼看清。', 'with breathing room.')}</em></h2></div>
+        <p class="section-intro">{isAgreed ? text('按已商定的顺序安排。', 'In the agreed order.') : text('先收好想法，再慢慢完善。', 'Ideas to start with, with room to change.')}<br />{text('展开一天，查看时间、换乘和提醒。', 'Open a day for its schedule and notes.')}</p>
+      </div>
+      <div class="itinerary-toolbar"><p>{isAgreed ? text('已商定行程', 'Agreed itinerary') : text('行程草案', 'Suggested itinerary')} · {dateRange}</p><button type="button" class="expand-button" data-expand-days aria-expanded="false">{text('展开全部日程', 'Expand all days')} <Icon name="plus" size={15} /></button></div>
+      <div class="itinerary-list">
+        {trip.days.map((day, index) => {
+          const overnight = stayById(day.overnightId);
+          return <details class="itinerary-day" open={index === 0}>
+            <summary>
+              <span class="day-index">{text('第', 'DAY ')}{String(index + 1).padStart(2, '0')}{isZh && '天'}</span>
+              <span class="day-date"><time datetime={day.date}>{date(day.date)}</time><small>{date(day.date, { weekday: 'short', month: undefined, day: undefined })}</small></span>
+              <span class="day-title">{day.title}</span><span class="day-city">{cityName(day.destinationId)}</span><Icon name="chevron-down" size={17} class="day-chevron" />
+            </summary>
+            <div class:list={['day-content', { 'has-schedule': Boolean(day.schedule?.length) }]}>
+              <p class="day-description">{day.description}</p>
+              {isThisJapan && (day.type === 'arrival' || day.type === 'departure') && <p class="travel-day-note"><Icon name="train" size={15} />{day.type === 'arrival' ? text('抵达日：办理入境、入住和整理行李，不安排景点。', 'Arrival day: immigration, check-in, and unpacking; no sightseeing planned.') : text('返程日：退房、机场和回程，不安排景点。', 'Departure day: check-out, airport, and the journey home; no sightseeing planned.')}</p>}
+              {day.schedule?.length ? <ol class="day-timeline" aria-label={text(`${date(day.date)}时间表`, `${date(day.date)} schedule`)} role="list">
+                {day.schedule.map(item => <li class:list={['timeline-entry', { 'timeline-entry-optional': item.optional }]}>
+                  <span class="timeline-time">{item.time}</span>
+                  <div class="timeline-copy"><p class="timeline-title">{item.title}{item.optional && <span class="timeline-optional">{text('可选', 'Optional')}</span>}</p>{item.description && <p class="timeline-description">{item.description}</p>}
+                    {sourcesFor(item.sourceIds).length > 0 && <div class="source-links">{sourcesFor(item.sourceIds).map(source => <a class="source-link" href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div>}
+                  </div>
+                </li>)}
+              </ol> : day.ideas.length > 0 && <><span class="day-ideas-title">{text('想去看看', 'IDEAS TO EXPLORE')} · {cityName(day.destinationId).toUpperCase()}</span><ul class="day-ideas">{day.ideas.map(idea => <li>{idea}</li>)}</ul></>}
+              {day.hike && <aside class="hike-card" aria-label={text('当天徒步信息', 'Walking information')}>
+                <p class="hike-route"><Icon name="compass" size={18} /> {day.hike.route}</p>
+                <dl class="hike-facts"><div><dt>{text('徒步距离', 'Distance')}</dt><dd>{text('约', 'About ')}{number(day.hike.distanceKm)} {text('公里', 'km')}</dd></div><div><dt>{text('官方参考', 'Official estimate')}</dt><dd>{day.hike.duration}</dd></div>{day.hike.ascentM !== undefined && <div><dt>{text('累计爬升', 'Total ascent')}</dt><dd>{text('约', 'About ')}{number(day.hike.ascentM)} {text('米', 'm')}</dd></div>}</dl>
+                <p class="hike-footnote">{text('途中以实际步速、天气和路线情况调整，留好休息时间。', 'Allow time for breaks and adjust to your pace, weather, and trail conditions.')}</p>
+              </aside>}
+              {Boolean(day.notes?.length) && <aside class="day-important-notes"><p class="day-note-label">{text('当天提醒', 'KEEP IN MIND')}</p><ul>{day.notes!.map(note => <li>{note}</li>)}</ul></aside>}
+              {sourcesFor(day.sourceIds).length > 0 && <div class="day-source-summary"><span>{text('当天资料', 'Day sources')}</span><div class="source-links">{sourcesFor(day.sourceIds).map(source => <a class="source-link" href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div></div>}
+              {overnight && <p class="day-stay"><Icon name="pin" size={15} /><span>{text('当晚住宿', 'Overnight stay')}</span><a href={`#stay-${overnight.id}`}>{overnight.name}</a><span class:list={['stay-status', { 'stay-status-booked': overnight.status === 'booked' }]}>{stayStatus(overnight)}</span></p>}
+            </div>
+          </details>;
+        })}
+      </div>
+    </section>
+
+    {hasPreparations && <section class="trip-preparations-section container" id="preparations" aria-labelledby="preparations-title">
+      <div class="section-heading"><div><p class="eyebrow">{eyebrow(sectionNumbers.preparations, text('出发之前', 'BEFORE YOU GO'))}</p><h2 id="preparations-title">{text('把细节，', 'The little details, ')}<em>{text('逐一落实。', 'one at a time.')}</em></h2></div><p class="section-intro">{text('预订、寄存与餐食，集中放在这里。', 'Reservations, luggage, and meals, all in one place.')}<br />{text('参考班次不代表已购票。', 'Reference departures are not ticket confirmations.')}</p></div>
+      <div class:list={['preparation-layout', { 'preparation-layout-single': !checklist.length || !practicalNotes.length }]}>
+        {checklist.length > 0 && <div class="reservation-panel"><div class="preparation-panel-heading"><Icon name="list" size={20} /><h3>{text('还需要落实的预订', 'Reservations still to arrange')}</h3></div><p class="preparation-intro">{text('以下事项仍待预订或确认；官方链接可用于核对和办理。', 'These items still need booking or confirmation. Use the official links to check the details.')}</p><ol class="reservation-list" role="list">
+          {checklist.map((item, index) => <li class="reservation-item" id={`reservation-${item.id}`}><div class="reservation-item-top"><span class="reservation-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h4>{item.title}</h4><span class="reservation-status">{text('待落实', 'To arrange')}</span></div><p>{item.detail}</p>{sourcesFor(item.sourceIds).length > 0 && <div class="source-links">{sourcesFor(item.sourceIds).map(source => <a class="source-link" href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div>}</li>)}
+        </ol></div>}
+        {practicalNotes.length > 0 && <aside class="practical-panel"><div class="preparation-panel-heading"><Icon name="compass" size={20} /><h3>{text('行李、餐食与换乘', 'Luggage, meals, and connections')}</h3></div><ul class="practical-list">{practicalNotes.map(note => <li>{note}</li>)}</ul></aside>}
+      </div>
+    </section>}
+
+    <section class="trip-notebook-section container" id="notebook" aria-labelledby="notebook-title">
+      <div class="section-heading"><div><p class="eyebrow">{eyebrow(sectionNumbers.notebook, text('旅途笔记', 'THE NOTEBOOK'))}</p><h2 id="notebook-title">{text('留住，', 'Keep ')}<em>{text('那些小事。', 'the little things.')}</em></h2></div><p class="section-intro">{text('一家小店。一段山路。突然想到的事。', 'A cafe. A side street. Something someone said.')}<br />{text('给未来的自己，留些线索。', 'Leave a few breadcrumbs for yourself.')}</p></div>
+      <div class="notebook-layout">
+        <div class="notebook-photo"><img src={withBase(notebookPath)} alt={isThisJapan ? notebookCredit?.alt ?? trip.coverAlt : trip.coverAlt} width={notebookCredit?.width ?? 1800} height={notebookCredit?.height ?? 1200} style={`object-position: ${notebookCredit?.objectPosition ?? '50% 50%'}`} loading="lazy" /><div class="notebook-photo-caption"><span>{isThisJapan && notebookCredit?.caption ? notebookCredit.caption : `${trip.country.toUpperCase()} / ${text('保持好奇', 'STAY CURIOUS')}`}</span><p>{text('慢一点，', 'A few things')}<br /><em>{text('记住这一路。', 'worth remembering.')}</em></p></div></div>
+        <div class="notebook-panel"><h3>{text('写给这段旅程。', 'Notes for the journey.')}</h3><p>{text('收藏地点，记下想法。笔记仅保存在当前设备的这个浏览器中，可导出留存。', 'For places to save and ideas to come back to. Notes stay in this browser on this device; export a copy to keep them.')}</p><label for="trip-notes">{text('你的笔记', 'Your notes')}</label><textarea id="trip-notes" lang={locale} data-trip-notes data-notes-key={`elsewhere:notes:${trip.slug}`} data-trip-slug={trip.slug} placeholder={text('想去的小店、想记住的风景……\n旅馆名称、还要确认的问题……\n一路上的小发现……', 'That little coffee shop someone recommended…\nA neighborhood to wander through…\nSomething worth making time for…')}></textarea><div class="notebook-bottom"><span class="notebook-save-status" data-notes-status role="status">{text('随时记下一笔。', 'Ready when you are.')}</span><button class="notebook-export" type="button" data-export-notes>{text('导出笔记', 'Export notes')} <Icon name="download" size={14} /></button></div></div>
+      </div>
+      {photoAttributions.length > 0 ? <ul class="trip-photo-credits" role="list">{photoAttributions.map(image => <li><span>{`images/${image.file}` === heroPath ? text('主图：', 'Cover photo: ') : text('古道照片：', 'Trail photo: ')}</span><a href={image.source} target="_blank" rel="noopener noreferrer">{image.author ?? text('照片原页', 'Original photo')}</a><span aria-hidden="true"> · </span><a href={image.licenseUrl} target="_blank" rel="noopener noreferrer">{image.license}</a>{image.changes && <span class="photo-changes">{text(image.changes, 'Resized and converted to WebP; no crop saved.')}</span>}</li>)}</ul> : <p class="image-credits">{text('旅途影像：', 'Inspiration photography: ')}{photoCredit}{text('。', '. ')}<a href={withBase('images/credits.json')} target="_blank" rel="noopener noreferrer">{text('照片来源与授权', 'Photo sources and licenses')}</a></p>}
+    </section>
+
+    {sources.length > 0 && <section class="trip-sources-section container" id="sources" aria-labelledby="sources-title"><div class="section-heading"><div><p class="eyebrow">{eyebrow(sectionNumbers.sources, text('官方资料', 'OFFICIAL SOURCES'))}</p><h2 id="sources-title">{text('出发前，', 'Before you leave, ')}<em>{text('再核对一遍。', 'check the details.')}</em></h2></div><p class="section-intro">{text('景点、交通与古道的官方资料。', 'Official information for sights, transport, and trails.')}</p></div><p class="sources-reference-note">{text(`链接中的列车时刻表日期是资料参考日期；列车、巴士与活动安排请按${dateRange}的实际出行日复核。行程中的参考班次不代表已经买票。`, 'Timetable dates identify the reference information. Recheck trains, buses, and event details for your travel dates; listed departures are not purchased tickets.')}</p><ul class="official-source-list" role="list">{sources.map(source => <li id={`source-${source.id}`}><a href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={14} /></a></li>)}</ul></section>}
+  </div>
+</Layout>
+
+<script>
+  import '../scripts/trip';
+</script>
+
+<style>
+  .rich-subnav-links { min-width: 0; max-width: 100%; overflow-x: auto; scrollbar-width: thin; }
+  .rich-subnav-links a { flex-shrink: 0; white-space: nowrap; }
+  .route-overview { display: flex; flex-wrap: wrap; gap: 9px 13px; list-style: none; padding: 0; margin: -5px 0 25px; }
+  .route-overview li { display: inline-flex; align-items: center; gap: 13px; font-size: 13px; }
+  .route-overview li > span:first-child { border: 1px solid var(--line); padding: 5px 12px; border-radius: 4px; background: #fbfaf5; }
+  .route-overview-arrow { color: var(--accent-deep); }
+  .trip-stays-section, .trip-preparations-section, .trip-sources-section { padding-block: 64px; border-top: 1px solid var(--line); }
+  .stay-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 26px; padding: 16px 19px; margin-bottom: 22px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper-deep); }
+  .stay-summary > span { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; }
+  .stay-summary > span:last-child { color: var(--ink-soft); margin-left: auto; font-size: 11px; }
+  .stay-summary strong { font-weight: 600; }
+  .stay-summary svg { color: var(--accent-deep); }
+  .stay-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .stay-card { min-width: 0; scroll-margin-top: 30px; padding: 22px; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; }
+  .stay-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .stay-location { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--ink-soft); }
+  .stay-location svg { margin-top: 2px; }
+  .stay-status { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; line-height: 1.5; white-space: nowrap; color: var(--accent-deep); background: #dd67450c; border: 1px solid #b9462833; border-radius: 3px; padding: 3px 7px; }
+  .stay-status-booked { color: #365743; border-color: #36574335; background: #3657430a; }
+  .stay-card h3 { margin-top: 15px; font-family: var(--sans); font-size: 18px; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; }
+  .stay-dates { margin: 17px 0 0; }
+  .stay-dates > div + div { margin-top: 11px; }
+  .stay-dates dt { font-size: 10px; color: var(--ink-soft); }
+  .stay-dates dd { margin: 5px 0 0; display: flex; align-items: center; flex-wrap: wrap; gap: 5px; font-size: 12px; }
+  .stay-night-count { margin-left: 4px; color: var(--ink-soft); font-size: 10px; }
+  .stay-notes { margin: 17px 0 0; padding-left: 17px; font-size: 12px; line-height: 1.9; color: var(--ink-soft); }
+  .stay-notes li + li { margin-top: 8px; }
+  .day-content.has-schedule { padding: 0 24px 27px 140px; }
+  .day-content .day-description { font-size: 14px; line-height: 1.9; }
+  .travel-day-note { display: flex; align-items: flex-start; gap: 8px; margin-top: 14px; color: var(--ink); font-size: 12px; }
+  .travel-day-note svg { margin-top: 4px; color: var(--accent-deep); }
+  .day-timeline { margin: 20px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .timeline-entry { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 22px; padding: 17px 0; border-bottom: 1px solid var(--line); }
+  .timeline-time { display: block; padding-top: 2px; font-size: 12px; font-weight: 600; color: var(--accent-deep); font-variant-numeric: tabular-nums; line-height: 1.8; overflow-wrap: anywhere; }
+  .timeline-title { font-size: 15px; line-height: 1.8; font-weight: 600; }
+  .timeline-description { margin-top: 6px; font-size: 13px; line-height: 1.9; color: var(--ink-soft); }
+  .timeline-optional { display: inline-block; margin-left: 9px; padding: 1px 7px; border: 1px solid #b9462833; border-radius: 3px; font-size: 10px; font-weight: 400; color: var(--accent-deep); background: #dd674508; vertical-align: middle; }
+  .source-links { display: flex; flex-wrap: wrap; gap: 6px 15px; margin-top: 9px; }
+  .source-link { display: inline-flex; align-items: flex-start; gap: 5px; min-height: 24px; max-width: 100%; font-size: 11px; line-height: 1.8; color: var(--accent-deep); text-decoration: underline; text-underline-offset: 4px; overflow-wrap: anywhere; }
+  .source-link svg { margin-top: 4px; }
+  .source-link:hover { color: var(--ink); }
+  .hike-card { margin-top: 20px; padding: 18px 20px; border: 1px solid #36574330; border-radius: 5px; background: #36574306; }
+  .hike-route { display: flex; align-items: flex-start; gap: 9px; font-weight: 500; font-size: 13px; line-height: 1.8; }
+  .hike-route svg { margin-top: 3px; color: #365743; }
+  .hike-facts { display: flex; flex-wrap: wrap; gap: 14px 32px; margin: 15px 0 0; }
+  .hike-facts dt { font-size: 10px; color: var(--ink-soft); }
+  .hike-facts dd { margin: 4px 0 0; font-size: 15px; font-weight: 500; }
+  .hike-footnote { margin-top: 13px; color: var(--ink-soft); font-size: 11px; line-height: 1.9; }
+  .day-important-notes { margin-top: 19px; padding: 15px 18px; border-left: 3px solid var(--accent-deep); border-radius: 0 4px 4px 0; background: var(--paper-deep); }
+  .day-note-label { font-size: 11px; font-weight: 600; }
+  .day-important-notes ul { margin: 8px 0 0; padding-left: 17px; color: var(--ink-soft); font-size: 12px; line-height: 1.9; }
+  .day-important-notes li + li { margin-top: 7px; }
+  .day-source-summary { display: flex; align-items: flex-start; gap: 16px; margin-top: 17px; }
+  .day-source-summary > span { font-size: 10px; line-height: 2; color: var(--ink-soft); white-space: nowrap; }
+  .day-source-summary .source-links { margin-top: 0; }
+  .day-stay { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 20px; padding: 12px 15px; border: 1px solid var(--line); border-radius: 4px; background: #fbfaf5; font-size: 12px; }
+  .day-stay > span:first-of-type { color: var(--ink-soft); font-size: 11px; }
+  .day-stay a { font-weight: 500; text-decoration: underline; text-underline-offset: 4px; }
+  .day-stay svg { color: var(--accent-deep); }
+  .preparation-layout { display: grid; grid-template-columns: 1.2fr .8fr; gap: 25px; align-items: start; }
+  .preparation-layout-single { grid-template-columns: 1fr; }
+  .reservation-panel, .practical-panel { padding: 25px; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; }
+  .practical-panel { background: var(--paper-deep); }
+  .preparation-panel-heading { display: flex; align-items: flex-start; gap: 10px; }
+  .preparation-panel-heading h3 { font-family: var(--sans); font-size: 18px; line-height: 1.5; font-weight: 600; }
+  .preparation-panel-heading svg { margin-top: 4px; color: var(--accent-deep); }
+  .preparation-intro { margin-top: 11px; font-size: 12px; line-height: 1.9; color: var(--ink-soft); }
+  .reservation-list { list-style: none; padding: 0; margin: 21px 0 0; }
+  .reservation-item { padding-block: 18px; border-top: 1px solid var(--line); }
+  .reservation-item:last-child { padding-bottom: 0; }
+  .reservation-item-top { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; align-items: start; gap: 9px; }
+  .reservation-index { color: var(--accent-deep); font-size: 10px; padding-top: 5px; }
+  .reservation-item h4 { font-size: 14px; line-height: 1.8; font-weight: 600; }
+  .reservation-status { font-size: 10px; white-space: nowrap; color: var(--accent-deep); border: 1px solid #b9462833; padding: 2px 6px; border-radius: 3px; margin-top: 2px; }
+  .reservation-item > p { margin-top: 8px; padding-left: 31px; font-size: 12px; line-height: 1.9; color: var(--ink-soft); }
+  .reservation-item .source-links { padding-left: 31px; }
+  .practical-list { margin: 19px 0 0; padding-left: 19px; color: var(--ink-soft); font-size: 13px; line-height: 1.9; }
+  .practical-list li + li { margin-top: 15px; }
+  .trip-photo-credits { margin: 22px 0 0; padding: 0; list-style: none; font-size: 10px; line-height: 1.9; color: var(--ink-soft); }
+  .trip-photo-credits li + li { margin-top: 7px; }
+  .trip-photo-credits a { text-decoration: underline; text-underline-offset: 3px; }
+  .trip-photo-credits a:hover { color: var(--accent-deep); }
+  .photo-changes { margin-left: 9px; font-size: 9px; }
+  .sources-reference-note { max-width: 850px; margin-bottom: 23px; font-size: 13px; line-height: 1.9; color: var(--ink-soft); }
+  .official-source-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px; list-style: none; padding: 0; margin: 0; }
+  .official-source-list a { display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; min-height: 48px; padding: 13px 16px; border: 1px solid var(--line); border-radius: 4px; font-size: 12px; line-height: 1.8; background: #fbfaf5; }
+  .official-source-list a:hover { color: var(--accent-deep); background: var(--paper-deep); }
+  .official-source-list svg { margin-top: 4px; color: var(--accent-deep); }
+
+  @media (max-width: 1000px) {
+    .stay-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .day-content.has-schedule { padding-left: 124px; }
+    .timeline-entry { grid-template-columns: 96px minmax(0, 1fr); gap: 17px; }
+    .preparation-layout { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .preparation-layout-single { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 800px) {
+    .rich-subnav-links { gap: 20px; }
+    .stay-summary > span:last-child { width: 100%; margin-left: 0; }
+    .day-content.has-schedule { padding: 0 0 24px; }
+    .preparation-layout { grid-template-columns: 1fr; }
+    .trip-stays-section, .trip-preparations-section, .trip-sources-section { padding-block: 48px; }
+  }
+  @media (max-width: 600px) {
+    .rich-subnav-links { gap: 20px; }
+    .stay-grid { grid-template-columns: 1fr; gap: 17px; }
+    .stay-card { padding: 21px; }
+    .stay-card h3 { font-size: 18px; }
+    .stay-notes { font-size: 13px; }
+    .stay-summary { gap: 11px 18px; padding: 15px; }
+    .stay-summary > span { font-size: 11px; }
+    .timeline-entry { grid-template-columns: 1fr; gap: 6px; padding-block: 16px; }
+    .timeline-time { font-size: 12px; padding-top: 0; }
+    .timeline-title { font-size: 15px; }
+    .timeline-description { font-size: 14px; }
+    .source-link { font-size: 12px; min-height: 27px; }
+    .hike-card { padding: 17px; }
+    .hike-facts { gap: 13px 24px; }
+    .hike-facts dd { font-size: 14px; }
+    .day-important-notes { padding: 14px 15px; }
+    .day-important-notes ul { font-size: 13px; }
+    .day-source-summary { flex-direction: column; gap: 5px; }
+    .day-stay { padding: 12px; font-size: 12px; }
+    .reservation-panel, .practical-panel { padding: 21px; }
+    .reservation-item > p { font-size: 13px; }
+    .reservation-item .source-links { padding-left: 0; }
+    .practical-list { font-size: 14px; }
+    .trip-photo-credits { font-size: 11px; }
+    .photo-changes { display: block; margin-left: 0; font-size: 10px; }
+    .official-source-list { grid-template-columns: 1fr; }
+    .official-source-list a { font-size: 13px; }
+    .sources-reference-note { font-size: 13px; }
+    .trip-stays-section, .trip-preparations-section, .trip-sources-section { padding-block: 44px; }
+  }
+  @media print {
+    .trip-stays-section, .trip-preparations-section, .trip-sources-section { padding-block: 20px; border: 0; }
+    .stay-summary { margin-bottom: 12px; padding: 10px 13px; }
+    .stay-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .stay-card { padding: 13px; break-inside: avoid; background: white; }
+    .stay-card h3 { font-size: 14px; }
+    .stay-notes, .stay-dates dd { font-size: 10px; }
+    .day-content.has-schedule { padding: 0 0 15px; }
+    .day-content .day-description { font-size: 11px; }
+    .day-timeline { margin-top: 10px; }
+    .timeline-entry { grid-template-columns: 103px minmax(0, 1fr); gap: 14px; padding-block: 9px; break-inside: avoid; }
+    .timeline-time, .timeline-description, .day-important-notes ul { font-size: 10px; }
+    .timeline-title { font-size: 11px; }
+    .source-link { font-size: 9px; min-height: 0; }
+    .hike-card, .day-important-notes, .day-stay { break-inside: avoid; }
+    .preparation-layout { grid-template-columns: 1fr; gap: 15px; }
+    .reservation-panel, .practical-panel { padding: 15px; background: white; }
+    .reservation-item { break-inside: avoid; padding-block: 10px; }
+    .reservation-item h4 { font-size: 11px; }
+    .reservation-item > p, .practical-list, .sources-reference-note { font-size: 10px; }
+    .official-source-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .official-source-list a { padding: 7px 10px; min-height: 0; font-size: 9px; }
+  }
+</style>

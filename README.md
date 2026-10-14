@@ -2,7 +2,7 @@
 
 A personal travel website for planning trips and keeping the memories afterward. The first trip is **Japan, November 13–21, 2026, for two people**. Its Chinese itinerary follows the agreed route: Osaka → Hiroshima and Miyajima → Kii-Tanabe → Kumano Kodo → Kawayu Onsen → Osaka and Nara. The page records the day-by-day schedule, accommodation confirmations, outstanding bookings, and source links.
 
-Live: [Travel collection](https://6ickomod3.github.io/travel/) · [日本，秋日之旅](https://6ickomod3.github.io/travel/trips/japan-2026/)
+Live: [Travel collection](https://6ickomod3.github.io/travel/) · [日本，秋日之旅](https://6ickomod3.github.io/travel/trips/japan-2026/) · [UK ’26](https://6ickomod3.github.io/travel/trips/uk-2026/)
 
 ## Run locally
 
@@ -39,6 +39,8 @@ The published address will be [6ickomod3.github.io/travel/](https://6ickomod3.gi
 Edit `src/data/trips.ts`, following the Japan entry. Give each new trip a unique slug, then add its dates, images, destinations, and itinerary. Set `language` to `zh-CN` for a Chinese trip page or `en` for English. Optional schedules, hotel stays, checklists, practical notes, and sources keep detailed plans together; `mapRoute` records return journeys separately from the unique destination list.
 
 Trip entries automatically appear on the homepage and generate a `/trips/{slug}/` page. On GitHub Pages, those pages live under `/travel/`, such as `/travel/trips/japan-2026/`.
+
+For a trip with no itinerary yet, add a `TripPlaceholder` to `tripPlaceholders`, following UK ’26. Give it a year, title, country, and cover; exact dates and activities can wait. These entries appear in the collection and generate a placeholder page. Once plans are ready, replace the placeholder with a dated entry in `trips`, keeping the same slug and URL. The homepage highlights trips with an itinerary; its day count includes only known trip dates.
 
 Trip content lives in the repository. Because the website is public, keep booking confirmation codes, passport details, and private reservation files out of published content.
 

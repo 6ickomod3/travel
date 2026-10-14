@@ -1,4 +1,4 @@
-import type { Trip } from "../data/trips";
+import type { Trip, TripEntry, TripPlaceholder } from "../data/trips";
 
 type TripDates = Pick<Trip, "startDate" | "endDate">;
 type TripStatusInput = TripDates & Pick<Trip, "status">;
@@ -6,6 +6,28 @@ type TripStatusInput = TripDates & Pick<Trip, "status">;
 export type DisplayStatus = "Planning" | "Upcoming" | "Traveling" | "Past" | "Completed";
 
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
+
+export function isPlaceholderTrip(trip: TripEntry): trip is TripPlaceholder {
+  return "kind" in trip && trip.kind === "placeholder";
+}
+
+export function tripYear(trip: TripEntry): number {
+  return isPlaceholderTrip(trip) ? trip.year : Number(trip.startDate.slice(0, 4));
+}
+
+/** Keep year-only entries after dated trips within the same year. */
+export function compareTripEntries(a: TripEntry, b: TripEntry): number {
+  const yearDifference = tripYear(b) - tripYear(a);
+  if (yearDifference) return yearDifference;
+  if (isPlaceholderTrip(a) || isPlaceholderTrip(b)) {
+    return Number(isPlaceholderTrip(a)) - Number(isPlaceholderTrip(b));
+  }
+  return b.startDate.localeCompare(a.startDate);
+}
+
+export function placeholderStatusLabel(locale = "en"): string {
+  return locale.startsWith("zh") ? "行程待补充" : "Coming soon";
+}
 
 /** Parse a calendar date without the viewer's timezone moving it to another day. */
 function calendarDate(value: string): Date {

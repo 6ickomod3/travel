@@ -3,17 +3,17 @@ import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
 import TripStatus from '../components/TripStatus.astro';
 import TravelMap from '../components/TravelMap.astro';
-import { trips } from '../data/trips';
-import { durationDays, formatDateRange, formatDate } from '../lib/trips';
+import { trips, tripCollection } from '../data/trips';
+import { compareTripEntries, durationDays, formatDateRange, formatDate, isPlaceholderTrip, tripYear } from '../lib/trips';
 import { withBase } from '../lib/urls';
 import imageCredits from '../../public/images/credits.json';
 import type { TripDestination } from '../data/trips';
 
-const orderedTrips = [...trips].sort((a, b) => b.startDate.localeCompare(a.startDate));
-const featured = orderedTrips[0];
+const orderedTrips = [...tripCollection].sort(compareTripEntries);
+const featured = [...trips].sort((a, b) => b.startDate.localeCompare(a.startDate))[0];
 const totalDays = trips.reduce((sum, trip) => sum + durationDays(trip), 0);
-const totalCountries = new Set(trips.map((trip) => trip.countryCode)).size;
-const featuredChapter = String(trips.findIndex(trip => trip.slug === featured?.slug) + 1).padStart(2, '0');
+const totalCountries = new Set(tripCollection.map((trip) => trip.countryCode)).size;
+const featuredChapter = String(tripCollection.findIndex(trip => trip.slug === featured?.slug) + 1).padStart(2, '0');
 const featuredZh = featured?.language === 'zh-CN';
 const featuredLocale = featuredZh ? 'zh-CN' : 'en-US';
 const featuredRoute = featured?.mapRoute?.map(id => featured.destinations.find(stop => stop.id === id)).filter((stop): stop is TripDestination => !!stop);
@@ -40,20 +40,37 @@ const featuredCredit = (imageCredits.images as Array<{file: string; source: stri
     </a>}
   </section>
 
-  <div class="collection-ticker"><div class="container ticker-inner"><p><span class="tiny-star" aria-hidden="true">✳</span> A little planning. A lot of possibility.</p><div class="ticker-stats"><span><strong>{String(trips.length).padStart(2, '0')}</strong> {trips.length === 1 ? 'journey' : 'journeys'}</span><span><strong>{String(totalDays).padStart(2, '0')}</strong> days to explore</span><span><strong>{String(totalCountries).padStart(2, '0')}</strong> {totalCountries === 1 ? 'country in the atlas' : 'countries in the atlas'}</span></div></div></div>
+  <div class="collection-ticker"><div class="container ticker-inner"><p><span class="tiny-star" aria-hidden="true">✳</span> A little planning. A lot of possibility.</p><div class="ticker-stats"><span><strong>{String(tripCollection.length).padStart(2, '0')}</strong> {tripCollection.length === 1 ? 'journey' : 'journeys'}</span><span><strong>{String(totalDays).padStart(2, '0')}</strong> days planned</span><span><strong>{String(totalCountries).padStart(2, '0')}</strong> {totalCountries === 1 ? 'country in the atlas' : 'countries in the atlas'}</span></div></div></div>
 
   <section class="collection-section container section-space" id="collection" aria-labelledby="collection-title">
     <div class="section-heading"><div><p class="eyebrow">01 / THE COLLECTION</p><h2 id="collection-title">Every trip, <em>its own story.</em></h2></div><p class="section-intro">Plans for now. Memories for later.<br />A growing collection of places and possibilities.</p></div>
-    <div class="collection-toolbar"><div class="collection-filters" aria-label="Filter trips"><button type="button" class="filter-button is-active" data-trip-filter="all" aria-pressed="true">All journeys <span>{trips.length}</span></button><button type="button" class="filter-button" data-trip-filter="planned" aria-pressed="false">In the making <span>{trips.filter(trip => trip.status !== 'completed').length}</span></button><button type="button" class="filter-button" data-trip-filter="completed" aria-pressed="false">Remembered <span>{trips.filter(trip => trip.status === 'completed').length}</span></button></div><span class="collection-small-note">Good things take a little planning <Icon name="sun" size={17} /></span></div>
+    <div class="collection-toolbar"><div class="collection-filters" aria-label="Filter trips"><button type="button" class="filter-button is-active" data-trip-filter="all" aria-pressed="true">All journeys <span>{tripCollection.length}</span></button><button type="button" class="filter-button" data-trip-filter="planned" aria-pressed="false">In the making <span>{tripCollection.filter(trip => trip.status !== 'completed').length}</span></button><button type="button" class="filter-button" data-trip-filter="completed" aria-pressed="false">Remembered <span>{tripCollection.filter(trip => trip.status === 'completed').length}</span></button></div><span class="collection-small-note">Good things take a little planning <Icon name="sun" size={17} /></span></div>
     <div class="trip-grid">
-      {orderedTrips.map((trip) => <article class="trip-card" data-trip-card data-trip-kind={trip.status === 'completed' ? 'completed' : 'planned'} lang={trip.language ?? 'en'}>
-        <a class="trip-card-cover" href={withBase(`trips/${trip.slug}/`)} data-astro-prefetch aria-label={trip.language === 'zh-CN' ? `查看${trip.title}` : `Explore ${trip.title}`}><img src={withBase(trip.cover)} alt={trip.coverAlt} width="1800" height="1201" loading="lazy" /><span class="trip-card-number">{trip.language === 'zh-CN' ? '旅程' : 'CHAPTER'} {String(trips.findIndex(item => item.slug === trip.slug) + 1).padStart(2, '0')}</span><span class="trip-card-arrow"><Icon name="arrow-up-right" size={24} /></span></a>
-        <div class="trip-card-body"><div class="trip-card-meta"><span>{trip.country} <span class="meta-divider">/</span> {trip.startDate.slice(0, 4)}</span><TripStatus trip={trip} /></div><h3><a href={withBase(`trips/${trip.slug}/`)} data-astro-prefetch>{trip.title}{trip.language !== 'zh-CN' && <span aria-hidden="true">.</span>}</a></h3><p>{trip.summary}</p><div class="trip-card-details"><span><Icon name="calendar" size={16} /> {formatDateRange(trip, trip.language === 'zh-CN' ? 'zh-CN' : 'en-US')}</span><span>{durationDays(trip)}{trip.language === 'zh-CN' ? `天 · ${durationDays(trip) - 1}晚` : ' days'}</span></div><div class="trip-card-route"><span>{trip.language === 'zh-CN' ? (trip.itineraryStatus === 'agreed' ? '确定路线' : '计划路线') : (trip.itineraryStatus === 'agreed' ? 'THE ROUTE' : 'SUGGESTED ROUTE')}</span><p>{(trip.routeSummary ?? trip.destinations.map(stop => stop.name)).join(' → ')}</p></div></div>
-      </article>)}
-      <aside class="next-chapter"><span class="next-chapter-top">THERE’S ALWAYS ANOTHER CHAPTER</span><div class="next-chapter-illustration" aria-hidden="true"><svg width="144" height="144" viewBox="0 0 144 144" fill="none"><circle cx="72" cy="72" r="47" stroke="currentColor" stroke-width="1"/><ellipse cx="72" cy="72" rx="24" ry="47" stroke="currentColor" stroke-width="1"/><path d="M25 72h94M34 47h76M34 97h76M72 25v94" stroke="currentColor" stroke-width="1"/><path d="m107 21 5-12 5 12 12 5-12 5-5 12-5-12-12-5 12-5Z" fill="#dd6745" stroke="#f7f5ef" stroke-width="5"/></svg></div><h3>The best part?<br /><em>There’s more out there.</em></h3><p>This atlas grows with every journey.<br />The next destination is a blank page.</p><a class="text-link" href="#about">A little more about this atlas <Icon name="arrow-right" size={17} /></a><span class="next-chapter-bottom">ROOM FOR WHAT COMES NEXT <span aria-hidden="true">↗</span></span></aside>
+      {orderedTrips.map((trip) => {
+        const placeholder = isPlaceholderTrip(trip);
+        const isZh = trip.language === 'zh-CN';
+        const tripUrl = withBase(`trips/${trip.slug}/`);
+        const chapter = String(tripCollection.findIndex(item => item.slug === trip.slug) + 1).padStart(2, '0');
+        return <article class:list={['trip-card', { 'trip-card-coming-soon': placeholder }]} data-trip-card data-trip-kind={trip.status === 'completed' ? 'completed' : 'planned'} lang={trip.language ?? 'en'}>
+          <a class="trip-card-cover" href={tripUrl} data-astro-prefetch aria-label={isZh ? `查看${trip.title}` : `Explore ${trip.title}`}><img src={withBase(trip.cover)} alt={trip.coverAlt} width="1800" height={placeholder ? '1200' : '1201'} loading="lazy" /><span class="trip-card-number">{isZh ? '旅程' : 'CHAPTER'} {chapter}</span><span class="trip-card-arrow"><Icon name="arrow-up-right" size={24} /></span></a>
+          <div class="trip-card-body">
+            <div class="trip-card-meta"><span>{trip.country} <span class="meta-divider">/</span> {tripYear(trip)}</span><TripStatus trip={trip} /></div>
+            <h3><a href={tripUrl} data-astro-prefetch>{trip.title}{!isZh && !placeholder && <span aria-hidden="true">.</span>}</a></h3>
+            <p>{trip.summary}</p>
+            {placeholder ? <>
+              <div class="trip-card-details"><span><Icon name="calendar" size={16} /> {trip.year}</span><span>{isZh ? '日期待定' : 'Dates to be decided'}</span></div>
+              <div class="trip-card-placeholder"><span>{isZh ? '行程待补充' : 'ITINERARY TO FOLLOW'}</span><a class="text-link" href={tripUrl} data-astro-prefetch>{isZh ? '查看旅行' : 'View trip'} <Icon name="arrow-right" size={16} /></a></div>
+            </> : <>
+              <div class="trip-card-details"><span><Icon name="calendar" size={16} /> {formatDateRange(trip, isZh ? 'zh-CN' : 'en-US')}</span><span>{durationDays(trip)}{isZh ? `天 · ${durationDays(trip) - 1}晚` : ' days'}</span></div>
+              <div class="trip-card-route"><span>{isZh ? (trip.itineraryStatus === 'agreed' ? '确定路线' : '计划路线') : (trip.itineraryStatus === 'agreed' ? 'THE ROUTE' : 'SUGGESTED ROUTE')}</span><p>{(trip.routeSummary ?? trip.destinations.map(stop => stop.name)).join(' → ')}</p></div>
+            </>}
+          </div>
+        </article>;
+      })}
+      {tripCollection.length < 2 && <aside class="next-chapter"><span class="next-chapter-top">THERE’S ALWAYS ANOTHER CHAPTER</span><div class="next-chapter-illustration" aria-hidden="true"><svg width="144" height="144" viewBox="0 0 144 144" fill="none"><circle cx="72" cy="72" r="47" stroke="currentColor" stroke-width="1"/><ellipse cx="72" cy="72" rx="24" ry="47" stroke="currentColor" stroke-width="1"/><path d="M25 72h94M34 47h76M34 97h76M72 25v94" stroke="currentColor" stroke-width="1"/><path d="m107 21 5-12 5 12 12 5-12 5-5 12-5-12-12-5 12-5Z" fill="#dd6745" stroke="#f7f5ef" stroke-width="5"/></svg></div><h3>The best part?<br /><em>There’s more out there.</em></h3><p>This atlas grows with every journey.<br />The next destination is a blank page.</p><a class="text-link" href="#about">A little more about this atlas <Icon name="arrow-right" size={17} /></a><span class="next-chapter-bottom">ROOM FOR WHAT COMES NEXT <span aria-hidden="true">↗</span></span></aside>}
     </div>
-    <div class="collection-empty" data-trip-empty hidden><Icon name="compass" size={37} /><h3>Still a story in the making.</h3><p>The first trip is being planned. Memories will find their place here when the journey is done.</p><button class="text-link" type="button" data-reset-filter>See all journeys <Icon name="arrow-right" size={17} /></button></div>
-    <p class="sr-only" data-filter-status aria-live="polite">Showing {trips.length} {trips.length === 1 ? 'journey' : 'journeys'}.</p>
+    <div class="collection-empty" data-trip-empty hidden><Icon name="compass" size={37} /><h3>Still a story in the making.</h3><p>The journeys are taking shape. Memories will find their place here as each trip unfolds.</p><button class="text-link" type="button" data-reset-filter>See all journeys <Icon name="arrow-right" size={17} /></button></div>
+    <p class="sr-only" data-filter-status aria-live="polite">Showing {tripCollection.length} {tripCollection.length === 1 ? 'journey' : 'journeys'}.</p>
   </section>
 
   {featured && <section class="atlas-section section-space" id="atlas" aria-labelledby="atlas-title"><div class="container"><div class="section-heading"><div><p class="eyebrow">02 / THE ATLAS</p><h2 id="atlas-title">Put a pin in <em>possibility.</em></h2></div><p class="section-intro">A different way to see the journey.<br />Pick a city. Get a little closer.</p></div><div class="atlas-layout"><aside class="atlas-sidebar" lang={featured.language ?? 'en'}><div class="atlas-sidebar-heading"><span class="atlas-small-label"><Icon name="compass" size={17} /> {featuredZh ? '旅途中的地点' : 'ON THE MAP'}</span><h3>{featured.country}{!featuredZh && <span>.</span>}</h3><p>{formatDateRange(featured, featuredLocale)} · {featuredZh ? '行程路线' : 'Travel route'}</p></div><div class="atlas-stops">{featured.destinations.map((stop, index) => <div class="atlas-stop"><button type="button" data-map-select="home-atlas" data-stop-id={stop.id} aria-pressed="false" disabled><span class="stop-number">{String(index + 1).padStart(2, '0')}</span><span class="stop-copy"><strong>{stop.name}</strong><span>{stop.description}</span></span><Icon name="arrow-up-right" size={19} /></button><a class="city-map-link" href={`https://www.google.com/maps/search/?api=1&query=${stop.lat},${stop.lng}`} target="_blank" rel="noopener noreferrer">{featuredZh ? `在地图上查看${stop.name}` : `Open ${stop.name} in Maps`} <Icon name="external" size={12} /></a></div>)}</div><a class="atlas-trip-link" href={withBase(`trips/${featured.slug}/`)} data-astro-prefetch>{featuredZh ? '查看完整行程' : 'See the whole journey'} <Icon name="arrow-right" size={18} /></a></aside><TravelMap id="home-atlas" destinations={featured.destinations} route={featuredRoute} country={featured.country} locale={featured.language ?? 'en'} dateLabel={formatDate(featured.startDate, { month: 'long', year: 'numeric', day: undefined }, featuredLocale)} label={featuredZh ? '日本秋日之旅地图' : `${featured.country} travel map`} /></div><p class="route-note" lang={featured.language ?? 'en'}>{featuredZh ? '连线包含返回与换乘，表示旅行顺序；地图上的地点为概略位置。' : 'Lines show the order of the trip, including return journeys. Locations are approximate.'}</p></div></section>}

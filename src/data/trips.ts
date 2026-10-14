@@ -88,6 +88,23 @@ export interface Trip {
   walkingSummary?: { distanceKm: number; days: number };
 }
 
+export interface TripPlaceholder {
+  kind: "placeholder";
+  slug: string;
+  title: string;
+  country: string;
+  countryCode: string;
+  year: number;
+  status: "planning";
+  language?: "zh-CN" | "en";
+  summary: string;
+  cover: string;
+  coverAlt: string;
+  coverCredit: string;
+}
+
+export type TripEntry = Trip | TripPlaceholder;
+
 /** 主页与行程页共用此集合；可继续添加新的旅行。 */
 export const trips: Trip[] = [
   {
@@ -919,3 +936,22 @@ export const trips: Trip[] = [
     ],
   },
 ];
+
+export const tripPlaceholders: TripPlaceholder[] = [
+  {
+    kind: "placeholder",
+    slug: "uk-2026",
+    title: "UK ’26",
+    country: "United Kingdom",
+    countryCode: "GB",
+    year: 2026,
+    status: "planning",
+    language: "en",
+    summary: "A place for the next UK journey. Dates and itinerary will follow as plans come together.",
+    cover: "/images/uk-2026.svg",
+    coverAlt: "An illustrated UK 2026 travel stamp in forest green and warm cream.",
+    coverCredit: "Original illustration created for Elsewhere.",
+  },
+];
+
+export const tripCollection: TripEntry[] = [...trips, ...tripPlaceholders];

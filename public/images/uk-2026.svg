@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200" role="img" aria-labelledby="cover-title cover-description">
+  <title id="cover-title">UK 2026 — a chapter to come</title>
+  <desc id="cover-description">An original travel stamp illustration with UK and 2026 lettering, a compass motif, and cream, forest green, and terracotta colors. A placeholder for a future journey.</desc>
+
+  <defs>
+    <clipPath id="stamp-interior">
+      <rect x="188" y="108" width="1424" height="984" rx="6"/>
+    </clipPath>
+    <pattern id="paper-speckle" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="7" r="0.8" fill="#23372c" opacity="0.035"/>
+      <circle cx="20" cy="22" r="0.6" fill="#23372c" opacity="0.025"/>
+    </pattern>
+  </defs>
+
+  <rect width="1800" height="1200" fill="#23372c"/>
+  <rect x="185" y="105" width="1430" height="990" rx="6" fill="#f7f5ef"/>
+  <rect x="185" y="105" width="1430" height="990" rx="6" fill="none" stroke="#23372c" stroke-width="24" stroke-linecap="round" stroke-dasharray="0.5 43.5"/>
+
+  <g clip-path="url(#stamp-interior)">
+    <rect x="188" y="108" width="1424" height="984" fill="url(#paper-speckle)"/>
+    <circle cx="1700" cy="1210" r="700" fill="none" stroke="#23372c" stroke-width="2" opacity="0.065"/>
+    <circle cx="1700" cy="1210" r="746" fill="none" stroke="#23372c" stroke-width="1.5" opacity="0.045"/>
+    <circle cx="180" cy="70" r="500" fill="none" stroke="#23372c" stroke-width="1.5" opacity="0.045"/>
+  </g>
+
+  <rect x="228" y="148" width="1344" height="904" rx="2" fill="none" stroke="#23372c" stroke-width="1.5" opacity="0.27"/>
+
+  <g transform="translate(1370 355)" fill="none" stroke="#23372c">
+    <circle r="103" stroke-width="1.5" opacity="0.18"/>
+    <circle r="87" stroke-width="1" stroke-dasharray="1 12" stroke-linecap="round" opacity="0.25"/>
+    <path d="M0 -119V-105M119 0H105M0 119V105M-119 0H-105" stroke-width="1.5" opacity="0.22"/>
+    <path d="M-60 0H60M0 -60V60" stroke-width="1" opacity="0.17"/>
+    <path d="M0 -66 13 -13 66 0 13 13 0 66 -13 13 -66 0 -13 -13Z" fill="#23372c" fill-opacity="0.12" stroke="none"/>
+    <path d="M0 -66 13 -13 0 0 -13 -13Z" fill="#dd6745" fill-opacity="0.9" stroke="none"/>
+    <circle r="6" fill="#f7f5ef" stroke="#23372c" stroke-width="1.5" opacity="0.6"/>
+  </g>
+
+  <g fill="none" stroke="#23372c" stroke-width="2" opacity="0.15">
+    <path d="M270 850q28 -15 56 0t56 0t56 0t56 0"/>
+    <path d="M270 868q28 -15 56 0t56 0t56 0t56 0"/>
+    <path d="M270 886q28 -15 56 0t56 0t56 0t56 0"/>
+    <path d="M270 904q28 -15 56 0t56 0t56 0t56 0"/>
+  </g>
+
+  <text x="900" y="253" text-anchor="middle" fill="#617066" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" letter-spacing="5">ELSEWHERE</text>
+  <circle cx="1016" cy="245" r="3.5" fill="#dd6745"/>
+
+  <text x="888" y="690" text-anchor="middle" fill="#23372c" font-family="Georgia, 'Times New Roman', serif" font-size="430" font-weight="400" letter-spacing="-19">UK</text>
+
+  <path d="M636 812H754M1046 812H1164" fill="none" stroke="#23372c" stroke-width="1.5" opacity="0.32"/>
+  <text x="900" y="835" text-anchor="middle" fill="#b94628" font-family="Georgia, 'Times New Roman', serif" font-size="70" font-weight="400" letter-spacing="9">2026</text>
+
+  <text x="900" y="945" text-anchor="middle" fill="#617066" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" letter-spacing="4">A CHAPTER TO COME</text>
+</svg>

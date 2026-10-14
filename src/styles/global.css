@@ -142,6 +142,10 @@ button:disabled { cursor: default; opacity: .5; }
 .trip-card-route { display: flex; justify-content: space-between; gap: 14px; align-items: center; margin-top: 16px; }
 .trip-card-route > span { font-size: 8px; letter-spacing: .1em; color: var(--ink-soft); }
 .trip-card-route > p { font-size: 10px; }
+.trip-card-placeholder { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 16px; }
+.trip-card-placeholder > span { font-size: 8px; letter-spacing: .1em; color: var(--ink-soft); }
+.trip-card-placeholder .text-link { font-size: 11px; }
+.trip-card-coming-soon .trip-card-number { padding: 7px 10px; background: var(--ink); border-radius: 3px; top: 18px; left: 20px; }
 .next-chapter { border: 1px dashed #23372c33; border-radius: 6px; display: flex; align-items: center; flex-direction: column; text-align: center; padding: 30px 23px 24px; min-height: 562px; position: relative; }
 .next-chapter-top { font-size: 8px; letter-spacing: .13em; color: var(--ink-soft); }
 .next-chapter-illustration { margin-top: 45px; color: #73826a; }
