@@ -12,9 +12,8 @@ const latestTrip = [...trips].sort((a, b) => b.startDate.localeCompare(a.startDa
   <div class="header-inner container">
     <a class="brand-link" href={withBase()} aria-label={isZh ? 'Elsewhere 首页' : 'Elsewhere home'}><Brand /></a>
     <nav class="primary-nav" aria-label={isZh ? '主导航' : 'Main navigation'}>
-      <a href={`${withBase()}#collection`}>{isZh ? '旅行集' : 'The collection'}</a>
-      <a href={`${withBase()}#atlas`}>{isZh ? '旅行地图' : 'The atlas'}</a>
-      <a class="nav-about" href={`${withBase()}#about`}>{isZh ? '关于这里' : 'The idea'}</a>
+      <a href={`${withBase()}#collection`}>{isZh ? '旅行' : 'Trips'}</a>
+      <a href={`${withBase()}#atlas`}>{isZh ? '地图' : 'Map'}</a>
     </nav>
     {latestTrip && <a class="header-trip" href={withBase(`trips/${latestTrip.slug}/`)} data-astro-prefetch><span class="status-dot"></span> {latestTrip.country} {isZh ? latestTrip.startDate.slice(0, 4) : `’${latestTrip.startDate.slice(2, 4)}`} <Icon name="arrow-up-right" size={16} /></a>}
 

@@ -18,9 +18,10 @@ const date = (value: string, options: Intl.DateTimeFormatOptions = {}) => format
 const dateRange = formatDateRange(trip, dateLocale);
 const number = (value: number) => new Intl.NumberFormat(dateLocale, { maximumFractionDigits: 1 }).format(value);
 const chapter = String(tripCollection.findIndex(item => item.slug === trip.slug) + 1).padStart(2, '0');
-const comma = trip.title.search(/[，,]/);
-const titleLead = comma >= 0 ? trip.title.slice(0, comma + 1) : trip.title;
-const titleTail = comma >= 0 ? trip.title.slice(comma + 1).trim() : '';
+const titleBreak = trip.title.search(/[，,]/);
+const titleParts = titleBreak >= 0
+  ? [trip.title.slice(0, titleBreak + 1), trip.title.slice(titleBreak + 1).trim()]
+  : [trip.title];
 const cityName = (id: string) => trip.destinations.find(stop => stop.id === id)?.name || id;
 const isThisJapan = trip.slug === 'japan-2026';
 const isAgreed = trip.itineraryStatus === 'agreed';
@@ -46,16 +47,6 @@ const pendingNights = totalNights - bookedNights;
 const stayById = (id?: string) => stays.find(stay => stay.id === id);
 const stayStatus = (stay: TripStay) => stay.status === 'booked' ? text('已订', 'Booked') : text('待确认', 'Awaiting confirmation');
 const hasPreparations = checklist.length > 0 || practicalNotes.length > 0;
-let nextSection = 1;
-const sectionNumbers = {
-  route: nextSection++,
-  stays: stays.length > 0 ? nextSection++ : 0,
-  itinerary: nextSection++,
-  preparations: hasPreparations ? nextSection++ : 0,
-  notebook: nextSection++,
-  sources: sources.length > 0 ? nextSection++ : 0,
-};
-const eyebrow = (index: number, label: string) => `${String(index).padStart(2, '0')} / ${label}`;
 const photoCredit = trip.coverCredit.replace(/^(?:Photo:|图片来源：|图片：)\s*/i, '');
 interface ImageCredit {
   file: string;
@@ -64,36 +55,32 @@ interface ImageCredit {
   licenseUrl: string;
   author?: string;
   changes?: string;
-  alt?: string;
   width?: number;
   height?: number;
   objectPosition?: string;
-  caption?: string;
 }
 const creditRecords = imageCredits.images as ImageCredit[];
 const heroPath = trip.cover.replace(/^\//, '');
-const notebookPath = isThisJapan ? 'images/japan-kumano.webp' : heroPath;
 const heroCredit = creditRecords.find(image => `images/${image.file}` === heroPath);
-const notebookCredit = creditRecords.find(image => `images/${image.file}` === notebookPath);
-const photoAttributions = creditRecords.filter(image => [heroPath, notebookPath].includes(`images/${image.file}`));
 ---
 <Layout
   lang={locale}
   title={`${trip.title} — ${dateRange} | Elsewhere`}
-  description={`${trip.summary} ${dateRange}${text('。', '. ')}${text('查看每日时间表、住宿安排、行前待办与官方资料。', 'Explore the route, daily itinerary, and travel notes.')}`}
+  description={`${trip.summary} ${dateRange}${text('。', '. ')}${text('每日行程、住宿安排、行前准备与官方资料。', 'Daily itinerary, accommodation, preparations, and official sources.')}`}
   image={trip.cover}
+  imageAlt={trip.coverAlt}
 >
   <div class:list={['trip-page', { 'trip-page-zh': isZh }]}>
     <div class="trip-breadcrumb container">
-      <a href={`${withBase()}#collection`}><Icon name="arrow-left" size={14} /> {text('旅行集', 'The collection')}</a>
+      <a href={`${withBase()}#collection`}><Icon name="arrow-left" size={14} /> {text('旅行列表', 'Trips')}</a>
       <span aria-hidden="true">/</span>
       <span>{trip.country} {trip.startDate.slice(0, 4)}</span>
     </div>
 
     <section class="trip-hero container" aria-labelledby="trip-title">
       <div class="trip-hero-copy">
-        <p class="eyebrow"><span class="tiny-star" aria-hidden="true">✳</span> {text('旅程', 'CHAPTER')} {chapter} / {trip.country.toUpperCase()}</p>
-        <h1 id="trip-title">{titleLead}{titleTail && <><br /><em>{titleTail}{!isZh && !/[.!?]$/.test(titleTail) && '.'}</em></>}</h1>
+        <p class="eyebrow"><span class="tiny-star" aria-hidden="true">✳</span> {text('旅行', 'TRIP')} {chapter} / {trip.country.toUpperCase()}</p>
+        <h1 id="trip-title">{titleParts.map((part, index) => <>{index > 0 && <wbr />}<span class="trip-title-part">{part}</span></>)}</h1>
         <p>{trip.summary}</p>
         <div class="trip-facts">
           <span><Icon name="calendar" size={16} /> {dateRange}</span>
@@ -102,55 +89,59 @@ const photoAttributions = creditRecords.filter(image => [heroPath, notebookPath]
           <TripStatus trip={trip} locale={locale} />
         </div>
         <div class="trip-hero-actions">
-          <a class="button button-primary" href="#itinerary">{text('查看每日行程', 'The day-by-day')} <Icon name="arrow-down" size={16} /></a>
+          <a class="button button-primary" href="#itinerary">{text('查看每日行程', 'View itinerary')} <Icon name="arrow-down" size={16} /></a>
           <button class="button button-secondary" type="button" data-print-trip><Icon name="download" size={15} /> {text('打印行程', 'Print itinerary')}</button>
         </div>
       </div>
-      <div class="trip-hero-image">
-        <img src={withBase(trip.cover)} alt={trip.coverAlt} width={heroCredit?.width ?? 1800} height={heroCredit?.height ?? 1200} style={`object-position: ${heroCredit?.objectPosition ?? '50% 50%'}`} fetchpriority="high" />
-        <span class="trip-image-caption">{trip.country.toUpperCase()} / {text('旅途的一幅风景', 'A LITTLE INSPIRATION')}</span>
-      </div>
+      <figure class="trip-hero-figure">
+        <div class="trip-hero-image">
+          <img src={withBase(trip.cover)} alt={trip.coverAlt} width={heroCredit?.width ?? 1800} height={heroCredit?.height ?? 1200} style={`object-position: ${heroCredit?.objectPosition ?? '50% 50%'}`} fetchpriority="high" />
+          <span class="trip-image-caption">{trip.country}</span>
+        </div>
+        <figcaption class="trip-photo-credits">
+          {heroCredit ? <><span>{text('主图：', 'Cover photo: ')}</span><a href={heroCredit.source} target="_blank" rel="noopener noreferrer">{heroCredit.author ?? text('照片原页', 'Original photo')}</a><span aria-hidden="true"> · </span><a href={heroCredit.licenseUrl} target="_blank" rel="noopener noreferrer">{heroCredit.license}</a>{heroCredit.changes && <span class="photo-changes">{text(heroCredit.changes, 'Resized and converted to WebP; no crop saved.')}</span>}</> : <><span>{text('主图：', 'Cover photo: ')}{photoCredit}</span><span aria-hidden="true"> · </span><a href={withBase('images/credits.json')} target="_blank" rel="noopener noreferrer">{text('照片来源与授权', 'Photo sources and licenses')}</a></>}
+        </figcaption>
+      </figure>
     </section>
 
     <nav class="trip-subnav" aria-label={text('行程章节', 'Trip sections')}>
       <div class="container">
         <div class="trip-subnav-links rich-subnav-links">
-          <a href="#route">{text('路线', 'The route')}</a>
-          {stays.length > 0 && <a href="#stays">{text('住宿', 'Stays')}</a>}
-          <a href="#itinerary">{text('每日行程', 'Day by day')}</a>
-          {hasPreparations && <a href="#preparations">{text('行前待办', 'Before you go')}</a>}
-          <a href="#notebook">{text('笔记', 'The notebook')}</a>
-          {sources.length > 0 && <a href="#sources">{text('资料', 'Sources')}</a>}
+          <a href="#route">{text('旅行路线', 'Route')}</a>
+          {stays.length > 0 && <a href="#stays">{text('住宿安排', 'Accommodation')}</a>}
+          <a href="#itinerary">{text('每日行程', 'Daily itinerary')}</a>
+          {hasPreparations && <a href="#preparations">{text('行前准备', 'Preparations')}</a>}
+          {sources.length > 0 && <a href="#sources">{text('官方资料', 'Official sources')}</a>}
         </div>
-        <span class="trip-subnav-note"><span class="status-dot"></span> {isAgreed ? text('行程已商定', 'Itinerary agreed') : text('行程慢慢成形', 'An itinerary taking shape')}</span>
+        <span class="trip-subnav-note"><span class="status-dot"></span> {isAgreed ? text('行程已商定', 'Agreed itinerary') : text('行程草案', 'Draft itinerary')}</span>
       </div>
     </nav>
 
     <div class="planning-note container">
       <Icon name="compass" size={21} />
       <div>
-        <strong>{isAgreed ? text('日程已确定，预订逐项落实。', 'The itinerary is agreed; reservations are being arranged.') : text('一个起点，留些调整的空间。', 'A starting point, with room to change.')}</strong>
+        <strong>{isAgreed ? text('行程已商定', 'Agreed itinerary') : text('行程草案', 'Draft itinerary')}</strong>
         <p>{trip.routeNote}</p>
       </div>
     </div>
 
     <section class="route-section container" id="route" aria-labelledby="route-title">
       <div class="section-heading">
-        <div><p class="eyebrow">{eyebrow(sectionNumbers.route, text('旅行路线', 'THE ROUTE'))}</p><h2 id="route-title">{text('连起，', 'Connect ')}<em>{text('沿途的风景。', 'the dots.')}</em></h2></div>
+        <div><h2 id="route-title">{text('旅行路线', 'Route')}</h2></div>
         <p class="section-intro">{trip.destinations.length} {text('个目的地', 'destinations')} · {durationDays(trip)} {text('天行程', 'days')}{trip.walkingSummary && <><br />{text('古道徒步', 'Trail walking')} {trip.walkingSummary.days} {text('天', 'days')} · {text('约', 'about ')}{number(trip.walkingSummary.distanceKm)} {text('公里', 'km')}</>}</p>
       </div>
-      {Boolean(trip.routeSummary?.length) && <ol class="route-overview" aria-label={text('行程顺序', 'Journey sequence')} role="list">{trip.routeSummary!.map((stop, index) => <li><span>{stop}</span>{index < trip.routeSummary!.length - 1 && <span aria-hidden="true" class="route-overview-arrow">→</span>}</li>)}</ol>}
+      {Boolean(trip.routeSummary?.length) && <ol class="route-overview" aria-label={text('行程顺序', 'Route order')} role="list">{trip.routeSummary!.map((stop, index) => <li><span>{stop}</span>{index < trip.routeSummary!.length - 1 && <span aria-hidden="true" class="route-overview-arrow">→</span>}</li>)}</ol>}
       <div class="trip-route-layout">
         <TravelMap id="trip-route" destinations={trip.destinations} route={route} variant="route" label={text(`${trip.country}旅行路线地图`, `${trip.country} itinerary map`)} country={trip.country} dateLabel={monthLabel} locale={locale} />
         <aside class="route-stops">
-          <p>{text('沿途目的地', 'THE STOPS')}</p>
+          <p>{text('目的地', 'DESTINATIONS')}</p>
           {trip.destinations.map((stop, index) => <div class="route-stop">
             <button type="button" data-map-select="trip-route" data-stop-id={stop.id} aria-pressed="false" disabled>
               <span>{String(index + 1).padStart(2, '0')}</span>
-              <span><strong>{stop.name}</strong><small>{isAgreed ? stop.description : `${destinationDays(stop.id)} ${text('天行程', destinationDays(stop.id) === 1 ? 'day in the plan' : 'days in the plan')}`}</small></span>
+              <span><strong>{stop.name}</strong><small>{isAgreed ? stop.description : `${destinationDays(stop.id)} ${text('天行程', destinationDays(stop.id) === 1 ? 'day' : 'days')}`}</small></span>
               <Icon name="arrow-up-right" size={17} />
             </button>
-            <a class="city-map-link" href={`https://www.google.com/maps/search/?api=1&query=${stop.lat},${stop.lng}`} target="_blank" rel="noopener noreferrer">{text(`在地图中查看${stop.name}`, `Explore ${stop.name} in Google Maps`)} <Icon name="external" size={12} /></a>
+            <a class="city-map-link" href={`https://www.google.com/maps/search/?api=1&query=${stop.lat},${stop.lng}`} target="_blank" rel="noopener noreferrer">{text(`在地图中查看${stop.name}`, `View ${stop.name} in Google Maps`)} <Icon name="external" size={12} /></a>
           </div>)}
           <p class="route-note">{text('连线示意行程顺序。铁路、巴士与古道的具体走法请结合每日安排和官方地图查看。', 'The lines show the order of destinations. Use the daily schedule and official maps for transport and walking details.')}</p>
         </aside>
@@ -159,8 +150,8 @@ const photoAttributions = creditRecords.filter(image => [heroPath, notebookPath]
 
     {stays.length > 0 && <section class="trip-stays-section container" id="stays" aria-labelledby="stays-title">
       <div class="section-heading">
-        <div><p class="eyebrow">{eyebrow(sectionNumbers.stays, text('住宿安排', 'WHERE TO STAY'))}</p><h2 id="stays-title">{totalNights} {text('晚住宿，', 'nights, ')}<em>{text('安心落脚。', 'a place to settle.')}</em></h2></div>
-        <p class="section-intro">{stays.length} {text('处住宿记录', 'stay records')}<br />{bookedNights} {text('晚已订', 'nights booked')} · {pendingNights} {text('晚待确认', 'nights awaiting confirmation')}</p>
+        <div><h2 id="stays-title">{text('住宿安排', 'Accommodation')}</h2></div>
+        <p class="section-intro">{stays.length} {text('处住宿记录', 'stay records')} · {totalNights} {text('晚', 'nights')}<br />{bookedNights} {text('晚已订', 'nights booked')} · {pendingNights} {text('晚待确认', 'nights awaiting confirmation')}</p>
       </div>
       <div class="stay-summary" aria-label={text('住宿预订概况', 'Accommodation booking summary')}>
         <span><Icon name="check" size={16} /> <strong>{bookedNights}</strong> {text('晚已有预订记录', 'nights have booking records')}</span>
@@ -181,10 +172,10 @@ const photoAttributions = creditRecords.filter(image => [heroPath, notebookPath]
 
     <section class="itinerary-section container" id="itinerary" aria-labelledby="itinerary-title">
       <div class="section-heading">
-        <div><p class="eyebrow">{eyebrow(sectionNumbers.itinerary, text('每日行程', 'DAY BY DAY'))}</p><h2 id="itinerary-title">{text('每天的节奏，', 'A plan, ')}<em>{text('一眼看清。', 'with breathing room.')}</em></h2></div>
-        <p class="section-intro">{isAgreed ? text('按已商定的顺序安排。', 'In the agreed order.') : text('先收好想法，再慢慢完善。', 'Ideas to start with, with room to change.')}<br />{text('展开一天，查看时间、换乘和提醒。', 'Open a day for its schedule and notes.')}</p>
+        <div><h2 id="itinerary-title">{text('每日行程', 'Daily itinerary')}</h2></div>
+        <p class="section-intro">{text('展开查看时间、换乘和当天提醒。', 'Open a day for times, connections, and reminders.')}</p>
       </div>
-      <div class="itinerary-toolbar"><p>{isAgreed ? text('已商定行程', 'Agreed itinerary') : text('行程草案', 'Suggested itinerary')} · {dateRange}</p><button type="button" class="expand-button" data-expand-days aria-expanded="false">{text('展开全部日程', 'Expand all days')} <Icon name="plus" size={15} /></button></div>
+      <div class="itinerary-toolbar"><p>{isAgreed ? text('已商定行程', 'Agreed itinerary') : text('行程草案', 'Draft itinerary')} · {dateRange}</p><button type="button" class="expand-button" data-expand-days aria-expanded="false">{text('展开全部日程', 'Expand all days')} <Icon name="plus" size={15} /></button></div>
       <div class="itinerary-list">
         {trip.days.map((day, index) => {
           const overnight = stayById(day.overnightId);
@@ -204,13 +195,13 @@ const photoAttributions = creditRecords.filter(image => [heroPath, notebookPath]
                     {sourcesFor(item.sourceIds).length > 0 && <div class="source-links">{sourcesFor(item.sourceIds).map(source => <a class="source-link" href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div>}
                   </div>
                 </li>)}
-              </ol> : day.ideas.length > 0 && <><span class="day-ideas-title">{text('想去看看', 'IDEAS TO EXPLORE')} · {cityName(day.destinationId).toUpperCase()}</span><ul class="day-ideas">{day.ideas.map(idea => <li>{idea}</li>)}</ul></>}
+              </ol> : day.ideas.length > 0 && <><span class="day-ideas-title">{text('备选活动', 'SUGGESTED ACTIVITIES')} · {cityName(day.destinationId).toUpperCase()}</span><ul class="day-ideas">{day.ideas.map(idea => <li>{idea}</li>)}</ul></>}
               {day.hike && <aside class="hike-card" aria-label={text('当天徒步信息', 'Walking information')}>
                 <p class="hike-route"><Icon name="compass" size={18} /> {day.hike.route}</p>
                 <dl class="hike-facts"><div><dt>{text('徒步距离', 'Distance')}</dt><dd>{text('约', 'About ')}{number(day.hike.distanceKm)} {text('公里', 'km')}</dd></div><div><dt>{text('官方参考', 'Official estimate')}</dt><dd>{day.hike.duration}</dd></div>{day.hike.ascentM !== undefined && <div><dt>{text('累计爬升', 'Total ascent')}</dt><dd>{text('约', 'About ')}{number(day.hike.ascentM)} {text('米', 'm')}</dd></div>}</dl>
                 <p class="hike-footnote">{text('途中以实际步速、天气和路线情况调整，留好休息时间。', 'Allow time for breaks and adjust to your pace, weather, and trail conditions.')}</p>
               </aside>}
-              {Boolean(day.notes?.length) && <aside class="day-important-notes"><p class="day-note-label">{text('当天提醒', 'KEEP IN MIND')}</p><ul>{day.notes!.map(note => <li>{note}</li>)}</ul></aside>}
+              {Boolean(day.notes?.length) && <aside class="day-important-notes"><p class="day-note-label">{text('当天提醒', 'DAILY REMINDERS')}</p><ul>{day.notes!.map(note => <li>{note}</li>)}</ul></aside>}
               {sourcesFor(day.sourceIds).length > 0 && <div class="day-source-summary"><span>{text('当天资料', 'Day sources')}</span><div class="source-links">{sourcesFor(day.sourceIds).map(source => <a class="source-link" href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div></div>}
               {overnight && <p class="day-stay"><Icon name="pin" size={15} /><span>{text('当晚住宿', 'Overnight stay')}</span><a href={`#stay-${overnight.id}`}>{overnight.name}</a><span class:list={['stay-status', { 'stay-status-booked': overnight.status === 'booked' }]}>{stayStatus(overnight)}</span></p>}
             </div>
@@ -220,25 +211,16 @@ const photoAttributions = creditRecords.filter(image => [heroPath, notebookPath]
     </section>
 
     {hasPreparations && <section class="trip-preparations-section container" id="preparations" aria-labelledby="preparations-title">
-      <div class="section-heading"><div><p class="eyebrow">{eyebrow(sectionNumbers.preparations, text('出发之前', 'BEFORE YOU GO'))}</p><h2 id="preparations-title">{text('把细节，', 'The little details, ')}<em>{text('逐一落实。', 'one at a time.')}</em></h2></div><p class="section-intro">{text('预订、寄存与餐食，集中放在这里。', 'Reservations, luggage, and meals, all in one place.')}<br />{text('参考班次不代表已购票。', 'Reference departures are not ticket confirmations.')}</p></div>
+      <div class="section-heading"><div><h2 id="preparations-title">{text('行前准备', 'Preparations')}</h2></div><p class="section-intro">{text('预订、行李寄存、餐食与换乘。', 'Bookings, luggage, meals, and connections.')}<br />{text('参考班次不代表已购票。', 'Reference departures are not ticket confirmations.')}</p></div>
       <div class:list={['preparation-layout', { 'preparation-layout-single': !checklist.length || !practicalNotes.length }]}>
-        {checklist.length > 0 && <div class="reservation-panel"><div class="preparation-panel-heading"><Icon name="list" size={20} /><h3>{text('还需要落实的预订', 'Reservations still to arrange')}</h3></div><p class="preparation-intro">{text('以下事项仍待预订或确认；官方链接可用于核对和办理。', 'These items still need booking or confirmation. Use the official links to check the details.')}</p><ol class="reservation-list" role="list">
+        {checklist.length > 0 && <div class="reservation-panel"><div class="preparation-panel-heading"><Icon name="list" size={20} /><h3>{text('待预订与确认', 'Pending bookings and confirmations')}</h3></div><p class="preparation-intro">{text('以下事项仍待预订或确认；官方链接可用于核对和办理。', 'These items still need booking or confirmation. Use the official links to check the details.')}</p><ol class="reservation-list" role="list">
           {checklist.map((item, index) => <li class="reservation-item" id={`reservation-${item.id}`}><div class="reservation-item-top"><span class="reservation-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h4>{item.title}</h4><span class="reservation-status">{text('待落实', 'To arrange')}</span></div><p>{item.detail}</p>{sourcesFor(item.sourceIds).length > 0 && <div class="source-links">{sourcesFor(item.sourceIds).map(source => <a class="source-link" href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div>}</li>)}
         </ol></div>}
         {practicalNotes.length > 0 && <aside class="practical-panel"><div class="preparation-panel-heading"><Icon name="compass" size={20} /><h3>{text('行李、餐食与换乘', 'Luggage, meals, and connections')}</h3></div><ul class="practical-list">{practicalNotes.map(note => <li>{note}</li>)}</ul></aside>}
       </div>
     </section>}
 
-    <section class="trip-notebook-section container" id="notebook" aria-labelledby="notebook-title">
-      <div class="section-heading"><div><p class="eyebrow">{eyebrow(sectionNumbers.notebook, text('旅途笔记', 'THE NOTEBOOK'))}</p><h2 id="notebook-title">{text('留住，', 'Keep ')}<em>{text('那些小事。', 'the little things.')}</em></h2></div><p class="section-intro">{text('一家小店。一段山路。突然想到的事。', 'A cafe. A side street. Something someone said.')}<br />{text('给未来的自己，留些线索。', 'Leave a few breadcrumbs for yourself.')}</p></div>
-      <div class="notebook-layout">
-        <div class="notebook-photo"><img src={withBase(notebookPath)} alt={isThisJapan ? notebookCredit?.alt ?? trip.coverAlt : trip.coverAlt} width={notebookCredit?.width ?? 1800} height={notebookCredit?.height ?? 1200} style={`object-position: ${notebookCredit?.objectPosition ?? '50% 50%'}`} loading="lazy" /><div class="notebook-photo-caption"><span>{isThisJapan && notebookCredit?.caption ? notebookCredit.caption : `${trip.country.toUpperCase()} / ${text('保持好奇', 'STAY CURIOUS')}`}</span><p>{text('慢一点，', 'A few things')}<br /><em>{text('记住这一路。', 'worth remembering.')}</em></p></div></div>
-        <div class="notebook-panel"><h3>{text('写给这段旅程。', 'Notes for the journey.')}</h3><p>{text('收藏地点，记下想法。笔记仅保存在当前设备的这个浏览器中，可导出留存。', 'For places to save and ideas to come back to. Notes stay in this browser on this device; export a copy to keep them.')}</p><label for="trip-notes">{text('你的笔记', 'Your notes')}</label><textarea id="trip-notes" lang={locale} data-trip-notes data-notes-key={`elsewhere:notes:${trip.slug}`} data-trip-slug={trip.slug} placeholder={text('想去的小店、想记住的风景……\n旅馆名称、还要确认的问题……\n一路上的小发现……', 'That little coffee shop someone recommended…\nA neighborhood to wander through…\nSomething worth making time for…')}></textarea><div class="notebook-bottom"><span class="notebook-save-status" data-notes-status role="status">{text('随时记下一笔。', 'Ready when you are.')}</span><button class="notebook-export" type="button" data-export-notes>{text('导出笔记', 'Export notes')} <Icon name="download" size={14} /></button></div></div>
-      </div>
-      {photoAttributions.length > 0 ? <ul class="trip-photo-credits" role="list">{photoAttributions.map(image => <li><span>{`images/${image.file}` === heroPath ? text('主图：', 'Cover photo: ') : text('古道照片：', 'Trail photo: ')}</span><a href={image.source} target="_blank" rel="noopener noreferrer">{image.author ?? text('照片原页', 'Original photo')}</a><span aria-hidden="true"> · </span><a href={image.licenseUrl} target="_blank" rel="noopener noreferrer">{image.license}</a>{image.changes && <span class="photo-changes">{text(image.changes, 'Resized and converted to WebP; no crop saved.')}</span>}</li>)}</ul> : <p class="image-credits">{text('旅途影像：', 'Inspiration photography: ')}{photoCredit}{text('。', '. ')}<a href={withBase('images/credits.json')} target="_blank" rel="noopener noreferrer">{text('照片来源与授权', 'Photo sources and licenses')}</a></p>}
-    </section>
-
-    {sources.length > 0 && <section class="trip-sources-section container" id="sources" aria-labelledby="sources-title"><div class="section-heading"><div><p class="eyebrow">{eyebrow(sectionNumbers.sources, text('官方资料', 'OFFICIAL SOURCES'))}</p><h2 id="sources-title">{text('出发前，', 'Before you leave, ')}<em>{text('再核对一遍。', 'check the details.')}</em></h2></div><p class="section-intro">{text('景点、交通与古道的官方资料。', 'Official information for sights, transport, and trails.')}</p></div><p class="sources-reference-note">{text(`链接中的列车时刻表日期是资料参考日期；列车、巴士与活动安排请按${dateRange}的实际出行日复核。行程中的参考班次不代表已经买票。`, 'Timetable dates identify the reference information. Recheck trains, buses, and event details for your travel dates; listed departures are not purchased tickets.')}</p><ul class="official-source-list" role="list">{sources.map(source => <li id={`source-${source.id}`}><a href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={14} /></a></li>)}</ul></section>}
+    {sources.length > 0 && <section class="trip-sources-section container" id="sources" aria-labelledby="sources-title"><div class="section-heading"><div><h2 id="sources-title">{text('官方资料', 'Official sources')}</h2></div><p class="section-intro">{text('景点、交通与古道的官方资料。', 'Official information for sights, transport, and trails.')}</p></div><p class="sources-reference-note">{text(`链接中的列车时刻表日期是资料参考日期；列车、巴士与活动安排请按${dateRange}的实际出行日复核。行程中的参考班次不代表已经买票。`, 'Timetable dates identify the reference information. Recheck trains, buses, and event details for your travel dates; listed departures are not purchased tickets.')}</p><ul class="official-source-list" role="list">{sources.map(source => <li id={`source-${source.id}`}><a href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={14} /></a></li>)}</ul></section>}
   </div>
 </Layout>
 
@@ -247,6 +229,8 @@ const photoAttributions = creditRecords.filter(image => [heroPath, notebookPath]
 </script>
 
 <style>
+  .trip-title-part { display: inline-block; max-width: 100%; }
+  .trip-hero-figure { min-width: 0; margin: 0; }
   .rich-subnav-links { min-width: 0; max-width: 100%; overflow-x: auto; scrollbar-width: thin; }
   .rich-subnav-links a { flex-shrink: 0; white-space: nowrap; }
   .route-overview { display: flex; flex-wrap: wrap; gap: 9px 13px; list-style: none; padding: 0; margin: -5px 0 25px; }
@@ -325,8 +309,7 @@ const photoAttributions = creditRecords.filter(image => [heroPath, notebookPath]
   .reservation-item .source-links { padding-left: 31px; }
   .practical-list { margin: 19px 0 0; padding-left: 19px; color: var(--ink-soft); font-size: 13px; line-height: 1.9; }
   .practical-list li + li { margin-top: 15px; }
-  .trip-photo-credits { margin: 22px 0 0; padding: 0; list-style: none; font-size: 10px; line-height: 1.9; color: var(--ink-soft); }
-  .trip-photo-credits li + li { margin-top: 7px; }
+  .trip-photo-credits { margin: 12px 0 0; font-size: 10px; line-height: 1.9; color: var(--ink-soft); }
   .trip-photo-credits a { text-decoration: underline; text-underline-offset: 3px; }
   .trip-photo-credits a:hover { color: var(--accent-deep); }
   .photo-changes { margin-left: 9px; font-size: 9px; }

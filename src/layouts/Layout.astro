@@ -4,11 +4,12 @@ import Footer from '../components/Footer.astro';
 import { withBase } from '../lib/urls';
 import '../styles/global.css';
 
-interface Props { title?: string; description?: string; image?: string; lang?: 'zh-CN' | 'en'; }
+interface Props { title?: string; description?: string; image?: string; imageAlt?: string; lang?: 'zh-CN' | 'en'; }
 const {
-  title = 'Elsewhere — a personal travel atlas',
-  description = 'A home for every journey. Explore the plans, places, and little discoveries in a personal travel atlas, starting with Japan in November 2026.',
+  title = 'Elsewhere — travel itineraries',
+  description = 'Personal travel itineraries with maps, daily schedules, accommodation, and booking details.',
   image = '/images/japan-miyajima.webp',
+  imageAlt = 'Miyajima torii gate, Japan.',
   lang = 'en',
 } = Astro.props;
 const isZh = lang === 'zh-CN';
@@ -40,7 +41,7 @@ const fontFaces = `
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={shareImage} />
-    <meta property="og:image:alt" content={isZh ? '旅途中的风景' : 'A little inspiration for the journey'} />
+    <meta property="og:image:alt" content={imageAlt} />
     <meta property="og:locale" content={isZh ? 'zh_CN' : 'en_US'} />
     <meta name="twitter:card" content="summary_large_image" />
     <slot name="head" />

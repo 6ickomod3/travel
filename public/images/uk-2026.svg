@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200" role="img" aria-labelledby="cover-title cover-description">
-  <title id="cover-title">UK 2026 — a chapter to come</title>
-  <desc id="cover-description">An original travel stamp illustration with UK and 2026 lettering, a compass motif, and cream, forest green, and terracotta colors. A placeholder for a future journey.</desc>
+  <title id="cover-title">UK 2026</title>
+  <desc id="cover-description">An original UK 2026 stamp illustration with Elsewhere branding, a compass, and cream, forest green, and terracotta colors.</desc>
 
   <defs>
     <clipPath id="stamp-interior">
@@ -50,5 +50,4 @@
   <path d="M636 812H754M1046 812H1164" fill="none" stroke="#23372c" stroke-width="1.5" opacity="0.32"/>
   <text x="900" y="835" text-anchor="middle" fill="#b94628" font-family="Georgia, 'Times New Roman', serif" font-size="70" font-weight="400" letter-spacing="9">2026</text>
 
-  <text x="900" y="945" text-anchor="middle" fill="#617066" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" letter-spacing="4">A CHAPTER TO COME</text>
 </svg>

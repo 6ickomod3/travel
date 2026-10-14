@@ -18,7 +18,7 @@ export interface TripScheduleItem {
 }
 
 export interface TripDay {
-  /** YYYY-MM-DD 格式的日历日期。 */
+  /** Calendar date in YYYY-MM-DD format. */
   date: string;
   destinationId: string;
   title: string;
@@ -64,7 +64,7 @@ export interface Trip {
   title: string;
   country: string;
   countryCode: string;
-  /** YYYY-MM-DD 格式，首尾日期均计入行程。 */
+  /** YYYY-MM-DD dates; both the first and last day count toward the itinerary. */
   startDate: string;
   endDate: string;
   status: TripStatus;
@@ -79,7 +79,7 @@ export interface Trip {
   travelers?: number;
   itineraryStatus?: "agreed" | "draft";
   routeSummary?: string[];
-  /** 按顺序记录目的地，包括返回和换乘段；连线不是实际徒步轨迹。 */
+  /** Ordered destinations, including returns and transfers; lines are not trail tracks. */
   mapRoute?: string[];
   stays?: TripStay[];
   checklist?: TripChecklistItem[];
@@ -105,7 +105,7 @@ export interface TripPlaceholder {
 
 export type TripEntry = Trip | TripPlaceholder;
 
-/** 主页与行程页共用此集合；可继续添加新的旅行。 */
+/** Dated itineraries used by the homepage and trip pages. */
 export const trips: Trip[] = [
   {
     slug: "japan-2026",
@@ -119,7 +119,7 @@ export const trips: Trip[] = [
     travelers: 2,
     itineraryStatus: "agreed",
     summary:
-      "两个人的九日行程：大阪进出，经广岛、宫岛走入熊野古道，再到川汤温泉和奈良。两天古道徒步合计约20.8公里，沿途安排好换乘、温泉和休息。",
+      "大阪往返，途经广岛、宫岛、熊野古道、川汤温泉和奈良；两天徒步约20.8公里。",
     cover: "/images/japan-miyajima.webp",
     coverAlt: "夕光下的宫岛严岛神社大鸟居，倒映在海水中。",
     coverCredit: "图片：Jakub Hałun / Wikimedia Commons / CC BY 4.0",
@@ -211,7 +211,7 @@ export const trips: Trip[] = [
       },
     ],
     routeNote:
-      "这是双方已确定的行程。列车时刻仅为计划参考，不代表已购票；大阪与广岛酒店待确认，纪伊田边、近露和川汤三处住宿已有预订记录。地图标记是目的地的大致位置。",
+      "列车时刻仅为计划参考，不代表已购票；大阪与广岛酒店待确认，纪伊田边、近露和川汤三处住宿已有预订记录。地图标记是目的地的大致位置。",
     walkingSummary: { distanceKm: 20.8, days: 2 },
     stays: [
       {
@@ -947,7 +947,7 @@ export const tripPlaceholders: TripPlaceholder[] = [
     year: 2026,
     status: "planning",
     language: "en",
-    summary: "A place for the next UK journey. Dates and itinerary will follow as plans come together.",
+    summary: "Itinerary coming soon.",
     cover: "/images/uk-2026.svg",
     coverAlt: "An illustrated UK 2026 travel stamp in forest green and warm cream.",
     coverCredit: "Original illustration created for Elsewhere.",

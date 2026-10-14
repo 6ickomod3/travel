@@ -16,7 +16,7 @@ const isZh = locale === 'zh-CN';
 ---
 <div class:list={['travel-map', `travel-map-${variant}`]} data-map-wrapper={id} lang={locale}>
   <div class="map-canvas" data-travel-map={id} data-destinations={JSON.stringify(destinations)} data-route={JSON.stringify(route)} data-variant={variant} data-locale={locale} aria-label={label ?? (isZh ? '旅行地图' : 'Travel map')}>
-    <div class="map-loading"><Icon name="globe" size={34} /><span>{isZh ? '正在展开旅途地图…' : 'The world is opening up…'}</span></div>
+    <div class="map-loading"><Icon name="globe" size={34} /><span>{isZh ? '地图加载中…' : 'Loading map…'}</span></div>
   </div>
   <div class="map-top-label"><span class="status-dot"></span> {country} <span class="map-label-divider">/</span> {dateLabel}</div>
   <div class="map-buttons" aria-label={isZh ? '地图操作' : 'Map controls'}>
@@ -24,7 +24,7 @@ const isZh = locale === 'zh-CN';
     <button type="button" data-map-zoom-in={id} aria-label={isZh ? '放大地图' : 'Zoom in'} disabled><Icon name="plus" size={19} /></button>
     <button type="button" data-map-zoom-out={id} aria-label={isZh ? '缩小地图' : 'Zoom out'} disabled><Icon name="minus" size={19} /></button>
   </div>
-  <p class="map-hint" data-map-status={id} aria-live="polite">{isZh ? '拖动地图探索，点击地点查看详情。' : 'Drag to explore. Choose a stop to take a closer look.'}</p>
+  <p class="map-hint" data-map-status={id} aria-live="polite">{isZh ? '拖动地图，点击地点查看详情。' : 'Drag the map. Select a destination for details.'}</p>
   <noscript><p class="map-noscript">{isZh ? '互动地图需要启用 JavaScript。也可以使用地点旁的地图链接查看。' : 'The interactive map needs JavaScript. Explore each stop using the city links beside it.'}</p></noscript>
 </div>
 <script>

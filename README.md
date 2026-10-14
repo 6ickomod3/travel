@@ -1,8 +1,14 @@
 # Travel
 
-A personal travel website for planning trips and keeping the memories afterward. The first trip is **Japan, November 13–21, 2026, for two people**. Its Chinese itinerary follows the agreed route: Osaka → Hiroshima and Miyajima → Kii-Tanabe → Kumano Kodo → Kawayu Onsen → Osaka and Nara. The page records the day-by-day schedule, accommodation confirmations, outstanding bookings, and source links.
+A personal travel website with itineraries, maps, accommodation, and booking details. **Japan, November 13–21, 2026, for two people** has an agreed Chinese itinerary: Osaka → Hiroshima and Miyajima → Kii-Tanabe → Kumano Kodo → Kawayu Onsen → Osaka and Nara. **UK 2026** is a placeholder with dates and itinerary to be decided.
 
-Live: [Travel collection](https://6ickomod3.github.io/travel/) · [日本，秋日之旅](https://6ickomod3.github.io/travel/trips/japan-2026/) · [UK ’26](https://6ickomod3.github.io/travel/trips/uk-2026/)
+Live: [Trips](https://6ickomod3.github.io/travel/) · [Japan 2026](https://6ickomod3.github.io/travel/trips/japan-2026/) · [UK 2026](https://6ickomod3.github.io/travel/trips/uk-2026/)
+
+## Project context and design
+
+[AGENTS.md](AGENTS.md) records the project context and design guidelines in English. Internal documentation, development plans, handoffs, and code comments use English; public trip content can use English or Chinese.
+
+The site uses concise labels and factual travel information. The Idea/About section, editable travel notebooks, and ornamental prose have been removed. Visual design comes from typography, spacing, images, and interactive maps.
 
 ## Run locally
 
@@ -48,7 +54,7 @@ Trip content lives in the repository. Because the website is public, keep bookin
 
 Astro builds static pages, so there is no backend to maintain. The interactive map uses Leaflet and externally fetched OpenStreetMap tiles; no map key is needed. Images and fonts are served locally, and no analytics or tracking scripts are included.
 
-The notebook on each trip page saves notes in that browser on that device. Use **Export notes / 导出笔记** to keep a copy or move them elsewhere; notes do not sync to GitHub or between devices. Accommodation confirmation states are maintained in the trip data.
+Accommodation confirmation states are maintained in the trip data.
 
 The default hosting settings are `BASE_PATH=/travel/` and `SITE_URL=https://6ickomod3.github.io`. To build for the root of a custom domain instead:
 

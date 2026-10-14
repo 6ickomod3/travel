@@ -6,7 +6,7 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matc
 async function initializeMap(element: HTMLElement) {
   const id = element.dataset.travelMap!;
   const isZh = element.dataset.locale === 'zh-CN';
-  const hint = isZh ? '拖动地图探索，点击地点查看详情。' : 'Drag to explore. Choose a stop to take a closer look.';
+  const hint = isZh ? '拖动地图，点击地点查看详情。' : 'Drag the map. Select a destination for details.';
   const status = document.querySelector<HTMLElement>(`[data-map-status="${id}"]`);
   let destinations: TripDestination[];
   try {
@@ -95,9 +95,9 @@ async function initializeMap(element: HTMLElement) {
     element.replaceChildren();
     const message = document.createElement('p');
     message.className = 'map-fallback';
-    message.textContent = isZh ? '地图暂时无法加载，请通过各地点的地图链接查看。' : 'The map couldn’t load. Each stop is still yours to explore using the city links.';
+    message.textContent = isZh ? '地图暂时无法加载，请通过各地点的地图链接查看。' : 'Map unavailable. Use the destination links to open Google Maps.';
     element.append(message);
-    if (status) status.textContent = isZh ? '可使用地点旁的地图链接查看行程路线。' : 'Use the city links to explore the route.';
+    if (status) status.textContent = isZh ? '可使用地点旁的地图链接查看行程路线。' : 'Use the destination links to view the route.';
   }
 }
 
