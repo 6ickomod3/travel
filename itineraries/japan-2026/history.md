@@ -14,6 +14,9 @@
 - The three flight legs and both Osaka hotel stays are user-confirmed.
   The outbound SFO flight departs locally on November 12; the Japan trip
   still begins with arrival on November 13.
+- Chikatsuyu's November 17–18 lodging is SEN RETREAT CHIKATSUYU, and Kawayu's
+  November 18–19 lodging is 川湯まつや. The user confirmed these names in chat;
+  meals, transfers, and exact bus stops still need confirmation.
 - November 19 uses the comfortable route via Shingu, Nachi, and Kii-Katsuura,
   returning to Osaka on Kuroshio 30. The earlier Hayatama route is a separate
   optional alternative, with Daimonzaka walking optional within that route.
@@ -135,16 +138,29 @@
 - Scope: authorized chapter 8 only. No lodging names, meal or room details,
   payment records, costs, or unrelated schedules were changed.
 
+### 2026-10-14-05-hotel-names
+
+- Archived: October 14, 2026, using the user's America/Los_Angeles date.
+- Origin: the user's two-line hotel-name confirmation in this chat.
+- Original language: Simplified Chinese with the supplied hotel names.
+- File: [inputs/2026-10-14-05-hotel-names.txt](inputs/2026-10-14-05-hotel-names.txt).
+  The two lines are verbatim, including the space after the second colon;
+  the archive has no additional source text.
+- Scope: names only. SEN RETREAT CHIKATSUYU replaces the Chikatsuyu name
+  placeholder, and 川湯まつや replaces the Kawayu name placeholder.
+- Retained: existing booked states, stay dates, costs, and transport times.
+  Meals, transfer arrangements, and exact bus stops remain unresolved.
+  No broader booking details were imported from the private original.
+
 ## Open information
 
 - Hiroshima's November 14–16 hotel booking and name still need confirmation.
 - The cost of Hiroshima's two nights remains unknown and is excluded from
   known accommodation totals.
-- The public plan still uses placeholders for the Chikatsuyu and Kawayu
-  lodging names and related arrangements. The newer lodging details remain
-  in the private original; only the authorized cost excerpt has been applied
-  to lodging data. The stamp excerpt adds no lodging details. Review that
-  original for a later lodging update with broader authorization.
+- For SEN RETREAT CHIKATSUYU and 川湯まつや, meals, early breakfast or packed
+  lunch arrangements, last-mile walking or transfers, and exact bus stops
+  still need confirmation. Other lodging details remain in the private
+  original until authorized for publication.
 - Osaka's hotel must explicitly accept luggage storage between the November
   14 checkout and November 19 return. Do not assume storage for five nights.
 - Pass choice, purchased train tickets, museum tickets, and ropeway booking
@@ -179,3 +195,7 @@ when a source explicitly resolves or changes a decision.
   new outstanding items. Kept Daimonzaka optional and formal-registration
   travel in a separate conditional return without changing the default
   November 19 schedule or importing private booking details.
+- October 14, 2026: archived the user's two hotel-name confirmation lines
+  verbatim and recorded SEN RETREAT CHIKATSUYU and 川湯まつや as confirmed
+  names. Existing booked states, dates, costs, and schedules remain intact;
+  meal, transfer, and bus-stop confirmations are still pending.
