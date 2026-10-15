@@ -17,6 +17,15 @@ export interface TripScheduleItem {
   optional?: boolean;
 }
 
+export interface TripDayAlternative {
+  id: string;
+  title: string;
+  description: string;
+  schedule: TripScheduleItem[];
+  notes: string[];
+  sourceIds?: string[];
+}
+
 export interface TripDay {
   /** Calendar date in YYYY-MM-DD format. */
   date: string;
@@ -28,6 +37,8 @@ export interface TripDay {
   schedule?: TripScheduleItem[];
   notes?: string[];
   sourceIds?: string[];
+  /** Separate fallback or optional itineraries; never interleave with the main schedule. */
+  alternatives?: TripDayAlternative[];
   hike?: {
     distanceKm: number;
     duration: string;
@@ -59,6 +70,53 @@ export interface TripChecklistItem {
   sourceIds?: string[];
 }
 
+export interface TripFlightEndpoint {
+  airportCode: string;
+  city: string;
+  terminal?: string;
+  /** Date and time use the airport's local clock, including on international flights. */
+  date: string;
+  time: string;
+}
+
+export interface TripFlight {
+  id: string;
+  flightNumber: string;
+  operatedByFlightNumber?: string;
+  travelerLabel?: string;
+  status: "booked" | "planned";
+  departure: TripFlightEndpoint;
+  arrival: TripFlightEndpoint;
+  notes?: string[];
+  sourceIds?: string[];
+}
+
+export interface TripTicketOption {
+  id: string;
+  title: string;
+  validFrom: string;
+  validThrough: string;
+  /** ISO currency code; prices and conditional estimates are per person. */
+  currency: string;
+  price: number;
+  estimatedTotal?: number;
+  description: string;
+  includes: string[];
+  excludes: string[];
+  notes: string[];
+  sourceIds?: string[];
+}
+
+export interface TripBookingWindow {
+  id: string;
+  label: string;
+  travelDate: string;
+  /** Absolute timestamp with an explicit offset; timeZone is the seller's IANA zone. */
+  opensAt: string;
+  timeZone: string;
+  sourceIds?: string[];
+}
+
 export interface Trip {
   slug: string;
   title: string;
@@ -82,6 +140,9 @@ export interface Trip {
   /** Ordered destinations, including returns and transfers; lines are not trail tracks. */
   mapRoute?: string[];
   stays?: TripStay[];
+  flights?: TripFlight[];
+  ticketOptions?: TripTicketOption[];
+  bookingWindows?: TripBookingWindow[];
   checklist?: TripChecklistItem[];
   sources?: TripSource[];
   practicalNotes?: string[];

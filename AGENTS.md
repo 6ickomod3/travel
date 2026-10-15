@@ -92,6 +92,18 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   and `TripPlaceholder.astro` for every discovered entry.
 - Keep Leaflet maps, destination lists, expand/collapse, and itinerary printing.
   Images and fonts are local assets; map tiles come from OpenStreetMap.
+- The user chose the current free Leaflet/OpenStreetMap map to avoid paid
+  mapping services. Keep maps free of API billing. Google Maps and Apple Maps
+  can be used for ordinary external navigation links.
+- Optional `flights` keep each endpoint's airport-local date and time; an
+  inbound flight may depart before the trip's first local date. Confirmation
+  belongs to each flight, not to all transport listed in the plan.
+- `ticketOptions` store per-person prices, ISO currencies, and conditional
+  estimates. `bookingWindows` use absolute opening timestamps and seller
+  IANA timezones; display the seller's local time alongside Los Angeles time.
+- Keep `TripDay.alternatives` as separate labeled schedules. Never interleave
+  an optional or fallback route into the main day's itinerary or map route.
+  Printing opens both daily and alternative details, then restores their state.
 
 ## Source submissions
 

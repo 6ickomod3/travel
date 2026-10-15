@@ -2,9 +2,9 @@
   "family": "Noto Serif SC",
   "style": "normal",
   "weight": "400 700",
-  "characters": 565,
-  "hanCharacters": 450,
-  "bytes": 220364,
+  "characters": 572,
+  "hanCharacters": 456,
+  "bytes": 222312,
   "axes": [
     {
       "tag": "wght",

@@ -1,0 +1,78 @@
+---
+import Icon from './Icon.astro';
+import type { TripFlight, TripFlightEndpoint, TripSource } from '../data/trips';
+import { formatDate } from '../lib/trips';
+
+interface Props {
+  flights: TripFlight[];
+  sources?: TripSource[];
+  locale?: 'zh-CN' | 'en';
+}
+const { flights, sources = [], locale = 'en' } = Astro.props;
+const isZh = locale === 'zh-CN';
+const dateLocale = isZh ? 'zh-CN' : 'en-US';
+const text = (zh: string, en: string) => isZh ? zh : en;
+const airportDate = (endpoint: TripFlightEndpoint) => formatDate(endpoint.date, { month: 'short', day: 'numeric' }, dateLocale);
+const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
+  const source = sources.find(item => item.id === id);
+  return source ? [source] : [];
+});
+---
+<section class="trip-flights-section container" id="flights" aria-labelledby="flights-title">
+  <div class="section-heading">
+    <div><h2 id="flights-title">{text('航班信息', 'Flights')}</h2></div>
+    <p class="section-intro">{text('起降时间均为各机场当地时间。', 'Departure and arrival times use each airport’s local time.')}</p>
+  </div>
+  <div class="flight-grid">
+    {flights.map(flight => <article class="flight-card" id={`flight-${flight.id}`} data-flight-id={flight.id}>
+      <div class="flight-card-top">
+        <span>{flight.travelerLabel}</span>
+        <span class:list={['flight-status', { 'flight-status-booked': flight.status === 'booked' }]}>{flight.status === 'booked' ? text('机票已确认', 'Ticket confirmed') : text('待预订', 'To book')}</span>
+      </div>
+      <h3>{flight.flightNumber}</h3>
+      <p class="flight-operator" aria-hidden={flight.operatedByFlightNumber ? undefined : 'true'}>{flight.operatedByFlightNumber && <>{text('实际承运航班：', 'Operating flight: ')}{flight.operatedByFlightNumber}</>}</p>
+      <div class="flight-route-wrapper">
+      <dl class="flight-route">
+        <div>
+          <dt>{text('出发', 'Departure')}</dt>
+          <dd><strong>{flight.departure.airportCode}</strong><span>{flight.departure.city}{flight.departure.terminal && <> · {flight.departure.terminal}</>}</span><time datetime={`${flight.departure.date}T${flight.departure.time}`}>{airportDate(flight.departure)}<b>{flight.departure.time}</b></time></dd>
+        </div>
+        <div>
+          <dt>{text('抵达', 'Arrival')}</dt>
+          <dd><strong>{flight.arrival.airportCode}</strong><span>{flight.arrival.city}{flight.arrival.terminal && <> · {flight.arrival.terminal}</>}</span><time datetime={`${flight.arrival.date}T${flight.arrival.time}`}>{airportDate(flight.arrival)}<b>{flight.arrival.time}</b></time></dd>
+        </div>
+      </dl>
+      <span class="flight-route-arrow" aria-hidden="true"><Icon name="arrow-right" size={18} /></span>
+      </div>
+      {Boolean(flight.notes?.length) && <ul class="flight-notes">{flight.notes!.map(note => <li>{note}</li>)}</ul>}
+      {sourcesFor(flight.sourceIds).length > 0 && <div class="flight-sources">{sourcesFor(flight.sourceIds).map(source => <a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} <Icon name="external" size={12} /></a>)}</div>}
+    </article>)}
+  </div>
+</section>
+
+<style>
+  .trip-flights-section { padding-block: 64px; border-top: 1px solid var(--line); }
+  .flight-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .flight-card { min-width: 0; padding: 22px; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; }
+  .flight-card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 11px; color: var(--ink-soft); }
+  .flight-status { border: 1px solid #b9462833; border-radius: 3px; padding: 3px 7px; color: var(--accent-deep); white-space: nowrap; }
+  .flight-status-booked { color: #365743; border-color: #36574335; background: #3657430a; }
+  .flight-card h3 { margin-top: 18px; font-size: 20px; font-weight: 600; }
+  .flight-operator { min-height: 1.65em; margin-top: 5px; color: var(--ink-soft); font-size: 11px; line-height: 1.65; }
+  .flight-route-wrapper { position: relative; margin-top: 24px; }
+  .flight-route { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 46px; align-items: center; margin: 0; }
+  .flight-route dt { color: var(--ink-soft); font-size: 10px; }
+  .flight-route dd { display: grid; gap: 5px; margin: 7px 0 0; font-size: 12px; }
+  .flight-route strong { font-size: 24px; font-weight: 500; letter-spacing: .03em; }
+  .flight-route dd > span { color: var(--ink-soft); overflow-wrap: anywhere; }
+  .flight-route time { display: grid; gap: 4px; margin-top: 7px; }
+  .flight-route b { font-size: 19px; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .flight-route-arrow { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: var(--accent-deep); }
+  .flight-notes { padding-left: 17px; margin: 20px 0 0; font-size: 12px; color: var(--ink-soft); }
+  .flight-notes li + li { margin-top: 6px; }
+  .flight-sources { display: flex; flex-wrap: wrap; gap: 7px 15px; margin-top: 15px; }
+  .flight-sources a { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: var(--accent-deep); text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 1000px) { .flight-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { .trip-flights-section { padding-block: 44px; } .flight-grid { grid-template-columns: 1fr; gap: 17px; } .flight-card { padding: 21px; } }
+  @media print { .trip-flights-section { padding-block: 20px; border: 0; } .flight-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; } .flight-card { padding: 13px; break-inside: avoid; background: white; } .flight-route { gap: 34px; } .flight-route strong, .flight-card h3 { font-size: 18px; } .flight-route dd, .flight-notes { font-size: 10px; } .flight-route b { font-size: 14px; } }
+</style>

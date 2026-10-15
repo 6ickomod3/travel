@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Icon from './Icon.astro';
 import TripStatus from './TripStatus.astro';
 import TravelMap from './TravelMap.astro';
+import TripFlights from './TripFlights.astro';
+import TripPlanning from './TripPlanning.astro';
 import { tripCollection, type Trip, type TripDestination, type TripStay } from '../data/trips';
 import { durationDays, formatDateRange, formatDate } from '../lib/trips';
 import { withBase } from '../lib/urls';
@@ -32,6 +34,9 @@ const route = (trip.mapRoute?.length ? trip.mapRoute : trip.destinations.map(sto
   .map(id => trip.destinations.find(stop => stop.id === id))
   .filter((stop): stop is TripDestination => Boolean(stop));
 const stays = trip.stays ?? [];
+const flights = trip.flights ?? [];
+const ticketOptions = trip.ticketOptions ?? [];
+const bookingWindows = trip.bookingWindows ?? [];
 const checklist = trip.checklist ?? [];
 const practicalNotes = trip.practicalNotes ?? [];
 const sources = trip.sources ?? [];
@@ -47,7 +52,7 @@ const bookedNights = stays.filter(stay => stay.status === 'booked').reduce((tota
 const pendingNights = totalNights - bookedNights;
 const stayById = (id?: string) => stays.find(stay => stay.id === id);
 const stayStatus = (stay: TripStay) => stay.status === 'booked' ? text('已订', 'Booked') : text('待确认', 'Awaiting confirmation');
-const hasPreparations = checklist.length > 0 || practicalNotes.length > 0;
+const hasPreparations = checklist.length > 0 || practicalNotes.length > 0 || ticketOptions.length > 0 || bookingWindows.length > 0;
 const photoCredit = trip.coverCredit.replace(/^(?:Photo:|图片来源：|图片：)\s*/i, '');
 const heroImage = getImageCredit(trip.cover);
 const heroCredit = getLicensedImageCredit(trip.cover);
@@ -96,6 +101,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     <nav class="trip-subnav" aria-label={text('行程章节', 'Trip sections')}>
       <div class="container">
         <div class="trip-subnav-links rich-subnav-links">
+          {flights.length > 0 && <a href="#flights">{text('航班信息', 'Flights')}</a>}
           <a href="#route">{text('旅行路线', 'Route')}</a>
           {stays.length > 0 && <a href="#stays">{text('住宿安排', 'Accommodation')}</a>}
           <a href="#itinerary">{text('每日行程', 'Daily itinerary')}</a>
@@ -113,6 +119,8 @@ const heroCredit = getLicensedImageCredit(trip.cover);
         <p>{trip.routeNote}</p>
       </div>
     </div>
+
+    {flights.length > 0 && <TripFlights flights={flights} sources={sources} locale={locale} />}
 
     <section class="route-section container" id="route" aria-labelledby="route-title">
       <div class="section-heading">
@@ -190,6 +198,22 @@ const heroCredit = getLicensedImageCredit(trip.cover);
                 <dl class="hike-facts"><div><dt>{text('徒步距离', 'Distance')}</dt><dd>{text('约', 'About ')}{number(day.hike.distanceKm)} {text('公里', 'km')}</dd></div><div><dt>{text('官方参考', 'Official estimate')}</dt><dd>{day.hike.duration}</dd></div>{day.hike.ascentM !== undefined && <div><dt>{text('累计爬升', 'Total ascent')}</dt><dd>{text('约', 'About ')}{number(day.hike.ascentM)} {text('米', 'm')}</dd></div>}</dl>
                 <p class="hike-footnote">{text('途中以实际步速、天气和路线情况调整，留好休息时间。', 'Allow time for breaks and adjust to your pace, weather, and trail conditions.')}</p>
               </aside>}
+              {Boolean(day.alternatives?.length) && <div class="day-alternatives">
+                <h3>{text('备选安排', 'Alternative plans')}</h3>
+                {day.alternatives!.map(alternative => <details class="day-alternative" id={`alternative-${day.date}-${alternative.id}`} data-day-alternative={alternative.id}>
+                  <summary><span class="alternative-label">{text('备选', 'Alternative')}</span><span class="alternative-name">{alternative.title}</span><Icon name="chevron-down" size={16} /></summary>
+                  <div class="alternative-content">
+                    <p class="alternative-description">{alternative.description}</p>
+                    <p class="alternative-scope">{text('此方案整体替代上面的对应安排。', 'Use this option in place of the corresponding main schedule.')}</p>
+                    <ol class="day-timeline" aria-label={text(`${alternative.title}时间表`, `${alternative.title} schedule`)} role="list">{alternative.schedule.map(item => <li class:list={['timeline-entry', { 'timeline-entry-optional': item.optional }]}>
+                      <span class="timeline-time">{item.time}</span>
+                      <div class="timeline-copy"><p class="timeline-title">{item.title}{item.optional && <span class="timeline-optional">{text('可选', 'Optional')}</span>}</p>{item.description && <p class="timeline-description">{item.description}</p>}{sourcesFor(item.sourceIds).length > 0 && <div class="source-links">{sourcesFor(item.sourceIds).map(source => <a class="source-link" href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div>}</div>
+                    </li>)}</ol>
+                    {alternative.notes.length > 0 && <aside class="day-important-notes"><p class="day-note-label">{text('此方案提醒', 'Alternative reminders')}</p><ul>{alternative.notes.map(note => <li>{note}</li>)}</ul></aside>}
+                    {sourcesFor(alternative.sourceIds).length > 0 && <div class="source-links">{sourcesFor(alternative.sourceIds).map(source => <a class="source-link" href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div>}
+                  </div>
+                </details>)}
+              </div>}
               {Boolean(day.notes?.length) && <aside class="day-important-notes"><p class="day-note-label">{text('当天提醒', 'DAILY REMINDERS')}</p><ul>{day.notes!.map(note => <li>{note}</li>)}</ul></aside>}
               {sourcesFor(day.sourceIds).length > 0 && <div class="day-source-summary"><span>{text('当天资料', 'Day sources')}</span><div class="source-links">{sourcesFor(day.sourceIds).map(source => <a class="source-link" href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div></div>}
               {overnight && <p class="day-stay"><Icon name="pin" size={15} /><span>{text('当晚住宿', 'Overnight stay')}</span><a href={`#stay-${overnight.id}`}>{overnight.name}</a><span class:list={['stay-status', { 'stay-status-booked': overnight.status === 'booked' }]}>{stayStatus(overnight)}</span></p>}
@@ -201,6 +225,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
 
     {hasPreparations && <section class="trip-preparations-section container" id="preparations" aria-labelledby="preparations-title">
       <div class="section-heading"><div><h2 id="preparations-title">{text('行前准备', 'Preparations')}</h2></div><p class="section-intro">{text('预订、行李寄存、餐食与换乘。', 'Bookings, luggage, meals, and connections.')}<br />{text('参考班次不代表已购票。', 'Reference departures are not ticket confirmations.')}</p></div>
+      {(ticketOptions.length > 0 || bookingWindows.length > 0) && <TripPlanning ticketOptions={ticketOptions} bookingWindows={bookingWindows} sources={sources} locale={locale} />}
       <div class:list={['preparation-layout', { 'preparation-layout-single': !checklist.length || !practicalNotes.length }]}>
         {checklist.length > 0 && <div class="reservation-panel"><div class="preparation-panel-heading"><Icon name="list" size={20} /><h3>{text('待预订与确认', 'Pending bookings and confirmations')}</h3></div><p class="preparation-intro">{text('以下事项仍待预订或确认；官方链接可用于核对和办理。', 'These items still need booking or confirmation. Use the official links to check the details.')}</p><ol class="reservation-list" role="list">
           {checklist.map((item, index) => <li class="reservation-item" id={`reservation-${item.id}`}><div class="reservation-item-top"><span class="reservation-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h4>{item.title}</h4><span class="reservation-status">{text('待落实', 'To arrange')}</span></div><p>{item.detail}</p>{sourcesFor(item.sourceIds).length > 0 && <div class="source-links">{sourcesFor(item.sourceIds).map(source => <a class="source-link" href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div>}</li>)}
@@ -257,6 +282,18 @@ const heroCredit = getLicensedImageCredit(trip.cover);
   .timeline-title { font-size: 15px; line-height: 1.8; font-weight: 600; }
   .timeline-description { margin-top: 6px; font-size: 13px; line-height: 1.9; color: var(--ink-soft); }
   .timeline-optional { display: inline-block; margin-left: 9px; padding: 1px 7px; border: 1px solid #b9462833; border-radius: 3px; font-size: 10px; font-weight: 400; color: var(--accent-deep); background: #dd674508; vertical-align: middle; }
+  .day-alternatives { margin-top: 24px; }
+  .day-alternatives > h3 { margin-bottom: 12px; font-size: 13px; font-weight: 600; }
+  .day-alternative { border: 1px solid var(--line); border-radius: 5px; background: var(--paper-deep); }
+  .day-alternative + .day-alternative { margin-top: 12px; }
+  .day-alternative > summary { display: flex; align-items: center; gap: 10px; padding: 15px 18px; }
+  .alternative-label { flex-shrink: 0; padding: 2px 7px; border: 1px solid #b9462833; border-radius: 3px; color: var(--accent-deep); font-size: 10px; }
+  .alternative-name { min-width: 0; font-size: 13px; font-weight: 600; }
+  .day-alternative > summary > svg { flex-shrink: 0; margin-left: auto; }
+  .day-alternative[open] > summary > svg { transform: rotate(180deg); }
+  .alternative-content { padding: 0 18px 18px; }
+  .alternative-description { font-size: 13px; line-height: 1.9; }
+  .alternative-scope { margin-top: 8px; color: var(--accent-deep); font-size: 11px; }
   .source-links { display: flex; flex-wrap: wrap; gap: 6px 15px; margin-top: 9px; }
   .source-link { display: inline-flex; align-items: flex-start; gap: 5px; min-height: 24px; max-width: 100%; font-size: 11px; line-height: 1.8; color: var(--accent-deep); text-decoration: underline; text-underline-offset: 4px; overflow-wrap: anywhere; }
   .source-link svg { margin-top: 4px; }
@@ -354,6 +391,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     .trip-stays-section, .trip-preparations-section, .trip-sources-section { padding-block: 44px; }
   }
   @media print {
+    .day-alternative::details-content { content-visibility: visible; }
     .trip-stays-section, .trip-preparations-section, .trip-sources-section { padding-block: 20px; border: 0; }
     .stay-summary { margin-bottom: 12px; padding: 10px 13px; }
     .stay-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }

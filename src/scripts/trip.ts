@@ -1,4 +1,5 @@
 const days = [...document.querySelectorAll<HTMLDetailsElement>('.itinerary-day')];
+const printDetails = [...document.querySelectorAll<HTMLDetailsElement>('.itinerary-day, .day-alternative')];
 const isZh = document.documentElement.lang === 'zh-CN';
 const expandButton = document.querySelector<HTMLButtonElement>('[data-expand-days]');
 function syncExpandButton() {
@@ -19,10 +20,10 @@ days.forEach(day => day.addEventListener('toggle', syncExpandButton));
 
 let beforePrintState: boolean[] = [];
 window.addEventListener('beforeprint', () => {
-  beforePrintState = days.map(day => day.open);
-  days.forEach(day => { day.open = true; });
+  beforePrintState = printDetails.map(detail => detail.open);
+  printDetails.forEach(detail => { detail.open = true; });
 });
 window.addEventListener('afterprint', () => {
-  days.forEach((day, index) => { day.open = beforePrintState[index] ?? day.open; });
+  printDetails.forEach((detail, index) => { detail.open = beforePrintState[index] ?? detail.open; });
 });
 document.querySelector('[data-print-trip]')?.addEventListener('click', () => window.print());

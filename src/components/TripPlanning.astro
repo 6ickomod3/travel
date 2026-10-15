@@ -1,0 +1,88 @@
+---
+import Icon from './Icon.astro';
+import type { TripBookingWindow, TripSource, TripTicketOption } from '../data/trips';
+import { formatDate, formatDateRange } from '../lib/trips';
+
+interface Props {
+  ticketOptions?: TripTicketOption[];
+  bookingWindows?: TripBookingWindow[];
+  sources?: TripSource[];
+  locale?: 'zh-CN' | 'en';
+}
+const { ticketOptions = [], bookingWindows = [], sources = [], locale = 'en' } = Astro.props;
+const isZh = locale === 'zh-CN';
+const dateLocale = isZh ? 'zh-CN' : 'en-US';
+const text = (zh: string, en: string) => isZh ? zh : en;
+const money = (option: TripTicketOption, value: number) => new Intl.NumberFormat(dateLocale, { style: 'currency', currency: option.currency }).format(value);
+const ticketDates = (option: TripTicketOption) => formatDateRange({ startDate: option.validFrom, endDate: option.validThrough }, dateLocale);
+const travelDate = (value: string) => formatDate(value, { month: 'short', day: 'numeric' }, dateLocale);
+const openingTime = (window: TripBookingWindow, timeZone: string) => new Intl.DateTimeFormat(dateLocale, { timeZone, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(window.opensAt));
+const localTimeLabel = bookingWindows.every(window => window.timeZone === 'Asia/Tokyo') ? text('日本时间', 'Japan time') : text('售票当地时间', 'Booking local time');
+const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
+  const source = sources.find(item => item.id === id);
+  return source ? [source] : [];
+});
+---
+<div class="trip-planning-details">
+  {ticketOptions.length > 0 && <div class="ticket-options" aria-labelledby="ticket-options-title">
+    <div class="planning-details-heading"><h3 id="ticket-options-title">{text('票券方案', 'Ticket options')}</h3><p>{text('方案仍待选择，价格按每人计算。', 'Options await selection. Prices are per person.')}</p></div>
+    <div class="ticket-options-grid">
+      {ticketOptions.map(option => <article class="ticket-option" id={`ticket-${option.id}`} data-ticket-option={option.id}>
+        <h4>{option.title}</h4>
+        <p class="ticket-dates">{ticketDates(option)}</p>
+        <p class="ticket-description">{option.description}</p>
+        <dl class="ticket-prices">
+          <div><dt>{text('票券价格 / 人', 'Pass price / person')}</dt><dd>{money(option, option.price)}</dd></div>
+          {option.estimatedTotal !== undefined && <div><dt>{text('含额外铁路票价的估算 / 人', 'Estimate with extra rail tickets / person')}</dt><dd>{money(option, option.estimatedTotal)}</dd></div>}
+        </dl>
+        <div class="ticket-coverage"><h5>{text('包含', 'Included')}</h5><ul>{option.includes.map(item => <li>{item}</li>)}</ul><h5>{text('不包含', 'Excluded')}</h5><ul>{option.excludes.map(item => <li>{item}</li>)}</ul></div>
+        {option.notes.length > 0 && <ul class="ticket-notes">{option.notes.map(note => <li>{note}</li>)}</ul>}
+        {sourcesFor(option.sourceIds).length > 0 && <div class="planning-source-links">{sourcesFor(option.sourceIds).map(source => <a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} <Icon name="external" size={12} /></a>)}</div>}
+      </article>)}
+    </div>
+  </div>}
+  {bookingWindows.length > 0 && <div class="booking-windows" aria-labelledby="booking-windows-title">
+    <div class="planning-details-heading"><h3 id="booking-windows-title">{text('指定席预约开放时间', 'Seat reservation opening times')}</h3><p>{text('按售票当地时区与洛杉矶时区分别列出，日期可能不同。', 'Shown in the booking timezone and Los Angeles. Calendar dates can differ.')}</p></div>
+    <div class="booking-table-wrapper" tabindex="0" role="region" aria-label={text('指定席预约开放时间表，可横向滚动', 'Seat reservation opening times, horizontally scrollable')}>
+      <table class="booking-table">
+        <thead><tr><th scope="col">{text('乘车日 / 车次', 'Travel day / train')}</th><th scope="col">{localTimeLabel}</th><th scope="col">{text('洛杉矶时间', 'Los Angeles time')}</th></tr></thead>
+        <tbody>{bookingWindows.map(window => <tr data-booking-window={window.id}><th scope="row"><time datetime={window.travelDate}>{travelDate(window.travelDate)}</time><span>{window.label}</span></th><td><time datetime={window.opensAt}>{openingTime(window, window.timeZone)}</time></td><td><time datetime={window.opensAt}>{openingTime(window, 'America/Los_Angeles')}</time></td></tr>)}</tbody>
+      </table>
+    </div>
+    <div class="planning-source-links">{[...new Set(bookingWindows.flatMap(window => window.sourceIds ?? []))].flatMap(id => sourcesFor([id])).map(source => <a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} <Icon name="external" size={12} /></a>)}</div>
+  </div>}
+</div>
+
+<style>
+  .trip-planning-details { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; margin-bottom: 32px; min-width: 0; }
+  .planning-details-heading { margin-bottom: 18px; }
+  .planning-details-heading h3 { font-size: 18px; font-weight: 600; }
+  .planning-details-heading p { margin-top: 8px; color: var(--ink-soft); font-size: 12px; }
+  .ticket-options-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .ticket-option { padding: 24px; min-width: 0; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; }
+  .ticket-option h4 { font-size: 17px; line-height: 1.6; font-weight: 600; }
+  .ticket-dates { margin-top: 7px; color: var(--accent-deep); font-size: 12px; }
+  .ticket-description { margin-top: 16px; font-size: 13px; color: var(--ink-soft); }
+  .ticket-prices { display: flex; flex-wrap: wrap; gap: 15px 30px; margin: 20px 0 0; padding-block: 17px; border-block: 1px solid var(--line); }
+  .ticket-prices dt { color: var(--ink-soft); font-size: 10px; }
+  .ticket-prices dd { margin: 4px 0 0; font-size: 20px; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .ticket-coverage { margin-top: 18px; }
+  .ticket-coverage h5 { margin: 15px 0 7px; font-size: 12px; font-weight: 600; }
+  .ticket-coverage ul, .ticket-notes { margin: 0; padding-left: 18px; font-size: 12px; color: var(--ink-soft); }
+  .ticket-coverage li + li, .ticket-notes li + li { margin-top: 6px; }
+  .ticket-notes { margin-top: 19px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .planning-source-links { display: flex; flex-wrap: wrap; gap: 8px 15px; margin-top: 16px; }
+  .planning-source-links a { display: inline-flex; align-items: flex-start; gap: 5px; color: var(--accent-deep); font-size: 11px; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+  .planning-source-links svg { margin-top: 4px; }
+  .booking-table-wrapper { max-width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; }
+  .booking-table { width: 100%; min-width: 560px; border-collapse: collapse; background: #fbfaf5; font-size: 12px; text-align: left; }
+  .booking-table thead { background: var(--paper-deep); }
+  .booking-table th, .booking-table td { padding: 15px 19px; font-weight: 400; }
+  .booking-table thead th { font-weight: 600; }
+  .booking-table tbody tr + tr { border-top: 1px solid var(--line); }
+  .booking-table tbody th { width: 40%; }
+  .booking-table tbody th > span { display: block; margin-top: 4px; font-size: 11px; color: var(--ink-soft); }
+  .booking-table td { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  @media (max-width: 600px) { .ticket-options-grid { grid-template-columns: 1fr; gap: 17px; } .ticket-option { padding: 21px; } .ticket-description, .ticket-coverage ul, .ticket-notes { font-size: 13px; } .planning-source-links a { font-size: 12px; } }
+  @media print { .trip-planning-details { gap: 18px; margin-bottom: 18px; } .ticket-options-grid { gap: 12px; } .ticket-option { padding: 13px; background: white; break-inside: avoid; } .ticket-option h4 { font-size: 13px; } .ticket-description, .ticket-coverage ul, .ticket-notes, .booking-table, .planning-source-links a { font-size: 10px; } .ticket-prices dd { font-size: 15px; } .booking-table { min-width: 0; } .booking-table th, .booking-table td { padding: 10px; } .booking-table-wrapper { overflow: visible; } }
+</style>

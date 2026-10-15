@@ -28,6 +28,10 @@ function uniqueIds(entries, label) {
   return ids;
 }
 
+function clockTime(value, label) {
+  assert.match(value, /^(?:[01]\d|2[0-3]):[0-5]\d$/, `${label}: use a valid HH:MM local time`);
+}
+
 function publicFile(path, label) {
   assert.ok(typeof path === 'string' && path.startsWith('/images/'), `${label}: use a public image path`);
   const file = resolve(publicRoot, `.${path}`);
@@ -91,6 +95,9 @@ for (const folder of folders) {
   const sources = uniqueIds(trip.sources ?? [], `${folder} sources`);
   const stays = uniqueIds(trip.stays ?? [], `${folder} stays`);
   uniqueIds(trip.checklist ?? [], `${folder} checklist`);
+  uniqueIds(trip.flights ?? [], `${folder} flights`);
+  uniqueIds(trip.ticketOptions ?? [], `${folder} ticket options`);
+  uniqueIds(trip.bookingWindows ?? [], `${folder} booking windows`);
   for (const place of trip.destinations) {
     assert.ok(Number.isFinite(place.lat) && Math.abs(place.lat) <= 90 && Number.isFinite(place.lng) && Math.abs(place.lng) <= 180, `${folder}/${place.id}: invalid coordinates`);
   }
@@ -108,6 +115,12 @@ for (const folder of folders) {
     if (day.overnightId) assert.ok(stays.has(day.overnightId), `${folder}/${date}: unknown stay ${day.overnightId}`);
     checkSources(day.sourceIds, `${folder}/${date}`);
     for (const item of day.schedule ?? []) checkSources(item.sourceIds, `${folder}/${date} schedule`);
+    uniqueIds(day.alternatives ?? [], `${folder}/${date} alternatives`);
+    for (const alternative of day.alternatives ?? []) {
+      assert.ok(alternative.title && alternative.description && alternative.schedule.length, `${folder}/${date}/${alternative.id}: complete the separate alternative plan`);
+      checkSources(alternative.sourceIds, `${folder}/${date}/${alternative.id}`);
+      for (const item of alternative.schedule) checkSources(item.sourceIds, `${folder}/${date}/${alternative.id} schedule`);
+    }
   }
   for (const stay of trip.stays ?? []) {
     for (const period of stay.checkIns) {
@@ -117,6 +130,35 @@ for (const folder of folders) {
     }
   }
   for (const item of trip.checklist ?? []) checkSources(item.sourceIds, `${folder}/${item.id}`);
+  for (const flight of trip.flights ?? []) {
+    assert.ok(flight.flightNumber, `${folder}/${flight.id}: add the flight number`);
+    assert.ok(['booked', 'planned'].includes(flight.status), `${folder}/${flight.id}: invalid flight status`);
+    for (const direction of ['departure', 'arrival']) {
+      const endpoint = flight[direction];
+      assert.match(endpoint.airportCode, /^[A-Z]{3}$/, `${folder}/${flight.id}: use a three-letter airport code`);
+      assert.ok(endpoint.city, `${folder}/${flight.id}: add the airport city`);
+      calendarDate(endpoint.date, `${folder}/${flight.id} ${direction}`);
+      clockTime(endpoint.time, `${folder}/${flight.id} ${direction}`);
+    }
+    checkSources(flight.sourceIds, `${folder}/${flight.id}`);
+  }
+  for (const option of trip.ticketOptions ?? []) {
+    const validFrom = calendarDate(option.validFrom, `${folder}/${option.id} validity start`);
+    const validThrough = calendarDate(option.validThrough, `${folder}/${option.id} validity end`);
+    assert.ok(validThrough >= validFrom, `${folder}/${option.id}: ticket validity ends before it starts`);
+    assert.match(option.currency, /^[A-Z]{3}$/, `${folder}/${option.id}: use an ISO currency code`);
+    for (const amount of [option.price, ...(option.estimatedTotal === undefined ? [] : [option.estimatedTotal])]) assert.ok(Number.isFinite(amount) && amount >= 0, `${folder}/${option.id}: invalid ticket price`);
+    checkSources(option.sourceIds, `${folder}/${option.id}`);
+  }
+  for (const window of trip.bookingWindows ?? []) {
+    const travelDate = calendarDate(window.travelDate, `${folder}/${window.id} travel date`);
+    assert.ok(travelDate >= start && travelDate <= end, `${folder}/${window.id}: booking travel date is outside the trip`);
+    assert.match(window.opensAt, /^\d{4}-\d{2}-\d{2}T(?:[01]\d|2[0-3]):[0-5]\d(?::[0-5]\d)?(?:Z|[+-]\d{2}:\d{2})$/, `${folder}/${window.id}: opening time needs an explicit timezone offset`);
+    calendarDate(window.opensAt.slice(0, 10), `${folder}/${window.id} opening date`);
+    assert.ok(Number.isFinite(Date.parse(window.opensAt)), `${folder}/${window.id}: invalid opening timestamp`);
+    new Intl.DateTimeFormat('en', { timeZone: window.timeZone }).format(new Date(window.opensAt));
+    checkSources(window.sourceIds, `${folder}/${window.id}`);
+  }
   dated++;
 }
 

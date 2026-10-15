@@ -38,6 +38,11 @@ src/data/
   homepage previews, and visited atlas. Export its object as the default and
   check it with `satisfies Trip` or `satisfies TripPlaceholder` from
   `../../src/data/types`. Keep public trip content in its chosen language.
+  Optional flights, ticket options, booking windows, and separate day
+  alternatives keep detailed logistics in that same plan. Flight endpoints
+  use airport-local dates and times; booking openings use explicit offsets
+  and seller timezones. Ticket prices and estimates are per person, with an
+  ISO currency and any conditions stated in their notes.
 - `inputs/` contains the publishable source submissions. Store each separately
   as `YYYY-MM-DD-NN-topic.md` or `.txt`; use the archive date and a two-digit
   sequence within that day. Preserve original wording, links, formatting,
@@ -76,6 +81,9 @@ publicly readable in the GitHub repository.
    a hotel name is not evidence of a confirmed reservation. Record genuine
    contradictions as open questions and request clarification when necessary.
    Continue changes that do not depend on the disputed detail.
+   Keep confirmed flights separate from planned ground transport, and keep
+   complete optional/fallback routes in a day's `alternatives` rather than
+   mixing their departures into the main schedule.
 6. Keep destination, stay, checklist, and official-source IDs stable. Repeated
    IDs in `mapRoute` represent return journeys and are intentional. Submitted
    text provenance belongs in the history; `Trip.sources` contains official
