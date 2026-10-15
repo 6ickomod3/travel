@@ -4,6 +4,11 @@ These assets identify airlines and accommodation brands at a small scale in trav
 plans. The source pages, original asset URLs, retrieval date, and any transformations
 are recorded in `provenance.json`.
 
+User-supplied files record their filename, receipt date, SHA-256 and supplied
+public source page. Content checks verify their copied bytes against that hash.
+An unknown original asset URL stays unclaimed; downloaded marks retain their
+direct public asset URL.
+
 Sourced artwork retains its original colors and proportions. The owners'
 trademark and copyright rights remain applicable; no open reuse license is claimed
 here. Image-credit licenses for sightseeing photographs do not apply to these
@@ -32,10 +37,16 @@ its own name and initials because an exact property asset and official URL have
 not been verified.
 
 Hotel Granvia Hiroshima South Gate has a separate property identity, official
-website link, and SG initials fallback. The supplied sources name the South Gate
-property. A short permitted search exposed official page pointers without a
-verifiable static property-logo image; filtered HTML and JavaScript were not
-retrieved. This identity remains distinct from other Granvia properties.
+website link, and a purple property logo supplied by the user as `logo.svg`
+after they identified it on the official English page. The supplied SVG is
+retained byte for byte. Its original website asset URL was not independently
+retrieved because external webpage reading was security-filtered. This identity
+remains distinct from other Granvia properties.
+
+The renderer gives vertical or near-square marks more height than horizontal
+wordmarks, using the recorded intrinsic dimensions. Hotel cards keep the full
+property name and original artwork proportions. This applies to both the South
+Gate and Comfort Hotel marks and can be reused for future brands.
 
 Further verified assets can be added to this directory and manifest without
 changing the component interface. Keep source marks intact and record their

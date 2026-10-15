@@ -13,6 +13,7 @@ const { id, label, showName = true, class: className } = Astro.props;
 const brand = getBrand(id);
 const name = label ?? brand.name;
 const Tag = brand.url ? 'a' : 'span';
+const vertical = brand.asset !== undefined && brand.asset.width / brand.asset.height <= 1.25;
 ---
 <Tag
   class:list={['brand-mark', { 'brand-mark-image-only': !showName }, className]}
@@ -25,7 +26,7 @@ const Tag = brand.url ? 'a' : 'span';
   data-brand-id={id}
   data-brand-kind={brand.asset ? 'image' : 'text'}
 >
-  <span class:list={['brand-mark-visual', { 'brand-mark-dark': brand.asset?.surface === 'dark', 'brand-mark-initials': !brand.asset }]} aria-hidden="true">
+  <span class:list={['brand-mark-visual', { 'brand-mark-dark': brand.asset?.surface === 'dark', 'brand-mark-initials': !brand.asset, 'brand-mark-vertical': vertical }]} aria-hidden="true">
     {brand.asset ? <img
       src={withBase(brand.asset.src)}
       width={Math.round(brand.asset.width)}
@@ -98,6 +99,8 @@ const Tag = brand.url ? 'a' : 'span';
 
   .brand-mark-image-only .brand-mark-visual { min-height: 36px; max-width: 166px; }
   .brand-mark-image-only .brand-mark-visual img { height: 28px; max-width: 156px; }
+  .brand-mark-visual.brand-mark-vertical img { height: 40px; }
+  .brand-mark-image-only .brand-mark-visual.brand-mark-vertical img { height: 72px; }
 
   @media print {
     .brand-mark {

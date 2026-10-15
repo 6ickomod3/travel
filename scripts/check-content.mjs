@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join, resolve, sep } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -47,12 +48,24 @@ const brandIds = uniqueIds(brandManifest.brands, 'Shared brands');
 for (const brand of brandManifest.brands) {
   assert.ok(brand.name && ['image', 'text'].includes(brand.status), `${brand.id}: name the brand and identify its image or text fallback`);
   if (brand.status === 'image') {
-    assert.ok(brand.asset && brand.sourceUrl && /^https:\/\//.test(brand.sourceUrl), `${brand.id}: record the logo asset and its public source`);
+    assert.ok(brand.asset, `${brand.id}: record the logo asset`);
+    if (brand.sourceKind === 'user-supplied-file') {
+      assert.match(brand.sourceFile, /^[^/\\\r\n]+\.(?:svg|png|webp)$/i, `${brand.id}: record the supplied image filename`);
+      assert.match(brand.sourcePage, /^https:\/\//, `${brand.id}: record the supplied public source page`);
+      calendarDate(brand.providedOn, `${brand.id} supplied date`);
+      assert.match(brand.sha256, /^[a-f0-9]{64}$/, `${brand.id}: record the supplied file hash`);
+    } else {
+      assert.ok(brand.sourceUrl && /^https:\/\//.test(brand.sourceUrl), `${brand.id}: record the public logo asset URL`);
+    }
   }
   if (brand.asset) {
     assert.match(brand.asset.file, /^[a-z0-9][a-z0-9.-]*\.(?:svg|png|webp)$/, `${brand.id}: use a local brand image filename`);
     publicFile(`/images/brands/${brand.asset.file}`, `${brand.id} logo`);
     for (const dimension of ['width', 'height']) assert.ok(Number.isFinite(brand.asset[dimension]) && brand.asset[dimension] > 0, `${brand.id}: invalid logo ${dimension}`);
+    if (brand.sourceKind === 'user-supplied-file') {
+      const digest = createHash('sha256').update(readFileSync(join(imageRoot, 'brands', brand.asset.file))).digest('hex');
+      assert.equal(digest, brand.sha256, `${brand.id}: supplied logo bytes differ from the recorded hash`);
+    }
   }
 }
 const imageTripRoot = join(imageRoot, 'trips');

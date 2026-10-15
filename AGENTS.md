@@ -103,6 +103,9 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   `BrandMark.astro`. Brand assets and English source records belong in
   `public/images/brands/`, separately from photo licenses. A missing official
   logo must use the real name or initials instead of a different brand.
+  For user-supplied logo files, record the supplied source page, original
+  filename, receipt date and SHA-256; verify the copied bytes without
+  inventing a direct website asset URL or claiming an independent download.
 - Only dated trips may enter date formatting, duration, and travel-status
   calculations. Do not supply fake dates for placeholders.
 - `selectNextTrip()` chooses a trip whose inclusive UTC date range is current,

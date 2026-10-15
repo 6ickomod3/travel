@@ -19,6 +19,8 @@
   Use the south-side minamoa entrance and seventh-floor reception; this is
   distinct from the older north-side Granvia. Breakfast is excluded, and the
   submitted payment arrangement is pay at the hotel, not evidence of payment.
+- South Gate uses the purple property logo supplied by the user from its
+  official English page, stored unchanged in the shared brand asset library.
 - Chikatsuyu's November 17–18 lodging is SEN RETREAT CHIKATSUYU, and Kawayu's
   November 18–19 lodging is 川湯まつや. The user confirmed these names in chat;
   meals, transfers, and exact bus stops still need confirmation.
@@ -361,6 +363,68 @@ and licenses.
   alternatives, other stays and unaffected days. Screenshots and the
   browser report are saved outside the published repository.
 
+### South Gate official logo correction — October 14, 2026
+
+- Archived the user's correction and official English-page link verbatim,
+  including the supplied HTML entity, without an added newline, in
+  [inputs/2026-10-14-12-granvia-logo.txt](inputs/2026-10-14-12-granvia-logo.txt)
+  (146 UTF-8 bytes; SHA-256
+  `68ab046289908a46fa5e12c66f6bdf7da190df217148bb4874259e27d9630955`).
+- Origin: the user's message stating that Hotel Granvia has a logo at
+  `https://jrwest-hotels.jp/granvia-hiroshima-southgate/en/`.
+- Requested: replace the SG initials with this property's official artwork,
+  retaining its original colors and proportions in the reusable brand library.
+- A normal read of the exact supplied page was explicitly denied with:
+  "Input filtering is enabled for this agent. External webpage access is
+  not permitted in this mode for security reasons." No other tool or
+  lower-level request was used to bypass this denial. This is a reader
+  restriction, not evidence that the hotel lacks a logo.
+- Initially awaiting: a user-uploaded or locally saved logo image, or its
+  direct static image URL. This was resolved by the following user-supplied
+  local file. The webpage reader limitation remains; no website body or
+  static website image URL was independently retrieved.
+
+### South Gate supplied logo file — October 14, 2026
+
+- Archived the user's message, "this is the logo", verbatim without an
+  added newline in
+  [inputs/2026-10-14-13-granvia-logo-file.txt](inputs/2026-10-14-13-granvia-logo-file.txt)
+  (16 bytes; SHA-256
+  `ec2a6b21233a97c0d29ab090e63e3728fb09110bfcbea7ea6d037c2bf9fb4f2f`).
+- Origin: the user supplied the local file `Desktop/logo.svg` in response
+  to the missing-image request. Their preceding message identified the
+  official English South Gate page as the logo's source.
+- Copied the 25,240-byte SVG unchanged to
+  `public/images/brands/granvia-hiroshima-south-gate.svg`; SHA-256
+  `5522e11afecfc459d5524859e3e8bc5d787003ef5ae31e2b89a30b3aecf49843`.
+  The desktop source remains unchanged. The image has a 93 by 95 viewBox,
+  purple `#3C2965` path artwork, and a transparent background. Local review
+  identifies the South Gate crest and property wordmark; this is supplied
+  artwork, not an independently downloaded website asset.
+- Applied: replaced SG's fallback display with the supplied logo through
+  the existing brand manifest, retaining the stable identity and website
+  link. Source records distinguish the user-provided file from official
+  artwork retrieved directly, and claim no open reuse license.
+- Display: vertical and near-square marks use their intrinsic proportions
+  with additional height, including the existing Comfort Hotel mark. The
+  hotel-card form uses 72px image height; horizontal marks retain their
+  existing sizing. Names, accessible links and original colors remain.
+- Scope: brand presentation only. Dates, schedules, bookings, checklist
+  entries, costs, map, gallery and official itinerary references are intact.
+- Content validation now accepts explicitly identified user-supplied brand
+  files with a filename, public source page, receipt date and matching
+  SHA-256, while retaining the direct asset URL requirement for downloaded
+  logos. No unknown website image URL is invented to pass validation.
+- Verification: content checks and the production build passed with zero
+  diagnostics across 47 Astro files. Desktop 1280px and mobile 320px browser
+  checks confirmed the purple logo, the complete hotel name and official
+  link, a 72px display height at the original 93:95 aspect ratio, and visible
+  print output. The public SVG response matched the supplied SHA-256.
+  The Comfort Hotel mark received the same vertical sizing; horizontal
+  image heights retained their prior values. There were no page errors,
+  missing site resources or horizontal overflow. Screenshots and reports
+  remain outside the published repository.
+
 ## Open information
 
 - For SEN RETREAT CHIKATSUYU and 川湯まつや, meals, early breakfast or packed
@@ -423,3 +487,6 @@ when a source explicitly resolves or changes a decision.
   scoped public excerpt, confirmed Hotel Granvia Hiroshima South Gate and
   its two-night price/tax, resolved the hotel checklist item, and updated
   hotel/station notes and derived accommodation totals.
+- October 14, 2026: archived the official-logo correction and supplied SVG,
+  replaced South Gate's SG display with the purple property artwork, and
+  improved reusable vertical-logo sizing without changing itinerary facts.

@@ -109,15 +109,26 @@
       "id": "granvia-hiroshima-south-gate",
       "name": "Hotel Granvia Hiroshima South Gate",
       "nameJa": "ホテルグランヴィア広島サウスゲート",
-      "sourcePage": "https://jrwest-hotels.jp/granvia-hiroshima-southgate/facilities/",
+      "sourcePage": "https://jrwest-hotels.jp/granvia-hiroshima-southgate/en/",
       "sourcePages": [
+        "https://jrwest-hotels.jp/granvia-hiroshima-southgate/en/",
         "https://jrwest-hotels.jp/granvia-hiroshima-southgate/news/36/",
         "https://jrwest-hotels.jp/granvia-hiroshima-southgate/facilities/"
       ],
       "officialWebsite": "https://jrwest-hotels.jp/granvia-hiroshima-southgate/en/",
-      "status": "text",
-      "changes": "No external artwork used. SG is site-generated text.",
-      "note": "The user supplied the exact South Gate property name and official reference pages. A bounded permitted search confirmed official website pointers but exposed no verifiable static property-logo image. External HTML and JavaScript reading remained security-filtered. The separately registered South Gate identity uses its exact name and SG initials."
+      "sourceKind": "user-supplied-file",
+      "sourceFile": "logo.svg",
+      "providedOn": "2026-10-14",
+      "status": "image",
+      "asset": {
+        "file": "granvia-hiroshima-south-gate.svg",
+        "width": 93,
+        "height": 95,
+        "surface": "light"
+      },
+      "sha256": "5522e11afecfc459d5524859e3e8bc5d787003ef5ae31e2b89a30b3aecf49843",
+      "changes": "None. Supplied SVG bytes, paths, purple color, and viewBox retained.",
+      "note": "The user identified the logo on the official English South Gate page and then supplied logo.svg locally. The artwork is a purple crest with the Hotel Granvia Hiroshima South Gate wordmark. Its static website image URL was not independently retrieved because external webpage reading was security-filtered. This is the user-supplied property logo, distinct from the north-side Granvia."
     }
   ]
 }
