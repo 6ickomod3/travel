@@ -25,6 +25,9 @@ public/images/
   shared/
     atlas-world.svg
     credits.json
+  brands/
+    official-logo.svg
+    README.md
 templates/trip/
   trip.ts.example
   history.md
@@ -43,6 +46,13 @@ src/data/
   use airport-local dates and times; booking openings use explicit offsets
   and seller timezones. Ticket prices and estimates are per person, with an
   ISO currency and any conditions stated in their notes.
+  Optional `brandId` points to the shared airline or property identity.
+  For codeshares, the actual `operatedByBrandId` and operating flight number
+  remain distinct from the marketing carrier and flight number.
+  Ticket strategies are mutually exclusive alternatives. `addOnTickets`
+  itemizes extra tickets already counted in `estimatedTotal`; `estimateNote`
+  provides a concise condition in the comparison. Only an explicit choice
+  records `selectedTicketOptionId`, which does not establish purchase.
   Pending checklist items appear first on trip pages. Use `kind: "todo"`
   for choosing, booking, buying, or preparing, and `kind: "check"` for
   missing details and confirmations. An omitted kind defaults to `todo`.
@@ -53,6 +63,10 @@ src/data/
   The accommodation cards and final Costs section use the same record.
   Missing prices remain absent and are excluded from partial totals. Sum
   currencies separately and never infer payment from a confirmed booking.
+  Estimated extras can use `kind: "accommodation-tax"` and a supplied
+  `quantity` with `perPersonPerNight`, `people`, and `nights`. Preserve the
+  submitted rate and calculation; keep already included fees out of extras.
+  Booking progress derives from recorded flight statuses and stay nights.
   Optional daily `stamps` holds ordered collection stops, official numbers,
   and any route conditions. `stampGuide` holds shared collection and
   eligibility instructions. Planned stamps do not establish collection or
@@ -60,6 +74,9 @@ src/data/
   Research references use disclosures that start closed throughout trip
   pages. They open for printing and restore afterward; map and image
   attribution remains visible beside its content.
+  Daily navigation focuses one day at a time while preserving a full-trip
+  view and native disclosures. Printing includes every day, alternatives,
+  ticket details, and references, then restores the previous screen state.
   Optional `gallery` stores the trip's top photo sequence and related day or
   alternative links. `sights` stores concise factual introductions, source
   references, and photo IDs. Each day's or alternative's `sightIds` selects
@@ -82,6 +99,11 @@ src/data/
   gallery. Optimize local images rather than introducing paid image APIs.
 - Shared illustrations and font attribution belong in
   `public/images/shared/credits.json`. Font files remain in `public/fonts/`.
+- Reusable official brand assets belong in `public/images/brands/`, with
+  English records of their official source, changes, and trademark/copyright
+  status. `src/lib/brands.ts` and `BrandMark.astro` provide identity and
+  rendering across trips. Brand records remain separate from photo licenses;
+  use a full name or initials when an official mark is unavailable.
 - `src/data/types.ts` defines shared content types. `src/data/trips.ts` is a
   small registry that discovers `itineraries/*/trip.ts` automatically. Pages
   and helpers import the registry or its re-exported types; trip modules must

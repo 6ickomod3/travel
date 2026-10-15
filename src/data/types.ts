@@ -1,3 +1,5 @@
+import type { BrandId } from '../lib/brands';
+
 export type TripStatus = "planning" | "upcoming" | "completed";
 
 export interface TripDestination {
@@ -114,7 +116,13 @@ export interface TripStayCost {
   currency: string;
   amount: number;
   /** Estimated charges excluded from amount; never repeat fees already included. */
-  estimatedAdditional?: Array<{ label: string; amount: number }>;
+  estimatedAdditional?: Array<{
+    label: string;
+    amount: number;
+    kind?: "accommodation-tax" | "other";
+    /** An explicitly provided estimate, not a tax rate inferred from room prices. */
+    quantity?: { perPersonPerNight: number; people: number; nights: number };
+  }>;
   includes?: string[];
   notes?: string[];
   sourceIds?: string[];
@@ -130,6 +138,8 @@ export interface TripStaySegment {
 export interface TripStay {
   id: string;
   name: string;
+  /** Reusable identity from the shared brand registry; omit unknown properties. */
+  brandId?: BrandId;
   location: string;
   checkIns: TripStaySegment[];
   status: "booked" | "pending";
@@ -157,6 +167,9 @@ export interface TripFlightEndpoint {
 export interface TripFlight {
   id: string;
   flightNumber: string;
+  /** Marketing carrier; the operating carrier takes precedence for the visual mark. */
+  brandId?: BrandId;
+  operatedByBrandId?: BrandId;
   operatedByFlightNumber?: string;
   travelerLabel?: string;
   status: "booked" | "planned";
@@ -175,6 +188,9 @@ export interface TripTicketOption {
   currency: string;
   price: number;
   estimatedTotal?: number;
+  /** Extra tickets already counted in estimatedTotal, in this option's currency. */
+  addOnTickets?: Array<{ label: string; price: number }>;
+  estimateNote?: string;
   description: string;
   includes: string[];
   excludes: string[];
@@ -217,6 +233,8 @@ export interface Trip {
   stays?: TripStay[];
   flights?: TripFlight[];
   ticketOptions?: TripTicketOption[];
+  /** Explicitly recorded choice of one option; never implies purchase or payment. */
+  selectedTicketOptionId?: string;
   bookingWindows?: TripBookingWindow[];
   checklist?: TripChecklistItem[];
   sources?: TripSource[];

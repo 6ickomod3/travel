@@ -378,6 +378,7 @@ export default {
     {
       "id": "arrival-traveler-1",
       "flightNumber": "UA35",
+      "brandId": "united",
       "travelerLabel": "旅客1",
       "status": "booked",
       "departure": {
@@ -400,6 +401,8 @@ export default {
     {
       "id": "arrival-traveler-2",
       "flightNumber": "MU8649",
+      "brandId": "china-eastern",
+      "operatedByBrandId": "shanghai-airlines",
       "operatedByFlightNumber": "FM821",
       "travelerLabel": "旅客2",
       "status": "booked",
@@ -424,6 +427,7 @@ export default {
     {
       "id": "return-flight",
       "flightNumber": "MU226",
+      "brandId": "china-eastern",
       "travelerLabel": "两人",
       "status": "booked",
       "departure": {
@@ -449,6 +453,7 @@ export default {
     {
       "id": "osaka",
       "name": "Hotel Hankyu RESPIRE Osaka",
+      "brandId": "hankyu-respire-osaka",
       "location": "梅田／Yodobashi Umeda Tower · LINKS UMEDA",
       "checkIns": [
         {
@@ -460,7 +465,9 @@ export default {
             "estimatedAdditional": [
               {
                 "label": "住宿税",
-                "amount": 800
+                "amount": 800,
+                "kind": "accommodation-tax",
+                "quantity": { "perPersonPerNight": 400, "people": 2, "nights": 1 }
               }
             ],
             "notes": [
@@ -480,7 +487,9 @@ export default {
             "estimatedAdditional": [
               {
                 "label": "住宿税",
-                "amount": 1600
+                "amount": 1600,
+                "kind": "accommodation-tax",
+                "quantity": { "perPersonPerNight": 400, "people": 2, "nights": 2 }
               }
             ],
             "notes": [
@@ -521,6 +530,7 @@ export default {
     {
       "id": "kii-tanabe",
       "name": "Comfort Hotel Kii Tanabe",
+      "brandId": "comfort-hotel",
       "location": "纪伊田边",
       "checkIns": [
         {
@@ -548,6 +558,7 @@ export default {
     {
       "id": "kumano-kodo",
       "name": "SEN RETREAT CHIKATSUYU",
+      "brandId": "sen-retreat",
       "location": "近露",
       "checkIns": [
         {
@@ -572,6 +583,7 @@ export default {
     {
       "id": "kawayu",
       "name": "川湯まつや",
+      "brandId": "kawayu-matsuya",
       "location": "川汤温泉",
       "checkIns": [
         {
@@ -604,6 +616,10 @@ export default {
       "currency": "JPY",
       "price": 26000,
       "estimatedTotal": 27800,
+      "addOnTickets": [
+        { "label": "11/21 HARUKA单程优惠", "price": 1800 }
+      ],
+      "estimateNote": "21号HARUKA优惠需另购，价格按当前计划估算。",
       "description": "7日成人券，选11/13–19；加21号HARUKA单程优惠后，铁路票券估算每人27,800日元，不含20号奈良。",
       "includes": [
         "13号关西机场进大阪的HARUKA。",
@@ -634,6 +650,12 @@ export default {
       "currency": "JPY",
       "price": 17000,
       "estimatedTotal": 27020,
+      "addOnTickets": [
+        { "label": "11/13 HARUKA单程优惠", "price": 1800 },
+        { "label": "11/21 HARUKA单程优惠", "price": 1800 },
+        { "label": "11/19 Kuroshio 30（WEB早特7）", "price": 6420 }
+      ],
+      "estimateNote": "以买到19号WEB早特7为前提；无余票时需重新核价。",
       "description": "5日Pass加13号、21号HARUKA优惠及19号单独黑潮票；每人27,020日元以买到WEB早特7为前提，不含20号奈良。",
       "includes": [
         "11/14–18关西&广岛5日Pass，成人17,000日元；覆盖这期间适用的JR线路与渡轮。"

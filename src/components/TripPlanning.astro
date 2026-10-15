@@ -7,14 +7,22 @@ interface Props {
   ticketOptions?: TripTicketOption[];
   bookingWindows?: TripBookingWindow[];
   sources?: TripSource[];
+  travelers?: number;
+  selectedTicketOptionId?: string;
   locale?: 'zh-CN' | 'en';
 }
-const { ticketOptions = [], bookingWindows = [], sources = [], locale = 'en' } = Astro.props;
+const { ticketOptions = [], bookingWindows = [], sources = [], travelers, selectedTicketOptionId, locale = 'en' } = Astro.props;
 const isZh = locale === 'zh-CN';
 const dateLocale = isZh ? 'zh-CN' : 'en-US';
 const text = (zh: string, en: string) => isZh ? zh : en;
 const money = (option: TripTicketOption, value: number) => new Intl.NumberFormat(dateLocale, { style: 'currency', currency: option.currency }).format(value);
 const ticketDates = (option: TripTicketOption) => formatDateRange({ startDate: option.validFrom, endDate: option.validThrough }, dateLocale);
+const partySize = travelers !== undefined && Number.isInteger(travelers) && travelers > 0 ? travelers : undefined;
+const selectedOption = ticketOptions.find(option => option.id === selectedTicketOptionId);
+const hasEstimateNotes = ticketOptions.some(option => option.estimateNote);
+const comparableOptions = ticketOptions.length === 2 && ticketOptions.every(option => option.estimatedTotal !== undefined && option.currency === ticketOptions[0].currency);
+const estimateDifference = comparableOptions ? Math.abs(ticketOptions[0].estimatedTotal! - ticketOptions[1].estimatedTotal!) : undefined;
+const isSelected = (option: TripTicketOption) => option.id === selectedOption?.id;
 const travelDate = (value: string) => formatDate(value, { month: 'short', day: 'numeric' }, dateLocale);
 const openingTime = (window: TripBookingWindow, timeZone: string) => new Intl.DateTimeFormat(dateLocale, { timeZone, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(window.opensAt));
 const localTimeLabel = bookingWindows.every(window => window.timeZone === 'Asia/Tokyo') ? text('日本时间', 'Japan time') : text('售票当地时间', 'Booking local time');
@@ -26,20 +34,37 @@ const bookingSources = [...new Set(bookingWindows.flatMap(window => window.sourc
 ---
 <div class="trip-planning-details">
   {ticketOptions.length > 0 && <div class="ticket-options" aria-labelledby="ticket-options-title">
-    <div class="planning-details-heading"><h3 id="ticket-options-title">{text('票券方案', 'Ticket options')}</h3><p>{text('方案仍待选择，价格按每人计算。', 'Options await selection. Prices are per person.')}</p></div>
-    <div class="ticket-options-grid">
-      {ticketOptions.map(option => <article class="ticket-option" id={`ticket-${option.id}`} data-ticket-option={option.id}>
-        <h4>{option.title}</h4>
-        <p class="ticket-dates">{ticketDates(option)}</p>
-        <p class="ticket-description">{option.description}</p>
-        <dl class="ticket-prices">
-          <div><dt>{text('票券价格 / 人', 'Pass price / person')}</dt><dd>{money(option, option.price)}</dd></div>
-          {option.estimatedTotal !== undefined && <div><dt>{text('含额外铁路票价的估算 / 人', 'Estimate with extra rail tickets / person')}</dt><dd>{money(option, option.estimatedTotal)}</dd></div>}
-        </dl>
-        <div class="ticket-coverage"><h5>{text('包含', 'Included')}</h5><ul>{option.includes.map(item => <li>{item}</li>)}</ul><h5>{text('不包含', 'Excluded')}</h5><ul>{option.excludes.map(item => <li>{item}</li>)}</ul></div>
-        {option.notes.length > 0 && <ul class="ticket-notes">{option.notes.map(note => <li>{note}</li>)}</ul>}
-        <TripReferences sources={sourcesFor(option.sourceIds)} locale={locale} />
-      </article>)}
+    <div class="planning-details-heading">
+      <h3 id="ticket-options-title">{text('票券方案', 'Ticket options')}</h3>
+      {selectedOption ? <p class="ticket-choice-note">{text('偏好方案：', 'Preferred option: ')}<strong>{selectedOption.title}</strong>{text('。购票状态以确认记录为准。', '. Ticket confirmation is recorded separately.')}</p> : <p class="ticket-choice-note"><span class="ticket-pending-label">{text('待定', 'Pending')}</span>{ticketOptions.length > 1 ? text('以下方案选一套。', 'Choose one of these options.') : text('方案待确认。', 'The option awaits confirmation.')}</p>}
+      <p>{text('组合估算已计入所列另购车票，其他费用另计。', 'Package estimates include the listed additional tickets. Other costs are separate.')}</p>
+    </div>
+    <div class="ticket-comparison-wrapper" tabindex="0" role="region" aria-label={text('票券方案对比', 'Ticket option comparison')}>
+      <table class="ticket-comparison" style={ticketOptions.length > 2 ? `min-width: ${180 + ticketOptions.length * 190}px` : undefined}>
+        <caption class="sr-only">{text('备选购票组合、有效期、每人及同行人数估算', 'Alternative ticket packages, validity, per-person and party estimates')}</caption>
+        <thead><tr><th scope="col">{text('项目', 'Item')}</th>{ticketOptions.map(option => <th scope="col" class:list={{ 'ticket-preferred-cell': isSelected(option) }}><span class="ticket-comparison-title">{option.title}</span>{isSelected(option) && <span class="ticket-preferred-label">{text('偏好方案', 'Preferred option')}</span>}</th>)}</tr></thead>
+        <tbody>
+          <tr><th scope="row">{text('Pass有效期', 'Pass validity')}</th>{ticketOptions.map(option => <td class="ticket-validity">{ticketDates(option)}</td>)}</tr>
+          <tr><th scope="row">{text('Pass价格／人', 'Pass / person')}</th>{ticketOptions.map(option => <td class="ticket-price-cell"><strong>{money(option, option.price)}</strong></td>)}</tr>
+          <tr><th scope="row">{text('计入估算的另购车票／人', 'Additional tickets in estimate / person')}</th>{ticketOptions.map(option => <td>{option.addOnTickets !== undefined ? option.addOnTickets.length > 0 ? <ul class="ticket-addons">{option.addOnTickets.map(ticket => <li><span>{ticket.label}</span><strong>{money(option, ticket.price)}</strong></li>)}</ul> : <span class="ticket-unpriced">{text('无', 'None')}</span> : <span class="ticket-unpriced">{text('未列明', 'Not itemized')}</span>}</td>)}</tr>
+          <tr class="ticket-total-row"><th scope="row">{text('组合估算／人', 'Package estimate / person')}</th>{ticketOptions.map(option => <td class="ticket-price-cell">{option.estimatedTotal !== undefined ? <strong data-ticket-total="person">{money(option, option.estimatedTotal)}</strong> : <span class="ticket-unpriced">{text('待核价', 'To price')}</span>}</td>)}</tr>
+          {partySize !== undefined && partySize > 1 && <tr class="ticket-total-row"><th scope="row">{partySize}{text('人合计', ' travelers total')}</th>{ticketOptions.map(option => <td class="ticket-price-cell">{option.estimatedTotal !== undefined ? <strong data-ticket-total="party">{money(option, option.estimatedTotal * partySize)}</strong> : <span class="ticket-unpriced">{text('待核价', 'To price')}</span>}</td>)}</tr>}
+          {hasEstimateNotes && <tr><th scope="row">{text('估算条件', 'Estimate conditions')}</th>{ticketOptions.map(option => <td class="ticket-estimate-note">{option.estimateNote || text('见下方覆盖与条件。', 'See coverage and conditions below.')}</td>)}</tr>}
+          <tr><th scope="row">{text('覆盖与条件', 'Coverage and conditions')}</th>{ticketOptions.map(option => <td><a class="ticket-details-link" href={`#ticket-${option.id}`}>{text('查看详情', 'View details')}</a></td>)}</tr>
+        </tbody>
+      </table>
+    </div>
+    {estimateDifference !== undefined && <p class="ticket-comparison-difference">{text('按以上条件，两方案估算相差', 'Under these conditions, the estimates differ by ')} <strong>{money(ticketOptions[0], estimateDifference)}</strong>{text('／人', ' per person')}{partySize !== undefined && partySize > 1 && <>{text('（', ' (')}{partySize}{text('人', ' travelers')}{text('共', ': ')} <strong>{money(ticketOptions[0], estimateDifference * partySize)}</strong>{text('）', ')')}</>}{text('。', '.')}</p>}
+    <div class="ticket-options-details">
+      {ticketOptions.map(option => <details class="ticket-option" id={`ticket-${option.id}`} data-ticket-option={option.id} data-ticket-details>
+        <summary><span class="ticket-option-title">{option.title}</span><span class="ticket-details-hint">{text('覆盖与条件', 'Coverage and conditions')}</span><span class="ticket-details-toggle" aria-hidden="true">+</span></summary>
+        <div class="ticket-option-content">
+          <p class="ticket-description">{option.description}</p>
+          <div class="ticket-coverage"><h4>{text('Pass覆盖', 'Pass coverage')}</h4><ul>{option.includes.map(item => <li>{item}</li>)}</ul><h4>{text('需另购或另计', 'Additional tickets or charges')}</h4><ul>{option.excludes.map(item => <li>{item}</li>)}</ul></div>
+          {option.notes.length > 0 && <ul class="ticket-notes">{option.notes.map(note => <li>{note}</li>)}</ul>}
+          <TripReferences sources={sourcesFor(option.sourceIds)} locale={locale} />
+        </div>
+      </details>)}
     </div>
   </div>}
   {bookingWindows.length > 0 && <div class="booking-windows" aria-labelledby="booking-windows-title">
@@ -59,16 +84,47 @@ const bookingSources = [...new Set(bookingWindows.flatMap(window => window.sourc
   .planning-details-heading { margin-bottom: 18px; }
   .planning-details-heading h3 { font-size: 18px; font-weight: 600; }
   .planning-details-heading p { margin-top: 8px; color: var(--ink-soft); font-size: 12px; }
-  .ticket-options-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
-  .ticket-option { padding: 24px; min-width: 0; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; }
-  .ticket-option h4 { font-size: 17px; line-height: 1.6; font-weight: 600; }
-  .ticket-dates { margin-top: 7px; color: var(--accent-deep); font-size: 12px; }
-  .ticket-description { margin-top: 16px; font-size: 13px; color: var(--ink-soft); }
-  .ticket-prices { display: flex; flex-wrap: wrap; gap: 15px 30px; margin: 20px 0 0; padding-block: 17px; border-block: 1px solid var(--line); }
-  .ticket-prices dt { color: var(--ink-soft); font-size: 10px; }
-  .ticket-prices dd { margin: 4px 0 0; font-size: 20px; font-weight: 500; font-variant-numeric: tabular-nums; }
-  .ticket-coverage { margin-top: 18px; }
-  .ticket-coverage h5 { margin: 15px 0 7px; font-size: 12px; font-weight: 600; }
+  .ticket-choice-note { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+  .ticket-choice-note strong { color: var(--ink); font-weight: 500; }
+  .ticket-pending-label { padding: 2px 8px; border-radius: 3px; color: var(--pending, #9a5c20); background: var(--pending-soft, #fff4e5); font-size: 11px; font-weight: 500; }
+  .ticket-comparison-wrapper { overflow-x: auto; max-width: 100%; border: 1px solid var(--line); border-radius: 6px; }
+  .ticket-comparison { width: 100%; border-collapse: collapse; table-layout: fixed; background: #fbfaf5; font-size: 12px; text-align: left; }
+  .ticket-comparison th, .ticket-comparison td { padding: 15px 20px; font-weight: 400; vertical-align: top; overflow-wrap: anywhere; }
+  .ticket-comparison tr > :first-child { width: 23%; }
+  .ticket-comparison thead { background: var(--paper-deep); }
+  .ticket-comparison thead th { font-weight: 600; }
+  .ticket-comparison tbody tr { border-top: 1px solid var(--line); }
+  .ticket-comparison tbody th { color: var(--ink-soft); }
+  .ticket-comparison-title { display: block; font-size: 14px; line-height: 1.6; }
+  .ticket-preferred-cell { background: #3657430c; }
+  .ticket-preferred-label { display: inline-block; margin-top: 7px; color: var(--accent-deep); font-size: 11px; font-weight: 500; }
+  .ticket-validity { color: var(--accent-deep); font-size: 12px; }
+  .ticket-price-cell strong { display: block; font-size: 18px; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .ticket-addons { list-style: none; margin: 0; padding: 0; font-size: 12px; }
+  .ticket-addons li + li { margin-top: 10px; }
+  .ticket-addons span, .ticket-addons strong { display: block; }
+  .ticket-addons span { color: var(--ink-soft); line-height: 1.6; }
+  .ticket-addons strong { margin-top: 2px; font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .ticket-total-row { background: #36574308; }
+  .ticket-total-row th { color: var(--ink); }
+  .ticket-total-row .ticket-price-cell strong { font-size: 21px; color: var(--accent-deep); }
+  .ticket-estimate-note, .ticket-unpriced { color: var(--ink-soft); font-size: 12px; }
+  .ticket-details-link { color: var(--accent-deep); text-decoration: underline; text-underline-offset: 3px; font-size: 12px; }
+  .ticket-comparison-difference { margin-top: 13px; color: var(--ink-soft); font-size: 12px; }
+  .ticket-comparison-difference strong { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .ticket-options-details { display: grid; gap: 12px; margin-top: 18px; }
+  .ticket-option { min-width: 0; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; scroll-margin-top: 90px; }
+  .ticket-option > summary { display: flex; align-items: center; gap: 12px; padding: 18px 22px; list-style: none; cursor: pointer; }
+  .ticket-option > summary::-webkit-details-marker { display: none; }
+  .ticket-option > summary:hover .ticket-option-title { color: var(--accent-deep); }
+  .ticket-option-title { flex: 1; min-width: 0; font-size: 14px; font-weight: 500; line-height: 1.6; }
+  .ticket-details-hint { color: var(--ink-soft); font-size: 11px; }
+  .ticket-details-toggle { color: var(--accent-deep); font-size: 20px; transition: transform 160ms ease; }
+  .ticket-option[open] .ticket-details-toggle { transform: rotate(45deg); }
+  .ticket-option-content { padding: 0 22px 22px; }
+  .ticket-description { font-size: 13px; color: var(--ink-soft); }
+  .ticket-coverage { margin-top: 16px; }
+  .ticket-coverage h4 { margin: 15px 0 7px; font-size: 12px; font-weight: 600; }
   .ticket-coverage ul, .ticket-notes { margin: 0; padding-left: 18px; font-size: 12px; color: var(--ink-soft); }
   .ticket-coverage li + li, .ticket-notes li + li { margin-top: 6px; }
   .ticket-notes { margin-top: 19px; padding-top: 16px; border-top: 1px solid var(--line); }
@@ -81,6 +137,8 @@ const bookingSources = [...new Set(bookingWindows.flatMap(window => window.sourc
   .booking-table tbody th { width: 40%; }
   .booking-table tbody th > span { display: block; margin-top: 4px; font-size: 11px; color: var(--ink-soft); }
   .booking-table td { white-space: nowrap; font-variant-numeric: tabular-nums; }
-  @media (max-width: 600px) { .ticket-options-grid { grid-template-columns: 1fr; gap: 17px; } .ticket-option { padding: 21px; } .ticket-description, .ticket-coverage ul, .ticket-notes { font-size: 13px; } }
-  @media print { .trip-planning-details { gap: 18px; margin-bottom: 18px; } .ticket-options-grid { gap: 12px; } .ticket-option { padding: 13px; background: white; break-inside: avoid; } .ticket-option h4 { font-size: 13px; } .ticket-description, .ticket-coverage ul, .ticket-notes, .booking-table { font-size: 10px; } .ticket-prices dd { font-size: 15px; } .booking-table { min-width: 0; } .booking-table th, .booking-table td { padding: 10px; } .booking-table-wrapper { overflow: visible; } }
+  @media (max-width: 600px) { .ticket-comparison th, .ticket-comparison td { padding: 13px 10px; } .ticket-comparison tr > :first-child { width: 22%; } .ticket-comparison-title { font-size: 12px; } .ticket-validity, .ticket-addons, .ticket-estimate-note { font-size: 11px; } .ticket-price-cell strong { font-size: 16px; } .ticket-total-row .ticket-price-cell strong { font-size: 18px; } .ticket-option > summary { padding: 16px; gap: 9px; } .ticket-option-content { padding: 0 16px 18px; } .ticket-details-hint { display: none; } .ticket-description, .ticket-coverage ul, .ticket-notes { font-size: 13px; } }
+  @media (max-width: 380px) { .ticket-comparison th, .ticket-comparison td { padding: 12px 7px; } .ticket-comparison tbody th, .ticket-details-link { font-size: 11px; } .ticket-price-cell strong { font-size: 14px; } .ticket-total-row .ticket-price-cell strong { font-size: 15px; } }
+  @media (prefers-reduced-motion: reduce) { .ticket-details-toggle { transition: none; } }
+  @media print { .trip-planning-details { gap: 18px; margin-bottom: 18px; } .ticket-comparison-wrapper, .booking-table-wrapper { overflow: visible; } .ticket-comparison { min-width: 0 !important; } .ticket-comparison th, .ticket-comparison td { padding: 10px; font-size: 10px; } .ticket-comparison-title { font-size: 11px; } .ticket-price-cell strong, .ticket-total-row .ticket-price-cell strong { font-size: 15px; } .ticket-options-details { gap: 10px; } .ticket-option { background: white; break-inside: avoid; } .ticket-option > summary { padding: 12px; } .ticket-option-content { padding: 0 12px 12px; } .ticket-details-hint, .ticket-details-toggle { display: none; } .ticket-description, .ticket-coverage ul, .ticket-notes, .booking-table { font-size: 10px; } .booking-table { min-width: 0; } .booking-table th, .booking-table td { padding: 10px; } }
 </style>

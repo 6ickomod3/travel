@@ -36,6 +36,16 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
 - Preserve a modern visual style through typography, spacing, the warm cream /
   forest green / terracotta palette, images, and interactive maps.
 - Keep mobile layouts readable, controls accessible, and navigation direct.
+- Use small official airline, hotel, and transport brand marks where they help
+  identify a service. Reuse the shared brand registry and local assets; retain
+  original colors and proportions, the full name, and an honest text fallback.
+- Use a green check badge for confirmed flights and booked accommodation.
+  Show pending confirmations in amber. Booking progress counts recorded
+  flights and accommodation nights; agreed schedules remain separate.
+- Daily itineraries use date navigation with one day in focus by default.
+  Keep a full-trip view, previous/next controls, accessible fragment links,
+  and a usable native disclosure fallback. Place daily reminders and the
+  overnight stay near the start of each day.
 - The homepage is an overview: highlight the next trip, provide compact trip
   links, and show an atlas of visited places. Trip previews show only covers,
   titles, countries, dates, status, and links. Keep routes, day/night totals,
@@ -48,6 +58,8 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   Use real photos of the named places and keep image licenses visible.
 - When costs are provided, put Costs at the end of the trip page. Show known
   booking amounts, estimated extra charges, and missing prices clearly.
+  Label accommodation tax explicitly when it is the only recorded extra,
+  and show the supplied per-person/per-night estimate without inventing rates.
 - Put a trip's pending checklist before flights, routes, and daily schedules.
   Show separate To do actions and To check confirmations, with a direct link
   from the hero and the first trip navigation link. Keep ticket comparisons,
@@ -83,6 +95,10 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   Shared illustrations and font metadata belong in `public/images/shared/`.
   Fonts remain in `public/fonts/`. Use `src/lib/image-credits.ts` for credit
   lookup by full public image path.
+- Reusable brand identities live in `src/lib/brands.ts` and use
+  `BrandMark.astro`. Brand assets and English source records belong in
+  `public/images/brands/`, separately from photo licenses. A missing official
+  logo must use the real name or initials instead of a different brand.
 - Only dated trips may enter date formatting, duration, and travel-status
   calculations. Do not supply fake dates for placeholders.
 - `selectNextTrip()` chooses a trip whose inclusive UTC date range is current,
@@ -111,6 +127,9 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
 - Optional `flights` keep each endpoint's airport-local date and time; an
   inbound flight may depart before the trip's first local date. Confirmation
   belongs to each flight, not to all transport listed in the plan.
+  `brandId` identifies the marketing carrier; `operatedByBrandId` identifies
+  the actual operator when different and takes precedence for the visual mark.
+  Keep both flight numbers and their roles clear on a codeshare.
 - Checklist items use `kind: "todo"` for actions and `kind: "check"` for
   missing details or confirmations; an omitted kind defaults to an action.
   Only outstanding items belong in the checklist. Keep general guidance in
@@ -120,12 +139,20 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   both accommodation cards and the final cost summary. Omit unknown costs;
   never substitute zero. Sum currencies separately and keep estimated extras
   separate from included fees. Booking amounts are not evidence of payment.
+  Each estimated extra can have a `kind` and an explicit `quantity` calculation.
+  Its total must agree with the supplied per-person/per-night estimate.
 - `ticketOptions` store per-person prices, ISO currencies, and conditional
   estimates. `bookingWindows` use absolute opening timestamps and seller
   IANA timezones; display the seller's local time alongside Los Angeles time.
+  Show ticket strategies as alternatives to choose between. `addOnTickets`
+  itemizes tickets already included in an option's `estimatedTotal`.
+  Only an explicit user decision sets `selectedTicketOptionId`; a design
+  approval or selection preference does not confirm purchase or payment.
 - Keep `TripDay.alternatives` as separate labeled schedules. Never interleave
   an optional or fallback route into the main day's itinerary or map route.
   Printing opens both daily and alternative details, then restores their state.
+  Printing also includes ticket details and temporarily shows every day,
+  restoring the selected day, viewing mode, and disclosures afterward.
 - Optional `TripDay.stamps` records planned stamp stops and official numbering,
   with route or eligibility conditions stated explicitly. It does not assert
   that a stamp was collected or a pilgrimage qualification was completed.

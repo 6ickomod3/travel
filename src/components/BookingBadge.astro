@@ -1,0 +1,25 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  status: 'booked' | 'pending';
+  locale?: 'zh-CN' | 'en';
+  label?: string;
+  class?: string;
+}
+const { status, locale = 'en', label, class: className } = Astro.props;
+const booked = status === 'booked';
+const copy = label ?? (locale === 'zh-CN' ? (booked ? '已订' : '待确认') : (booked ? 'Booked' : 'To confirm'));
+---
+<span class:list={['booking-badge', `booking-badge-${status}`, className]} data-booking-status={status}>
+  {booked ? <Icon name="check" size={13} /> : <span class="booking-pending-dot" aria-hidden="true"></span>}
+  {copy}
+</span>
+
+<style>
+  .booking-badge { display: inline-flex; align-items: center; gap: 5px; min-height: 26px; padding: 3px 9px; border: 1px solid transparent; border-radius: 5px; font-size: 11px; font-weight: 600; line-height: 1.5; white-space: nowrap; }
+  .booking-badge-booked { color: var(--confirmed); background: var(--confirmed-soft); border-color: var(--confirmed-line); }
+  .booking-badge-pending { color: var(--pending); background: var(--pending-soft); border-color: #d7b38b; }
+  .booking-pending-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  @media print { .booking-badge { min-height: 20px; padding: 2px 6px; font-size: 9px; } }
+</style>

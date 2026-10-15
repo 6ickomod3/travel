@@ -1,7 +1,8 @@
 ---
 import Icon from './Icon.astro';
 import TripReferences from './TripReferences.astro';
-import type { TripChecklistItem, TripSource } from '../data/trips';
+import TripBookingProgress from './TripBookingProgress.astro';
+import type { TripChecklistItem, TripSource, TripFlight, TripStay } from '../data/trips';
 
 interface Props {
   items: TripChecklistItem[];
@@ -9,8 +10,10 @@ interface Props {
   locale?: 'zh-CN' | 'en';
   hasTicketOptions?: boolean;
   hasBookingWindows?: boolean;
+  flights?: TripFlight[];
+  stays?: TripStay[];
 }
-const { items, sources = [], locale = 'en', hasTicketOptions = false, hasBookingWindows = false } = Astro.props;
+const { items, sources = [], locale = 'en', hasTicketOptions = false, hasBookingWindows = false, flights = [], stays = [] } = Astro.props;
 const isZh = locale === 'zh-CN';
 const text = (zh: string, en: string) => isZh ? zh : en;
 const groups = [
@@ -27,6 +30,7 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
     <div><h2 id="checklist-title">{text('待办与待确认', 'To do and to check')}</h2></div>
     <p class="section-intro">{items.length} {text('项待处理', items.length === 1 ? 'open item' : 'open items')}</p>
   </div>
+  <TripBookingProgress flights={flights} stays={stays} locale={locale} />
   <div class:list={['checklist-grid', { 'checklist-grid-single': groups.length === 1 }]}>
     {groups.map(group => <section class="checklist-panel" data-checklist-group={group.id} aria-labelledby={`checklist-${group.id}-title`}>
       <div class="checklist-panel-heading"><Icon name={group.icon} size={20} /><h3 id={`checklist-${group.id}-title`}>{group.label}</h3><span class="checklist-count">{group.items.length}</span></div>

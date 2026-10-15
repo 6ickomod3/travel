@@ -12,12 +12,15 @@ The site uses concise labels and factual travel information. The Idea/About sect
 
 The homepage highlights the current or next dated trip, links to each trip through compact cards, and shows a visited atlas. Routes, schedules, accommodation, and other itinerary details live on the individual trip pages. The next-trip highlight and date-based status labels update with the calendar in the browser, including after returning to an open tab.
 
+Trip pages show outstanding tasks with recorded booking progress, reuse local brand marks, and provide date navigation with a focused day or full-trip view. Printing includes all days, alternatives, ticket details, and references and restores the previous view afterward.
+
 ## Project layout
 
 ```text
 itineraries/<slug>/       Trip data, original inputs, and English history
 public/images/trips/     Images and credits grouped by trip
 public/images/shared/    Shared illustrations and font attribution
+public/images/brands/    Reusable brand marks and source records
 public/fonts/            Local fonts and licenses
 src/data/                Shared types and automatic trip registry
 src/components/          Website components

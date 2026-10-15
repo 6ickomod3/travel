@@ -1,0 +1,290 @@
+---
+import Icon from './Icon.astro';
+import BookingBadge from './BookingBadge.astro';
+import TripReferences from './TripReferences.astro';
+import TripStamps from './TripStamps.astro';
+import TripSights from './TripSights.astro';
+import type { Trip } from '../data/types';
+import { durationDays, formatDate, formatDateRange } from '../lib/trips';
+
+interface Props { trip: Trip; }
+const { trip } = Astro.props;
+const isZh = trip.language === 'zh-CN';
+const locale = isZh ? 'zh-CN' : 'en';
+const dateLocale = isZh ? 'zh-CN' : 'en-US';
+const text = (zh: string, en: string) => isZh ? zh : en;
+const date = (value: string, options: Intl.DateTimeFormatOptions = {}) => formatDate(value, options, dateLocale);
+const dayNumber = (dayDate: string) => durationDays({ startDate: trip.startDate, endDate: dayDate });
+const number = (value: number) => new Intl.NumberFormat(dateLocale, { maximumFractionDigits: 1 }).format(value);
+const sources = trip.sources ?? [];
+const gallery = trip.gallery ?? [];
+const sights = trip.sights ?? [];
+const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
+  const source = sources.find(item => item.id === id);
+  return source ? [source] : [];
+});
+const sightsFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
+  const sight = sights.find(item => item.id === id);
+  return sight ? [sight] : [];
+});
+const cityName = (id: string) => trip.destinations.find(stop => stop.id === id)?.name || id;
+const stayById = (id?: string) => (trip.stays ?? []).find(stay => stay.id === id);
+const isThisJapan = trip.slug === 'japan-2026';
+---
+
+<section class="daily-itinerary itinerary-section container" id="itinerary" aria-labelledby="itinerary-title" data-trip-itinerary data-trip-slug={trip.slug} data-trip-language={locale}>
+  <div class="section-heading">
+    <div><h2 id="itinerary-title">{text('每日行程', 'Daily itinerary')}</h2></div>
+    <p class="section-intro daily-plan-meta"><span>{trip.itineraryStatus === 'agreed' ? text('已商定行程', 'Agreed itinerary') : text('行程草案', 'Draft itinerary')}</span><span>{formatDateRange(trip, dateLocale)}</span></p>
+  </div>
+
+  {trip.days.length > 0 ? <>
+    <div class="daily-navigation" data-day-navigation>
+      <div class="daily-navigation-toolbar itinerary-toolbar">
+        <p data-itinerary-view-label>{text('全部日期', 'All dates')}</p>
+        <div class="daily-view-controls">
+          <span class="daily-current-count" data-day-current hidden>1 / {trip.days.length}</span>
+          <button type="button" class="daily-mode-button expand-button" data-expand-days aria-controls="itinerary-days" aria-expanded="false" hidden>
+            <span data-day-mode-label>{text('查看全程', 'View all')}</span><Icon name="list" size={16} />
+          </button>
+        </div>
+      </div>
+      <div class="daily-date-controls">
+        <button type="button" class="day-step-button" data-day-previous aria-label={text('上一天', 'Previous day')} aria-controls="itinerary-days" hidden disabled><Icon name="arrow-left" size={18} /><span class="sr-only">{text('上一天', 'Previous day')}</span></button>
+        <nav class="daily-date-navigation" aria-label={text('选择行程日期', 'Choose an itinerary date')} data-day-date-navigation>
+          {trip.days.map(day => <a class="day-date-link" href={`#day-${day.date}`} data-day-select={day.date} aria-controls={`day-${day.date}`} aria-label={text(`${date(day.date)}，第${dayNumber(day.date)}天，${day.title}`, `${date(day.date)}, day ${dayNumber(day.date)}, ${day.title}`)}>
+            <time datetime={day.date}>{date(day.date)}</time><span>{date(day.date, { weekday: 'short', month: undefined, day: undefined })}</span>
+          </a>)}
+        </nav>
+        <button type="button" class="day-step-button" data-day-next aria-label={text('下一天', 'Next day')} aria-controls="itinerary-days" hidden disabled><Icon name="arrow-right" size={18} /><span class="sr-only">{text('下一天', 'Next day')}</span></button>
+      </div>
+      <p class="sr-only" role="status" aria-live="polite" aria-atomic="true" data-day-announcement></p>
+    </div>
+
+    <div class="itinerary-list" id="itinerary-days">
+      {trip.days.map((day, index) => {
+        const overnight = stayById(day.overnightId);
+        return <details class="itinerary-day" id={`day-${day.date}`} data-itinerary-date={day.date} data-day-title={day.title} data-day-label={date(day.date)} open={index === 0}>
+          <summary>
+            <span class="day-index">{text('第', 'DAY ')}{String(dayNumber(day.date)).padStart(2, '0')}{isZh && '天'}</span>
+            <span class="day-date"><time datetime={day.date}>{date(day.date)}</time><small>{date(day.date, { weekday: 'short', month: undefined, day: undefined })}</small></span>
+            <span class="day-title">{day.title}</span><span class="day-city">{cityName(day.destinationId)}</span><Icon name="chevron-down" size={17} class="day-chevron" />
+          </summary>
+          <div class:list={['day-content', { 'has-schedule': Boolean(day.schedule?.length) }]}>
+            <p class="day-description">{day.description}</p>
+            {isThisJapan && (day.type === 'arrival' || day.type === 'departure') && <p class="travel-day-note"><Icon name="train" size={15} />{day.type === 'arrival' ? text('抵达日：办理入境、入住和整理行李，不安排景点。', 'Arrival day: immigration, check-in, and unpacking; no sightseeing planned.') : text('返程日：退房、机场和回程，不安排景点。', 'Departure day: check-out, airport, and the journey home; no sightseeing planned.')}</p>}
+
+            <div class="day-essential-info">
+              {overnight && <div class="day-stay"><Icon name="pin" size={15} /><span class="day-stay-label">{text('当晚住宿', 'Overnight stay')}</span><a href={`#stay-${overnight.id}`}>{overnight.name}</a><BookingBadge status={overnight.status} locale={locale} /></div>}
+              {Boolean(day.notes?.length) && <aside class="day-important-notes"><p class="day-note-label">{text('当天提醒', 'Daily reminders')}</p><ul>{day.notes!.map(note => <li>{note}</li>)}</ul></aside>}
+            </div>
+
+            {day.schedule?.length ? <ol class="day-timeline" aria-label={text(`${date(day.date)}时间表`, `${date(day.date)} schedule`)} role="list">
+              {day.schedule.map(item => <li class:list={['timeline-entry', { 'timeline-entry-optional': item.optional }]}>
+                <span class="timeline-time">{item.time}</span>
+                <div class="timeline-copy"><p class="timeline-title">{item.title}{item.optional && <span class="timeline-optional">{text('可选', 'Optional')}</span>}</p>{item.description && <p class="timeline-description">{item.description}</p>}<TripReferences sources={sourcesFor(item.sourceIds)} locale={locale} /></div>
+              </li>)}
+            </ol> : day.ideas.length > 0 && <><span class="day-ideas-title">{text('备选活动', 'Suggested activities')} · {cityName(day.destinationId).toUpperCase()}</span><ul class="day-ideas">{day.ideas.map(idea => <li>{idea}</li>)}</ul></>}
+
+            <TripSights sights={sightsFor(day.sightIds)} photos={gallery} sources={sources} id={`day-${day.date}`} locale={locale} />
+            {day.hike && <aside class="hike-card" aria-label={text('当天徒步信息', 'Walking information')}>
+              <p class="hike-route"><Icon name="compass" size={18} /> {day.hike.route}</p>
+              <dl class="hike-facts"><div><dt>{text('徒步距离', 'Distance')}</dt><dd>{text('约', 'About ')}{number(day.hike.distanceKm)} {text('公里', 'km')}</dd></div><div><dt>{text('官方参考', 'Official estimate')}</dt><dd>{day.hike.duration}</dd></div>{day.hike.ascentM !== undefined && <div><dt>{text('累计爬升', 'Total ascent')}</dt><dd>{text('约', 'About ')}{number(day.hike.ascentM)} {text('米', 'm')}</dd></div>}</dl>
+              <p class="hike-footnote">{text('途中以实际步速、天气和路线情况调整，留好休息时间。', 'Allow time for breaks and adjust to your pace, weather, and trail conditions.')}</p>
+            </aside>}
+            {day.stamps && <TripStamps collection={day.stamps} sources={sources} locale={locale} />}
+
+            {Boolean(day.alternatives?.length) && <div class="day-alternatives">
+              <h3>{text('备选安排', 'Alternative plans')}</h3>
+              {day.alternatives!.map(alternative => <details class="day-alternative" id={`alternative-${day.date}-${alternative.id}`} data-day-alternative={alternative.id}>
+                <summary><span class="alternative-label">{text('备选', 'Alternative')}</span><span class="alternative-name">{alternative.title}</span><Icon name="chevron-down" size={16} /></summary>
+                <div class="alternative-content">
+                  <p class="alternative-description">{alternative.description}</p>
+                  <p class="alternative-scope">{text('此方案整体替代上面的对应安排。', 'Use this option in place of the corresponding main schedule.')}</p>
+                  <ol class="day-timeline" aria-label={text(`${alternative.title}时间表`, `${alternative.title} schedule`)} role="list">{alternative.schedule.map(item => <li class:list={['timeline-entry', { 'timeline-entry-optional': item.optional }]}>
+                    <span class="timeline-time">{item.time}</span>
+                    <div class="timeline-copy"><p class="timeline-title">{item.title}{item.optional && <span class="timeline-optional">{text('可选', 'Optional')}</span>}</p>{item.description && <p class="timeline-description">{item.description}</p>}<TripReferences sources={sourcesFor(item.sourceIds)} locale={locale} /></div>
+                  </li>)}</ol>
+                  <TripSights sights={sightsFor(alternative.sightIds)} photos={gallery} sources={sources} id={`alternative-${day.date}-${alternative.id}`} locale={locale} />
+                  {alternative.notes.length > 0 && <aside class="day-important-notes"><p class="day-note-label">{text('此方案提醒', 'Alternative reminders')}</p><ul>{alternative.notes.map(note => <li>{note}</li>)}</ul></aside>}
+                  <TripReferences sources={sourcesFor(alternative.sourceIds)} locale={locale} />
+                </div>
+              </details>)}
+            </div>}
+            <TripReferences sources={sourcesFor(day.sourceIds)} locale={locale} label={text('当天资料', 'Day sources')} />
+          </div>
+        </details>;
+      })}
+    </div>
+  </> : <p class="daily-empty">{text('每日安排待补充。', 'Daily plans are coming soon.')}</p>}
+</section>
+
+<style>
+  .daily-itinerary { --daily-nav-height: 128px; padding-block: 64px; scroll-margin-top: 24px; }
+  .daily-itinerary .section-heading { margin-bottom: 26px; }
+  .daily-plan-meta > span { display: block; }
+  .daily-itinerary .daily-navigation { position: sticky; top: var(--itinerary-nav-top, 16px); z-index: 30; min-width: 0; margin-bottom: 24px; padding: 10px 14px 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); box-shadow: 0 5px 20px #23372c08; }
+  .daily-itinerary .daily-navigation-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin: 0 0 8px; padding: 0; border: 0; }
+  .daily-itinerary .daily-navigation-toolbar > p { color: var(--ink-soft); font-size: 12px; }
+  .daily-view-controls { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+  .daily-current-count { color: var(--ink-soft); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .daily-itinerary .daily-mode-button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 8px 13px; border: 1px solid var(--line); border-radius: 4px; background: #fbfaf5; font-size: 12px; white-space: nowrap; }
+  .daily-itinerary .daily-mode-button:hover { color: var(--ink); background: var(--paper-deep); }
+  .daily-date-controls { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .daily-date-navigation { display: flex; flex: 1; align-items: stretch; gap: 7px; min-width: 0; padding: 3px; overflow-x: auto; scrollbar-width: thin; scrollbar-color: #bfc5b7 transparent; }
+  .day-date-link { display: flex; flex: 1 0 76px; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-width: 76px; min-height: 54px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 4px; background: #fbfaf5; line-height: 1.4; }
+  .day-date-link time { font-size: 12px; font-weight: 500; white-space: nowrap; }
+  .day-date-link > span { color: var(--ink-soft); font-size: 10px; white-space: nowrap; }
+  .day-date-link:hover { background: var(--paper-deep); }
+  .day-date-link[aria-current='true'] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+  .day-date-link[aria-current='true'] > span { color: #f7f5efbd; }
+  .day-date-link:focus-visible { outline-offset: 0; }
+  .day-step-button { display: grid; place-items: center; flex-shrink: 0; width: 44px; min-height: 44px; padding: 9px; border: 1px solid var(--line); border-radius: 4px; background: #fbfaf5; }
+  .day-step-button:hover:not([aria-disabled='true']) { background: var(--paper-deep); }
+  .day-step-button[aria-disabled='true'] { opacity: .4; cursor: default; }
+  .daily-itinerary .itinerary-list { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+  .daily-itinerary .itinerary-day { min-width: 0; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; scroll-margin-top: calc(var(--daily-nav-height) + 32px); }
+  .daily-itinerary .itinerary-day + .itinerary-day { margin-top: 16px; }
+  .daily-itinerary[data-itinerary-mode='focus'] .itinerary-day { margin-top: 0; }
+  .daily-itinerary .itinerary-day > summary { display: grid; grid-template-columns: 48px 78px minmax(0, 1fr) 90px 18px; align-items: center; gap: 20px; padding: 24px; cursor: pointer; list-style: none; }
+  .daily-itinerary .itinerary-day > summary::-webkit-details-marker { display: none; }
+  .daily-itinerary .itinerary-day > summary::marker { content: ''; }
+  .daily-itinerary .day-index { color: var(--ink-soft); font-size: 10px; letter-spacing: .03em; white-space: nowrap; }
+  .daily-itinerary .day-date { display: flex; flex-direction: column; font-size: 12px; line-height: 1.5; }
+  .daily-itinerary .day-date small { color: var(--ink-soft); font-size: 10px; margin-top: 3px; letter-spacing: 0; }
+  .daily-itinerary .day-title { min-width: 0; color: var(--ink); font-family: var(--serif); font-size: 29px; line-height: 1.3; overflow-wrap: anywhere; }
+  .daily-itinerary:lang(zh-CN) .day-title { font-size: 23px; line-height: 1.65; }
+  .daily-itinerary .day-city { color: var(--ink-soft); font-size: 11px; line-height: 1.7; text-align: right; overflow-wrap: anywhere; }
+  .daily-itinerary .day-chevron { color: var(--ink-soft); transition: transform .2s; }
+  .daily-itinerary .itinerary-day[open] > summary .day-chevron { transform: rotate(180deg); color: var(--ink); }
+  .daily-itinerary .itinerary-day[open] .day-title, .daily-itinerary .itinerary-day > summary:hover .day-title { color: var(--ink); }
+  .daily-itinerary .day-content, .daily-itinerary .day-content.has-schedule { min-width: 0; padding: 0 24px 27px; }
+  .daily-itinerary .day-content > p, .daily-itinerary .day-description { max-width: none; color: var(--ink-soft); font-size: 14px; line-height: 1.95; overflow-wrap: anywhere; }
+  .daily-itinerary .travel-day-note { display: flex; align-items: flex-start; gap: 8px; margin-top: 14px; color: var(--ink); font-size: 12px; }
+  .daily-itinerary .travel-day-note > svg { margin-top: 4px; }
+  .day-essential-info:empty { display: none; }
+  .daily-itinerary .day-stay { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 18px; padding: 13px 15px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); font-size: 13px; line-height: 1.8; }
+  .day-stay-label { color: var(--ink-soft); font-size: 11px; }
+  .daily-itinerary .day-stay > a { min-width: 0; max-width: 100%; min-height: 28px; font-weight: 500; text-decoration: underline; text-underline-offset: 4px; overflow-wrap: anywhere; }
+  .daily-itinerary .day-stay > svg { color: var(--ink-soft); }
+  .daily-itinerary .day-important-notes { margin-top: 18px; padding: 15px 18px; border-left: 3px solid var(--ink-soft); border-radius: 0 4px 4px 0; background: var(--paper-deep); }
+  .daily-itinerary .day-note-label { font-size: 12px; font-weight: 600; }
+  .daily-itinerary .day-important-notes ul { margin: 8px 0 0; padding-left: 18px; color: var(--ink-soft); font-size: 13px; line-height: 1.95; overflow-wrap: anywhere; }
+  .daily-itinerary .day-important-notes li + li { margin-top: 7px; }
+  .daily-itinerary .day-timeline { margin: 24px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .daily-itinerary .timeline-entry { display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 24px; min-width: 0; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .timeline-copy { min-width: 0; overflow-wrap: anywhere; }
+  .daily-itinerary .timeline-time { display: block; padding-top: 2px; font-size: 12px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1.8; overflow-wrap: anywhere; }
+  .daily-itinerary .timeline-title { font-size: 15px; line-height: 1.8; font-weight: 600; }
+  .daily-itinerary .timeline-description { margin-top: 6px; font-size: 13px; line-height: 1.95; color: var(--ink-soft); }
+  .daily-itinerary .timeline-optional { display: inline-block; margin-left: 9px; padding: 1px 7px; border: 1px solid var(--line); border-radius: 3px; font-size: 10px; font-weight: 400; color: var(--ink-soft); background: var(--paper); vertical-align: middle; }
+  .daily-itinerary .day-ideas-title { display: block; margin-top: 22px; color: var(--ink-soft); font-size: 11px; letter-spacing: 0; }
+  .daily-itinerary .day-ideas { display: flex; flex-wrap: wrap; gap: 9px; margin: 10px 0 0; padding: 0; list-style: none; }
+  .daily-itinerary .day-ideas li { padding: 6px 10px; border: 1px solid var(--line); border-radius: 3px; background: var(--paper); font-size: 12px; }
+  .daily-itinerary .hike-card { margin-top: 22px; padding: 18px 20px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper); }
+  .daily-itinerary .hike-route { display: flex; align-items: flex-start; gap: 9px; font-weight: 500; font-size: 13px; line-height: 1.8; }
+  .hike-route > svg { margin-top: 3px; color: var(--ink-soft); }
+  .daily-itinerary .hike-facts { display: flex; flex-wrap: wrap; gap: 14px 32px; margin: 15px 0 0; }
+  .daily-itinerary .hike-facts dt { color: var(--ink-soft); font-size: 11px; }
+  .daily-itinerary .hike-facts dd { margin: 4px 0 0; font-size: 15px; font-weight: 500; }
+  .daily-itinerary .hike-footnote { margin-top: 13px; color: var(--ink-soft); font-size: 12px; line-height: 1.9; }
+  .daily-itinerary .day-alternatives { margin-top: 24px; }
+  .daily-itinerary .day-alternatives > h3 { margin-bottom: 12px; font-family: var(--sans); font-size: 13px; font-weight: 600; }
+  .daily-itinerary .day-alternative { min-width: 0; border: 1px solid var(--line); border-radius: 5px; background: var(--paper-deep); scroll-margin-top: calc(var(--daily-nav-height) + 32px); }
+  .daily-itinerary .day-alternative + .day-alternative { margin-top: 12px; }
+  .daily-itinerary .day-alternative > summary { display: flex; align-items: center; gap: 10px; min-height: 54px; padding: 15px 18px; cursor: pointer; list-style: none; }
+  .daily-itinerary .day-alternative > summary::-webkit-details-marker { display: none; }
+  .daily-itinerary .day-alternative > summary::marker { content: ''; }
+  .daily-itinerary .alternative-label { flex-shrink: 0; padding: 2px 7px; border: 1px solid var(--line); border-radius: 3px; color: var(--ink-soft); font-size: 10px; }
+  .daily-itinerary .alternative-name { min-width: 0; font-size: 13px; line-height: 1.8; font-weight: 600; overflow-wrap: anywhere; }
+  .daily-itinerary .day-alternative > summary > svg { flex-shrink: 0; margin-left: auto; }
+  .daily-itinerary .day-alternative[open] > summary > svg { transform: rotate(180deg); }
+  .daily-itinerary .alternative-content { min-width: 0; padding: 0 18px 18px; }
+  .daily-itinerary .alternative-description { font-size: 13px; line-height: 1.95; overflow-wrap: anywhere; }
+  .daily-itinerary .alternative-scope { margin-top: 8px; color: var(--ink-soft); font-size: 12px; }
+  .daily-empty { color: var(--ink-soft); font-size: 14px; }
+
+  @media (max-width: 1000px) {
+    .daily-itinerary .itinerary-day > summary { grid-template-columns: 42px 76px minmax(0, 1fr) 64px 18px; gap: 14px; }
+    .daily-itinerary .timeline-entry { grid-template-columns: 106px minmax(0, 1fr); gap: 20px; }
+  }
+  @media (max-width: 800px) {
+    .daily-itinerary { padding-block: 48px; }
+    .daily-itinerary .itinerary-day > summary { grid-template-columns: 38px 64px minmax(0, 1fr) 18px; gap: 12px; padding: 20px; }
+    .daily-itinerary .day-city { display: none; }
+    .daily-itinerary .day-title { font-size: 25px; }
+    .daily-itinerary:lang(zh-CN) .day-title { font-size: 21px; }
+    .daily-itinerary .day-content, .daily-itinerary .day-content.has-schedule { padding: 0 20px 24px; }
+    .day-date-link { flex-grow: 0; }
+  }
+  @media (max-width: 600px) {
+    .daily-itinerary { padding-block: 44px; }
+    .daily-itinerary .section-heading { align-items: flex-start; flex-direction: column; gap: 11px; margin-bottom: 20px; }
+    .daily-itinerary .section-intro { font-size: 12px; }
+    .daily-itinerary .daily-plan-meta { display: flex; flex-wrap: wrap; gap: 3px 12px; }
+    .daily-itinerary .daily-navigation { top: var(--itinerary-nav-top, 8px); padding: 7px 9px 10px; margin-bottom: 18px; }
+    .daily-itinerary .daily-navigation-toolbar { gap: 8px; margin-bottom: 4px; }
+    .daily-view-controls { gap: 8px; }
+    .daily-itinerary .daily-mode-button { padding: 7px 10px; font-size: 12px; }
+    .daily-date-controls { gap: 5px; }
+    .daily-date-navigation { gap: 5px; padding: 2px; }
+    .day-date-link { flex-basis: 73px; min-width: 73px; min-height: 50px; padding: 7px; }
+    .day-date-link time { font-size: 12px; }
+    .daily-itinerary .itinerary-day > summary { grid-template-columns: minmax(0, 1fr) 16px; gap: 6px 12px; padding: 18px 15px; }
+    .daily-itinerary .day-index { display: none; }
+    .daily-itinerary .day-date { grid-column: 1; grid-row: 1; flex-direction: row; align-items: center; gap: 8px; font-size: 11px; }
+    .daily-itinerary .day-date small { margin-top: 0; font-size: 10px; }
+    .daily-itinerary .day-title { grid-column: 1; grid-row: 2; font-size: 23px; line-height: 1.35; }
+    .daily-itinerary .day-chevron { grid-column: 2; grid-row: 1 / span 2; align-self: start; margin-top: 4px; }
+    .daily-itinerary:lang(zh-CN) .day-title { font-size: 19px; line-height: 1.65; }
+    .daily-itinerary .day-content, .daily-itinerary .day-content.has-schedule { padding: 0 15px 22px; }
+    .daily-itinerary .day-content > p { font-size: 14px; }
+    .daily-itinerary .day-stay { gap: 7px; padding: 12px; font-size: 12px; }
+    .daily-itinerary .day-stay > a { min-height: 30px; }
+    .daily-itinerary .day-important-notes { padding: 14px 15px; }
+    .daily-itinerary .day-important-notes ul { font-size: 13px; }
+    .daily-itinerary .timeline-entry { grid-template-columns: minmax(0, 1fr); gap: 6px; padding-block: 17px; }
+    .daily-itinerary .timeline-time { padding-top: 0; font-size: 12px; }
+    .daily-itinerary .timeline-title { font-size: 15px; }
+    .daily-itinerary .timeline-description { font-size: 14px; }
+    .daily-itinerary .hike-card { padding: 17px; }
+    .daily-itinerary .hike-facts { gap: 13px 24px; }
+    .daily-itinerary .hike-facts dd { font-size: 14px; }
+    .daily-itinerary .day-alternative > summary { gap: 8px; padding: 14px; }
+    .daily-itinerary .alternative-content { padding: 0 14px 16px; }
+    .daily-itinerary .alternative-description { font-size: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .daily-itinerary .day-chevron { transition: none; }
+  }
+  @media print {
+    .daily-itinerary { padding-block: 24px; }
+    .daily-itinerary .daily-navigation { display: none; }
+    .daily-itinerary .section-heading { margin-bottom: 15px; }
+    .daily-itinerary .itinerary-day, .daily-itinerary .itinerary-day[hidden] { display: block !important; margin-top: 14px !important; break-inside: auto; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: white; }
+    .daily-itinerary .itinerary-day::details-content, .daily-itinerary .day-alternative::details-content { content-visibility: visible; }
+    .daily-itinerary .itinerary-day > summary { grid-template-columns: 40px 65px minmax(0, 1fr) 70px; gap: 12px; padding: 13px 0; break-after: avoid; }
+    .daily-itinerary .day-index, .daily-itinerary .day-city { display: block; font-size: 9px; }
+    .daily-itinerary .day-date { grid-column: auto; grid-row: auto; flex-direction: column; gap: 0; }
+    .daily-itinerary .day-chevron, .daily-itinerary .day-alternative > summary > svg { display: none; }
+    .daily-itinerary .day-title, .daily-itinerary:lang(zh-CN) .day-title { grid-column: auto; grid-row: auto; font-size: 17px; line-height: 1.5; }
+    .daily-itinerary .day-content, .daily-itinerary .day-content.has-schedule { padding: 0 0 15px; }
+    .daily-itinerary .day-content > p, .daily-itinerary .day-description { font-size: 11px; }
+    .daily-itinerary .day-timeline { margin-top: 12px; }
+    .daily-itinerary .timeline-entry { grid-template-columns: 104px minmax(0, 1fr); gap: 14px; padding-block: 9px; break-inside: avoid; }
+    .daily-itinerary .timeline-time, .daily-itinerary .timeline-description, .daily-itinerary .day-important-notes ul { font-size: 10px; }
+    .daily-itinerary .timeline-title { font-size: 11px; }
+    .daily-itinerary .day-important-notes, .daily-itinerary .hike-card, .daily-itinerary .day-stay { break-inside: avoid; background: white; }
+    .daily-itinerary .day-important-notes { padding: 10px 12px; margin-top: 12px; }
+    .daily-itinerary .day-note-label { font-size: 10px; }
+    .daily-itinerary .day-stay { padding: 8px 10px; margin-top: 12px; font-size: 10px; }
+    .daily-itinerary .hike-card { padding: 12px; margin-top: 14px; }
+    .daily-itinerary .hike-route, .daily-itinerary .hike-facts dd { font-size: 11px; }
+    .daily-itinerary .hike-facts dt, .daily-itinerary .hike-footnote { font-size: 10px; }
+    .daily-itinerary .day-alternative { background: white; break-inside: auto; }
+    .daily-itinerary .day-alternative > summary { padding: 10px 12px; break-after: avoid; }
+    .daily-itinerary .alternative-name { font-size: 11px; }
+    .daily-itinerary .alternative-content { padding: 0 12px 12px; }
+    .daily-itinerary .alternative-description, .daily-itinerary .alternative-scope { font-size: 10px; }
+  }
+</style>

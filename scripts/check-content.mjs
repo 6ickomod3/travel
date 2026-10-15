@@ -40,6 +40,21 @@ function publicFile(path, label) {
 }
 
 const imageCredits = new Map();
+const brandManifestPath = join(imageRoot, 'brands', 'provenance.json');
+const brandManifest = JSON.parse(readFileSync(brandManifestPath, 'utf8'));
+assert.ok(Array.isArray(brandManifest.brands), `${brandManifestPath}: add a brands array`);
+const brandIds = uniqueIds(brandManifest.brands, 'Shared brands');
+for (const brand of brandManifest.brands) {
+  assert.ok(brand.name && ['image', 'text'].includes(brand.status), `${brand.id}: name the brand and identify its image or text fallback`);
+  if (brand.status === 'image') {
+    assert.ok(brand.asset && brand.sourceUrl && /^https:\/\//.test(brand.sourceUrl), `${brand.id}: record the logo asset and its public source`);
+  }
+  if (brand.asset) {
+    assert.match(brand.asset.file, /^[a-z0-9][a-z0-9.-]*\.(?:svg|png|webp)$/, `${brand.id}: use a local brand image filename`);
+    publicFile(`/images/brands/${brand.asset.file}`, `${brand.id} logo`);
+    for (const dimension of ['width', 'height']) assert.ok(Number.isFinite(brand.asset[dimension]) && brand.asset[dimension] > 0, `${brand.id}: invalid logo ${dimension}`);
+  }
+}
 const imageTripRoot = join(imageRoot, 'trips');
 const manifests = [join(imageRoot, 'shared', 'credits.json'), ...readdirSync(imageTripRoot, { withFileTypes: true })
   .filter(entry => entry.isDirectory() && existsSync(join(imageTripRoot, entry.name, 'credits.json')))
@@ -98,7 +113,8 @@ for (const folder of folders) {
   const sights = uniqueIds(trip.sights ?? [], `${folder} sights`);
   uniqueIds(trip.checklist ?? [], `${folder} checklist`);
   uniqueIds(trip.flights ?? [], `${folder} flights`);
-  uniqueIds(trip.ticketOptions ?? [], `${folder} ticket options`);
+  const ticketOptions = uniqueIds(trip.ticketOptions ?? [], `${folder} ticket options`);
+  if (trip.selectedTicketOptionId !== undefined) assert.ok(ticketOptions.has(trip.selectedTicketOptionId), `${folder}: selected ticket option must reference an existing option`);
   uniqueIds(trip.bookingWindows ?? [], `${folder} booking windows`);
   for (const place of trip.destinations) {
     assert.ok(Number.isFinite(place.lat) && Math.abs(place.lat) <= 90 && Number.isFinite(place.lng) && Math.abs(place.lng) <= 180, `${folder}/${place.id}: invalid coordinates`);
@@ -165,6 +181,7 @@ for (const folder of folders) {
     }
   }
   for (const stay of trip.stays ?? []) {
+    if (stay.brandId !== undefined) assert.ok(brandIds.has(stay.brandId), `${folder}/${stay.id}: unknown property brand ${stay.brandId}`);
     for (const period of stay.checkIns) {
       const checkIn = calendarDate(period.checkIn, `${folder}/${stay.id} check-in`);
       const checkOut = calendarDate(period.checkOut, `${folder}/${stay.id} check-out`);
@@ -175,6 +192,12 @@ for (const folder of folders) {
         for (const extra of period.cost.estimatedAdditional ?? []) {
           assert.ok(typeof extra.label === 'string' && extra.label.trim(), `${folder}/${stay.id}/${checkIn}: label the additional charge`);
           assert.ok(Number.isFinite(extra.amount) && extra.amount >= 0, `${folder}/${stay.id}/${checkIn}: invalid additional charge`);
+          assert.ok(extra.kind === undefined || ['accommodation-tax', 'other'].includes(extra.kind), `${folder}/${stay.id}/${checkIn}: invalid additional-charge kind`);
+          if (extra.quantity) {
+            const { perPersonPerNight, people, nights } = extra.quantity;
+            assert.ok(Number.isFinite(perPersonPerNight) && perPersonPerNight >= 0 && Number.isInteger(people) && people > 0 && Number.isInteger(nights) && nights > 0, `${folder}/${stay.id}/${checkIn}: invalid additional-charge calculation`);
+            assert.ok(Math.abs(perPersonPerNight * people * nights - extra.amount) < 0.01, `${folder}/${stay.id}/${checkIn}: additional charge disagrees with its calculation`);
+          }
         }
         checkSources(period.cost.sourceIds, `${folder}/${stay.id}/${checkIn} cost`);
       }
@@ -185,6 +208,7 @@ for (const folder of folders) {
     checkSources(item.sourceIds, `${folder}/${item.id}`);
   }
   for (const flight of trip.flights ?? []) {
+    for (const id of [flight.brandId, flight.operatedByBrandId].filter(Boolean)) assert.ok(brandIds.has(id), `${folder}/${flight.id}: unknown airline brand ${id}`);
     assert.ok(flight.flightNumber, `${folder}/${flight.id}: add the flight number`);
     assert.ok(['booked', 'planned'].includes(flight.status), `${folder}/${flight.id}: invalid flight status`);
     for (const direction of ['departure', 'arrival']) {
@@ -202,6 +226,14 @@ for (const folder of folders) {
     assert.ok(validThrough >= validFrom, `${folder}/${option.id}: ticket validity ends before it starts`);
     assert.match(option.currency, /^[A-Z]{3}$/, `${folder}/${option.id}: use an ISO currency code`);
     for (const amount of [option.price, ...(option.estimatedTotal === undefined ? [] : [option.estimatedTotal])]) assert.ok(Number.isFinite(amount) && amount >= 0, `${folder}/${option.id}: invalid ticket price`);
+    for (const ticket of option.addOnTickets ?? []) {
+      assert.ok(typeof ticket.label === 'string' && ticket.label.trim(), `${folder}/${option.id}: label each add-on ticket`);
+      assert.ok(Number.isFinite(ticket.price) && ticket.price >= 0, `${folder}/${option.id}: invalid add-on ticket price`);
+    }
+    if (option.addOnTickets && option.estimatedTotal !== undefined) {
+      const estimate = option.price + option.addOnTickets.reduce((total, ticket) => total + ticket.price, 0);
+      assert.ok(Math.abs(estimate - option.estimatedTotal) < 0.01, `${folder}/${option.id}: add-on ticket breakdown disagrees with estimated total`);
+    }
     checkSources(option.sourceIds, `${folder}/${option.id}`);
   }
   for (const window of trip.bookingWindows ?? []) {

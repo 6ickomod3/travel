@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import TripReferences from './TripReferences.astro';
-import type { TripStay, TripSource } from '../data/trips';
+import type { TripStay, TripSource, TripStayCost } from '../data/trips';
 import { durationDays, formatDate } from '../lib/trips';
 
 interface Props {
@@ -17,6 +17,13 @@ const dateLocale = isZh ? 'zh-CN' : 'en-US';
 const text = (zh: string, en: string) => isZh ? zh : en;
 const money = (value: number, currency: string) => new Intl.NumberFormat(dateLocale, { style: 'currency', currency }).format(value);
 const date = (value: string) => formatDate(value, { month: 'short', day: 'numeric' }, dateLocale);
+type AdditionalCost = NonNullable<TripStayCost['estimatedAdditional']>[number];
+const taxEquation = (extra: AdditionalCost, currency: string) => {
+  if (extra.kind !== 'accommodation-tax' || !extra.quantity) return undefined;
+  const { perPersonPerNight, people, nights } = extra.quantity;
+  return `${money(perPersonPerNight, currency)} × ${people}${text('人', people === 1 ? ' person' : ' people')} × ${nights}${text('晚', nights === 1 ? ' night' : ' nights')} = ${money(extra.amount, currency)}`;
+};
+const additionalLabel = (taxOnly: boolean) => taxOnly ? text('预计另付住宿税', 'Estimated additional accommodation tax') : text('预计另付费用', 'Estimated additional charges');
 const rows = stays.flatMap(stay => stay.checkIns.map(segment => ({
   stay, segment,
   id: `cost-${stay.id}-${segment.checkIn}`,
@@ -29,12 +36,15 @@ const rows = stays.flatMap(stay => stay.checkIns.map(segment => ({
 const pricedRows = rows.flatMap(row => row.segment.cost ? [{ ...row, cost: row.segment.cost }] : []);
 const pricedNights = pricedRows.reduce((total, row) => total + row.nights, 0);
 const pendingNights = rows.filter(row => !row.segment.cost).reduce((total, row) => total + row.nights, 0);
+const allAdditions = pricedRows.flatMap(row => row.cost.estimatedAdditional ?? []);
+const onlyAccommodationTax = allAdditions.length > 0 && allAdditions.every(extra => extra.kind === 'accommodation-tax');
+const hasAccommodationTax = allAdditions.some(extra => extra.kind === 'accommodation-tax');
 const summaries = [...new Set(pricedRows.map(row => row.cost.currency))].map(currency => {
   const costs = pricedRows.filter(row => row.cost.currency === currency);
   const bookingTotal = costs.reduce((total, row) => total + row.cost.amount, 0);
   const additions = costs.flatMap(row => row.cost.estimatedAdditional ?? []);
   const additionalTotal = additions.reduce((total, extra) => total + extra.amount, 0);
-  return { currency, bookingTotal, additionalTotal, hasAdditional: additions.length > 0, budget: bookingTotal + additionalTotal };
+  return { currency, bookingTotal, additionalTotal, hasAdditional: additions.length > 0, onlyAccommodationTax: additions.length > 0 && additions.every(extra => extra.kind === 'accommodation-tax'), budget: bookingTotal + additionalTotal };
 });
 const referenceIds = [...new Set(pricedRows.flatMap(row => row.cost.sourceIds ?? []))];
 const references = referenceIds.flatMap(id => { const source = sources.find(item => item.id === id); return source ? [source] : []; });
@@ -49,21 +59,22 @@ const references = referenceIds.flatMap(id => { const source = sources.find(item
     <div class:list={['cost-summary-grid', { 'cost-summary-grid-single': !summary.hasAdditional }]}>
       <dl class="cost-metric"><dt>{text('订单金额合计', 'Booking total')} <span>{summary.currency}</span></dt><dd data-cost-total="bookings">{money(summary.bookingTotal, summary.currency)}</dd></dl>
       {summary.hasAdditional && <>
-        <dl class="cost-metric"><dt>{text('预计另付费用', 'Estimated additional charges')} <span>{summary.currency}</span></dt><dd data-cost-total="additional">{money(summary.additionalTotal, summary.currency)}</dd></dl>
+        <dl class="cost-metric"><dt>{additionalLabel(summary.onlyAccommodationTax)} <span>{summary.currency}</span></dt><dd data-cost-total="additional">{money(summary.additionalTotal, summary.currency)}</dd></dl>
         <dl class="cost-metric cost-metric-budget"><dt>{text('当前住宿预算', 'Current accommodation budget')} <span>{summary.currency}</span></dt><dd data-cost-total="budget">{money(summary.budget, summary.currency)}</dd></dl>
       </>}
     </div>
     {travelers !== undefined && travelers > 1 && <p class="cost-share">{text('按', 'Split between ')}{travelers}{text('人均摊，约', ' travelers, about ')}<strong data-cost-share>{money(summary.budget / travelers, summary.currency)}</strong>{text('／人。', ' per person.')}</p>}
   </div>)}
+  {hasAccommodationTax && <p class="cost-tax-note">{text('住宿税按所列人数与晚数估算，以酒店实际结算为准。', 'Accommodation tax is estimated for the listed people and nights; the hotel determines the final charge.')}</p>}
   <div class="cost-table-wrapper" tabindex="0" role="region" aria-label={text('住宿费用明细，可横向滚动', 'Accommodation cost details, horizontally scrollable')}>
     <table class="cost-table">
-      <caption class="sr-only">{text('住宿订单与预计额外费用', 'Accommodation bookings and estimated additional charges')}</caption>
-      <thead><tr><th scope="col">{text('入住 / 退房', 'Check-in / check-out')}</th><th scope="col">{text('住宿', 'Accommodation')}</th><th scope="col">{text('订单金额', 'Booking amount')}</th><th scope="col">{text('预计另付', 'Estimated additional')}</th></tr></thead>
+      <caption class="sr-only">{onlyAccommodationTax ? text('住宿订单与预计另付住宿税', 'Accommodation bookings and estimated additional accommodation tax') : text('住宿订单与预计额外费用', 'Accommodation bookings and estimated additional charges')}</caption>
+      <thead><tr><th scope="col">{text('入住 / 退房', 'Check-in / check-out')}</th><th scope="col">{text('住宿', 'Accommodation')}</th><th scope="col">{text('订单金额', 'Booking amount')}</th><th scope="col">{onlyAccommodationTax ? text('预计住宿税', 'Estimated accommodation tax') : text('预计另付', 'Estimated additional')}</th></tr></thead>
       <tbody>{rows.map(row => <tr id={row.id} data-cost-row={row.id} class:list={{ 'cost-row-pending': !row.segment.cost }}>
         <td class="cost-date"><time datetime={row.segment.checkIn}>{date(row.segment.checkIn)}</time><span aria-hidden="true"> → </span><time datetime={row.segment.checkOut}>{date(row.segment.checkOut)}</time><small>{row.nights} {text('晚', row.nights === 1 ? 'night' : 'nights')}</small></td>
         <th scope="row" class="cost-stay"><a href={`#stay-${row.stay.id}`}>{row.stay.name}</a>{row.details.length > 0 && <ul>{row.details.map(note => <li>{note}</li>)}</ul>}</th>
         <td class="cost-amount" data-booking-amount={row.segment.cost?.amount}>{row.segment.cost ? <>{money(row.segment.cost.amount, row.segment.cost.currency)}<small>{row.segment.cost.currency}</small></> : <><span>{text('待补', 'To be added')}</span><small>{text('未计入合计', 'Excluded from totals')}</small></>}</td>
-        <td class="cost-additional">{(row.segment.cost?.estimatedAdditional?.length ?? 0) > 0 ? row.segment.cost!.estimatedAdditional!.map(extra => <div data-additional-amount={extra.amount}><span>{money(extra.amount, row.segment.cost!.currency)}</span><small>{extra.label}</small></div>) : <span aria-label={text('未提供额外费用记录', 'No additional cost recorded')}>—</span>}</td>
+        <td class="cost-additional">{(row.segment.cost?.estimatedAdditional?.length ?? 0) > 0 ? row.segment.cost!.estimatedAdditional!.map(extra => <div data-additional-amount={extra.amount}><span>{money(extra.amount, row.segment.cost!.currency)}</span><small>{extra.label}</small>{taxEquation(extra, row.segment.cost!.currency) && <small class="cost-tax-equation" data-cost-tax-equation>{taxEquation(extra, row.segment.cost!.currency)}</small>}</div>) : <span aria-label={text('未提供额外费用记录', 'No additional cost recorded')}>—</span>}</td>
       </tr>)}</tbody>
     </table>
   </div>
@@ -85,6 +96,7 @@ const references = referenceIds.flatMap(id => { const source = sources.find(item
   .cost-metric-budget { border-color: #36574330; background: #36574308; }
   .cost-share { margin-top: 13px; font-size: 12px; color: var(--ink-soft); }
   .cost-share strong { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .cost-tax-note { margin-top: 16px; color: var(--ink-soft); font-size: 12px; line-height: 1.9; }
   .cost-table-wrapper { min-width: 0; max-width: 100%; margin-top: 25px; overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; }
   .cost-table { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 12px; text-align: left; background: #fbfaf5; }
   .cost-table thead { background: var(--paper-deep); }
@@ -98,11 +110,12 @@ const references = referenceIds.flatMap(id => { const source = sources.find(item
   .cost-stay ul { margin: 8px 0 0; padding-left: 16px; color: var(--ink-soft); font-size: 11px; line-height: 1.9; }
   .cost-amount, .cost-additional { font-size: 14px; white-space: nowrap; font-variant-numeric: tabular-nums; }
   .cost-additional > div + div { margin-top: 8px; }
+  .cost-additional .cost-tax-equation { max-width: 220px; font-variant-numeric: tabular-nums; line-height: 1.7; white-space: normal; }
   .cost-row-pending { background: var(--paper-deep); }
   .cost-row-pending .cost-amount > span { color: var(--accent-deep); }
   .cost-scope { margin-top: 18px; font-size: 12px; line-height: 1.9; color: var(--ink-soft); }
   .cost-planning-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; color: var(--accent-deep); font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
   @media (max-width: 800px) { .trip-costs-section { padding-block: 48px; } .cost-summary-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; } .cost-metric { padding: 20px; } .cost-metric dd { font-size: 29px; } }
-  @media (max-width: 600px) { .trip-costs-section { padding-block: 44px; } .cost-basis, .cost-scope { font-size: 13px; } }
-  @media print { .trip-costs-section { padding-block: 20px; border: 0; } .cost-summary-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; } .cost-summary-grid-single { grid-template-columns: minmax(0, 1fr); } .cost-metric { padding: 13px; background: white; } .cost-metric dd { font-size: 21px; } .cost-metric dt, .cost-basis, .cost-scope { font-size: 10px; } .cost-table-wrapper { overflow: visible; } .cost-table { min-width: 0; } .cost-table th, .cost-table td { padding: 10px; } .cost-amount, .cost-additional { font-size: 11px; } .cost-stay ul { font-size: 9px; } .cost-table tbody tr { break-inside: avoid; } .cost-planning-link { display: none; } }
+  @media (max-width: 600px) { .trip-costs-section { padding-block: 44px; } .cost-basis, .cost-scope, .cost-tax-note { font-size: 13px; } }
+  @media print { .trip-costs-section { padding-block: 20px; border: 0; } .cost-summary-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; } .cost-summary-grid-single { grid-template-columns: minmax(0, 1fr); } .cost-metric { padding: 13px; background: white; } .cost-metric dd { font-size: 21px; } .cost-metric dt, .cost-basis, .cost-scope, .cost-tax-note { font-size: 10px; } .cost-table-wrapper { overflow: visible; } .cost-table { min-width: 0; } .cost-table th, .cost-table td { padding: 10px; } .cost-amount, .cost-additional { font-size: 11px; } .cost-stay ul { font-size: 9px; } .cost-table tbody tr { break-inside: avoid; } .cost-planning-link { display: none; } }
 </style>

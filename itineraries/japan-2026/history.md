@@ -212,6 +212,56 @@ and licenses.
   (`nara-deer-introduction`), and [Nara City Tourism Association's Kofukuji guide](https://narashikanko.or.jp/en/spot/detail_10029.html)
   (`kofukuji-introduction`).
 
+### Layout discussion and implementation approval — October 14, 2026
+
+- Archived the user's five-point discussion verbatim, without metadata or
+  an added newline, in [inputs/2026-10-14-07-layout-discussion.txt](inputs/2026-10-14-07-layout-discussion.txt)
+  (576 UTF-8 bytes; SHA-256
+  `1ae88be79d945cc5f5c4061f65ae8c441a43a10877566a1ca55e0271ab3d7d50`).
+- Archived the user's implementation approval verbatim, without metadata or
+  an added newline, in [inputs/2026-10-14-08-layout-approval.txt](inputs/2026-10-14-08-layout-approval.txt)
+  (166 UTF-8 bytes; SHA-256
+  `905886e0b266e18d5873ff25e4c1ae39eeddf530f4ac3d7a42df1da996e79cbf`).
+- Accepted design: reusable official brand marks, stronger green booking
+  states, a date navigator with single-day focus and a full-trip view,
+  a comparison of mutually exclusive ticket strategies, and explicit
+  accommodation-tax estimates with their supplied calculation.
+- The design recommendation is authored separately from the archived user
+  messages. No external product's current interface is claimed as verified.
+- Scope: presentation and reusable metadata only. Existing dates, routes,
+  schedules, hotel amounts, source references, and pending confirmations
+  remain intact. MU8649 retains China Eastern as its marketing carrier and
+  FM821 / Shanghai Airlines as its actual operator. No ticket option has
+  been selected or purchased by this approval. The Osaka tax remains an
+  estimate; Kawayu's included JPY 300 fee is not added again.
+- Brand provenance is maintained with the shared assets, separately from
+  photographic licensing. Unknown or unavailable identities use text
+  rather than a different company's logo.
+- Final image identities: United, China Eastern, the Hankyu hotel group,
+  Comfort Hotel, and SEN. RETREAT. United's static artwork is hosted by
+  English Wikipedia/Wikimedia; the other four marks come from verified
+  official image references. Original asset bytes are retained, with their
+  sources and hashes in `public/images/brands/provenance.json`.
+- Shanghai Airlines remains a separate FM / full-name text identity. The
+  referenced airport asset returned HTML, and automatic review rejected
+  saving that non-image response. A bounded permitted static-image lookup
+  found no verified logo. 川湯まつや retains its known name and a neutral
+  initials mark because a property-specific image and official URL remain
+  unverified. Neither fallback uses a different airline or hotel's logo.
+
+#### Verification
+
+- Production content validation and Astro checks passed with 46 files and
+  no diagnostics. A comparison against the previous plan preserved every
+  original fact after removing the added presentation metadata.
+- Desktop and 390/320-pixel browser checks covered date focus, full-trip
+  viewing, keyboard controls, initial and repeated fragment links, history
+  navigation, local brand images, pending states, and the ticket/tax figures.
+- Printing included all nine dates, 94 main rows, 16 alternative rows,
+  ticket details, and references, and restored the selected day, viewing
+  mode, disclosures, focus, and photo selection. Native no-JavaScript
+  disclosures, the homepage overview, and the UK placeholder also passed.
+
 ## Open information
 
 - Hiroshima's November 14–16 hotel booking and name still need confirmation.
@@ -263,3 +313,8 @@ when a source explicitly resolves or changes a decision.
   documented the separately researched official references for twelve sight
   introductions and a top swipe gallery. Preserved the existing daily plan,
   Misen summit condition, and Hayatama's early-alternative-only status.
+- October 14, 2026: archived the layout discussion and approval, added shared
+  brand identities and readable booking progress, introduced single-day
+  navigation with full-trip viewing and printing, and clarified alternative
+  ticket estimates and Osaka's accommodation tax without changing bookings
+  or selecting a pass.

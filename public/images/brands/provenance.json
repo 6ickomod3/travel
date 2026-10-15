@@ -1,0 +1,109 @@
+{
+  "checkedOn": "2026-10-14",
+  "purpose": "Small brand identifiers for airlines and accommodation providers in travel plans.",
+  "rights": "Brand marks retain their owners' trademark and copyright rights. No open reuse license is claimed for these brand assets.",
+  "brands": [
+    {
+      "id": "united",
+      "name": "United Airlines",
+      "sourcePage": "https://en.wikipedia.org/wiki/File:United_Airlines_Logo.svg",
+      "status": "image",
+      "note": "The static image is hosted by English Wikipedia/Wikimedia, not Wikimedia Commons. A local visual review confirms the United wordmark and globe, in the original blue and white.",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/en/e/e0/United_Airlines_Logo.svg",
+      "sourceKind": "wikimedia-hosted-trademark",
+      "asset": {
+        "file": "united.svg",
+        "width": 898.87,
+        "height": 162.88,
+        "surface": "light"
+      },
+      "sha256": "03fc32f4fcadb2f2d82c7802a849e53ac00a068b5d6c310946db139892f2c698",
+      "rights": "United Airlines trademark artwork. Source-page copyright/license text could not be read under external input filtering; no Creative Commons or public-domain license is asserted.",
+      "changes": "None. Original SVG bytes, paths, colors, and viewBox retained."
+    },
+    {
+      "id": "china-eastern",
+      "name": "China Eastern Airlines",
+      "sourcePage": "https://global.ceair.com/global/en_static/en_AboutChinaEasternAirlines/en_intoEasternAirlines/en_chinaeasternInto/index.html",
+      "status": "image",
+      "note": "The original red/blue China Eastern emblem and bilingual wordmark are directly referenced in the header of the official China Eastern corporate profile page. SkyTeam is part of this official image.",
+      "sourceUrl": "https://global.ceair.com/global/images/logo.png",
+      "sourceKind": "official-website",
+      "asset": {
+        "file": "china-eastern.png",
+        "width": 476,
+        "height": 80,
+        "surface": "light"
+      },
+      "sha256": "1b6ff705305b691c5496686ea21e2860d1a8cef64d2fd65b1fbdcede86f02924",
+      "rights": "China Eastern Airlines and SkyTeam retain their trademark and copyright rights. No open reuse license is claimed.",
+      "changes": "None. Original PNG bytes and SkyTeam-inclusive lockup retained."
+    },
+    {
+      "id": "shanghai-airlines",
+      "name": "Shanghai Airlines",
+      "sourcePage": "https://www.narita-airport.jp/en/flight/airline-search/csh/",
+      "status": "text",
+      "note": "Shanghai Airlines is identified separately from China Eastern, with FM as the actual operator's plain initials fallback. The official Narita Airport FM/CSH directory confirms the airline identity, but its referenced resource did not return image bytes. Bounded permitted static-image lookup found no verified current mark. The linked booking website is the China Eastern group's official site."
+    },
+    {
+      "id": "hankyu-respire-osaka",
+      "name": "Hotel Hankyu RESPIRE Osaka",
+      "sourcePage": "https://www.hankyu-hotel.com/en/hotel/respire",
+      "status": "image",
+      "note": "The original group mark is directly referenced by the verified official English RESPIRE brand page and is used as a hotel-chain identifier. It is a group mark, not a property-specific RESPIRE logo.",
+      "sourceUrl": "https://www.hankyu-hotel.com/-/media/en/common/images/logo_en.png?h=84&w=698&la=ja-JP&hash=8DA651267071AB4FAB97AE8BA0AA235C",
+      "sourceKind": "official-website",
+      "markName": "Hankyu-Hanshin-Daiichi Hotel Group",
+      "asset": {
+        "file": "hankyu-hotels.png",
+        "width": 698,
+        "height": 84,
+        "surface": "light"
+      },
+      "sha256": "d616fed6e3b43d0ffadb008ab1f75dcae5bb7f0149c7dbab97ed439d3ef263a4",
+      "rights": "Hankyu-Hanshin-Daiichi Hotel Group retains its trademark and copyright rights. No open reuse license is claimed.",
+      "changes": "None. Original PNG bytes retained."
+    },
+    {
+      "id": "comfort-hotel",
+      "name": "Comfort Hotel",
+      "sourcePage": "https://www.choice-hotels.jp/hotel/kiitanabe/",
+      "sourceUrl": "https://www.choice-hotels.jp/images/header/logo_hotel.png",
+      "sourceKind": "official-website",
+      "status": "image",
+      "asset": {
+        "file": "comfort-hotel.png",
+        "width": 60,
+        "height": 68,
+        "surface": "light"
+      },
+      "changes": "None. Original PNG bytes retained.",
+      "note": "The Comfort Hotel brand mark is directly referenced in the header of the official Kii Tanabe property page.",
+      "sha256": "8c62b244cfb29e740370f8503eceae379e4e831d8b13d899097450f82cfb54ea"
+    },
+    {
+      "id": "sen-retreat",
+      "name": "SEN. RETREAT",
+      "sourcePage": "https://sen-retreat.com/stay/chikatsuyu/",
+      "sourceUrl": "https://sen-retreat.com/wp-content/themes/senretreat2021/img/common/logo_senretreat.svg",
+      "sourceKind": "official-website",
+      "status": "image",
+      "asset": {
+        "file": "sen-retreat.svg",
+        "width": 530.062,
+        "height": 113.566,
+        "surface": "dark"
+      },
+      "changes": "None. Original SVG bytes, paths, colors, and viewBox retained.",
+      "note": "The reusable SEN. RETREAT brand mark is directly referenced in the header and footer of the official Chikatsuyu property page.",
+      "sha256": "2b39adafe2091e491f526a949dac00c4847ce245ccf1a2cef09937f1bf8b0d78"
+    },
+    {
+      "id": "kawayu-matsuya",
+      "name": "川湯まつや",
+      "status": "text",
+      "note": "The accepted public itinerary confirms the property name. A property-specific official mark and URL have not been confidently verified. KM is a plain site-generated initials fallback."
+    }
+  ]
+}

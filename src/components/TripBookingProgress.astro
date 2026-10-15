@@ -1,0 +1,48 @@
+---
+import Icon from './Icon.astro';
+import type { TripFlight, TripStay } from '../data/types';
+import { durationDays } from '../lib/trips';
+
+interface Props {
+  flights?: TripFlight[];
+  stays?: TripStay[];
+  locale?: 'zh-CN' | 'en';
+}
+const { flights = [], stays = [], locale = 'en' } = Astro.props;
+const text = (zh: string, en: string) => locale === 'zh-CN' ? zh : en;
+const bookedFlights = flights.filter(flight => flight.status === 'booked').length;
+const nightsFor = (stay: TripStay) => stay.checkIns.reduce((total, segment) => total + durationDays({ startDate: segment.checkIn, endDate: segment.checkOut }) - 1, 0);
+const totalNights = stays.reduce((total, stay) => total + nightsFor(stay), 0);
+const bookedNights = stays.filter(stay => stay.status === 'booked').reduce((total, stay) => total + nightsFor(stay), 0);
+const summaries = [
+  { id: 'flights', title: text('航班', 'Flights'), booked: bookedFlights, total: flights.length, unit: text('已确认', 'confirmed'), pending: text('个航班待预订', 'flights to book') },
+  { id: 'stays', title: text('住宿', 'Accommodation'), booked: bookedNights, total: totalNights, unit: text('晚已订', 'nights booked'), pending: text('晚待确认', 'nights to confirm') },
+].filter(summary => summary.total > 0);
+---
+{summaries.length > 0 && <div class:list={['booking-progress', { 'booking-progress-single': summaries.length === 1 }]} role="group" aria-label={text('预订进度', 'Booking progress')}>
+  {summaries.map(summary => <a class="booking-progress-card" href={`#${summary.id}`} data-booking-progress={summary.id}>
+    <div class="booking-progress-heading"><span>{summary.booked === summary.total && <Icon name="check" size={15} />}{summary.title}</span><Icon name="arrow-up-right" size={15} /></div>
+    <p><strong>{summary.booked}<span aria-hidden="true"> / </span><span class="sr-only">{text('，共', ' of ')}</span>{summary.total}</strong><span>{summary.unit}</span></p>
+    <progress max={summary.total} value={summary.booked} aria-label={text(`${summary.title}：${summary.total}中${summary.booked}已订`, `${summary.title}: ${summary.booked} of ${summary.total} booked`)}>{summary.booked} / {summary.total}</progress>
+    {summary.booked < summary.total && <small>{summary.total - summary.booked} {summary.pending}</small>}
+  </a>)}
+</div>}
+
+<style>
+  .booking-progress { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 25px; }
+  .booking-progress-single { grid-template-columns: minmax(0, 1fr); }
+  .booking-progress-card { min-width: 0; padding: 17px 20px; border: 1px solid var(--confirmed-line); border-radius: 6px; background: var(--confirmed-soft); color: var(--confirmed); }
+  .booking-progress-card:hover { border-color: var(--confirmed); }
+  .booking-progress-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 11px; font-weight: 600; }
+  .booking-progress-heading > span { display: inline-flex; align-items: center; gap: 6px; }
+  .booking-progress-card p { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-top: 8px; font-size: 11px; }
+  .booking-progress-card strong { font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.2; }
+  .booking-progress-card progress { display: block; width: 100%; height: 4px; margin-top: 13px; border: 0; border-radius: 4px; overflow: hidden; accent-color: var(--confirmed); background: #23604518; }
+  .booking-progress-card progress::-webkit-progress-bar { background: #23604518; }
+  .booking-progress-card progress::-webkit-progress-value { background: var(--confirmed); }
+  .booking-progress-card progress::-moz-progress-bar { background: var(--confirmed); }
+  .booking-progress-card small { display: block; margin-top: 7px; color: var(--pending); font-size: 11px; }
+  @media (max-width: 600px) { .booking-progress { gap: 12px; } .booking-progress-card { padding: 15px; } .booking-progress-card strong { font-size: 21px; } }
+  @media (max-width: 359px) { .booking-progress { grid-template-columns: minmax(0, 1fr); } }
+  @media print { .booking-progress { margin-bottom: 15px; gap: 12px; } .booking-progress-card { padding: 10px 13px; break-inside: avoid; } .booking-progress-card strong { font-size: 17px; } }
+</style>

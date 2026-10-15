@@ -1,8 +1,11 @@
 ---
 import Icon from './Icon.astro';
 import TripReferences from './TripReferences.astro';
+import BrandMark from './BrandMark.astro';
+import BookingBadge from './BookingBadge.astro';
 import type { TripFlight, TripFlightEndpoint, TripSource } from '../data/trips';
 import { formatDate } from '../lib/trips';
+import { getBrand } from '../lib/brands';
 
 interface Props {
   flights: TripFlight[];
@@ -25,13 +28,17 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
     <p class="section-intro">{text('起降时间均为各机场当地时间。', 'Departure and arrival times use each airport’s local time.')}</p>
   </div>
   <div class="flight-grid">
-    {flights.map(flight => <article class="flight-card" id={`flight-${flight.id}`} data-flight-id={flight.id}>
+    {flights.map(flight => <article class:list={['flight-card', { 'flight-card-booked': flight.status === 'booked' }]} id={`flight-${flight.id}`} data-flight-id={flight.id}>
       <div class="flight-card-top">
         <span>{flight.travelerLabel}</span>
-        <span class:list={['flight-status', { 'flight-status-booked': flight.status === 'booked' }]}>{flight.status === 'booked' ? text('机票已确认', 'Ticket confirmed') : text('待预订', 'To book')}</span>
+        <BookingBadge status={flight.status === 'booked' ? 'booked' : 'pending'} locale={locale} label={flight.status === 'booked' ? text('机票已确认', 'Ticket confirmed') : text('待预订', 'To book')} class={flight.status === 'booked' ? 'flight-status flight-status-booked' : 'flight-status'} />
       </div>
-      <h3>{flight.flightNumber}</h3>
-      <p class="flight-operator" aria-hidden={flight.operatedByFlightNumber ? undefined : 'true'}>{flight.operatedByFlightNumber && <>{text('实际承运航班：', 'Operating flight: ')}{flight.operatedByFlightNumber}</>}</p>
+      {(flight.operatedByBrandId || flight.brandId) && <div class="flight-brand"><BrandMark id={(flight.operatedByBrandId ?? flight.brandId)!} /></div>}
+      <div class="flight-number"><h3>{flight.flightNumber}</h3>{flight.operatedByFlightNumber && <span>{text('销售航班', 'Marketing flight')}</span>}</div>
+      <div class="flight-carrier-details">
+        {flight.operatedByFlightNumber && <p class="flight-operator">{text('实际承运航班：', 'Operating flight: ')}{flight.operatedByFlightNumber}</p>}
+        {flight.operatedByBrandId && flight.brandId && flight.operatedByBrandId !== flight.brandId && <p class="flight-marketing">{text('销售航司：', 'Marketing carrier: ')}{getBrand(flight.brandId).name}</p>}
+      </div>
       <div class="flight-route-wrapper">
       <dl class="flight-route">
         <div>
@@ -55,11 +62,15 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
   .trip-flights-section { padding-block: 64px; border-top: 1px solid var(--line); }
   .flight-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
   .flight-card { min-width: 0; padding: 22px; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; }
+  .flight-card-booked { border-top-color: var(--confirmed-line); }
   .flight-card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 11px; color: var(--ink-soft); }
-  .flight-status { border: 1px solid #b9462833; border-radius: 3px; padding: 3px 7px; color: var(--accent-deep); white-space: nowrap; }
-  .flight-status-booked { color: #365743; border-color: #36574335; background: #3657430a; }
-  .flight-card h3 { margin-top: 18px; font-size: 20px; font-weight: 600; }
-  .flight-operator { min-height: 1.65em; margin-top: 5px; color: var(--ink-soft); font-size: 11px; line-height: 1.65; }
+  .flight-brand { display: flex; align-items: center; min-height: 44px; margin-top: 21px; }
+  .flight-number { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .flight-card h3 { font-size: 20px; font-weight: 600; }
+  .flight-number > span { color: var(--ink-soft); font-size: 10px; }
+  .flight-carrier-details { min-height: 40px; margin-top: 5px; }
+  .flight-operator { color: var(--ink-soft); font-size: 11px; line-height: 1.65; }
+  .flight-marketing { margin-top: 3px; color: var(--ink-soft); font-size: 11px; line-height: 1.65; }
   .flight-route-wrapper { position: relative; margin-top: 24px; }
   .flight-route { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 46px; align-items: center; margin: 0; }
   .flight-route dt { color: var(--ink-soft); font-size: 10px; }

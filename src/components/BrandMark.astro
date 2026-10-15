@@ -1,0 +1,111 @@
+---
+import { getBrand, type BrandId } from '../lib/brands';
+import { withBase } from '../lib/urls';
+
+interface Props {
+  id: BrandId;
+  label?: string;
+  showName?: boolean;
+  class?: string;
+}
+
+const { id, label, showName = true, class: className } = Astro.props;
+const brand = getBrand(id);
+const name = label ?? brand.name;
+const Tag = brand.url ? 'a' : 'span';
+---
+<Tag
+  class:list={['brand-mark', { 'brand-mark-image-only': !showName }, className]}
+  href={brand.url}
+  target={brand.url ? '_blank' : undefined}
+  rel={brand.url ? 'noopener noreferrer' : undefined}
+  role={brand.url ? undefined : 'img'}
+  aria-label={name}
+  title={name}
+  data-brand-id={id}
+  data-brand-kind={brand.asset ? 'image' : 'text'}
+>
+  <span class:list={['brand-mark-visual', { 'brand-mark-dark': brand.asset?.surface === 'dark', 'brand-mark-initials': !brand.asset }]} aria-hidden="true">
+    {brand.asset ? <img
+      src={withBase(brand.asset.src)}
+      width={Math.round(brand.asset.width)}
+      height={Math.round(brand.asset.height)}
+      alt=""
+      loading="lazy"
+      decoding="async"
+    /> : brand.initials}
+  </span>
+  {showName && <span class="brand-mark-name">{name}</span>}
+</Tag>
+
+<style>
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    max-width: 100%;
+    color: var(--ink-soft, #56635b);
+    font-family: var(--sans, sans-serif);
+    line-height: 1.4;
+    text-decoration: none;
+    vertical-align: middle;
+  }
+
+  .brand-mark:focus-visible {
+    outline: 2px solid var(--accent, #b96548);
+    outline-offset: 4px;
+    border-radius: 3px;
+  }
+
+  .brand-mark-visual {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    min-height: 28px;
+    max-width: 126px;
+    padding: 3px 5px;
+    background: var(--paper-light, #faf8f2);
+    border-radius: 4px;
+  }
+
+  .brand-mark-visual img {
+    display: block;
+    width: auto;
+    height: 22px;
+    max-width: 116px;
+    object-fit: contain;
+  }
+
+  .brand-mark-dark {
+    background: #243a32;
+  }
+
+  .brand-mark-initials {
+    min-width: 31px;
+    border: 1px solid var(--line, #dddcd1);
+    color: var(--ink, #263d34);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .brand-mark-name {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .brand-mark-image-only .brand-mark-visual { min-height: 36px; max-width: 166px; }
+  .brand-mark-image-only .brand-mark-visual img { height: 28px; max-width: 156px; }
+
+  @media print {
+    .brand-mark {
+      break-inside: avoid;
+    }
+
+    .brand-mark-dark {
+      print-color-adjust: exact;
+    }
+  }
+</style>
