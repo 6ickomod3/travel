@@ -80,6 +80,8 @@ Pending checklist items appear first on each trip page, grouped into To do actio
 
 Add optional `cost` records to accommodation `checkIns` for booking totals and estimated extra charges. The same values appear on accommodation cards and in a final Costs section, totaled by currency; unknown prices stay unpriced and booking amounts do not imply payment.
 
+Daily `stamps` can store ordered collection stops and route conditions; `stampGuide` stores booklet and eligibility guidance. These describe a plan without marking stamps collected or qualifications completed. Research references start collapsed across trip pages and remain available when printing.
+
 You can supply plain text or attachments. The workflow is: save the source, compare it with the existing plan, apply clear additions/corrections, record unresolved questions, then check and publish the trip page. New fragments do not silently replace unrelated accepted decisions.
 
 ## Record visited places

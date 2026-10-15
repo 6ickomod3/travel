@@ -453,6 +453,30 @@ export default {
   ],
   "checklist": [
     {
+      "id": "stamp-credential",
+      "kind": "todo",
+      "title": "准备免费手账与盖章清单",
+      "detail": "11/16 15:00–16:00在纪伊田边站旁中心，每人领取免费的Dual Pilgrim Credential和官方Stamp List；备防水袋，每天拍照。普通盖章不需预约。",
+      "sourceIds": [
+        "dual-pilgrim",
+        "dual-pilgrim-stamp-list",
+        "kumano-information-centers",
+        "kumano-stamp-howto"
+      ]
+    },
+    {
+      "id": "dual-pilgrim-eligibility",
+      "kind": "check",
+      "title": "确认每人的Camino资格与19号选项",
+      "detail": "分别核对Camino完成证明；选择08:39默认版或06:54速玉早班。只有本人同时满足两边条件且盖齐10章，才考虑田边现场登记与晚回大阪；大门坂不是日本条件③必走段。",
+      "sourceIds": [
+        "dual-pilgrim",
+        "dual-pilgrim-jp",
+        "dual-pilgrim-stamp-list",
+        "kumano-information-centers"
+      ]
+    },
+    {
       "id": "miyajima-ropeway",
       "kind": "todo",
       "title": "预约11/15宫岛缆车",
@@ -679,6 +703,51 @@ export default {
       "id": "osaka-accommodation-tax",
       "label": "大阪府：住宿税",
       "url": "https://www.pref.osaka.lg.jp/o070070/toshimiryoku/syukuhakuzei/index.html"
+    },
+    {
+      "id": "dual-pilgrim-jp",
+      "label": "Dual Pilgrim：日本资格、手账与登记（日文）",
+      "url": "https://www.tb-kumano.jp/kumano-kodo/dual-pilgrim/"
+    },
+    {
+      "id": "dual-pilgrim-stamp-list",
+      "label": "Dual Pilgrim：官方盖章清单PDF",
+      "url": "https://www2.tb-kumano.jp/pdf/dual-pilgrim-stamp-list.pdf"
+    },
+    {
+      "id": "kumano-stamp-howto",
+      "label": "熊野盖章：操作方法与两种手账区别",
+      "url": "https://www.tb-kumano.jp/en/2024/03/08/12591/"
+    },
+    {
+      "id": "wakayama-nakahechi-stamps",
+      "label": "和歌山县中边路41章：押印帐与完全踏破项目",
+      "url": "https://www.wakayama-kanko.or.jp/features/stamp-books/"
+    },
+    {
+      "id": "kumano-information-centers",
+      "label": "熊野游客中心：地址、营业时间与服务",
+      "url": "https://www.tb-kumano.jp/en/resources/information-centers/"
+    },
+    {
+      "id": "hongu-gold-shell-ended",
+      "label": "本宫大社：金色贝壳于2025/12/31结束授予公告",
+      "url": "https://www.facebook.com/KumanoHonguTaisha/posts/1298361115666292/"
+    },
+    {
+      "id": "nakahechi-gold-ofuda",
+      "label": "中边路町观光协会：金色OFUDA迷你御札",
+      "url": "https://www.nakahechi.jp/2025/06/11/%E7%86%8A%E9%87%8E%E5%8F%A4%E9%81%93%E4%B8%AD%E8%BE%BA%E8%B7%AF%E3%83%AB%E3%83%BC%E3%83%88%E8%B8%8F%E7%A0%B4%E8%A8%98%E5%BF%B5%E3%80%8C%E9%87%91%E3%81%AEofuda%E3%83%9F%E3%83%8B%E3%80%8D%E3%82%92/"
+    },
+    {
+      "id": "kuroshio-32-reference",
+      "label": "Kuroshio 32参考时刻（查询日期2026-10-04）",
+      "url": "https://timetable.jr-odekake.net/train-timetable/100421?date=20261004"
+    },
+    {
+      "id": "kuroshio-36-reference",
+      "label": "Kuroshio 36平日参考时刻（查询日期2026-10-21）",
+      "url": "https://timetable.jr-odekake.net/train-timetable/144551?date=20261021"
     }
   ],
   "practicalNotes": [
@@ -1022,9 +1091,12 @@ export default {
         {
           "time": "15:00–16:00",
           "title": "Tanabe Tourist Information Center",
-          "description": "站旁领取地图、免费盖章册，确认次日巴士站与最新路况。",
+          "description": "每人领取一本免费的Dual Pilgrim Credential和一份官方Stamp List，再拿地图、确认次日巴士站与最新路况。中心营业09:00–18:00；普通盖章不需预先登记或预约。",
           "sourceIds": [
-            "kumano-bus-overview"
+            "kumano-bus-overview",
+            "dual-pilgrim",
+            "dual-pilgrim-stamp-list",
+            "kumano-information-centers"
           ]
         },
         {
@@ -1125,7 +1197,54 @@ export default {
         "kumano-fast-bus",
         "takijiri-chikatsuyu",
         "kumano-bus-payment"
-      ]
+      ],
+      "stamps": {
+        "title": "沿途额外纪念章",
+        "description": "按泷尻至近露的步行顺序留意八处，作为徒步记录。",
+        "stops": [
+          {
+            "name": "泷尻王子",
+            "englishName": "Takijiri-oji"
+          },
+          {
+            "name": "不寝王子",
+            "englishName": "Nezu-oji"
+          },
+          {
+            "name": "高原熊野神社",
+            "englishName": "Takahara Kumano-jinja"
+          },
+          {
+            "name": "大门王子",
+            "englishName": "Daimon-oji",
+            "note": "与19号那智附近的大门坂是不同地点。"
+          },
+          {
+            "name": "十丈王子",
+            "englishName": "Jujo-oji"
+          },
+          {
+            "name": "大坂本王子",
+            "englishName": "Osakamoto-oji"
+          },
+          {
+            "name": "牛马童子",
+            "englishName": "Gyuba-doji"
+          },
+          {
+            "name": "近露王子",
+            "englishName": "Chikatsuyu-oji"
+          }
+        ],
+      "notes": [
+        "这八章不属于日本条件③的官方10章，不能替代速玉大社参拜。"
+        ],
+        "sourceIds": [
+          "takijiri-chikatsuyu",
+          "dual-pilgrim-stamp-list",
+          "kumano-stamp-howto"
+        ]
+      }
     },
     {
       "date": "2026-11-18",
@@ -1272,7 +1391,55 @@ export default {
         "kawayu-senninburo",
         "dual-pilgrim",
         "kumano-bus-payment"
-      ]
+      ],
+      "stamps": {
+        "title": "日本条件③：第1–6章",
+        "description": "计划沿发心门至本宫的步行路线盖章，并到大斋原补齐旧社地章。",
+        "stops": [
+          {
+            "number": 1,
+            "name": "发心门王子",
+            "englishName": "Hosshinmon-oji"
+          },
+          {
+            "number": 2,
+            "name": "水吞／水呑王子",
+            "englishName": "Mizunomi-oji"
+          },
+          {
+            "number": 3,
+            "name": "伏拝王子",
+            "englishName": "Fushiogami-oji"
+          },
+          {
+            "number": 4,
+            "name": "祓殿王子",
+            "englishName": "Haraido-oji"
+          },
+          {
+            "number": 5,
+            "name": "熊野本宫大社",
+            "englishName": "Kumano Hongu Taisha",
+            "note": "完成章在札所附近，盖在手账日本一面首页的“COMPLETION OF PILGRIMAGE”栏。"
+          },
+          {
+            "number": 6,
+            "name": "旧社地大斋原",
+            "englishName": "Oyunohara",
+            "note": "参拜旧社地时找盖章点，不只拍大鸟居。"
+          }
+        ],
+      "notes": [
+        "本宫完成章是手账印章，不等于取得正式资格或纸质证书。速玉、那智尚未参拜时，条件③仍未完整完成。"
+        ],
+        "sourceIds": [
+          "hosshinmon-hongu",
+          "dual-pilgrim",
+          "dual-pilgrim-jp",
+          "dual-pilgrim-stamp-list",
+          "kumano-stamp-howto"
+        ]
+      }
     },
     {
       "date": "2026-11-19",
@@ -1386,8 +1553,8 @@ export default {
       "alternatives": [
         {
           "id": "hayatama-daimonzaka",
-          "title": "可选加强版：速玉大社＋大门坂",
-          "description": "提前06:54出发参拜熊野速玉大社，再从大门坂步行上山；强度与早起增加，和08:39默认版分开安排。",
+          "title": "可选加强版：速玉大社，大门坂可选",
+          "description": "06:54早出发补熊野速玉大社参拜和第7章；大门坂步行按体力选择，和08:39默认版分开安排。",
           "schedule": [
             {
               "time": "06:54–07:48",
@@ -1398,7 +1565,10 @@ export default {
             },
             {
               "time": "07:48到达后",
-              "title": "参拜熊野速玉大社"
+              "title": "参拜熊野速玉大社、盖第7章",
+              "sourceIds": [
+                "dual-pilgrim-stamp-list"
+              ]
             },
             {
               "time": "09:04–09:28",
@@ -1409,19 +1579,25 @@ export default {
             },
             {
               "time": "09:57–10:08",
-              "title": "31系統：那智站 → 大门坂",
+              "title": "31系統：那智站出发，大门坂可选下车",
               "sourceIds": [
                 "nachi-katsuura-bus"
-              ]
+              ],
+              "description": "09:57发车；走大门坂则10:08下车，不走则继续乘车到那智山。"
             },
             {
               "time": "10:10–11:10",
-              "title": "大门坂步行上山"
+              "title": "可选：大门坂步行上山",
+              "description": "仅选择10:08下车时安排；不走这段不影响日本条件③。",
+              "optional": true
             },
             {
               "time": "11:10以后",
               "title": "那智大社、青岸渡寺与瀑布",
-              "description": "沿用13:59下山车与15:21黑潮衔接，按体力与脚程调整。"
+              "description": "步行版按11:10以后参拜；不走大门坂可在乘车抵达后开始。盖第8–10章，保留13:59下山车与15:21黑潮，按脚程调整。",
+              "sourceIds": [
+                "dual-pilgrim-stamp-list"
+              ]
             },
             {
               "time": "13:59–14:23",
@@ -1440,15 +1616,67 @@ export default {
             }
           ],
           "notes": [
-            "需川汤旅馆提前备早餐与退房；早起与强度明显增加，不与08:39默认行程混用。",
-            "如按“发心门至本宫步行＋熊野三山参拜”申请熊野部分条件，此版补上速玉参拜；正式Dual Pilgrim资格、徽章和证书另需圣地亚哥条件。"
+            "需川汤旅馆提前备早餐与退房；06:54早班与08:39默认行程二选一。",
+            "大门坂步行可选，不是日本条件③的必选段；那智山台阶仍较多。",
+            "以18号发心门至本宫步行、三山参拜并盖齐10章为前提，此版可补上第7章速玉。正式Dual资格仍需每人自己的Camino证明。",
+            "此版仍乘Kuroshio 30直达大阪19:16；田边现场登记与晚回大阪另列独立返程备选。"
           ],
           "sourceIds": [
             "kawayu-shingu-bus",
             "shingu-nachi-bus",
             "nachi-katsuura-bus",
             "kuroshio-30-reference",
-            "dual-pilgrim"
+            "dual-pilgrim",
+            "dual-pilgrim-jp",
+            "dual-pilgrim-stamp-list"
+          ]
+        },
+        {
+          "id": "dual-pilgrim-registration-return",
+          "title": "条件式登记回程：田边停留后晚回大阪",
+          "description": "仅替换19号返程：本人须已有Camino完成证明，并按早班路线完成日本条件③、盖齐官方10章，且决定本次现场登记。",
+          "schedule": [
+            {
+              "time": "15:21–17:06",
+              "title": "Kuroshio 30：纪伊胜浦 → 纪伊田边",
+              "description": "此备选在田边下车办理登记；指定席按实际分段重核。默认直达大阪行程仍独立保留。",
+              "sourceIds": [
+                "kuroshio-30-reference"
+              ]
+            },
+            {
+              "time": "17:06到站后，18:00前",
+              "title": "Tanabe Tourist Information Center本人登记",
+              "description": "每人带熊野10章手账和自己的Camino完成证明或照片／电子版。中心09:00–18:00；预留步行、排队与两人办理时间，资格由工作人员现场核验。",
+              "sourceIds": [
+                "dual-pilgrim",
+                "dual-pilgrim-jp",
+                "kumano-information-centers"
+              ]
+            },
+            {
+              "time": "19:50–22:02",
+              "title": "Kuroshio 36：纪伊田边 → 大阪",
+              "description": "平日运行的计划参考，11/19为星期四；出发前重核当日运转与指定席。晚回大阪后到RESPIRE取大箱并入住，提前告知酒店晚到。",
+              "sourceIds": [
+                "kuroshio-36-reference",
+                "respire-access"
+              ]
+            }
+          ],
+          "notes": [
+            "尚未确认任何旅客已具Camino资格；不符合条件或不想现场登记时，保留Kuroshio 30直达大阪19:16。",
+            "仅本人到场办理，徽章与证书不邮寄。纪伊胜浦游客中心可发免费手账和办理县方项目，但不是正式Dual登记点。",
+            "Kuroshio 32备选：田边17:32 → 大阪19:46，26分钟包括步行、两人办理与候车，偏紧且不能保证赶上；不作为此返程的主方案。",
+            "分段车票、Pass指定席与早特优惠需重新核价并预订；参考时刻不代表已出票。"
+          ],
+          "sourceIds": [
+            "kuroshio-30-reference",
+            "kuroshio-32-reference",
+            "kuroshio-36-reference",
+            "dual-pilgrim",
+            "dual-pilgrim-jp",
+            "kumano-information-centers"
           ]
         }
       ],
@@ -1466,7 +1694,43 @@ export default {
         "kuroshio-30-reference",
         "kumano-bus-payment",
         "dual-pilgrim"
-      ]
+      ],
+      "stamps": {
+        "title": "日本条件③：第7–10章",
+        "description": "默认版计划第8–10章；第7章须选择06:54速玉早班备选。",
+        "stops": [
+          {
+            "number": 7,
+            "name": "熊野速玉大社",
+            "englishName": "Kumano Hayatama Taisha",
+            "note": "仅06:54早出发备选可补；08:39默认版不去。"
+          },
+          {
+            "number": 8,
+            "name": "熊野那智大社",
+            "englishName": "Kumano Nachi Taisha"
+          },
+          {
+            "number": 9,
+            "name": "青岸渡寺",
+            "englishName": "Seiganto-ji"
+          },
+          {
+            "number": 10,
+            "name": "飞泷神社／那智瀑布",
+            "englishName": "Hirou-jinja / Nachi Falls"
+          }
+        ],
+      "notes": [
+        "以18号完成发心门至本宫步行为前提，19号参拜三山并盖齐官方10章才满足日本条件③；正式Dual Pilgrim仍需每人自己的Camino完成证明。",
+          "大门坂可按体力选择，不是条件③的必走段；那智山台阶仍较多。"
+        ],
+        "sourceIds": [
+          "dual-pilgrim",
+          "dual-pilgrim-jp",
+          "dual-pilgrim-stamp-list"
+        ]
+      }
     },
     {
       "date": "2026-11-20",
@@ -1606,5 +1870,93 @@ export default {
         "respire-access"
       ]
     }
-  ]
+  ],
+  "stampGuide": {
+    "title": "盖章与双朝圣",
+    "description": "共通巡礼手账、盖章方法、资格和登记地点。",
+    "sections": [
+      {
+        "title": "免费手账与41章项目",
+        "points": [
+          "推荐每人一本免费的Dual Pilgrim Credential／共通巡礼手帐，未去过西班牙也可领取、盖章和留作纪念。",
+          "和歌山县中边路押印帐另售100日元，需全线踏破并盖齐41章；免费共通手账不能替代县方申请。田边站旁中心不销售这本县方册，也不办理该县方证明。",
+          "本次两段徒步合计20.8公里；即使加速玉和大门坂，也不满足县方41章完全踏破要求。"
+        ],
+        "sourceIds": [
+          "dual-pilgrim",
+          "dual-pilgrim-jp",
+          "kumano-stamp-howto",
+          "wakayama-nakahechi-stamps"
+        ]
+      },
+      {
+        "title": "盖章操作与备份",
+        "points": [
+          "沿途多为木盒或木制章台，自助盖章不另收费。用现场印泥盖在自己的手账上，再放回印章、关紧印泥和木门；不要添墨或涂记号笔。",
+          "写下日期，手账装防水袋，每天拍照。章台缺失、移位或印泥干时拍照并询问工作人员；照片能否补作证明由工作人员判断。",
+          "神社寺庙的御朱印是另一项参拜纪念，不能自动替代官方盖章清单。"
+        ],
+        "sourceIds": [
+          "kumano-stamp-howto",
+          "dual-pilgrim-stamp-list"
+        ]
+      },
+      {
+        "title": "日本条件③与个人资格",
+        "points": [
+          "条件③：发心门王子至本宫大社步行官方约7公里、本次路线约7.5公里，再参拜速玉与那智，并盖齐官方10章；三山之间可乘巴士。",
+          "08:39默认版漏掉速玉。要完成此日本条件，可选06:54早班补第7章；大门坂非必走，17号额外纪念章不能替代速玉。",
+          "正式Dual Pilgrim须每人同时完成熊野与Camino条件。西班牙要求至少最后100公里步行／骑马，或最后200公里骑自行车；两边顺序不限，可相隔多年。",
+          "本宫手账完成章不等于正式资格或纸质证书；只完成日本部分不会由Dual项目颁发单边完成证书。"
+        ],
+        "sourceIds": [
+          "dual-pilgrim",
+          "dual-pilgrim-jp",
+          "dual-pilgrim-stamp-list"
+        ]
+      },
+      {
+        "title": "正式登记与返程",
+        "points": [
+          "日本正式登记点：田边站旁Tanabe Tourist Information Center（09:00–18:00）与熊野本宫馆（17:00关闭）。本人带熊野盖章手账、Camino证明或照片／电子版到场；徽章与证书不邮寄。",
+          "纪伊胜浦游客中心可发免费手账和办理县方41章项目，但不在正式Dual登记点名单中。18号尚未完成19号速玉与那智，不能按条件③提前登记。",
+          "只有已具Camino证明并盖齐10章、决定本次领取者，才考虑独立的田边登记返程备选；分段车票、划位与价格须重核。否则保留Kuroshio 30直达大阪19:16。"
+        ],
+        "sourceIds": [
+          "dual-pilgrim",
+          "dual-pilgrim-jp",
+          "kumano-information-centers",
+          "kuroshio-32-reference",
+          "kuroshio-36-reference"
+        ]
+      },
+      {
+        "title": "徽章与金色纪念品",
+        "points": [
+          "正式Dual胸针为橙色扇贝结合三足乌鸦；完成两边并登记后领取。在日本指定中心登记还赠本宫大社宫司的和纸完成证书。",
+          "本宫大社金色贝壳已公告于2025/12/31结束授予，和正式胸针不同；本次不以领取金色贝壳为目标。",
+          "金のOFUDAミニ另售2,750日元（含税），仅适用于县方41章完全踏破者，须带押印帐和完全踏破证明到熊野古道馆购买。本次不满足条件，库存仍需现场确认。"
+        ],
+        "sourceIds": [
+          "dual-pilgrim",
+          "hongu-gold-shell-ended",
+          "nakahechi-gold-ofuda",
+          "wakayama-nakahechi-stamps"
+        ]
+      },
+      {
+        "title": "领取地点与未来西班牙",
+        "points": [
+          "免费手账领取点包括田边站旁中心、熊野古道馆、本宫馆、新宫与纪伊胜浦游客中心。16号先领好，每人再拿一份官方Stamp List；17号到泷尻约07:16，不等古道馆08:30开门。",
+          "保存此次手账，未来满足西班牙条件后可在日本指定中心或Turismo de Santiago登记。西班牙地点为Rúa do Vilar 63, Santiago de Compostela，无需为登记再回日本。"
+        ],
+        "sourceIds": [
+          "dual-pilgrim",
+          "dual-pilgrim-jp",
+          "dual-pilgrim-stamp-list",
+          "kumano-information-centers"
+        ]
+      }
+    ]
+  }
 } satisfies Trip;

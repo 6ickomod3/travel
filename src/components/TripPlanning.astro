@@ -1,5 +1,5 @@
 ---
-import Icon from './Icon.astro';
+import TripReferences from './TripReferences.astro';
 import type { TripBookingWindow, TripSource, TripTicketOption } from '../data/trips';
 import { formatDate, formatDateRange } from '../lib/trips';
 
@@ -22,6 +22,7 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
   const source = sources.find(item => item.id === id);
   return source ? [source] : [];
 });
+const bookingSources = [...new Set(bookingWindows.flatMap(window => window.sourceIds ?? []))].flatMap(id => sourcesFor([id]));
 ---
 <div class="trip-planning-details">
   {ticketOptions.length > 0 && <div class="ticket-options" aria-labelledby="ticket-options-title">
@@ -37,7 +38,7 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
         </dl>
         <div class="ticket-coverage"><h5>{text('包含', 'Included')}</h5><ul>{option.includes.map(item => <li>{item}</li>)}</ul><h5>{text('不包含', 'Excluded')}</h5><ul>{option.excludes.map(item => <li>{item}</li>)}</ul></div>
         {option.notes.length > 0 && <ul class="ticket-notes">{option.notes.map(note => <li>{note}</li>)}</ul>}
-        {sourcesFor(option.sourceIds).length > 0 && <div class="planning-source-links">{sourcesFor(option.sourceIds).map(source => <a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} <Icon name="external" size={12} /></a>)}</div>}
+        <TripReferences sources={sourcesFor(option.sourceIds)} locale={locale} />
       </article>)}
     </div>
   </div>}
@@ -49,7 +50,7 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
         <tbody>{bookingWindows.map(window => <tr data-booking-window={window.id}><th scope="row"><time datetime={window.travelDate}>{travelDate(window.travelDate)}</time><span>{window.label}</span></th><td><time datetime={window.opensAt}>{openingTime(window, window.timeZone)}</time></td><td><time datetime={window.opensAt}>{openingTime(window, 'America/Los_Angeles')}</time></td></tr>)}</tbody>
       </table>
     </div>
-    <div class="planning-source-links">{[...new Set(bookingWindows.flatMap(window => window.sourceIds ?? []))].flatMap(id => sourcesFor([id])).map(source => <a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} <Icon name="external" size={12} /></a>)}</div>
+    <TripReferences sources={bookingSources} locale={locale} />
   </div>}
 </div>
 
@@ -71,9 +72,6 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
   .ticket-coverage ul, .ticket-notes { margin: 0; padding-left: 18px; font-size: 12px; color: var(--ink-soft); }
   .ticket-coverage li + li, .ticket-notes li + li { margin-top: 6px; }
   .ticket-notes { margin-top: 19px; padding-top: 16px; border-top: 1px solid var(--line); }
-  .planning-source-links { display: flex; flex-wrap: wrap; gap: 8px 15px; margin-top: 16px; }
-  .planning-source-links a { display: inline-flex; align-items: flex-start; gap: 5px; color: var(--accent-deep); font-size: 11px; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
-  .planning-source-links svg { margin-top: 4px; }
   .booking-table-wrapper { max-width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; }
   .booking-table { width: 100%; min-width: 560px; border-collapse: collapse; background: #fbfaf5; font-size: 12px; text-align: left; }
   .booking-table thead { background: var(--paper-deep); }
@@ -83,6 +81,6 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
   .booking-table tbody th { width: 40%; }
   .booking-table tbody th > span { display: block; margin-top: 4px; font-size: 11px; color: var(--ink-soft); }
   .booking-table td { white-space: nowrap; font-variant-numeric: tabular-nums; }
-  @media (max-width: 600px) { .ticket-options-grid { grid-template-columns: 1fr; gap: 17px; } .ticket-option { padding: 21px; } .ticket-description, .ticket-coverage ul, .ticket-notes { font-size: 13px; } .planning-source-links a { font-size: 12px; } }
-  @media print { .trip-planning-details { gap: 18px; margin-bottom: 18px; } .ticket-options-grid { gap: 12px; } .ticket-option { padding: 13px; background: white; break-inside: avoid; } .ticket-option h4 { font-size: 13px; } .ticket-description, .ticket-coverage ul, .ticket-notes, .booking-table, .planning-source-links a { font-size: 10px; } .ticket-prices dd { font-size: 15px; } .booking-table { min-width: 0; } .booking-table th, .booking-table td { padding: 10px; } .booking-table-wrapper { overflow: visible; } }
+  @media (max-width: 600px) { .ticket-options-grid { grid-template-columns: 1fr; gap: 17px; } .ticket-option { padding: 21px; } .ticket-description, .ticket-coverage ul, .ticket-notes { font-size: 13px; } }
+  @media print { .trip-planning-details { gap: 18px; margin-bottom: 18px; } .ticket-options-grid { gap: 12px; } .ticket-option { padding: 13px; background: white; break-inside: avoid; } .ticket-option h4 { font-size: 13px; } .ticket-description, .ticket-coverage ul, .ticket-notes, .booking-table { font-size: 10px; } .ticket-prices dd { font-size: 15px; } .booking-table { min-width: 0; } .booking-table th, .booking-table td { padding: 10px; } .booking-table-wrapper { overflow: visible; } }
 </style>

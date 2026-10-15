@@ -1,0 +1,55 @@
+---
+import Icon from './Icon.astro';
+import TripReferences from './TripReferences.astro';
+import type { TripStampGuide, TripSource } from '../data/types';
+
+interface Props {
+  guide: TripStampGuide;
+  sources: TripSource[];
+  locale?: 'zh-CN' | 'en';
+}
+
+const { guide, sources, locale = 'en' } = Astro.props;
+const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
+  const source = sources.find(item => item.id === id);
+  return source ? [source] : [];
+});
+---
+<section class="stamp-guide" id="stamp-guide" aria-labelledby="stamp-guide-title" data-trip-stamp-guide>
+  <div class="stamp-guide-heading"><Icon name="compass" size={20} /><h3 id="stamp-guide-title">{guide.title}</h3></div>
+  {guide.description && <p class="stamp-guide-description">{guide.description}</p>}
+  <div class="stamp-guide-sections">
+    {guide.sections.map(section => <div class="stamp-guide-section">
+      <h4>{section.title}</h4>
+      <ul>{section.points.map(point => <li>{point}</li>)}</ul>
+      <TripReferences sources={sourcesFor(section.sourceIds)} locale={locale} />
+    </div>)}
+  </div>
+</section>
+
+<style>
+  .stamp-guide { min-width: 0; margin-bottom: 24px; padding: 25px; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; }
+  .stamp-guide-heading { display: flex; align-items: flex-start; gap: 10px; }
+  .stamp-guide-heading > svg { margin-top: 4px; color: var(--accent-deep); }
+  .stamp-guide-heading h3 { font-family: var(--sans); font-size: 18px; line-height: 1.5; font-weight: 600; }
+  .stamp-guide-description { margin-top: 12px; color: var(--ink-soft); font-size: 13px; line-height: 1.9; }
+  .stamp-guide-sections { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 32px; margin-top: 22px; }
+  .stamp-guide-section { min-width: 0; border-top: 1px solid var(--line); padding-top: 17px; }
+  .stamp-guide-section h4 { font-family: var(--sans); font-size: 14px; font-weight: 600; line-height: 1.7; }
+  .stamp-guide-section ul { margin: 12px 0 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.9; overflow-wrap: anywhere; }
+  .stamp-guide-section li + li { margin-top: 8px; }
+  @media (max-width: 700px) {
+    .stamp-guide { padding: 21px; }
+    .stamp-guide-sections { grid-template-columns: 1fr; gap: 21px; }
+    .stamp-guide-section ul { font-size: 13px; }
+  }
+  @media print {
+    .stamp-guide { padding: 15px; background: white; }
+    .stamp-guide-heading h3 { font-size: 14px; }
+    .stamp-guide-description, .stamp-guide-section ul { font-size: 10px; }
+    .stamp-guide-sections { gap: 16px 24px; margin-top: 15px; }
+    .stamp-guide-section h4 { font-size: 11px; }
+    .stamp-guide-section { padding-top: 12px; }
+    .stamp-guide-section li { break-inside: avoid; }
+  }
+</style>

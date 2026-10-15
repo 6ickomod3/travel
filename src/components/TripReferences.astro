@@ -1,0 +1,69 @@
+---
+import Icon from './Icon.astro';
+import type { TripSource } from '../data/types';
+
+interface Props {
+  sources: TripSource[];
+  locale?: 'zh-CN' | 'en';
+  label?: string;
+  catalog?: boolean;
+}
+const { sources, locale = 'en', label, catalog = false } = Astro.props;
+const isZh = locale === 'zh-CN';
+const summary = label ?? (isZh ? '参考资料' : 'References');
+const countLabel = isZh ? `${sources.length}条资料` : `${sources.length} ${sources.length === 1 ? 'source' : 'sources'}`;
+---
+{sources.length > 0 && <details class:list={['trip-references', { 'trip-references-catalog': catalog }]} data-trip-references lang={locale}>
+  <summary>
+    <span class="trip-references-label">{summary}</span>
+    <span class="trip-references-count" aria-label={countLabel}>{sources.length}</span>
+    <span class="trip-references-chevron" aria-hidden="true"><Icon name="chevron-down" size={14} /></span>
+  </summary>
+  <div class="trip-references-content">
+    <slot />
+    <ul class="trip-reference-list" role="list">
+      {sources.map(source => <li id={catalog ? `source-${source.id}` : undefined}>
+        <a href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>
+      </li>)}
+    </ul>
+  </div>
+</details>}
+
+<style>
+  .trip-references { min-width: 0; max-width: 100%; margin-top: 10px; font-family: var(--sans); font-size: 11px; line-height: 1.8; color: var(--ink-soft); }
+  .trip-references[data-trip-references] > summary { display: flex; align-items: center; gap: 8px; width: fit-content; max-width: 100%; min-height: 32px; padding: 2px 0; cursor: pointer; list-style: none; }
+  .trip-references > summary::-webkit-details-marker { display: none; }
+  .trip-references > summary::marker { content: ''; }
+  .trip-references-label { min-width: 0; overflow-wrap: anywhere; font-weight: 500; }
+  .trip-references-count { flex-shrink: 0; min-width: 20px; padding: 0 5px; border: 1px solid var(--line); border-radius: 3px; font-size: 10px; line-height: 1.7; text-align: center; }
+  .trip-references-chevron { flex-shrink: 0; }
+  .trip-references[open] > summary .trip-references-chevron { transform: rotate(180deg); }
+  .trip-references > summary:hover { color: var(--accent-deep); }
+  .trip-references-content { min-width: 0; padding-block: 4px; }
+  .trip-reference-list { display: flex; flex-wrap: wrap; gap: 6px 16px; list-style: none; margin: 0; padding: 0; }
+  .trip-reference-list li { min-width: 0; max-width: 100%; }
+  .trip-reference-list a { display: inline-flex; align-items: flex-start; gap: 5px; max-width: 100%; min-height: 24px; color: var(--accent-deep); font-size: 11px; line-height: 1.8; text-decoration: underline; text-underline-offset: 4px; }
+  .trip-reference-list a > span { min-width: 0; overflow-wrap: anywhere; }
+  .trip-reference-list a > svg { flex-shrink: 0; margin-top: 4px; }
+  .trip-reference-list a:hover { color: var(--ink); }
+  .trip-references-catalog .trip-reference-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .trip-references-catalog .trip-reference-list a { display: flex; width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 4px; background: #fbfaf5; }
+  .trip-references-catalog .trip-reference-list a > svg { margin-left: auto; }
+  @media (max-width: 600px) {
+    .trip-references { font-size: 12px; }
+    .trip-references[data-trip-references] > summary { min-height: 40px; }
+    .trip-reference-list a { min-height: 27px; font-size: 12px; }
+    .trip-references-catalog .trip-reference-list { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media print {
+    .trip-references { margin-top: 6px; font-size: 9px; }
+    .trip-references::details-content { content-visibility: visible; }
+    .trip-references[data-trip-references] > summary { min-height: 0; padding: 0; }
+    .trip-references-count { border: 0; font-size: 9px; }
+    .trip-references-chevron { display: none; }
+    .trip-reference-list li { break-inside: avoid; }
+    .trip-reference-list a { min-height: 0; font-size: 9px; }
+    .trip-references-catalog .trip-reference-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .trip-references-catalog .trip-reference-list a { min-height: 0; padding: 7px 10px; background: white; }
+  }
+</style>

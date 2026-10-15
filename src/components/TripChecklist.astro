@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import TripReferences from './TripReferences.astro';
 import type { TripChecklistItem, TripSource } from '../data/trips';
 
 interface Props {
@@ -33,7 +34,7 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
         {group.items.map((item, index) => <li class="checklist-item" id={`reservation-${item.id}`} data-checklist-item={item.id}>
           <div class="checklist-item-top"><span class="checklist-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h4>{item.title}</h4></div>
           <p>{item.detail}</p>
-          {sourcesFor(item.sourceIds).length > 0 && <div class="checklist-sources">{sourcesFor(item.sourceIds).map(source => <a href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div>}
+          {sourcesFor(item.sourceIds).length > 0 && <div class="checklist-sources"><TripReferences sources={sourcesFor(item.sourceIds)} locale={locale} /></div>}
         </li>)}
       </ol>
     </section>)}
@@ -61,13 +62,10 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
   .checklist-index { padding-top: 5px; color: var(--accent-deep); font-size: 10px; }
   .checklist-item h4 { font-size: 14px; line-height: 1.8; font-weight: 600; overflow-wrap: anywhere; }
   .checklist-item > p { margin-top: 7px; padding-left: 31px; font-size: 12px; line-height: 1.9; color: var(--ink-soft); overflow-wrap: anywhere; }
-  .checklist-sources { display: flex; flex-wrap: wrap; gap: 6px 15px; margin-top: 9px; padding-left: 31px; }
-  .checklist-sources a { display: inline-flex; align-items: flex-start; gap: 5px; min-height: 24px; max-width: 100%; font-size: 11px; line-height: 1.8; color: var(--accent-deep); text-decoration: underline; text-underline-offset: 4px; }
-  .checklist-sources a > span { min-width: 0; overflow-wrap: anywhere; }
-  .checklist-sources svg { margin-top: 4px; flex-shrink: 0; }
+  .checklist-sources { padding-left: 31px; }
   .checklist-planning-links { display: flex; flex-wrap: wrap; gap: 12px 25px; margin-top: 20px; }
   .checklist-planning-links a { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--accent-deep); text-decoration: underline; text-underline-offset: 4px; }
   @media (max-width: 800px) { .trip-checklist-section { padding-block: 36px; } .checklist-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; } }
-  @media (max-width: 600px) { .checklist-panel { padding: 21px; } .checklist-item > p { font-size: 13px; } .checklist-sources { padding-left: 0; } .checklist-sources a { font-size: 12px; min-height: 27px; } }
-  @media print { .trip-checklist-section { padding-block: 20px; } .checklist-grid { grid-template-columns: minmax(0, 1fr); gap: 15px; } .checklist-panel { padding: 15px; background: white; } .checklist-panel-heading { break-after: avoid; } .checklist-panel-heading h3 { font-size: 14px; } .checklist-item { break-inside: avoid; padding-block: 10px; } .checklist-item h4 { font-size: 11px; } .checklist-item > p { font-size: 10px; } .checklist-sources a { font-size: 9px; min-height: 0; } .checklist-planning-links { display: none; } }
+  @media (max-width: 600px) { .checklist-panel { padding: 21px; } .checklist-item > p { font-size: 13px; } .checklist-sources { padding-left: 0; } }
+  @media print { .trip-checklist-section { padding-block: 20px; } .checklist-grid { grid-template-columns: minmax(0, 1fr); gap: 15px; } .checklist-panel { padding: 15px; background: white; } .checklist-panel-heading { break-after: avoid; } .checklist-panel-heading h3 { font-size: 14px; } .checklist-item { break-inside: avoid; padding-block: 10px; } .checklist-item h4 { font-size: 11px; } .checklist-item > p { font-size: 10px; } .checklist-planning-links { display: none; } }
 </style>

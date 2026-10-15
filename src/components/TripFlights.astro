@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import TripReferences from './TripReferences.astro';
 import type { TripFlight, TripFlightEndpoint, TripSource } from '../data/trips';
 import { formatDate } from '../lib/trips';
 
@@ -45,7 +46,7 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
       <span class="flight-route-arrow" aria-hidden="true"><Icon name="arrow-right" size={18} /></span>
       </div>
       {Boolean(flight.notes?.length) && <ul class="flight-notes">{flight.notes!.map(note => <li>{note}</li>)}</ul>}
-      {sourcesFor(flight.sourceIds).length > 0 && <div class="flight-sources">{sourcesFor(flight.sourceIds).map(source => <a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} <Icon name="external" size={12} /></a>)}</div>}
+      <TripReferences sources={sourcesFor(flight.sourceIds)} locale={locale} />
     </article>)}
   </div>
 </section>
@@ -70,8 +71,6 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
   .flight-route-arrow { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: var(--accent-deep); }
   .flight-notes { padding-left: 17px; margin: 20px 0 0; font-size: 12px; color: var(--ink-soft); }
   .flight-notes li + li { margin-top: 6px; }
-  .flight-sources { display: flex; flex-wrap: wrap; gap: 7px 15px; margin-top: 15px; }
-  .flight-sources a { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: var(--accent-deep); text-decoration: underline; text-underline-offset: 3px; }
   @media (max-width: 1000px) { .flight-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 600px) { .trip-flights-section { padding-block: 44px; } .flight-grid { grid-template-columns: 1fr; gap: 17px; } .flight-card { padding: 21px; } }
   @media print { .trip-flights-section { padding-block: 20px; border: 0; } .flight-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; } .flight-card { padding: 13px; break-inside: avoid; background: white; } .flight-route { gap: 34px; } .flight-route strong, .flight-card h3 { font-size: 18px; } .flight-route dd, .flight-notes { font-size: 10px; } .flight-route b { font-size: 14px; } }

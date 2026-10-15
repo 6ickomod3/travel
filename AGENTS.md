@@ -51,6 +51,9 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
 - Preserve uncertainty and distinguish reference departures from confirmed
   tickets. Do not invent dates, cities, activities, travelers, or reservations.
 - Keep image and map attribution visible beside the relevant content.
+- Collapse research references by default throughout trip pages, including
+  inline groups and the official source catalog. Use accessible disclosures;
+  printing includes references and restores their previous open states.
 
 ## Implementation
 
@@ -119,6 +122,12 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
 - Keep `TripDay.alternatives` as separate labeled schedules. Never interleave
   an optional or fallback route into the main day's itinerary or map route.
   Printing opens both daily and alternative details, then restores their state.
+- Optional `TripDay.stamps` records planned stamp stops and official numbering,
+  with route or eligibility conditions stated explicitly. It does not assert
+  that a stamp was collected or a pilgrimage qualification was completed.
+  Keep shared booklet, collection, and registration guidance in `stampGuide`.
+- Source disclosures stay closed when expanding all days. Reveal a source's
+  ancestor disclosures when following its direct fragment link.
 
 ## Source submissions
 

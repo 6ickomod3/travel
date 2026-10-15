@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import TripReferences from './TripReferences.astro';
 import type { TripStay, TripSource } from '../data/trips';
 import { durationDays, formatDate } from '../lib/trips';
 
@@ -67,7 +68,7 @@ const references = referenceIds.flatMap(id => { const source = sources.find(item
     </table>
   </div>
   <p class="cost-scope">{pendingNights > 0 && <>{pendingNights} {text('晚住宿价格待补；', 'accommodation nights are unpriced. ')}</>}{text('以上是已知住宿部分预算。交通、未含餐食、景点等费用另计。', 'This is a partial accommodation budget. Transport, meals not included, and activities are separate.')}{summaries.length > 1 && <> {text('不同币种分别合计，未换汇合并。', 'Currencies are totaled separately, without conversion.')}</>}</p>
-  {references.length > 0 && <div class="cost-source-links">{references.map(source => <a href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div>}
+  <TripReferences sources={references} locale={locale} />
   {hasPreparations && <a class="cost-planning-link" href="#preparations">{text('查看票券方案与行前准备', 'View ticket options and preparations')} <Icon name="arrow-up-right" size={14} /></a>}
 </section>
 
@@ -100,10 +101,6 @@ const references = referenceIds.flatMap(id => { const source = sources.find(item
   .cost-row-pending { background: var(--paper-deep); }
   .cost-row-pending .cost-amount > span { color: var(--accent-deep); }
   .cost-scope { margin-top: 18px; font-size: 12px; line-height: 1.9; color: var(--ink-soft); }
-  .cost-source-links { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 15px; }
-  .cost-source-links a { display: inline-flex; align-items: flex-start; gap: 5px; max-width: 100%; color: var(--accent-deep); font-size: 11px; text-decoration: underline; text-underline-offset: 4px; }
-  .cost-source-links span { min-width: 0; overflow-wrap: anywhere; }
-  .cost-source-links svg { flex-shrink: 0; margin-top: 3px; }
   .cost-planning-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; color: var(--accent-deep); font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
   @media (max-width: 800px) { .trip-costs-section { padding-block: 48px; } .cost-summary-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; } .cost-metric { padding: 20px; } .cost-metric dd { font-size: 29px; } }
   @media (max-width: 600px) { .trip-costs-section { padding-block: 44px; } .cost-basis, .cost-scope { font-size: 13px; } }

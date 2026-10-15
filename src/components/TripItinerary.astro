@@ -7,6 +7,9 @@ import TripFlights from './TripFlights.astro';
 import TripPlanning from './TripPlanning.astro';
 import TripChecklist from './TripChecklist.astro';
 import TripCosts from './TripCosts.astro';
+import TripReferences from './TripReferences.astro';
+import TripStamps from './TripStamps.astro';
+import TripStampGuide from './TripStampGuide.astro';
 import { tripCollection, type Trip, type TripDestination, type TripStay } from '../data/trips';
 import { durationDays, formatDateRange, formatDate } from '../lib/trips';
 import { withBase } from '../lib/urls';
@@ -56,7 +59,7 @@ const bookedNights = stays.filter(stay => stay.status === 'booked').reduce((tota
 const pendingNights = totalNights - bookedNights;
 const stayById = (id?: string) => stays.find(stay => stay.id === id);
 const stayStatus = (stay: TripStay) => stay.status === 'booked' ? text('已订', 'Booked') : text('待确认', 'Awaiting confirmation');
-const hasPreparations = practicalNotes.length > 0 || ticketOptions.length > 0 || bookingWindows.length > 0;
+const hasPreparations = practicalNotes.length > 0 || ticketOptions.length > 0 || bookingWindows.length > 0 || Boolean(trip.stampGuide);
 const photoCredit = trip.coverCredit.replace(/^(?:Photo:|图片来源：|图片：)\s*/i, '');
 const heroImage = getImageCredit(trip.cover);
 const heroCredit = getLicensedImageCredit(trip.cover);
@@ -200,7 +203,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
                 {day.schedule.map(item => <li class:list={['timeline-entry', { 'timeline-entry-optional': item.optional }]}>
                   <span class="timeline-time">{item.time}</span>
                   <div class="timeline-copy"><p class="timeline-title">{item.title}{item.optional && <span class="timeline-optional">{text('可选', 'Optional')}</span>}</p>{item.description && <p class="timeline-description">{item.description}</p>}
-                    {sourcesFor(item.sourceIds).length > 0 && <div class="source-links">{sourcesFor(item.sourceIds).map(source => <a class="source-link" href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div>}
+                    <TripReferences sources={sourcesFor(item.sourceIds)} locale={locale} />
                   </div>
                 </li>)}
               </ol> : day.ideas.length > 0 && <><span class="day-ideas-title">{text('备选活动', 'SUGGESTED ACTIVITIES')} · {cityName(day.destinationId).toUpperCase()}</span><ul class="day-ideas">{day.ideas.map(idea => <li>{idea}</li>)}</ul></>}
@@ -209,6 +212,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
                 <dl class="hike-facts"><div><dt>{text('徒步距离', 'Distance')}</dt><dd>{text('约', 'About ')}{number(day.hike.distanceKm)} {text('公里', 'km')}</dd></div><div><dt>{text('官方参考', 'Official estimate')}</dt><dd>{day.hike.duration}</dd></div>{day.hike.ascentM !== undefined && <div><dt>{text('累计爬升', 'Total ascent')}</dt><dd>{text('约', 'About ')}{number(day.hike.ascentM)} {text('米', 'm')}</dd></div>}</dl>
                 <p class="hike-footnote">{text('途中以实际步速、天气和路线情况调整，留好休息时间。', 'Allow time for breaks and adjust to your pace, weather, and trail conditions.')}</p>
               </aside>}
+              {day.stamps && <TripStamps collection={day.stamps} sources={sources} locale={locale} />}
               {Boolean(day.alternatives?.length) && <div class="day-alternatives">
                 <h3>{text('备选安排', 'Alternative plans')}</h3>
                 {day.alternatives!.map(alternative => <details class="day-alternative" id={`alternative-${day.date}-${alternative.id}`} data-day-alternative={alternative.id}>
@@ -218,15 +222,15 @@ const heroCredit = getLicensedImageCredit(trip.cover);
                     <p class="alternative-scope">{text('此方案整体替代上面的对应安排。', 'Use this option in place of the corresponding main schedule.')}</p>
                     <ol class="day-timeline" aria-label={text(`${alternative.title}时间表`, `${alternative.title} schedule`)} role="list">{alternative.schedule.map(item => <li class:list={['timeline-entry', { 'timeline-entry-optional': item.optional }]}>
                       <span class="timeline-time">{item.time}</span>
-                      <div class="timeline-copy"><p class="timeline-title">{item.title}{item.optional && <span class="timeline-optional">{text('可选', 'Optional')}</span>}</p>{item.description && <p class="timeline-description">{item.description}</p>}{sourcesFor(item.sourceIds).length > 0 && <div class="source-links">{sourcesFor(item.sourceIds).map(source => <a class="source-link" href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div>}</div>
+                      <div class="timeline-copy"><p class="timeline-title">{item.title}{item.optional && <span class="timeline-optional">{text('可选', 'Optional')}</span>}</p>{item.description && <p class="timeline-description">{item.description}</p>}<TripReferences sources={sourcesFor(item.sourceIds)} locale={locale} /></div>
                     </li>)}</ol>
                     {alternative.notes.length > 0 && <aside class="day-important-notes"><p class="day-note-label">{text('此方案提醒', 'Alternative reminders')}</p><ul>{alternative.notes.map(note => <li>{note}</li>)}</ul></aside>}
-                    {sourcesFor(alternative.sourceIds).length > 0 && <div class="source-links">{sourcesFor(alternative.sourceIds).map(source => <a class="source-link" href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div>}
+                    <TripReferences sources={sourcesFor(alternative.sourceIds)} locale={locale} />
                   </div>
                 </details>)}
               </div>}
               {Boolean(day.notes?.length) && <aside class="day-important-notes"><p class="day-note-label">{text('当天提醒', 'DAILY REMINDERS')}</p><ul>{day.notes!.map(note => <li>{note}</li>)}</ul></aside>}
-              {sourcesFor(day.sourceIds).length > 0 && <div class="day-source-summary"><span>{text('当天资料', 'Day sources')}</span><div class="source-links">{sourcesFor(day.sourceIds).map(source => <a class="source-link" href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div></div>}
+              <TripReferences sources={sourcesFor(day.sourceIds)} locale={locale} label={text('当天资料', 'Day sources')} />
               {overnight && <p class="day-stay"><Icon name="pin" size={15} /><span>{text('当晚住宿', 'Overnight stay')}</span><a href={`#stay-${overnight.id}`}>{overnight.name}</a><span class:list={['stay-status', { 'stay-status-booked': overnight.status === 'booked' }]}>{stayStatus(overnight)}</span></p>}
             </div>
           </details>;
@@ -237,10 +241,11 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     {hasPreparations && <section class="trip-preparations-section container" id="preparations" aria-labelledby="preparations-title">
       <div class="section-heading"><div><h2 id="preparations-title">{text('行前准备', 'Preparations')}</h2></div><p class="section-intro">{text('预订、行李寄存、餐食与换乘。', 'Bookings, luggage, meals, and connections.')}<br />{text('参考班次不代表已购票。', 'Reference departures are not ticket confirmations.')}</p></div>
       {(ticketOptions.length > 0 || bookingWindows.length > 0) && <TripPlanning ticketOptions={ticketOptions} bookingWindows={bookingWindows} sources={sources} locale={locale} />}
+      {trip.stampGuide && <TripStampGuide guide={trip.stampGuide} sources={sources} locale={locale} />}
       {practicalNotes.length > 0 && <aside class="practical-panel"><div class="preparation-panel-heading"><Icon name="compass" size={20} /><h3>{text('行李、餐食与换乘', 'Luggage, meals, and connections')}</h3></div><ul class="practical-list">{practicalNotes.map(note => <li>{note}</li>)}</ul></aside>}
     </section>}
 
-    {sources.length > 0 && <section class="trip-sources-section container" id="sources" aria-labelledby="sources-title"><div class="section-heading"><div><h2 id="sources-title">{text('官方资料', 'Official sources')}</h2></div><p class="section-intro">{text('景点、交通与古道的官方资料。', 'Official information for sights, transport, and trails.')}</p></div><p class="sources-reference-note">{text(`链接中的列车时刻表日期是资料参考日期；列车、巴士与活动安排请按${dateRange}的实际出行日复核。行程中的参考班次不代表已经买票。`, 'Timetable dates identify the reference information. Recheck trains, buses, and event details for your travel dates; listed departures are not purchased tickets.')}</p><ul class="official-source-list" role="list">{sources.map(source => <li id={`source-${source.id}`}><a href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={14} /></a></li>)}</ul></section>}
+    {sources.length > 0 && <section class="trip-sources-section container" id="sources" aria-labelledby="sources-title"><div class="section-heading"><div><h2 id="sources-title">{text('官方资料', 'Official sources')}</h2></div><p class="section-intro">{text('景点、交通与古道的官方资料。', 'Official information for sights, transport, and trails.')}</p></div><TripReferences sources={sources} locale={locale} catalog label={text('查看官方资料', 'View official sources')}><p class="sources-reference-note">{text(`链接中的列车时刻表日期是资料参考日期；列车、巴士与活动安排请按${dateRange}的实际出行日复核。行程中的参考班次不代表已经买票。`, 'Timetable dates identify the reference information. Recheck trains, buses, and event details for your travel dates; listed departures are not purchased tickets.')}</p></TripReferences></section>}
     {hasCosts && <TripCosts stays={stays} sources={sources} travelers={trip.travelers} locale={locale} hasPreparations={hasPreparations} />}
   </div>
 </Layout>
@@ -304,10 +309,6 @@ const heroCredit = getLicensedImageCredit(trip.cover);
   .alternative-content { padding: 0 18px 18px; }
   .alternative-description { font-size: 13px; line-height: 1.9; }
   .alternative-scope { margin-top: 8px; color: var(--accent-deep); font-size: 11px; }
-  .source-links { display: flex; flex-wrap: wrap; gap: 6px 15px; margin-top: 9px; }
-  .source-link { display: inline-flex; align-items: flex-start; gap: 5px; min-height: 24px; max-width: 100%; font-size: 11px; line-height: 1.8; color: var(--accent-deep); text-decoration: underline; text-underline-offset: 4px; overflow-wrap: anywhere; }
-  .source-link svg { margin-top: 4px; }
-  .source-link:hover { color: var(--ink); }
   .hike-card { margin-top: 20px; padding: 18px 20px; border: 1px solid #36574330; border-radius: 5px; background: #36574306; }
   .hike-route { display: flex; align-items: flex-start; gap: 9px; font-weight: 500; font-size: 13px; line-height: 1.8; }
   .hike-route svg { margin-top: 3px; color: #365743; }
@@ -319,9 +320,6 @@ const heroCredit = getLicensedImageCredit(trip.cover);
   .day-note-label { font-size: 11px; font-weight: 600; }
   .day-important-notes ul { margin: 8px 0 0; padding-left: 17px; color: var(--ink-soft); font-size: 12px; line-height: 1.9; }
   .day-important-notes li + li { margin-top: 7px; }
-  .day-source-summary { display: flex; align-items: flex-start; gap: 16px; margin-top: 17px; }
-  .day-source-summary > span { font-size: 10px; line-height: 2; color: var(--ink-soft); white-space: nowrap; }
-  .day-source-summary .source-links { margin-top: 0; }
   .day-stay { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 20px; padding: 12px 15px; border: 1px solid var(--line); border-radius: 4px; background: #fbfaf5; font-size: 12px; }
   .day-stay > span:first-of-type { color: var(--ink-soft); font-size: 11px; }
   .day-stay a { font-weight: 500; text-decoration: underline; text-underline-offset: 4px; }
@@ -337,10 +335,6 @@ const heroCredit = getLicensedImageCredit(trip.cover);
   .trip-photo-credits a:hover { color: var(--accent-deep); }
   .photo-changes { margin-left: 9px; font-size: 9px; }
   .sources-reference-note { max-width: 850px; margin-bottom: 23px; font-size: 13px; line-height: 1.9; color: var(--ink-soft); }
-  .official-source-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px; list-style: none; padding: 0; margin: 0; }
-  .official-source-list a { display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; min-height: 48px; padding: 13px 16px; border: 1px solid var(--line); border-radius: 4px; font-size: 12px; line-height: 1.8; background: #fbfaf5; }
-  .official-source-list a:hover { color: var(--accent-deep); background: var(--paper-deep); }
-  .official-source-list svg { margin-top: 4px; color: var(--accent-deep); }
 
   @media (max-width: 1000px) {
     .stay-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -365,20 +359,16 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     .timeline-time { font-size: 12px; padding-top: 0; }
     .timeline-title { font-size: 15px; }
     .timeline-description { font-size: 14px; }
-    .source-link { font-size: 12px; min-height: 27px; }
     .hike-card { padding: 17px; }
     .hike-facts { gap: 13px 24px; }
     .hike-facts dd { font-size: 14px; }
     .day-important-notes { padding: 14px 15px; }
     .day-important-notes ul { font-size: 13px; }
-    .day-source-summary { flex-direction: column; gap: 5px; }
     .day-stay { padding: 12px; font-size: 12px; }
     .practical-panel { padding: 21px; }
     .practical-list { font-size: 14px; }
     .trip-photo-credits { font-size: 11px; }
     .photo-changes { display: block; margin-left: 0; font-size: 10px; }
-    .official-source-list { grid-template-columns: 1fr; }
-    .official-source-list a { font-size: 13px; }
     .sources-reference-note { font-size: 13px; }
     .trip-stays-section, .trip-preparations-section, .trip-sources-section { padding-block: 44px; }
   }
@@ -396,11 +386,8 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     .timeline-entry { grid-template-columns: 103px minmax(0, 1fr); gap: 14px; padding-block: 9px; break-inside: avoid; }
     .timeline-time, .timeline-description, .day-important-notes ul { font-size: 10px; }
     .timeline-title { font-size: 11px; }
-    .source-link { font-size: 9px; min-height: 0; }
     .hike-card, .day-important-notes, .day-stay { break-inside: avoid; }
     .practical-panel { padding: 15px; background: white; }
     .practical-list, .sources-reference-note { font-size: 10px; }
-    .official-source-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .official-source-list a { padding: 7px 10px; min-height: 0; font-size: 9px; }
   }
 </style>

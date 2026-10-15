@@ -53,6 +53,13 @@ src/data/
   The accommodation cards and final Costs section use the same record.
   Missing prices remain absent and are excluded from partial totals. Sum
   currencies separately and never infer payment from a confirmed booking.
+  Optional daily `stamps` holds ordered collection stops, official numbers,
+  and any route conditions. `stampGuide` holds shared collection and
+  eligibility instructions. Planned stamps do not establish collection or
+  qualification; preserve uncertainty about each traveler's eligibility.
+  Research references use disclosures that start closed throughout trip
+  pages. They open for printing and restore afterward; map and image
+  attribution remains visible beside its content.
 - `inputs/` contains the publishable source submissions. Store each separately
   as `YYYY-MM-DD-NN-topic.md` or `.txt`; use the archive date and a two-digit
   sequence within that day. Preserve original wording, links, formatting,

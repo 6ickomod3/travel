@@ -114,12 +114,27 @@ for (const folder of folders) {
     assert.ok(destinations.has(day.destinationId), `${folder}/${date}: unknown destination ${day.destinationId}`);
     if (day.overnightId) assert.ok(stays.has(day.overnightId), `${folder}/${date}: unknown stay ${day.overnightId}`);
     checkSources(day.sourceIds, `${folder}/${date}`);
+    if (day.stamps) {
+      assert.ok(day.stamps.title && day.stamps.stops.length, `${folder}/${date}: name the stamp collection and add its stops`);
+      for (const stop of day.stamps.stops) {
+        assert.ok(typeof stop.name === 'string' && stop.name.trim(), `${folder}/${date}: name each stamp stop`);
+        if (stop.number !== undefined) assert.ok(Number.isInteger(stop.number) && stop.number > 0, `${folder}/${date}: invalid official stamp number`);
+      }
+      checkSources(day.stamps.sourceIds, `${folder}/${date} stamps`);
+    }
     for (const item of day.schedule ?? []) checkSources(item.sourceIds, `${folder}/${date} schedule`);
     uniqueIds(day.alternatives ?? [], `${folder}/${date} alternatives`);
     for (const alternative of day.alternatives ?? []) {
       assert.ok(alternative.title && alternative.description && alternative.schedule.length, `${folder}/${date}/${alternative.id}: complete the separate alternative plan`);
       checkSources(alternative.sourceIds, `${folder}/${date}/${alternative.id}`);
       for (const item of alternative.schedule) checkSources(item.sourceIds, `${folder}/${date}/${alternative.id} schedule`);
+    }
+  }
+  if (trip.stampGuide) {
+    assert.ok(trip.stampGuide.title && trip.stampGuide.sections.length, `${folder}: name the stamp guide and add its sections`);
+    for (const section of trip.stampGuide.sections) {
+      assert.ok(section.title && section.points.length, `${folder}: complete each stamp-guide section`);
+      checkSources(section.sourceIds, `${folder} stamp guide`);
     }
   }
   for (const stay of trip.stays ?? []) {

@@ -26,6 +26,31 @@ export interface TripDayAlternative {
   sourceIds?: string[];
 }
 
+export interface TripStampCollection {
+  title: string;
+  description?: string;
+  stops: Array<{
+    name: string;
+    englishName?: string;
+    /** Official sequence number when the collection spans several days. */
+    number?: number;
+    /** State route or eligibility conditions without implying completion. */
+    note?: string;
+  }>;
+  notes?: string[];
+  sourceIds?: string[];
+}
+
+export interface TripStampGuide {
+  title: string;
+  description?: string;
+  sections: Array<{
+    title: string;
+    points: string[];
+    sourceIds?: string[];
+  }>;
+}
+
 export interface TripDay {
   /** Calendar date in YYYY-MM-DD format. */
   date: string;
@@ -39,6 +64,8 @@ export interface TripDay {
   sourceIds?: string[];
   /** Separate fallback or optional itineraries; never interleave with the main schedule. */
   alternatives?: TripDayAlternative[];
+  /** Planned stamp stops, distinct from completed or qualifying pilgrimages. */
+  stamps?: TripStampCollection;
   hike?: {
     distanceKm: number;
     duration: string;
@@ -166,6 +193,7 @@ export interface Trip {
   checklist?: TripChecklistItem[];
   sources?: TripSource[];
   practicalNotes?: string[];
+  stampGuide?: TripStampGuide;
   walkingSummary?: { distanceKm: number; days: number };
 }
 

@@ -1,0 +1,73 @@
+---
+import Icon from './Icon.astro';
+import TripReferences from './TripReferences.astro';
+import type { TripStampCollection, TripSource } from '../data/types';
+
+interface Props {
+  collection: TripStampCollection;
+  sources: TripSource[];
+  locale?: 'zh-CN' | 'en';
+}
+
+const { collection, sources, locale = 'en' } = Astro.props;
+const isZh = locale === 'zh-CN';
+const references = (collection.sourceIds ?? []).flatMap(id => {
+  const source = sources.find(item => item.id === id);
+  return source ? [source] : [];
+});
+---
+<aside class="stamp-collection" aria-label={collection.title} data-trip-stamps>
+  <div class="stamp-heading">
+    <Icon name="list" size={18} />
+    <h3>{collection.title}</h3>
+    <span>{collection.stops.length} {isZh ? '个盖章点' : 'stamp stops'}</span>
+  </div>
+  {collection.description && <p class="stamp-description">{collection.description}</p>}
+  <ol class="stamp-stops" role="list">
+    {collection.stops.map((stop, index) => <li value={stop.number ?? index + 1}>
+      <span class="stamp-number" aria-hidden="true">{stop.number ?? index + 1}</span>
+      <div class="stamp-stop-copy">
+        <strong>{stop.name}</strong>
+        {stop.englishName && <small lang="en">{stop.englishName}</small>}
+        {stop.note && <p class="stamp-stop-note">{stop.note}</p>}
+      </div>
+    </li>)}
+  </ol>
+  {Boolean(collection.notes?.length) && <ul class="stamp-notes">{collection.notes!.map(note => <li>{note}</li>)}</ul>}
+  <TripReferences sources={references} locale={locale} />
+</aside>
+
+<style>
+  .stamp-collection { margin-top: 22px; padding: 20px; border: 1px solid var(--line); border-radius: 5px; background: #fbfaf5; }
+  .stamp-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; }
+  .stamp-heading > svg { color: var(--accent-deep); }
+  .stamp-heading h3 { font-family: var(--sans); font-size: 14px; font-weight: 600; line-height: 1.7; }
+  .stamp-heading > span { margin-left: auto; color: var(--ink-soft); font-size: 10px; white-space: nowrap; }
+  .stamp-description { margin-top: 9px; color: var(--ink-soft); font-size: 12px; line-height: 1.9; }
+  .stamp-stops { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 24px; margin: 17px 0 0; padding: 0; list-style: none; }
+  .stamp-stops li { display: flex; align-items: flex-start; gap: 10px; min-width: 0; break-inside: avoid; }
+  .stamp-number { display: grid; place-items: center; flex-shrink: 0; width: 24px; height: 24px; border: 1px solid #36574330; border-radius: 50%; background: #36574306; color: #365743; font-size: 10px; font-variant-numeric: tabular-nums; }
+  .stamp-stop-copy { min-width: 0; overflow-wrap: anywhere; }
+  .stamp-stop-copy strong { display: block; font-size: 13px; line-height: 1.8; font-weight: 500; }
+  .stamp-stop-copy small { display: block; color: var(--ink-soft); font-size: 10px; line-height: 1.7; }
+  .stamp-stop-note { margin-top: 4px; color: var(--accent-deep); font-size: 11px; line-height: 1.8; }
+  .stamp-notes { margin: 18px 0 0; padding: 14px 0 0 17px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 12px; line-height: 1.9; }
+  .stamp-notes li + li { margin-top: 7px; }
+  @media (max-width: 600px) {
+    .stamp-collection { padding: 17px; }
+    .stamp-heading h3 { font-size: 14px; }
+    .stamp-heading > span { font-size: 10px; }
+    .stamp-stops { grid-template-columns: 1fr; gap: 13px; }
+    .stamp-description, .stamp-notes { font-size: 13px; }
+    .stamp-stop-copy strong { font-size: 14px; }
+    .stamp-stop-copy small, .stamp-stop-note { font-size: 12px; }
+  }
+  @media print {
+    .stamp-collection { margin-top: 12px; padding: 12px; background: white; }
+    .stamp-heading h3 { font-size: 11px; }
+    .stamp-description, .stamp-notes, .stamp-stop-copy strong, .stamp-stop-note { font-size: 10px; }
+    .stamp-stops { gap: 9px 20px; }
+    .stamp-stop-copy small { font-size: 9px; }
+    .stamp-number { width: 20px; height: 20px; font-size: 9px; }
+  }
+</style>

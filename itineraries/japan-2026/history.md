@@ -15,8 +15,8 @@
   The outbound SFO flight departs locally on November 12; the Japan trip
   still begins with arrival on November 13.
 - November 19 uses the comfortable route via Shingu, Nachi, and Kii-Katsuura,
-  returning to Osaka on Kuroshio 30. The earlier Hayatama/Daimonzaka route
-  is a separate optional alternative.
+  returning to Osaka on Kuroshio 30. The earlier Hayatama route is a separate
+  optional alternative, with Daimonzaka walking optional within that route.
 - Rail-pass selection, train reservations, museum tickets, and ropeway
   reservations have not been confirmed. Keep price comparisons conditional.
 - Prioritize outstanding tasks and missing confirmations at the top of the
@@ -24,6 +24,12 @@
 - Hotel cost amounts are stay-segment order totals for two travelers, not
   per-person prices or verified payments. Keep estimated additional taxes
   separate and exclude unpriced Hiroshima nights from known-cost totals.
+- Stamp stops are plans, not recorded collections or confirmed individual
+  pilgrim qualifications. Keep the accepted two-day hiking total of 20.8 km.
+- Formal Dual Pilgrim registration requires each traveler's qualifying Camino
+  proof and completed Kumano conditions. The optional Tanabe registration
+  return changes only November 19's return journey; the default Kuroshio 30
+  arrival in Osaka at 19:16 remains unchanged.
 
 ## Source index
 
@@ -93,6 +99,42 @@
   names, meal details, and other lodging information retain the previously
   accepted plan; broader details in the private original were not imported.
 
+### 2026-10-14-04-hiking-stamps
+
+- Archived: October 14, 2026, using the user's America/Los_Angeles date.
+- Origin: chapter 8 of the same private original recorded under
+  `2026-10-14-03-hotel-costs`, following the user's explicit authorization
+  to add hiking stamps and pilgrim guidance.
+- Private original: unchanged, 40,847 bytes, in ignored
+  `.local/trips/japan-2026/inputs/2026-10-14-03-hotel-costs.original.txt`.
+- Original SHA-256:
+  `4a5118640513b39f344c2f58e9b6e4031000505acc332fd5d8a47961c9cd5f32`.
+- Public excerpt: [inputs/2026-10-14-04-hiking-stamps.md](inputs/2026-10-14-04-hiking-stamps.md)
+  (10,698 bytes). English metadata identifies the authorized selection;
+  the Chinese body is exactly chapter 8, stopping before chapter 9. No
+  chapter 9 booking or Gmail material was copied into this public excerpt.
+- Excerpt SHA-256:
+  `05bea064451ea5fb5eecd14d9ca038083c077087c2e55d0f152e136082c21c78`.
+- Verbatim chapter body: 9,840 bytes. Body SHA-256:
+  `2cd6672020fe24f93008c36cf04c950a7e79a5c2aba228eccd300b7f64a599e1`.
+- The source's October 15 Japan review date remains submitted wording, not
+  an independent verification by the website. Its 20.5 km wording is
+  preserved in the excerpt; the structured plan keeps 13.3 + 7.5 = 20.8 km.
+- Applied: individual free credentials and official stamp lists on November
+  16; eight extra souvenir stops on November 17; official stamps 1–6 on
+  November 18 and 7–10 on November 19; practical stamp and registration
+  guidance; and one new action plus one new personal-eligibility check.
+  All ten unique official URLs are retained, reusing the existing English
+  Dual Pilgrim source ID.
+- Route scope: the 08:39 departure and Kuroshio 30 direct return at 19:16
+  remain the default. Hayatama requires the separate 06:54 early alternative;
+  Daimonzaka is optional. A separate conditional return uses Kuroshio 30 to
+  Tanabe at 17:06, in-person registration before 18:00, and the weekday
+  Kuroshio 36 reference at 19:50–22:02. Kuroshio 32 at 17:32 is only a tight,
+  unguaranteed backup note, and ticket prices/reservations need review.
+- Scope: authorized chapter 8 only. No lodging names, meal or room details,
+  payment records, costs, or unrelated schedules were changed.
+
 ## Open information
 
 - Hiroshima's November 14–16 hotel booking and name still need confirmation.
@@ -100,12 +142,17 @@
   known accommodation totals.
 - The public plan still uses placeholders for the Chikatsuyu and Kawayu
   lodging names and related arrangements. The newer lodging details remain
-  in the private original; this publication applies only the authorized cost
-  excerpt. Review that original for a later update with broader authorization.
+  in the private original; only the authorized cost excerpt has been applied
+  to lodging data. The stamp excerpt adds no lodging details. Review that
+  original for a later lodging update with broader authorization.
 - Osaka's hotel must explicitly accept luggage storage between the November
   14 checkout and November 19 return. Do not assume storage for five nights.
 - Pass choice, purchased train tickets, museum tickets, and ropeway booking
   have not been provided.
+- Each traveler's prior Camino completion and supporting proof are unknown.
+  The choice of the early Hayatama route and conditional Tanabe registration
+  return remains pending; no stamps or formal qualifications are recorded
+  as already completed.
 
 Use `trip.ts` for current itinerary and checklist details. Update this record
 when a source explicitly resolves or changes a decision.
@@ -127,3 +174,8 @@ when a source explicitly resolves or changes a decision.
   and retained the full original only in ignored private storage. The
   requested end-of-page Costs section uses these partial accommodation
   figures; existing itinerary and pending confirmations remain unchanged.
+- October 14, 2026: archived the authorized chapter 8 verbatim, added planned
+  daily stamp lists and concise pilgrim guidance, and prioritized the two
+  new outstanding items. Kept Daimonzaka optional and formal-registration
+  travel in a separate conditional return without changing the default
+  November 19 schedule or importing private booking details.

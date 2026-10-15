@@ -1,5 +1,5 @@
 const days = [...document.querySelectorAll<HTMLDetailsElement>('.itinerary-day')];
-const printDetails = [...document.querySelectorAll<HTMLDetailsElement>('.itinerary-day, .day-alternative')];
+const printDetails = [...document.querySelectorAll<HTMLDetailsElement>('.itinerary-day, .day-alternative, details[data-trip-references]')];
 const isZh = document.documentElement.lang === 'zh-CN';
 const expandButton = document.querySelector<HTMLButtonElement>('[data-expand-days]');
 function syncExpandButton() {
@@ -18,12 +18,40 @@ expandButton?.addEventListener('click', () => {
 });
 days.forEach(day => day.addEventListener('toggle', syncExpandButton));
 
-let beforePrintState: boolean[] = [];
+let beforePrintState: Map<HTMLDetailsElement, boolean> | undefined;
 window.addEventListener('beforeprint', () => {
-  beforePrintState = printDetails.map(detail => detail.open);
+  beforePrintState ??= new Map(printDetails.map(detail => [detail, detail.open]));
   printDetails.forEach(detail => { detail.open = true; });
+  syncExpandButton();
 });
 window.addEventListener('afterprint', () => {
-  printDetails.forEach((detail, index) => { detail.open = beforePrintState[index] ?? detail.open; });
+  if (!beforePrintState) return;
+  beforePrintState.forEach((wasOpen, detail) => { detail.open = wasOpen; });
+  beforePrintState = undefined;
+  syncExpandButton();
 });
 document.querySelector('[data-print-trip]')?.addEventListener('click', () => window.print());
+
+function revealSourceFragment() {
+  let id: string;
+  try { id = decodeURIComponent(window.location.hash.slice(1)); }
+  catch { return; }
+  if (!id.startsWith('source-')) return;
+  const target = document.getElementById(id);
+  if (!target) return;
+  for (let ancestor: Element | null = target; ancestor; ancestor = ancestor.parentElement) {
+    if (ancestor instanceof HTMLDetailsElement) ancestor.open = true;
+  }
+  target.scrollIntoView({ block: 'start', behavior: 'instant' });
+  syncExpandButton();
+}
+window.addEventListener('hashchange', revealSourceFragment);
+document.addEventListener('click', event => {
+  if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+  const anchor = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href]') : null;
+  if (!anchor || (anchor.target && anchor.target !== '_self') || anchor.hasAttribute('download')) return;
+  const url = new URL(anchor.href);
+  if (url.origin === window.location.origin && url.pathname === window.location.pathname && url.search === window.location.search && url.hash === window.location.hash) revealSourceFragment();
+});
+revealSourceFragment();
+syncExpandButton();
