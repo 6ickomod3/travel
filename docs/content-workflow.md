@@ -43,6 +43,11 @@ src/data/
   use airport-local dates and times; booking openings use explicit offsets
   and seller timezones. Ticket prices and estimates are per person, with an
   ISO currency and any conditions stated in their notes.
+  Pending checklist items appear first on trip pages. Use `kind: "todo"`
+  for choosing, booking, buying, or preparing, and `kind: "check"` for
+  missing details and confirmations. An omitted kind defaults to `todo`.
+  Keep general guidance in practical notes and remove resolved checklist
+  items when a new submission explicitly confirms their completion.
 - `inputs/` contains the publishable source submissions. Store each separately
   as `YYYY-MM-DD-NN-topic.md` or `.txt`; use the archive date and a two-digit
   sequence within that day. Preserve original wording, links, formatting,

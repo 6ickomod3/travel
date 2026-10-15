@@ -1,0 +1,73 @@
+---
+import Icon from './Icon.astro';
+import type { TripChecklistItem, TripSource } from '../data/trips';
+
+interface Props {
+  items: TripChecklistItem[];
+  sources?: TripSource[];
+  locale?: 'zh-CN' | 'en';
+  hasTicketOptions?: boolean;
+  hasBookingWindows?: boolean;
+}
+const { items, sources = [], locale = 'en', hasTicketOptions = false, hasBookingWindows = false } = Astro.props;
+const isZh = locale === 'zh-CN';
+const text = (zh: string, en: string) => isZh ? zh : en;
+const groups = [
+  { id: 'todo', label: text('待办', 'To do'), icon: 'list' as const, items: items.filter(item => item.kind !== 'check') },
+  { id: 'check', label: text('待确认', 'To check'), icon: 'compass' as const, items: items.filter(item => item.kind === 'check') },
+].filter(group => group.items.length > 0);
+const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
+  const source = sources.find(item => item.id === id);
+  return source ? [source] : [];
+});
+---
+<section class="trip-checklist-section container" id="checklist" aria-labelledby="checklist-title">
+  <div class="section-heading">
+    <div><h2 id="checklist-title">{text('待办与待确认', 'To do and to check')}</h2></div>
+    <p class="section-intro">{items.length} {text('项待处理', items.length === 1 ? 'open item' : 'open items')}</p>
+  </div>
+  <div class:list={['checklist-grid', { 'checklist-grid-single': groups.length === 1 }]}>
+    {groups.map(group => <section class="checklist-panel" data-checklist-group={group.id} aria-labelledby={`checklist-${group.id}-title`}>
+      <div class="checklist-panel-heading"><Icon name={group.icon} size={20} /><h3 id={`checklist-${group.id}-title`}>{group.label}</h3><span class="checklist-count">{group.items.length}</span></div>
+      <ol class="checklist-list" role="list">
+        {group.items.map((item, index) => <li class="checklist-item" id={`reservation-${item.id}`} data-checklist-item={item.id}>
+          <div class="checklist-item-top"><span class="checklist-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h4>{item.title}</h4></div>
+          <p>{item.detail}</p>
+          {sourcesFor(item.sourceIds).length > 0 && <div class="checklist-sources">{sourcesFor(item.sourceIds).map(source => <a href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a>)}</div>}
+        </li>)}
+      </ol>
+    </section>)}
+  </div>
+  {(hasTicketOptions || hasBookingWindows) && <div class="checklist-planning-links">
+    {hasTicketOptions && <a href="#ticket-options-title">{text('票券方案', 'Compare ticket options')} <Icon name="arrow-down" size={14} /></a>}
+    {hasBookingWindows && <a href="#booking-windows-title">{text('预约开放时间', 'Reservation opening times')} <Icon name="arrow-down" size={14} /></a>}
+  </div>}
+</section>
+
+<style>
+  .trip-checklist-section { padding-block: 48px; }
+  .checklist-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+  .checklist-grid-single { grid-template-columns: minmax(0, 1fr); }
+  .checklist-panel { min-width: 0; padding: 24px; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; }
+  .checklist-panel[data-checklist-group="check"] { background: var(--paper-deep); }
+  .checklist-panel-heading { display: flex; align-items: center; gap: 10px; }
+  .checklist-panel-heading h3 { font-family: var(--sans); font-size: 18px; line-height: 1.5; font-weight: 600; }
+  .checklist-panel-heading svg { color: var(--accent-deep); flex-shrink: 0; }
+  .checklist-count { display: inline-flex; align-items: center; justify-content: center; min-width: 25px; padding: 2px 7px; margin-left: auto; border: 1px solid var(--line); border-radius: 3px; color: var(--ink-soft); font-size: 11px; }
+  .checklist-list { list-style: none; padding: 0; margin: 20px 0 0; }
+  .checklist-item { padding-block: 17px; border-top: 1px solid var(--line); }
+  .checklist-item:last-child { padding-bottom: 0; }
+  .checklist-item-top { display: grid; grid-template-columns: 22px minmax(0, 1fr); align-items: start; gap: 9px; }
+  .checklist-index { padding-top: 5px; color: var(--accent-deep); font-size: 10px; }
+  .checklist-item h4 { font-size: 14px; line-height: 1.8; font-weight: 600; overflow-wrap: anywhere; }
+  .checklist-item > p { margin-top: 7px; padding-left: 31px; font-size: 12px; line-height: 1.9; color: var(--ink-soft); overflow-wrap: anywhere; }
+  .checklist-sources { display: flex; flex-wrap: wrap; gap: 6px 15px; margin-top: 9px; padding-left: 31px; }
+  .checklist-sources a { display: inline-flex; align-items: flex-start; gap: 5px; min-height: 24px; max-width: 100%; font-size: 11px; line-height: 1.8; color: var(--accent-deep); text-decoration: underline; text-underline-offset: 4px; }
+  .checklist-sources a > span { min-width: 0; overflow-wrap: anywhere; }
+  .checklist-sources svg { margin-top: 4px; flex-shrink: 0; }
+  .checklist-planning-links { display: flex; flex-wrap: wrap; gap: 12px 25px; margin-top: 20px; }
+  .checklist-planning-links a { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--accent-deep); text-decoration: underline; text-underline-offset: 4px; }
+  @media (max-width: 800px) { .trip-checklist-section { padding-block: 36px; } .checklist-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; } }
+  @media (max-width: 600px) { .checklist-panel { padding: 21px; } .checklist-item > p { font-size: 13px; } .checklist-sources { padding-left: 0; } .checklist-sources a { font-size: 12px; min-height: 27px; } }
+  @media print { .trip-checklist-section { padding-block: 20px; } .checklist-grid { grid-template-columns: minmax(0, 1fr); gap: 15px; } .checklist-panel { padding: 15px; background: white; } .checklist-panel-heading { break-after: avoid; } .checklist-panel-heading h3 { font-size: 14px; } .checklist-item { break-inside: avoid; padding-block: 10px; } .checklist-item h4 { font-size: 11px; } .checklist-item > p { font-size: 10px; } .checklist-sources a { font-size: 9px; min-height: 0; } .checklist-planning-links { display: none; } }
+</style>

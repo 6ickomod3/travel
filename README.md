@@ -76,6 +76,8 @@ New `*/trip.ts` files are discovered automatically and appear in the homepage co
 
 Use a year-only `TripPlaceholder` until dates and plans are known, following UK 2026. Once an itinerary is ready, change that same file to a dated `Trip`, keeping its slug and URL. Optional schedules, flights, stays, ticket options, reservation opening times, checklists, practical notes, and official sources keep detailed plans together. `mapRoute` records returns and transfers separately from unique destinations; complete alternative day plans have their own labeled schedules.
 
+Pending checklist items appear first on each trip page, grouped into To do actions and To check confirmations through their optional `kind` field. Ticket comparisons, reservation-opening times, and practical reminders remain in Preparations.
+
 You can supply plain text or attachments. The workflow is: save the source, compare it with the existing plan, apply clear additions/corrections, record unresolved questions, then check and publish the trip page. New fragments do not silently replace unrelated accepted decisions.
 
 ## Record visited places

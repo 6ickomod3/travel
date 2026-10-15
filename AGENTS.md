@@ -42,6 +42,10 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   schedules, accommodation, and other itinerary details on the trip pages.
 - Show useful information: dates, routes, schedules, transport, accommodation,
   booking states, walking details, and official sources.
+- Put a trip's pending checklist before flights, routes, and daily schedules.
+  Show separate To do actions and To check confirmations, with a direct link
+  from the hero and the first trip navigation link. Keep ticket comparisons,
+  reservation-opening tables, and general travel reminders below.
 - Preserve uncertainty and distinguish reference departures from confirmed
   tickets. Do not invent dates, cities, activities, travelers, or reservations.
 - Keep image and map attribution visible beside the relevant content.
@@ -98,6 +102,10 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
 - Optional `flights` keep each endpoint's airport-local date and time; an
   inbound flight may depart before the trip's first local date. Confirmation
   belongs to each flight, not to all transport listed in the plan.
+- Checklist items use `kind: "todo"` for actions and `kind: "check"` for
+  missing details or confirmations; an omitted kind defaults to an action.
+  Only outstanding items belong in the checklist. Keep general guidance in
+  practical notes, and update completion through the trip's confirmed data.
 - `ticketOptions` store per-person prices, ISO currencies, and conditional
   estimates. `bookingWindows` use absolute opening timestamps and seller
   IANA timezones; display the seller's local time alongside Los Angeles time.

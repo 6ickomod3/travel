@@ -19,6 +19,8 @@
   is a separate optional alternative.
 - Rail-pass selection, train reservations, museum tickets, and ropeway
   reservations have not been confirmed. Keep price comparisons conditional.
+- Prioritize outstanding tasks and missing confirmations at the top of the
+  trip page, in separate To do and To check lists.
 
 ## Source index
 
@@ -84,3 +86,7 @@ when a source explicitly resolves or changes a decision.
 - October 14, 2026: ingested the updated Chinese plan, applied its explicit
   schedule and booking changes, and separated confirmed flights and optional
   routes from unconfirmed transport and ticket options.
+- October 14, 2026: following the user's chat request, classified four action
+  tasks and four missing confirmations for display before the trip details.
+  Separated the two unnamed inns and kept general bus queue and payment
+  guidance in practical notes and daily reminders.

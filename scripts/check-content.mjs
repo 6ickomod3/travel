@@ -129,7 +129,10 @@ for (const folder of folders) {
       assert.ok(checkOut > checkIn, `${folder}/${stay.id}: check-out must follow check-in`);
     }
   }
-  for (const item of trip.checklist ?? []) checkSources(item.sourceIds, `${folder}/${item.id}`);
+  for (const item of trip.checklist ?? []) {
+    assert.ok(item.kind === undefined || ['todo', 'check'].includes(item.kind), `${folder}/${item.id}: checklist kind must be todo or check`);
+    checkSources(item.sourceIds, `${folder}/${item.id}`);
+  }
   for (const flight of trip.flights ?? []) {
     assert.ok(flight.flightNumber, `${folder}/${flight.id}: add the flight number`);
     assert.ok(['booked', 'planned'].includes(flight.status), `${folder}/${flight.id}: invalid flight status`);

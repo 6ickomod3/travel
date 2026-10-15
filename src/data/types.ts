@@ -65,6 +65,8 @@ export interface TripStay {
 
 export interface TripChecklistItem {
   id: string;
+  /** Pending actions or details to confirm. Unspecified items are shown as actions. */
+  kind?: "todo" | "check";
   title: string;
   detail: string;
   sourceIds?: string[];

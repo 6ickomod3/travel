@@ -396,22 +396,10 @@ export default {
   ],
   "checklist": [
     {
-      "id": "osaka-hotel",
-      "title": "确认大阪酒店跨5晚行李寄存",
-      "detail": "Hotel Hankyu RESPIRE Osaka两段入住已订；仍需酒店明确同意11/14退房至11/19再次入住之间寄存大箱。19号不回田边酒店取物。",
-      "sourceIds": [
-        "respire-access"
-      ]
-    },
-    {
-      "id": "hiroshima-hotel",
-      "title": "确认广岛酒店订单与名称",
-      "detail": "11/14入住、11/16退房，两晚，JR广岛站附近；尚未见最终订房确认。"
-    },
-    {
       "id": "miyajima-ropeway",
+      "kind": "todo",
       "title": "预约11/15宫岛缆车",
-      "detail": "11/15为必须事前WEB预约的特定日，争取09:00附近；已可预约，未核实余位或预约完成。不能沿用旧旅游页“11月08:00开门”。",
+      "detail": "11/15须事前WEB预约，争取09:00附近；余位与预约结果尚未确认。",
       "sourceIds": [
         "miyajima-ropeway",
         "miyajima-ropeway-booking"
@@ -419,8 +407,9 @@ export default {
     },
     {
       "id": "rail-ticket-choice",
-      "title": "选择JR票券方案",
-      "detail": "All Area 7日券与关西&广岛5日券组合均可按路线使用；5日券组合的19号黑潮另买，总价比较以WEB早特7余票为条件。HARUKA外国游客单程优惠出发前在线购买。",
+      "kind": "todo",
+      "title": "选择并购买JR票券",
+      "detail": "选7日All Area或5日券组合；后者19号黑潮另买，估价以WEB早特7余票为条件。HARUKA单程优惠出发前在线买。",
       "sourceIds": [
         "jrwest-all-area",
         "kansai-hiroshima-pass",
@@ -430,8 +419,9 @@ export default {
     },
     {
       "id": "long-distance-trains",
-      "title": "落实JR指定席与取票",
-      "detail": "14号Nozomi 5，16号Nozomi 14＋Kuroshio 11，19号Kuroshio 30，21号HARUKA 11。计划班次不代表已出票；按开放时间预约，持Pass划位与单独购票二选一，避免重复付款。",
+      "kind": "todo",
+      "title": "预约JR指定席并取票",
+      "detail": "14号Nozomi 5，16号Nozomi 14＋Kuroshio 11，19号Kuroshio 30，21号HARUKA 11；出票尚未确认，持Pass划位或单独购票二选一。",
       "sourceIds": [
         "nozomi-5-reference",
         "nozomi-14-reference",
@@ -442,26 +432,39 @@ export default {
     },
     {
       "id": "peace-museum-ticket",
+      "kind": "todo",
       "title": "购买11/14资料馆WEB票",
-      "detail": "广岛和平纪念资料馆安排14:00–16:00，建议提前买14:00左右WEB票；11月现行营业07:30–19:00，部分早晚时段需网络预约。",
+      "detail": "买11/14 14:00左右WEB入场票，对应14:00–16:00参观；购票尚未确认。",
       "sourceIds": [
         "peace-museum"
       ]
     },
     {
-      "id": "bus-queues",
-      "title": "确认熊野巴士站点与满员备选",
-      "detail": "普通与季节巴士不预约，提前排队；18号快速不停近露王子，要到美术馆前站，保留满员／错过的独立备选。按运营商准备交通IC、感应信用卡或现金。",
-      "sourceIds": [
-        "kumano-bus-overview",
-        "kumano-fast-bus",
-        "kumano-bus-payment"
-      ]
+      "id": "hiroshima-hotel",
+      "kind": "check",
+      "title": "确认广岛酒店订单与名称",
+      "detail": "11/14入住、11/16退房，两晚，JR广岛站附近；订房结果与酒店全名待确认。"
     },
     {
       "id": "ryokan-meals",
-      "title": "补齐近露、川汤旅馆名称与餐食",
-      "detail": "核对早饭、便当、晚餐最晚到达时间、准确巴士站；补17日下午到近露旅馆、18号去美术馆站的步行／接送，以及川汤18号下车、19号上车位置与分钟。"
+      "kind": "check",
+      "title": "确认近露旅馆名称与接驳",
+      "detail": "11/17–18已订，全名待补；确认17号到店步行／接送、18号早饭／便当、去美术馆前站路线及晚餐最晚到达时间。"
+    },
+    {
+      "id": "kawayu-ryokan",
+      "kind": "check",
+      "title": "确认川汤旅馆名称与站点",
+      "detail": "11/18–19已订，全名待补；确认18号下车站、19号上车站与发车时间、早餐／便当及晚餐最晚到达时间。选加强版还需提前退房。"
+    },
+    {
+      "id": "osaka-hotel",
+      "kind": "check",
+      "title": "确认大阪酒店跨5晚寄存",
+      "detail": "RESPIRE两段入住已订；仍需酒店明确同意11/14退房至11/19返回期间寄存大箱。",
+      "sourceIds": [
+        "respire-access"
+      ]
     }
   ],
   "sources": [
