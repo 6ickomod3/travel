@@ -14,6 +14,11 @@
 - The three flight legs and both Osaka hotel stays are user-confirmed.
   The outbound SFO flight departs locally on November 12; the Japan trip
   still begins with arrival on November 13.
+- Hiroshima's November 14–16 stay is Hotel Granvia Hiroshima South Gate,
+  confirmed for two nights at JPY 117,800 plus JPY 800 accommodation tax.
+  Use the south-side minamoa entrance and seventh-floor reception; this is
+  distinct from the older north-side Granvia. Breakfast is excluded, and the
+  submitted payment arrangement is pay at the hotel, not evidence of payment.
 - Chikatsuyu's November 17–18 lodging is SEN RETREAT CHIKATSUYU, and Kawayu's
   November 18–19 lodging is 川湯まつや. The user confirmed these names in chat;
   meals, transfers, and exact bus stops still need confirmation.
@@ -26,7 +31,9 @@
   trip page, in separate To do and To check lists.
 - Hotel cost amounts are stay-segment order totals for two travelers, not
   per-person prices or verified payments. Keep estimated additional taxes
-  separate and exclude unpriced Hiroshima nights from known-cost totals.
+  separate. All eight accommodation nights now have quoted prices: JPY
+  294,987 in booking amounts plus JPY 3,200 tax gives JPY 298,187 in the
+  current accommodation budget, excluding transport, meals and attractions.
 - Stamp stops are plans, not recorded collections or confirmed individual
   pilgrim qualifications. Keep the accepted two-day hiking total of 20.8 km.
 - Formal Dual Pilgrim registration requires each traveler's qualifying Camino
@@ -295,11 +302,67 @@ and licenses.
   native mouse/keyboard disclosure persistence, Back/Forward, and print
   restoration passed without page errors or horizontal overflow.
 
+### Hiroshima hotel confirmation — October 14, 2026
+
+- Archived the user's update request verbatim, without an added newline,
+  in [inputs/2026-10-14-10-hiroshima-hotel-request.txt](inputs/2026-10-14-10-hiroshima-hotel-request.txt)
+  (45 UTF-8 bytes; SHA-256
+  `8c2892877604059f4d8a8b3e4e0e0f53858a966939b74ed050165c7ba6661b69`).
+- Origin: the newest workspace file named
+  `日本行程_2026-11-13至21_更新版.txt`, following the explicit request to
+  apply the added Hiroshima hotel.
+- Preserved the complete original unchanged in ignored private storage:
+  `.local/trips/japan-2026/inputs/2026-10-14-11-hiroshima-hotel.original.txt`
+  (42,881 bytes; SHA-256
+  `cd02abf70ee259117074e85d9fa00515bbfd94237c375f57c9e95c9dafbed5cb`).
+- Public excerpt:
+  [inputs/2026-10-14-11-hiroshima-hotel.md](inputs/2026-10-14-11-hiroshima-hotel.md)
+  (2,771 bytes; SHA-256
+  `60132790114606a81af004365d94ff3276616923cb705032163887c9dae0071c`).
+  This is an explicitly scoped selection of hotel, price, tax and access
+  facts, not the full or a redacted booking document. The source line
+  numbers are recorded in the excerpt. Private references and unrelated
+  booking documents remain private.
+- Applied: Hotel Granvia Hiroshima South Gate, November 14–16, two booked
+  nights, JPY 117,800 booking amount and JPY 200 per person per night tax
+  (two travelers and two nights: JPY 800). Breakfast is excluded; check-in
+  starts at 14:00 and checkout is before 11:00. The source places reception
+  on floor seven with luggage storage before check-in and after checkout.
+- Superseded the unnamed/pending Hiroshima stay and removed its resolved
+  checklist confirmation. Updated November 14–16 station/arrival notes,
+  route and practical summaries, keeping every existing timetable intact.
+  Accommodation progress is now eight of eight nights, with nine pending
+  checklist items and four important items.
+- The expected tax total is JPY 3,200: the existing JPY 2,400 Osaka estimate
+  plus Hiroshima's JPY 800. Known booking amounts total JPY 294,987; the
+  current accommodation budget is JPY 298,187. The included Kawayu JPY 300
+  is not added again. No payment or other booking confirmation is inferred.
+- Added the two public official hotel URLs supplied in the submission as
+  `granvia-south-gate-access` and `granvia-south-gate-facilities`. They support
+  the submitted access/facility notes; this is not an independent future
+  availability or reservation verification.
+- Added a reusable South Gate brand identity with an honest SG text mark
+  and official link. A bounded permitted lookup yielded no verified static
+  property-specific logo; the older north-side hotel's artwork is not used.
+- Scope: the new Hiroshima information only. Flight confirmations, all
+  other stay prices and unresolved meals/transfers, ticket alternatives,
+  stamp eligibility, gallery and map route retain the accepted plan. The
+  earlier passphrase conversation was a feasibility discussion; no access
+  protection has been implemented as part of this content update.
+- Verification: content checks and the production build passed, with zero
+  diagnostics across 47 Astro files. Focused browser checks at 1280px and
+  320px confirmed the booked South Gate card, eight of eight nights, nine
+  pending items (four important), six priced segments, all three tax
+  equations and the JPY 298,187 budget. November 14–16 focus links and
+  access/breakfast notes worked; all 59 references remained collapsed,
+  the homepage kept its trip link without hotel or cost details, and no
+  page errors, missing site resources or horizontal overflow were found.
+  A separate source comparison confirmed unchanged timetable times,
+  alternatives, other stays and unaffected days. Screenshots and the
+  browser report are saved outside the published repository.
+
 ## Open information
 
-- Hiroshima's November 14–16 hotel booking and name still need confirmation.
-- The cost of Hiroshima's two nights remains unknown and is excluded from
-  known accommodation totals.
 - For SEN RETREAT CHIKATSUYU and 川湯まつや, meals, early breakfast or packed
   lunch arrangements, last-mile walking or transfers, and exact bus stops
   still need confirmation. Other lodging details remain in the private
@@ -356,3 +419,7 @@ when a source explicitly resolves or changes a decision.
   timing and importance metadata while preserving all existing plan facts.
   Fixed full-trip view restoration on browser Back and Forward after a
   focused verification exposed deferred disclosure events overwriting it.
+- October 14, 2026: archived the updated Hiroshima source privately with a
+  scoped public excerpt, confirmed Hotel Granvia Hiroshima South Gate and
+  its two-night price/tax, resolved the hotel checklist item, and updated
+  hotel/station notes and derived accommodation totals.

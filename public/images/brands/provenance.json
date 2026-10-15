@@ -104,6 +104,20 @@
       "name": "川湯まつや",
       "status": "text",
       "note": "The accepted public itinerary confirms the property name. A property-specific official mark and URL have not been confidently verified. KM is a plain site-generated initials fallback."
+    },
+    {
+      "id": "granvia-hiroshima-south-gate",
+      "name": "Hotel Granvia Hiroshima South Gate",
+      "nameJa": "ホテルグランヴィア広島サウスゲート",
+      "sourcePage": "https://jrwest-hotels.jp/granvia-hiroshima-southgate/facilities/",
+      "sourcePages": [
+        "https://jrwest-hotels.jp/granvia-hiroshima-southgate/news/36/",
+        "https://jrwest-hotels.jp/granvia-hiroshima-southgate/facilities/"
+      ],
+      "officialWebsite": "https://jrwest-hotels.jp/granvia-hiroshima-southgate/en/",
+      "status": "text",
+      "changes": "No external artwork used. SG is site-generated text.",
+      "note": "The user supplied the exact South Gate property name and official reference pages. A bounded permitted search confirmed official website pointers but exposed no verifiable static property-logo image. External HTML and JavaScript reading remained security-filtered. The separately registered South Gate identity uses its exact name and SG initials."
     }
   ]
 }

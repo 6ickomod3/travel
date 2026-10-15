@@ -31,6 +31,12 @@ property pages. The exact hotel names remain in itinerary data. 川湯まつや 
 its own name and initials because an exact property asset and official URL have
 not been verified.
 
+Hotel Granvia Hiroshima South Gate has a separate property identity, official
+website link, and SG initials fallback. The supplied sources name the South Gate
+property. A short permitted search exposed official page pointers without a
+verifiable static property-logo image; filtered HTML and JavaScript were not
+retrieved. This identity remains distinct from other Granvia properties.
+
 Further verified assets can be added to this directory and manifest without
 changing the component interface. Keep source marks intact and record their
 actual provenance and stated rights.

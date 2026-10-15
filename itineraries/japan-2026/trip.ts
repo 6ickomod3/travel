@@ -369,7 +369,7 @@ export default {
       "description": "大阪往返：东大寺、二月堂、春日大社、奈良公园与兴福寺，奈良町按时间短逛。"
     }
   ],
-  "routeNote": "机票与大阪、纪伊田边、近露、川汤住宿按确认记录标为已订；广岛酒店两晚尚待确认。列车、巴士均为计划班次，不代表已出票。19号主方案经新宫、那智、纪伊胜浦回大阪；速玉大社与大门坂另列可选加强版。地图标记是目的地的大致位置。",
+  "routeNote": "机票与全部8晚住宿按确认记录标为已订。列车、巴士均为计划班次，不代表已出票。19号主方案经新宫、那智、纪伊胜浦回大阪；速玉大社与大门坂另列可选加强版。地图标记是目的地的大致位置。",
   "walkingSummary": {
     "distanceKm": 20.8,
     "days": 2
@@ -512,19 +512,37 @@ export default {
     },
     {
       "id": "hiroshima",
-      "name": "广岛酒店（名称待补充）",
-      "location": "JR广岛站附近",
+      "name": "Hotel Granvia Hiroshima South Gate",
+      "brandId": "granvia-hiroshima-south-gate",
+      "location": "广岛站南侧 · minamoa上层 · 前台7楼",
       "checkIns": [
         {
           "checkIn": "2026-11-14",
-          "checkOut": "2026-11-16"
+          "checkOut": "2026-11-16",
+          "cost": {
+            "currency": "JPY",
+            "amount": 117800,
+            "estimatedAdditional": [
+              {
+                "label": "住宿税",
+                "amount": 800,
+                "kind": "accommodation-tax",
+                "quantity": { "perPersonPerNight": 200, "people": 2, "nights": 2 }
+              }
+            ],
+            "notes": [
+              "两晚各58,900日元；到店付款，不代表已经支付。",
+              "订单不含早餐，住宿税800日元另付。"
+            ]
+          }
         }
       ],
-      "status": "pending",
+      "status": "booked",
       "notes": [
-        "11/14入住、11/16退房，两晚；尚未见最终订房确认，具体名称待补。",
-        "14号10:40–11:15先寄存小包，正常入住一般在下午，以酒店订单为准。",
-        "15号宫岛游览后返回同一家酒店。"
+        "11/14入住、11/16退房，两晚已订；日文名ホテルグランヴィア広島サウスゲート，位于南侧minamoa，不是北侧旧Granvia。",
+        "从minamoa二楼西入口附近的酒店专用入口，乘电梯到7楼前台。入住14:00起，退房11:00前。",
+        "14号10:40–11:15先寄存小包；支持入住前、退房后寄存。晚餐后返回办理入住，15号宫岛游览后仍住同一家。",
+        "不含早餐，15号早班出发与16号退房前自行安排；房费及另付住宿税到店支付。"
       ]
     },
     {
@@ -801,15 +819,6 @@ export default {
       "sourceIds": [
         "peace-museum"
       ]
-    },
-    {
-      "id": "hiroshima-hotel",
-      "kind": "check",
-      "timing": { "kind": "trip-date", "date": "2026-11-14" },
-      "priority": "high",
-      "priorityReason": "两晚住宿未确认",
-      "title": "确认广岛酒店订单与名称",
-      "detail": "11/14入住、11/16退房，两晚，JR广岛站附近；订房结果与酒店全名待确认。"
     },
     {
       "id": "ryokan-meals",
@@ -1123,11 +1132,21 @@ export default {
       "id": "kofukuji-introduction",
       "label": "奈良市观光协会：兴福寺",
       "url": "https://narashikanko.or.jp/en/spot/detail_10029.html"
+    },
+    {
+      "id": "granvia-south-gate-access",
+      "label": "Hotel Granvia Hiroshima South Gate：南侧入口与7楼前台",
+      "url": "https://jrwest-hotels.jp/granvia-hiroshima-southgate/news/36/"
+    },
+    {
+      "id": "granvia-south-gate-facilities",
+      "label": "Hotel Granvia Hiroshima South Gate：设施与行李寄存",
+      "url": "https://jrwest-hotels.jp/granvia-hiroshima-southgate/facilities/"
     }
   ],
   "practicalNotes": [
     "日本境内时间均为日本当地时间；航班起飞／抵达分别使用当地时间。列车、巴士按更新版计划班次安排，不代表已出票；步行、入境和游览时间为预留估计，出发前复核临时调整。",
-    "11/13抵达与11/21返程不安排景点。机票与标为已订的酒店按确认记录；广岛酒店仍待确认。",
+    "11/13抵达与11/21返程不安排景点。机票与全部8晚住宿按确认记录标为已订；已订不代表已支付。",
     "14号退房至19号再次入住，向大阪酒店确认跨5晚大箱寄存；离开大阪后只带5晚衣物、徒步装备、雨具与洗漱用品。19号不回田边酒店取物。",
     "16号在新大阪直接换乘去纪伊田边，不需先去大阪站追同一班黑潮；地图与章册当天领取，17号不等泷尻古道馆08:30开门。",
     "17号约13.3公里、累计爬升约1,010米，官方6–8小时；加盖章、拍照、休息需要更久。18号发心门至本宫约7.5公里、累计爬升约190米，官方2–3小时，含休息按3小时以上安排。两天共约20.8公里。",
@@ -1219,7 +1238,7 @@ export default {
       "ideas": [
         "大阪站到新大阪换山阳新干线。",
         "午后原爆圆顶馆、和平纪念公园与资料馆。",
-        "河边、本通散步，晚餐后回广岛站酒店。"
+        "河边、本通散步，晚餐后回Hotel Granvia Hiroshima South Gate。"
       ],
       "schedule": [
         {
@@ -1252,8 +1271,12 @@ export default {
         },
         {
           "time": "10:40–11:15",
-          "title": "广岛站附近酒店寄存小包",
-          "description": "正常入住一般在下午，依酒店订单；广岛两晚尚未见最终订房确认。"
+          "title": "South Gate酒店7楼前台寄存小包",
+          "description": "酒店位于广岛站南侧minamoa上层；从二楼西入口附近的酒店专用入口乘电梯到7楼。先寄存小包，房间14:00起可入住。",
+          "sourceIds": [
+            "granvia-south-gate-access",
+            "granvia-south-gate-facilities"
+          ]
         },
         {
           "time": "11:15–12:15",
@@ -1284,17 +1307,19 @@ export default {
         },
         {
           "time": "18:00左右",
-          "title": "晚餐后回广岛站酒店",
-          "description": "路面电车或出租车回酒店。"
+          "title": "晚餐后回South Gate酒店办理入住",
+          "description": "路面电车或出租车回广岛站南侧minamoa，到酒店7楼前台办理入住；到店时间按晚餐与散步调整。"
         }
       ],
       "notes": [
         "10:27到广岛站，当日核心为和平公园与资料馆。",
-        "广岛11/14–16两晚待确认，具体酒店名称待补。"
+        "Hotel Granvia Hiroshima South Gate已订11/14–16两晚，位于南侧minamoa，不是北侧旧Granvia。"
       ],
       "sourceIds": [
         "nozomi-5-reference",
-        "peace-museum"
+        "peace-museum",
+        "granvia-south-gate-access",
+        "granvia-south-gate-facilities"
       ]
     },
     {
@@ -1313,7 +1338,8 @@ export default {
       "schedule": [
         {
           "time": "06:45–07:00",
-          "title": "从广岛站附近酒店出发"
+          "title": "从South Gate酒店前往广岛站",
+          "description": "订单不含早餐，提前自行准备；从广岛站南侧酒店前往JR站内。"
         },
         {
           "time": "07:23–07:51",
@@ -1405,13 +1431,13 @@ export default {
         },
         {
           "time": "抵达广岛后",
-          "title": "晚餐、回同一家酒店"
+          "title": "晚餐、回South Gate酒店"
         }
       ],
       "notes": [
         "11/15是缆车必须事前WEB预约的特定日；争取09:00附近，不代表仍有余位或已经预约。不能沿用旧页“11月08:00开门”。",
         "JR西日本渡轮访问税100日元、缆车往返成人现价2,000日元均另付。",
-        "广岛酒店仍待最终确认，15号与14号住同一家。"
+        "15号与14号同住已订的Hotel Granvia Hiroshima South Gate，早餐自行安排。"
       ],
       "sourceIds": [
         "miyajima-ropeway",
@@ -1436,8 +1462,11 @@ export default {
       "schedule": [
         {
           "time": "08:30–09:10",
-          "title": "早餐、退房，步行至广岛站",
-          "description": "09:20前到新干线候车区。"
+          "title": "自行安排早餐、South Gate退房 → 广岛站",
+          "description": "到酒店7楼前台办理退房，直接前往广岛站；09:20前到新干线候车区。",
+          "sourceIds": [
+            "granvia-south-gate-access"
+          ]
         },
         {
           "time": "09:43–11:04",
@@ -1495,7 +1524,8 @@ export default {
       "sourceIds": [
         "nozomi-14-reference",
         "kuroshio-11-reference",
-        "kumano-bus-overview"
+        "kumano-bus-overview",
+        "granvia-south-gate-access"
       ]
     },
     {

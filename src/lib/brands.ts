@@ -43,6 +43,11 @@ export const brands = {
     url: 'https://www.hankyu-hotel.com/en/hotel/respire/osaka',
     initials: 'HR',
   },
+  'granvia-hiroshima-south-gate': {
+    name: 'Hotel Granvia Hiroshima South Gate',
+    url: 'https://jrwest-hotels.jp/granvia-hiroshima-southgate/en/',
+    initials: 'SG',
+  },
   'comfort-hotel': {
     name: 'Comfort Hotel',
     url: 'https://www.choice-hotels.jp/',
