@@ -2,7 +2,9 @@
 import Icon from './Icon.astro';
 import TripReferences from './TripReferences.astro';
 import TripBookingProgress from './TripBookingProgress.astro';
-import type { TripChecklistItem, TripSource, TripFlight, TripStay } from '../data/trips';
+import type { TripChecklistItem, TripSource, TripFlight, TripStay, TripBookingWindow } from '../data/trips';
+import { sortTripChecklist } from '../lib/trip-checklist';
+import { formatDate } from '../lib/trips';
 
 interface Props {
   items: TripChecklistItem[];
@@ -12,14 +14,34 @@ interface Props {
   hasBookingWindows?: boolean;
   flights?: TripFlight[];
   stays?: TripStay[];
+  bookingWindows?: TripBookingWindow[];
 }
-const { items, sources = [], locale = 'en', hasTicketOptions = false, hasBookingWindows = false, flights = [], stays = [] } = Astro.props;
+const { items, sources = [], locale = 'en', hasTicketOptions = false, hasBookingWindows = false, flights = [], stays = [], bookingWindows = [] } = Astro.props;
 const isZh = locale === 'zh-CN';
+const dateLocale = isZh ? 'zh-CN' : 'en-US';
 const text = (zh: string, en: string) => isZh ? zh : en;
 const groups = [
-  { id: 'todo', label: text('待办', 'To do'), icon: 'list' as const, items: items.filter(item => item.kind !== 'check') },
-  { id: 'check', label: text('待确认', 'To check'), icon: 'compass' as const, items: items.filter(item => item.kind === 'check') },
+  { id: 'todo', label: text('待办', 'To do'), icon: 'list' as const, items: sortTripChecklist(items.filter(item => item.kind !== 'check'), bookingWindows) },
+  { id: 'check', label: text('待确认', 'To check'), icon: 'compass' as const, items: sortTripChecklist(items.filter(item => item.kind === 'check'), bookingWindows) },
 ].filter(group => group.items.length > 0);
+const timingFor = (item: TripChecklistItem) => {
+  const timing = item.timing;
+  if (!timing) return { label: text('时间待确认', 'Date to confirm'), note: '', dateTime: undefined };
+  if (timing.kind === 'asap') return { label: text('尽快处理', 'As soon as possible'), note: '', dateTime: undefined };
+  if (timing.kind === 'reservation-opens') {
+    const opening = bookingWindows.filter(window => timing.bookingWindowIds.includes(window.id))
+      .sort((a, b) => Date.parse(a.opensAt) - Date.parse(b.opensAt))[0];
+    if (!opening) return { label: text('开放时间待确认', 'Opening time to confirm'), note: '', dateTime: undefined };
+    const zoneLabel = opening.timeZone === 'Asia/Tokyo' ? text('日本时间', 'Japan time') : opening.timeZone;
+    const label = new Intl.DateTimeFormat(dateLocale, { timeZone: opening.timeZone, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(opening.opensAt));
+    return { label, note: text(`起开放 · ${zoneLabel}`, `opens · ${zoneLabel}`), dateTime: opening.opensAt };
+  }
+  return {
+    label: formatDate(timing.date, { month: 'numeric', day: 'numeric' }, dateLocale),
+    note: timing.kind === 'deadline' ? text('截止', 'Deadline') : text('行程日期', 'Travel date'),
+    dateTime: timing.date,
+  };
+};
 const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
   const source = sources.find(item => item.id === id);
   return source ? [source] : [];
@@ -31,15 +53,25 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
     <p class="section-intro">{items.length} {text('项待处理', items.length === 1 ? 'open item' : 'open items')}</p>
   </div>
   <TripBookingProgress flights={flights} stays={stays} locale={locale} />
+  <p class="checklist-order-note">{text('按时间排序。行程日期为使用或入住日，预约与确认请提前处理。', 'Sorted by time. Travel dates are when a service is used or a stay begins; arrange bookings and confirmations beforehand.')}</p>
   <div class:list={['checklist-grid', { 'checklist-grid-single': groups.length === 1 }]}>
     {groups.map(group => <section class="checklist-panel" data-checklist-group={group.id} aria-labelledby={`checklist-${group.id}-title`}>
       <div class="checklist-panel-heading"><Icon name={group.icon} size={20} /><h3 id={`checklist-${group.id}-title`}>{group.label}</h3><span class="checklist-count">{group.items.length}</span></div>
       <ol class="checklist-list" role="list">
-        {group.items.map((item, index) => <li class="checklist-item" id={`reservation-${item.id}`} data-checklist-item={item.id}>
+        {group.items.map((item, index) => {
+          const timing = timingFor(item);
+          return <li class="checklist-item" id={`reservation-${item.id}`} data-checklist-item={item.id} data-checklist-timing={item.timing?.kind ?? 'undated'} data-checklist-priority={item.priority ?? 'normal'}>
           <div class="checklist-item-top"><span class="checklist-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h4>{item.title}</h4></div>
+          <div class="checklist-item-meta">
+            <span class="checklist-timing"><Icon name="calendar" size={13} />{timing.dateTime ? <time class="checklist-timing-label" datetime={timing.dateTime}>{timing.label}</time> : <span class="checklist-timing-label">{timing.label}</span>}{timing.note && <span class="checklist-timing-note">{timing.note}</span>}</span>
+            {item.priority === 'high' && <span class="checklist-priority"><Icon name="alert" size={13} />{text('重要', 'Important')}</span>}
+            {item.priority === 'high' && item.priorityReason && <span class="checklist-priority-reason">{item.priorityReason}</span>}
+            {item.timing?.kind === 'reservation-opens' && <a class="checklist-opening-link" href="#booking-windows-title">{text('各车次开放时间', 'Opening times by train')}<Icon name="arrow-down" size={12} /></a>}
+          </div>
           <p>{item.detail}</p>
           {sourcesFor(item.sourceIds).length > 0 && <div class="checklist-sources"><TripReferences sources={sourcesFor(item.sourceIds)} locale={locale} /></div>}
-        </li>)}
+        </li>;
+        })}
       </ol>
     </section>)}
   </div>
@@ -51,6 +83,7 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
 
 <style>
   .trip-checklist-section { padding-block: 48px; }
+  .checklist-order-note { margin-bottom: 20px; font-size: 12px; color: var(--ink-soft); }
   .checklist-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
   .checklist-grid-single { grid-template-columns: minmax(0, 1fr); }
   .checklist-panel { min-width: 0; padding: 24px; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; }
@@ -65,11 +98,18 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
   .checklist-item-top { display: grid; grid-template-columns: 22px minmax(0, 1fr); align-items: start; gap: 9px; }
   .checklist-index { padding-top: 5px; color: var(--accent-deep); font-size: 10px; }
   .checklist-item h4 { font-size: 14px; line-height: 1.8; font-weight: 600; overflow-wrap: anywhere; }
+  .checklist-item-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 7px 10px; margin-top: 6px; padding-left: 31px; font-size: 11px; line-height: 1.8; }
+  .checklist-timing { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 5px; min-width: 0; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .checklist-timing-label { font-weight: 600; }
+  .checklist-timing-note { color: var(--ink-soft); font-weight: 400; }
+  .checklist-priority { display: inline-flex; align-items: center; gap: 4px; padding: 1px 6px; border: 1px solid #b9462833; border-radius: 3px; background: #b946280a; color: var(--accent-deep); font-weight: 600; }
+  .checklist-priority-reason { color: var(--accent-deep); overflow-wrap: anywhere; }
+  .checklist-opening-link { display: inline-flex; align-items: center; gap: 4px; color: var(--accent-deep); text-decoration: underline; text-underline-offset: 3px; }
   .checklist-item > p { margin-top: 7px; padding-left: 31px; font-size: 12px; line-height: 1.9; color: var(--ink-soft); overflow-wrap: anywhere; }
   .checklist-sources { padding-left: 31px; }
   .checklist-planning-links { display: flex; flex-wrap: wrap; gap: 12px 25px; margin-top: 20px; }
   .checklist-planning-links a { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--accent-deep); text-decoration: underline; text-underline-offset: 4px; }
   @media (max-width: 800px) { .trip-checklist-section { padding-block: 36px; } .checklist-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; } }
   @media (max-width: 600px) { .checklist-panel { padding: 21px; } .checklist-item > p { font-size: 13px; } .checklist-sources { padding-left: 0; } }
-  @media print { .trip-checklist-section { padding-block: 20px; } .checklist-grid { grid-template-columns: minmax(0, 1fr); gap: 15px; } .checklist-panel { padding: 15px; background: white; } .checklist-panel-heading { break-after: avoid; } .checklist-panel-heading h3 { font-size: 14px; } .checklist-item { break-inside: avoid; padding-block: 10px; } .checklist-item h4 { font-size: 11px; } .checklist-item > p { font-size: 10px; } .checklist-planning-links { display: none; } }
+  @media print { .trip-checklist-section { padding-block: 20px; } .checklist-grid { grid-template-columns: minmax(0, 1fr); gap: 15px; } .checklist-panel { padding: 15px; background: white; } .checklist-panel-heading { break-after: avoid; } .checklist-panel-heading h3 { font-size: 14px; } .checklist-item { break-inside: avoid; padding-block: 10px; } .checklist-item h4 { font-size: 11px; } .checklist-item-meta, .checklist-order-note { font-size: 9px; } .checklist-item > p { font-size: 10px; } .checklist-priority { color: var(--ink); background: white; border-color: var(--ink); } .checklist-priority-reason { color: var(--ink); } .checklist-opening-link, .checklist-planning-links { display: none; } }
 </style>

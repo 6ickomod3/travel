@@ -115,7 +115,7 @@ for (const folder of folders) {
   uniqueIds(trip.flights ?? [], `${folder} flights`);
   const ticketOptions = uniqueIds(trip.ticketOptions ?? [], `${folder} ticket options`);
   if (trip.selectedTicketOptionId !== undefined) assert.ok(ticketOptions.has(trip.selectedTicketOptionId), `${folder}: selected ticket option must reference an existing option`);
-  uniqueIds(trip.bookingWindows ?? [], `${folder} booking windows`);
+  const bookingWindowIds = uniqueIds(trip.bookingWindows ?? [], `${folder} booking windows`);
   for (const place of trip.destinations) {
     assert.ok(Number.isFinite(place.lat) && Math.abs(place.lat) <= 90 && Number.isFinite(place.lng) && Math.abs(place.lng) <= 180, `${folder}/${place.id}: invalid coordinates`);
   }
@@ -205,6 +205,21 @@ for (const folder of folders) {
   }
   for (const item of trip.checklist ?? []) {
     assert.ok(item.kind === undefined || ['todo', 'check'].includes(item.kind), `${folder}/${item.id}: checklist kind must be todo or check`);
+    assert.ok(item.priority === undefined || item.priority === 'high', `${folder}/${item.id}: checklist priority must be high or omitted`);
+    if (item.priorityReason !== undefined) assert.ok(item.priority === 'high' && typeof item.priorityReason === 'string' && item.priorityReason.trim(), `${folder}/${item.id}: priority reasons belong to important items`);
+    if (item.timing) {
+      const timing = item.timing;
+      assert.ok(['asap', 'reservation-opens', 'deadline', 'trip-date'].includes(timing.kind), `${folder}/${item.id}: invalid checklist timing kind`);
+      if (timing.kind === 'reservation-opens') {
+        assert.ok(Array.isArray(timing.bookingWindowIds) && timing.bookingWindowIds.length > 0, `${folder}/${item.id}: reference at least one reservation opening`);
+        assert.equal(new Set(timing.bookingWindowIds).size, timing.bookingWindowIds.length, `${folder}/${item.id}: duplicate reservation-opening reference`);
+        for (const id of timing.bookingWindowIds) assert.ok(bookingWindowIds.has(id), `${folder}/${item.id}: unknown reservation opening ${id}`);
+      }
+      if (timing.kind === 'deadline' || timing.kind === 'trip-date') {
+        const date = calendarDate(timing.date, `${folder}/${item.id} checklist date`);
+        if (timing.kind === 'trip-date') assert.ok(date >= start && date <= end, `${folder}/${item.id}: related checklist date is outside the trip`);
+      }
+    }
     checkSources(item.sourceIds, `${folder}/${item.id}`);
   }
   for (const flight of trip.flights ?? []) {

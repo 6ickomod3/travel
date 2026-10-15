@@ -1,6 +1,6 @@
 ---
 interface Props {
-  name: 'arrow-up-right' | 'arrow-right' | 'arrow-left' | 'arrow-down' | 'compass' | 'globe' | 'pin' | 'calendar' | 'chevron-down' | 'check' | 'plus' | 'minus' | 'map' | 'list' | 'close' | 'sun' | 'train' | 'coffee' | 'external' | 'download';
+  name: 'arrow-up-right' | 'arrow-right' | 'arrow-left' | 'arrow-down' | 'compass' | 'globe' | 'pin' | 'calendar' | 'chevron-down' | 'check' | 'plus' | 'minus' | 'map' | 'list' | 'close' | 'sun' | 'train' | 'coffee' | 'external' | 'download' | 'alert';
   size?: number;
   class?: string;
 }
@@ -26,6 +26,7 @@ const paths: Record<Props['name'], string> = {
   coffee: 'M18 8h1a3 3 0 1 1 0 6h-1M3 8h15v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8ZM6 2v2M10 2v2M14 2v2',
   external: 'M15 3h6v6M10 14 21 3M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5',
   download: 'M12 3v12m-5-5 5 5 5-5M5 16v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4',
+  alert: 'M10.3 3.8 2.4 17.5A2 2 0 0 0 4.1 20.5h15.8a2 2 0 0 0 1.7-3L13.7 3.8a2 2 0 0 0-3.4 0ZM12 9v4M12 16h.01',
 };
 ---
 <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class={className} aria-hidden="true"><path d={paths[name]} /></svg>

@@ -262,6 +262,39 @@ and licenses.
   mode, disclosures, focus, and photo selection. Native no-JavaScript
   disclosures, the homepage overview, and the UK placeholder also passed.
 
+### Sticky navigation and chronological checklist — October 14, 2026
+
+- Archived the user's two-point UI correction verbatim, without metadata or
+  an added newline, in [inputs/2026-10-14-09-sticky-checklist-order.txt](inputs/2026-10-14-09-sticky-checklist-order.txt)
+  (193 UTF-8 bytes; SHA-256
+  `2c398d5d09d890818d610dcf8603b118106d473ce650feede98d2993f8a7740c`).
+- Requested: remove the viewport-top gap when daily date navigation sticks,
+  sort pending actions and confirmations by time, and identify important items.
+- Applied design: immediate actions first, then known reservation openings
+  and related travel dates in chronological order within each checklist group.
+  Equal dates retain the source order; importance does not override chronology.
+- Opening times refer to the existing four JR booking-window records.
+  Trip dates are labeled as relevant travel dates, never as invented deadlines.
+  Important marks describe practical dependencies rather than confirmed purchases.
+- Five important items: pass selection, JR reserved seats, the advance
+  Miyajima ropeway reservation, unconfirmed Hiroshima lodging, and Osaka's
+  five-night luggage-storage consent. Each displays a concise reason.
+- Focused verification uncovered a browser-history race: returning from a
+  selected day could lose the prior full-trip view. Programmatic disclosure
+  events now stay separate from native toggles, and history restoration uses
+  the captured incoming view before allowing further history writes.
+- Scope: layout and reusable checklist metadata only. All ten pending items,
+  existing wording, booking states, routes, times, costs, and references are retained.
+  No ticket choice, reservation, or private booking detail was added.
+- Verification: the content check, all 47 Astro/type-checked files, and the
+  production build passed. A normalized comparison with the prior plan
+  confirmed that only checklist timing and importance metadata changed.
+  Browser checks at 1280, 390, and 320 pixels measured the sticky bar at
+  viewport top zero, with day and alternative headings visible below it.
+  Chronological order, five important marks, default-collapsed references,
+  native mouse/keyboard disclosure persistence, Back/Forward, and print
+  restoration passed without page errors or horizontal overflow.
+
 ## Open information
 
 - Hiroshima's November 14–16 hotel booking and name still need confirmation.
@@ -318,3 +351,8 @@ when a source explicitly resolves or changes a decision.
   navigation with full-trip viewing and printing, and clarified alternative
   ticket estimates and Osaka's accommodation tax without changing bookings
   or selecting a pass.
+- October 14, 2026: archived the user's sticky-navigation and checklist
+  correction, removed the viewport-top gap, and added reusable chronological
+  timing and importance metadata while preserving all existing plan facts.
+  Fixed full-trip view restoration on browser Back and Forward after a
+  focused verification exposed deferred disclosure events overwriting it.

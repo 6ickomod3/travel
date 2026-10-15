@@ -43,6 +43,8 @@ function initializeTripItinerary(element: HTMLElement) {
   let historyTimer: number | undefined;
   let restoreFrame: number | undefined;
   let isRestoringPrint = false;
+  let isRestoringHistory = false;
+  const programmaticToggles = new WeakMap<HTMLDetailsElement, boolean>();
 
   const text = (zh: string, en: string) => isZh ? zh : en;
   const selectedDay = () => dates.get(selectedDate);
@@ -53,8 +55,8 @@ function initializeTripItinerary(element: HTMLElement) {
       ? { ...history.state } : {};
   }
 
-  function storedView(): StoredItineraryView | undefined {
-    const candidate: unknown = historyObject()[HISTORY_KEY];
+  function storedView(state: unknown = history.state): StoredItineraryView | undefined {
+    const candidate: unknown = state && typeof state === 'object' ? (state as Record<string, unknown>)[HISTORY_KEY] : undefined;
     if (!candidate || typeof candidate !== 'object') return;
     const view = candidate as Partial<StoredItineraryView>;
     if (view.slug !== slug || view.pathname !== location.pathname || typeof view.date !== 'string' || !dates.has(view.date)) return;
@@ -69,7 +71,7 @@ function initializeTripItinerary(element: HTMLElement) {
   }
 
   function writeView(action: 'replace' | 'push' = 'replace', hash?: string) {
-    if (printSnapshot || isRestoringPrint || !dates.has(selectedDate)) return;
+    if (printSnapshot || isRestoringPrint || isRestoringHistory || !dates.has(selectedDate)) return;
     const state = historyObject();
     state[HISTORY_KEY] = {
       slug,
@@ -126,14 +128,20 @@ function initializeTripItinerary(element: HTMLElement) {
     if (announcement.textContent !== label) announcement.textContent = label;
   }
 
+  function setDetailsOpen(detail: HTMLDetailsElement, open: boolean) {
+    if (detail.open === open) return;
+    programmaticToggles.set(detail, open);
+    detail.open = open;
+  }
+
   function applyView(options: { openSelected?: boolean; openAll?: boolean } = {}) {
     const active = document.activeElement;
     const activeDay = active instanceof Element ? active.closest<HTMLDetailsElement>('.itinerary-day') : null;
     days.forEach(day => {
       const isSelected = day.dataset.itineraryDate === selectedDate;
       day.hidden = mode === 'focus' && !isSelected;
-      if (mode === 'focus' && !isSelected) day.open = false;
-      else if (options.openAll || (options.openSelected && isSelected)) day.open = true;
+      if (mode === 'focus' && !isSelected) setDetailsOpen(day, false);
+      else if (options.openAll || (options.openSelected && isSelected)) setDetailsOpen(day, true);
     });
     synchronizeNavigation();
 
@@ -156,7 +164,7 @@ function initializeTripItinerary(element: HTMLElement) {
 
   function revealAncestors(target: HTMLElement) {
     for (let ancestor: Element | null = target; ancestor; ancestor = ancestor.parentElement) {
-      if (ancestor instanceof HTMLDetailsElement) ancestor.open = true;
+      if (ancestor instanceof HTMLDetailsElement) setDetailsOpen(ancestor, true);
     }
   }
 
@@ -175,7 +183,7 @@ function initializeTripItinerary(element: HTMLElement) {
   }
 
   function navigateToFragment(hash: string, options: { focus?: boolean; dateControl?: boolean } = {}) {
-    if (printSnapshot || isRestoringPrint) return;
+    if (printSnapshot || isRestoringPrint || isRestoringHistory) return;
     const target = fragmentTarget(hash);
     if (!target) return;
     writeView();
@@ -209,7 +217,7 @@ function initializeTripItinerary(element: HTMLElement) {
   }
 
   function toggleView() {
-    if (printSnapshot || isRestoringPrint || !days.length) return;
+    if (printSnapshot || isRestoringPrint || isRestoringHistory || !days.length) return;
     const priorDate = selectedDate;
     if (mode === 'all') selectedDate = readingDay()?.dataset.itineraryDate ?? selectedDate;
     mode = mode === 'focus' ? 'all' : 'focus';
@@ -220,17 +228,17 @@ function initializeTripItinerary(element: HTMLElement) {
     announceDay();
   }
 
-  function restoreFromHistory(scroll: boolean) {
+  function restoreFromHistory(scroll: boolean, saved?: { view: StoredItineraryView | undefined; hash: string }) {
     if (printSnapshot || isRestoringPrint) return;
-    const view = storedView();
-    const target = fragmentTarget();
+    const view = saved ? saved.view : storedView();
+    const target = fragmentTarget(saved?.hash);
     const day = targetDay(target);
     selectedDate = day?.dataset.itineraryDate ?? view?.date ?? days[0]?.dataset.itineraryDate ?? '';
     mode = view?.mode ?? 'focus';
     applyView({ openSelected: true, openAll: mode === 'all' });
     if (view) {
       const openDates = new Set(view.openDates);
-      days.forEach(item => { item.open = !item.hidden && openDates.has(item.dataset.itineraryDate!); });
+      days.forEach(item => setDetailsOpen(item, !item.hidden && openDates.has(item.dataset.itineraryDate!)));
     }
     if (target) {
       revealAncestors(target);
@@ -239,11 +247,16 @@ function initializeTripItinerary(element: HTMLElement) {
     writeView();
   }
 
-  function scheduleHistoryRestore() {
+  function scheduleHistoryRestore(event: Event) {
+    // Capture the incoming entry before deferred disclosure events can write to history.
+    const saved = { view: storedView(event instanceof PopStateEvent ? event.state : history.state), hash: location.hash };
+    isRestoringHistory = true;
     if (historyTimer !== undefined) window.clearTimeout(historyTimer);
     historyTimer = window.setTimeout(() => {
       historyTimer = undefined;
-      restoreFromHistory(true);
+      try { restoreFromHistory(true, saved); }
+      finally { isRestoringHistory = false; }
+      writeView();
     }, 0);
   }
 
@@ -286,7 +299,13 @@ function initializeTripItinerary(element: HTMLElement) {
     navigateToFragment(url.hash, { focus: event.detail === 0, dateControl: anchor.hasAttribute('data-day-select') });
   });
 
-  days.forEach(day => day.addEventListener('toggle', () => writeView()));
+  days.forEach(day => day.addEventListener('toggle', () => {
+    // Programmatic changes dispatch later and may coalesce; only native changes save open dates.
+    const expected = programmaticToggles.get(day);
+    programmaticToggles.delete(day);
+    if (expected === day.open) return;
+    writeView();
+  }));
   window.addEventListener('hashchange', scheduleHistoryRestore);
   window.addEventListener('popstate', scheduleHistoryRestore);
   window.addEventListener('pageshow', event => { if (event.persisted) restoreFromHistory(false); });
@@ -308,7 +327,7 @@ function initializeTripItinerary(element: HTMLElement) {
       focused: document.activeElement instanceof HTMLElement ? document.activeElement : null,
     };
     element.dataset.itineraryPrinting = 'true';
-    printDetails.forEach(detail => { detail.hidden = false; detail.open = true; });
+    printDetails.forEach(detail => { detail.hidden = false; setDetailsOpen(detail, true); });
   });
 
   window.addEventListener('afterprint', () => {
@@ -317,7 +336,7 @@ function initializeTripItinerary(element: HTMLElement) {
     isRestoringPrint = true;
     selectedDate = snapshot.date;
     mode = snapshot.mode;
-    snapshot.details.forEach(({ detail, open, hidden }) => { detail.hidden = hidden; detail.open = open; });
+    snapshot.details.forEach(({ detail, open, hidden }) => { detail.hidden = hidden; setDetailsOpen(detail, open); });
     printSnapshot = undefined;
     delete element.dataset.itineraryPrinting;
     synchronizeNavigation(false);

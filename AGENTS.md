@@ -45,7 +45,8 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
 - Daily itineraries use date navigation with one day in focus by default.
   Keep a full-trip view, previous/next controls, accessible fragment links,
   and a usable native disclosure fallback. Place daily reminders and the
-  overnight stay near the start of each day.
+  overnight stay near the start of each day. Sticky date navigation sits
+  flush with the viewport top on desktop and mobile.
 - The homepage is an overview: highlight the next trip, provide compact trip
   links, and show an atlas of visited places. Trip previews show only covers,
   titles, countries, dates, status, and links. Keep routes, day/night totals,
@@ -64,6 +65,9 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   Show separate To do actions and To check confirmations, with a direct link
   from the hero and the first trip navigation link. Keep ticket comparisons,
   reservation-opening tables, and general travel reminders below.
+  Sort each pending group chronologically: immediate actions, known opening
+  times or relevant dates, then undated items. Identify important dependencies
+  with a text-and-icon badge and concise reason without overriding date order.
 - Preserve uncertainty and distinguish reference departures from confirmed
   tickets. Do not invent dates, cities, activities, travelers, or reservations.
 - Keep image and map attribution visible beside the relevant content.
@@ -134,6 +138,12 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   missing details or confirmations; an omitted kind defaults to an action.
   Only outstanding items belong in the checklist. Keep general guidance in
   practical notes, and update completion through the trip's confirmed data.
+  Optional `timing` distinguishes `asap`, `reservation-opens`, `deadline`,
+  and `trip-date`. Openings reference existing `bookingWindowIds` rather than
+  duplicating timestamps. Related travel dates are not deadlines; never invent
+  sales cutoffs or reservation openings. Same-date items retain source order,
+  and undated items remain visible at the end. Use `priority: "high"` and
+  `priorityReason` for material dependencies supported by the recorded plan.
 - Stay segments may have `cost` with an ISO currency and booking total.
   Keep prices with their check-in/check-out segment as the single source for
   both accommodation cards and the final cost summary. Omit unknown costs;

@@ -152,6 +152,14 @@ export interface TripChecklistItem {
   kind?: "todo" | "check";
   title: string;
   detail: string;
+  /** Opening times refer to the existing booking records; trip dates are not deadlines. */
+  timing?:
+    | { kind: "asap" }
+    | { kind: "reservation-opens"; bookingWindowIds: string[] }
+    | { kind: "deadline" | "trip-date"; date: string };
+  /** Highlights a material dependency without changing chronological order. */
+  priority?: "high";
+  priorityReason?: string;
   sourceIds?: string[];
 }
 

@@ -725,6 +725,7 @@ export default {
     {
       "id": "stamp-credential",
       "kind": "todo",
+      "timing": { "kind": "trip-date", "date": "2026-11-16" },
       "title": "准备免费手账与盖章清单",
       "detail": "11/16 15:00–16:00在纪伊田边站旁中心，每人领取免费的Dual Pilgrim Credential和官方Stamp List；备防水袋，每天拍照。普通盖章不需预约。",
       "sourceIds": [
@@ -737,6 +738,7 @@ export default {
     {
       "id": "dual-pilgrim-eligibility",
       "kind": "check",
+      "timing": { "kind": "trip-date", "date": "2026-11-19" },
       "title": "确认每人的Camino资格与19号选项",
       "detail": "分别核对Camino完成证明；选择08:39默认版或06:54速玉早班。只有本人同时满足两边条件且盖齐10章，才考虑田边现场登记与晚回大阪；大门坂不是日本条件③必走段。",
       "sourceIds": [
@@ -749,6 +751,9 @@ export default {
     {
       "id": "miyajima-ropeway",
       "kind": "todo",
+      "timing": { "kind": "trip-date", "date": "2026-11-15" },
+      "priority": "high",
+      "priorityReason": "必须事前预约",
       "title": "预约11/15宫岛缆车",
       "detail": "11/15须事前WEB预约，争取09:00附近；余位与预约结果尚未确认。",
       "sourceIds": [
@@ -759,6 +764,9 @@ export default {
     {
       "id": "rail-ticket-choice",
       "kind": "todo",
+      "timing": { "kind": "asap" },
+      "priority": "high",
+      "priorityReason": "影响后续指定席预约",
       "title": "选择并购买JR票券",
       "detail": "选7日All Area或5日券组合；后者19号黑潮另买，估价以WEB早特7余票为条件。HARUKA单程优惠出发前在线买。",
       "sourceIds": [
@@ -771,6 +779,9 @@ export default {
     {
       "id": "long-distance-trains",
       "kind": "todo",
+      "timing": { "kind": "reservation-opens", "bookingWindowIds": ["jr-nov-14", "jr-nov-16", "jr-nov-19", "jr-nov-21"] },
+      "priority": "high",
+      "priorityReason": "长途车票尚未确认",
       "title": "预约JR指定席并取票",
       "detail": "14号Nozomi 5，16号Nozomi 14＋Kuroshio 11，19号Kuroshio 30，21号HARUKA 11；出票尚未确认，持Pass划位或单独购票二选一。",
       "sourceIds": [
@@ -784,6 +795,7 @@ export default {
     {
       "id": "peace-museum-ticket",
       "kind": "todo",
+      "timing": { "kind": "trip-date", "date": "2026-11-14" },
       "title": "购买11/14资料馆WEB票",
       "detail": "买11/14 14:00左右WEB入场票，对应14:00–16:00参观；购票尚未确认。",
       "sourceIds": [
@@ -793,24 +805,32 @@ export default {
     {
       "id": "hiroshima-hotel",
       "kind": "check",
+      "timing": { "kind": "trip-date", "date": "2026-11-14" },
+      "priority": "high",
+      "priorityReason": "两晚住宿未确认",
       "title": "确认广岛酒店订单与名称",
       "detail": "11/14入住、11/16退房，两晚，JR广岛站附近；订房结果与酒店全名待确认。"
     },
     {
       "id": "ryokan-meals",
       "kind": "check",
+      "timing": { "kind": "trip-date", "date": "2026-11-17" },
       "title": "确认近露接驳与餐食",
       "detail": "SEN RETREAT CHIKATSUYU（11/17–18已订）：确认17号到店步行／接送、18号早饭／便当、去美术馆前站路线及晚餐最晚到达时间。"
     },
     {
       "id": "kawayu-ryokan",
       "kind": "check",
+      "timing": { "kind": "trip-date", "date": "2026-11-18" },
       "title": "确认川汤站点与餐食",
       "detail": "川湯まつや（11/18–19已订）：确认18号下车站、19号上车站与发车时间、早餐／便当及晚餐最晚到达时间。选06:54早班还需提前退房。"
     },
     {
       "id": "osaka-hotel",
       "kind": "check",
+      "timing": { "kind": "trip-date", "date": "2026-11-14" },
+      "priority": "high",
+      "priorityReason": "五晚寄存需酒店同意",
       "title": "确认大阪酒店跨5晚寄存",
       "detail": "RESPIRE两段入住已订；仍需酒店明确同意11/14退房至11/19返回期间寄存大箱。",
       "sourceIds": [

@@ -79,7 +79,7 @@ New `*/trip.ts` files are discovered automatically and appear in the homepage co
 
 Use a year-only `TripPlaceholder` until dates and plans are known, following UK 2026. Once an itinerary is ready, change that same file to a dated `Trip`, keeping its slug and URL. Optional schedules, flights, stays, ticket options, reservation opening times, checklists, practical notes, and official sources keep detailed plans together. `mapRoute` records returns and transfers separately from unique destinations; complete alternative day plans have their own labeled schedules.
 
-Pending checklist items appear first on each trip page, grouped into To do actions and To check confirmations through their optional `kind` field. Ticket comparisons, reservation-opening times, and practical reminders remain in Preparations.
+Pending checklist items appear first on each trip page, grouped into To do actions and To check confirmations through their optional `kind` field. Each group sorts by optional `timing`: immediate actions, referenced reservation openings or calendar dates, then undated items. Related travel dates are labeled separately from deadlines. Optional `priority: "high"` and `priorityReason` identify important dependencies. Ticket comparisons, reservation-opening times, and practical reminders remain in Preparations.
 
 Add optional `cost` records to accommodation `checkIns` for booking totals and estimated extra charges. The same values appear on accommodation cards and in a final Costs section, totaled by currency; unknown prices stay unpriced and booking amounts do not imply payment.
 

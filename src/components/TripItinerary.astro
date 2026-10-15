@@ -121,7 +121,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
       </div>
     </nav>
 
-    {checklist.length > 0 && <TripChecklist items={checklist} sources={sources} locale={locale} flights={flights} stays={stays} hasTicketOptions={ticketOptions.length > 0} hasBookingWindows={bookingWindows.length > 0} />}
+    {checklist.length > 0 && <TripChecklist items={checklist} sources={sources} locale={locale} flights={flights} stays={stays} bookingWindows={bookingWindows} hasTicketOptions={ticketOptions.length > 0} hasBookingWindows={bookingWindows.length > 0} />}
 
     <div class="planning-note container">
       <Icon name="compass" size={21} />

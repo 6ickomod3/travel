@@ -58,6 +58,14 @@ src/data/
   missing details and confirmations. An omitted kind defaults to `todo`.
   Keep general guidance in practical notes and remove resolved checklist
   items when a new submission explicitly confirms their completion.
+  Optional `timing` is `asap`, `reservation-opens` with `bookingWindowIds`,
+  or `deadline` / `trip-date` with a calendar `date`. Each checklist group
+  sorts immediate actions first, then opening timestamps or calendar dates,
+  and undated items last, preserving source order for ties. Opening records
+  remain the single source of timestamps. Label relevant trip dates clearly
+  and arrange reservations beforehand; do not invent hard deadlines.
+  `priority: "high"` and a concise `priorityReason` identify important
+  dependencies without moving them out of chronological order.
   Optional `stays[].checkIns[].cost` records the total for that booking
   segment, its ISO currency, included fees, and estimated additional charges.
   The accommodation cards and final Costs section use the same record.
@@ -75,7 +83,8 @@ src/data/
   pages. They open for printing and restore afterward; map and image
   attribution remains visible beside its content.
   Daily navigation focuses one day at a time while preserving a full-trip
-  view and native disclosures. Printing includes every day, alternatives,
+  view and native disclosures. Its sticky date bar is flush with the viewport
+  top at all screen widths. Printing includes every day, alternatives,
   ticket details, and references, then restores the previous screen state.
   Optional `gallery` stores the trip's top photo sequence and related day or
   alternative links. `sights` stores concise factual introductions, source
