@@ -48,6 +48,11 @@ src/data/
   missing details and confirmations. An omitted kind defaults to `todo`.
   Keep general guidance in practical notes and remove resolved checklist
   items when a new submission explicitly confirms their completion.
+  Optional `stays[].checkIns[].cost` records the total for that booking
+  segment, its ISO currency, included fees, and estimated additional charges.
+  The accommodation cards and final Costs section use the same record.
+  Missing prices remain absent and are excluded from partial totals. Sum
+  currencies separately and never infer payment from a confirmed booking.
 - `inputs/` contains the publishable source submissions. Store each separately
   as `YYYY-MM-DD-NN-topic.md` or `.txt`; use the archive date and a two-digit
   sequence within that day. Preserve original wording, links, formatting,
@@ -129,3 +134,8 @@ Ignored local files are not backed up by GitHub. Use a separate private backup
 when they need to be available on another device. Do not move private files
 into `public/`, reference them from published data, or commit them to obtain
 that backup.
+
+When only selected details are authorized for publication, create a clearly
+labeled public excerpt instead of publishing the full booking document with
+its private links removed. Preserve the original privately and record the
+excerpt's scope and provenance in the English trip history.

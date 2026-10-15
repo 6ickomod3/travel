@@ -78,6 +78,8 @@ Use a year-only `TripPlaceholder` until dates and plans are known, following UK 
 
 Pending checklist items appear first on each trip page, grouped into To do actions and To check confirmations through their optional `kind` field. Ticket comparisons, reservation-opening times, and practical reminders remain in Preparations.
 
+Add optional `cost` records to accommodation `checkIns` for booking totals and estimated extra charges. The same values appear on accommodation cards and in a final Costs section, totaled by currency; unknown prices stay unpriced and booking amounts do not imply payment.
+
 You can supply plain text or attachments. The workflow is: save the source, compare it with the existing plan, apply clear additions/corrections, record unresolved questions, then check and publish the trip page. New fragments do not silently replace unrelated accepted decisions.
 
 ## Record visited places

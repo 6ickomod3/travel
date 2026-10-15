@@ -42,6 +42,8 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   schedules, accommodation, and other itinerary details on the trip pages.
 - Show useful information: dates, routes, schedules, transport, accommodation,
   booking states, walking details, and official sources.
+- When costs are provided, put Costs at the end of the trip page. Show known
+  booking amounts, estimated extra charges, and missing prices clearly.
 - Put a trip's pending checklist before flights, routes, and daily schedules.
   Show separate To do actions and To check confirmations, with a direct link
   from the hero and the first trip navigation link. Keep ticket comparisons,
@@ -106,6 +108,11 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   missing details or confirmations; an omitted kind defaults to an action.
   Only outstanding items belong in the checklist. Keep general guidance in
   practical notes, and update completion through the trip's confirmed data.
+- Stay segments may have `cost` with an ISO currency and booking total.
+  Keep prices with their check-in/check-out segment as the single source for
+  both accommodation cards and the final cost summary. Omit unknown costs;
+  never substitute zero. Sum currencies separately and keep estimated extras
+  separate from included fees. Booking amounts are not evidence of payment.
 - `ticketOptions` store per-person prices, ISO currencies, and conditional
   estimates. `bookingWindows` use absolute opening timestamps and seller
   IANA timezones; display the seller's local time alongside Los Angeles time.
@@ -130,6 +137,11 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   Private originals and reservation documents belong in ignored
   `.local/trips/<slug>/` storage. Do not commit or publish private codes or
   documents. Ignored files need a separate private backup when required.
+- For a submission containing private booking material, preserve the full
+  original in ignored private storage. A public excerpt must contain only
+  details authorized for publication and be labeled as an excerpt in its
+  file and history. Removing email links alone does not establish permission
+  to publish the remaining booking document.
 
 ## Verification and publication
 

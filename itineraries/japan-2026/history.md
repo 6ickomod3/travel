@@ -21,6 +21,9 @@
   reservations have not been confirmed. Keep price comparisons conditional.
 - Prioritize outstanding tasks and missing confirmations at the top of the
   trip page, in separate To do and To check lists.
+- Hotel cost amounts are stay-segment order totals for two travelers, not
+  per-person prices or verified payments. Keep estimated additional taxes
+  separate and exclude unpriced Hiroshima nights from known-cost totals.
 
 ## Source index
 
@@ -64,12 +67,41 @@
   Reference departures, prices, pass eligibility, activity schedules,
   remaining availability, and final hotel bus stops need later confirmation.
 
+### 2026-10-14-03-hotel-costs
+
+- Archived: October 14, 2026, using the user's America/Los_Angeles date.
+- Origin: the user's workspace file named
+  `日本行程_2026-11-13至21_更新版.txt`.
+- Original language: Simplified Chinese.
+- Private original: preserved unchanged (40,847 bytes) in ignored
+  `.local/trips/japan-2026/inputs/2026-10-14-03-hotel-costs.original.txt`.
+  The full booking document is not tracked or published.
+- Public excerpt: [inputs/2026-10-14-03-hotel-costs.md](inputs/2026-10-14-03-hotel-costs.md)
+  (2,005 bytes). This is a labeled selection of authorized cost facts,
+  not a full or redacted copy of the booking document.
+- The source states a review date of October 15 in Japan; this remains the
+  submitted plan's date, not an independent verification by the website.
+- Applied: five JPY stay-segment order totals, the second Osaka stay's
+  per-night amounts, and listed tax or fee inclusions. Osaka accommodation
+  tax remains estimated at 800 yen for the first stay and 1,600 yen for the
+  second, with a cost-specific Osaka Prefecture reference.
+- Totals: 177,187 yen in known orders for six nights, plus 2,400 yen in
+  estimated additional Osaka tax, gives 179,587 yen. Hiroshima's two nights
+  remain unpriced and excluded; these figures are partial accommodation
+  costs, not a full-trip budget or verified payment total.
+- Scope: cost-only. All schedules, checklist entries, booking states, hotel
+  names, meal details, and other lodging information retain the previously
+  accepted plan; broader details in the private original were not imported.
+
 ## Open information
 
 - Hiroshima's November 14–16 hotel booking and name still need confirmation.
-- Names of the booked Chikatsuyu and Kawayu lodgings have not been provided;
-  exact last-mile transfers, bus stops, meals, and early breakfast arrangements
-  depend on those names and the lodging's confirmation.
+- The cost of Hiroshima's two nights remains unknown and is excluded from
+  known accommodation totals.
+- The public plan still uses placeholders for the Chikatsuyu and Kawayu
+  lodging names and related arrangements. The newer lodging details remain
+  in the private original; this publication applies only the authorized cost
+  excerpt. Review that original for a later update with broader authorization.
 - Osaka's hotel must explicitly accept luggage storage between the November
   14 checkout and November 19 return. Do not assume storage for five nights.
 - Pass choice, purchased train tickets, museum tickets, and ropeway booking
@@ -90,3 +122,8 @@ when a source explicitly resolves or changes a decision.
   tasks and four missing confirmations for display before the trip details.
   Separated the two unnamed inns and kept general bus queue and payment
   guidance in practical notes and daily reminders.
+- October 14, 2026: applied the approved hotel-cost excerpt to the five
+  existing priced stay segments, kept estimated additional taxes separate,
+  and retained the full original only in ignored private storage. The
+  requested end-of-page Costs section uses these partial accommodation
+  figures; existing itinerary and pending confirmations remain unchanged.

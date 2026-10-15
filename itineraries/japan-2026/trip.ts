@@ -205,11 +205,44 @@ export default {
       "checkIns": [
         {
           "checkIn": "2026-11-13",
-          "checkOut": "2026-11-14"
+          "checkOut": "2026-11-14",
+          "cost": {
+            "currency": "JPY",
+            "amount": 34320,
+            "estimatedAdditional": [
+              {
+                "label": "住宿税",
+                "amount": 800
+              }
+            ],
+            "notes": [
+              "住宿税按两人每晚各400日元估算，以酒店结算为准。"
+            ],
+            "sourceIds": [
+              "osaka-accommodation-tax"
+            ]
+          }
         },
         {
           "checkIn": "2026-11-19",
-          "checkOut": "2026-11-21"
+          "checkOut": "2026-11-21",
+          "cost": {
+            "currency": "JPY",
+            "amount": 73920,
+            "estimatedAdditional": [
+              {
+                "label": "住宿税",
+                "amount": 1600
+              }
+            ],
+            "notes": [
+              "11/19：36,080日元；11/20：37,840日元。",
+              "住宿税按两人每晚各400日元估算，以酒店结算为准。"
+            ],
+            "sourceIds": [
+              "osaka-accommodation-tax"
+            ]
+          }
         }
       ],
       "status": "booked",
@@ -244,7 +277,17 @@ export default {
       "checkIns": [
         {
           "checkIn": "2026-11-16",
-          "checkOut": "2026-11-17"
+          "checkOut": "2026-11-17",
+          "cost": {
+            "currency": "JPY",
+            "amount": 14800,
+            "includes": [
+              "已列明税费"
+            ],
+            "notes": [
+              "以订单总额为准，分项四舍五入差额不另加。"
+            ]
+          }
         }
       ],
       "status": "booked",
@@ -261,7 +304,14 @@ export default {
       "checkIns": [
         {
           "checkIn": "2026-11-17",
-          "checkOut": "2026-11-18"
+          "checkOut": "2026-11-18",
+          "cost": {
+            "currency": "JPY",
+            "amount": 44115,
+            "includes": [
+              "消费税"
+            ]
+          }
         }
       ],
       "status": "booked",
@@ -278,7 +328,14 @@ export default {
       "checkIns": [
         {
           "checkIn": "2026-11-18",
-          "checkOut": "2026-11-19"
+          "checkOut": "2026-11-19",
+          "cost": {
+            "currency": "JPY",
+            "amount": 10032,
+            "includes": [
+              "其他费用300日元（已计入订单总额）"
+            ]
+          }
         }
       ],
       "status": "booked",
@@ -617,6 +674,11 @@ export default {
       "id": "kawayu-senninburo",
       "label": "川汤温泉“仙人风吕”：开放季节参考",
       "url": "https://www.hongu.jp/onsen/kawayu/senninburo/"
+    },
+    {
+      "id": "osaka-accommodation-tax",
+      "label": "大阪府：住宿税",
+      "url": "https://www.pref.osaka.lg.jp/o070070/toshimiryoku/syukuhakuzei/index.html"
     }
   ],
   "practicalNotes": [

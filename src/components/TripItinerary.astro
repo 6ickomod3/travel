@@ -6,6 +6,7 @@ import TravelMap from './TravelMap.astro';
 import TripFlights from './TripFlights.astro';
 import TripPlanning from './TripPlanning.astro';
 import TripChecklist from './TripChecklist.astro';
+import TripCosts from './TripCosts.astro';
 import { tripCollection, type Trip, type TripDestination, type TripStay } from '../data/trips';
 import { durationDays, formatDateRange, formatDate } from '../lib/trips';
 import { withBase } from '../lib/urls';
@@ -21,6 +22,7 @@ const date = (value: string, options: Intl.DateTimeFormatOptions = {}) => format
 const dateRange = formatDateRange(trip, dateLocale);
 const dayNumber = (dayDate: string) => durationDays({ startDate: trip.startDate, endDate: dayDate });
 const number = (value: number) => new Intl.NumberFormat(dateLocale, { maximumFractionDigits: 1 }).format(value);
+const money = (value: number, currency: string) => new Intl.NumberFormat(dateLocale, { style: 'currency', currency }).format(value);
 const chapter = String(tripCollection.findIndex(item => item.slug === trip.slug) + 1).padStart(2, '0');
 const titleBreak = trip.title.search(/[，,]/);
 const titleParts = titleBreak >= 0
@@ -35,6 +37,7 @@ const route = (trip.mapRoute?.length ? trip.mapRoute : trip.destinations.map(sto
   .map(id => trip.destinations.find(stop => stop.id === id))
   .filter((stop): stop is TripDestination => Boolean(stop));
 const stays = trip.stays ?? [];
+const hasCosts = stays.some(stay => stay.checkIns.some(segment => segment.cost));
 const flights = trip.flights ?? [];
 const ticketOptions = trip.ticketOptions ?? [];
 const bookingWindows = trip.bookingWindows ?? [];
@@ -109,6 +112,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
           <a href="#itinerary">{text('每日行程', 'Daily itinerary')}</a>
           {hasPreparations && <a href="#preparations">{text('行前准备', 'Preparations')}</a>}
           {sources.length > 0 && <a href="#sources">{text('官方资料', 'Official sources')}</a>}
+          {hasCosts && <a href="#costs">{text('费用', 'Costs')}</a>}
         </div>
         <span class="trip-subnav-note"><span class="status-dot"></span> {isAgreed ? text('行程已商定', 'Agreed itinerary') : text('行程草案', 'Draft itinerary')}</span>
       </div>
@@ -164,7 +168,10 @@ const heroCredit = getLicensedImageCredit(trip.cover);
           <div class="stay-card-top"><p class="stay-location"><Icon name="pin" size={14} /> {stay.location}</p><span class:list={['stay-status', { 'stay-status-booked': stay.status === 'booked' }]}>{stay.status === 'booked' && <Icon name="check" size={12} />}{stayStatus(stay)}</span></div>
           <h3>{stay.name}</h3>
           <dl class="stay-dates">
-            {stay.checkIns.map(segment => <div><dt>{text('入住 / 退房', 'Check-in / check-out')}</dt><dd><time datetime={segment.checkIn}>{date(segment.checkIn)}</time><span aria-hidden="true"> → </span><time datetime={segment.checkOut}>{date(segment.checkOut)}</time><span class="stay-night-count">{nightsBetween(segment.checkIn, segment.checkOut)} {text('晚', 'nights')}</span></dd></div>)}
+            {stay.checkIns.map(segment => <>
+              <div><dt>{text('入住 / 退房', 'Check-in / check-out')}</dt><dd><time datetime={segment.checkIn}>{date(segment.checkIn)}</time><span aria-hidden="true"> → </span><time datetime={segment.checkOut}>{date(segment.checkOut)}</time><span class="stay-night-count">{nightsBetween(segment.checkIn, segment.checkOut)} {text('晚', 'nights')}</span></dd></div>
+              {segment.cost && <div class="stay-order-cost"><dt>{text('订单金额', 'Booking amount')}</dt><dd><strong>{money(segment.cost.amount, segment.cost.currency)}</strong><a href={`#cost-${stay.id}-${segment.checkIn}`}>{text('费用详情', 'Cost details')} <Icon name="arrow-down" size={12} /></a></dd></div>}
+            </>)}
           </dl>
           <ul class="stay-notes">{stay.notes.map(note => <li>{note}</li>)}</ul>
         </article>)}
@@ -234,6 +241,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     </section>}
 
     {sources.length > 0 && <section class="trip-sources-section container" id="sources" aria-labelledby="sources-title"><div class="section-heading"><div><h2 id="sources-title">{text('官方资料', 'Official sources')}</h2></div><p class="section-intro">{text('景点、交通与古道的官方资料。', 'Official information for sights, transport, and trails.')}</p></div><p class="sources-reference-note">{text(`链接中的列车时刻表日期是资料参考日期；列车、巴士与活动安排请按${dateRange}的实际出行日复核。行程中的参考班次不代表已经买票。`, 'Timetable dates identify the reference information. Recheck trains, buses, and event details for your travel dates; listed departures are not purchased tickets.')}</p><ul class="official-source-list" role="list">{sources.map(source => <li id={`source-${source.id}`}><a href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={14} /></a></li>)}</ul></section>}
+    {hasCosts && <TripCosts stays={stays} sources={sources} travelers={trip.travelers} locale={locale} hasPreparations={hasPreparations} />}
   </div>
 </Layout>
 
@@ -270,6 +278,8 @@ const heroCredit = getLicensedImageCredit(trip.cover);
   .stay-dates dt { font-size: 10px; color: var(--ink-soft); }
   .stay-dates dd { margin: 5px 0 0; display: flex; align-items: center; flex-wrap: wrap; gap: 5px; font-size: 12px; }
   .stay-night-count { margin-left: 4px; color: var(--ink-soft); font-size: 10px; }
+  .stay-order-cost strong { font-weight: 500; font-variant-numeric: tabular-nums; }
+  .stay-order-cost a { display: inline-flex; align-items: center; gap: 5px; margin-left: 8px; color: var(--accent-deep); font-size: 10px; text-decoration: underline; text-underline-offset: 3px; }
   .stay-notes { margin: 17px 0 0; padding-left: 17px; font-size: 12px; line-height: 1.9; color: var(--ink-soft); }
   .stay-notes li + li { margin-top: 8px; }
   .day-content.has-schedule { padding: 0 24px 27px 140px; }

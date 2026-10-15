@@ -54,11 +54,29 @@ export interface TripSource {
   url: string;
 }
 
+export interface TripStayCost {
+  /** ISO currency code and total for this booking segment, not per-person spending. */
+  currency: string;
+  amount: number;
+  /** Estimated charges excluded from amount; never repeat fees already included. */
+  estimatedAdditional?: Array<{ label: string; amount: number }>;
+  includes?: string[];
+  notes?: string[];
+  sourceIds?: string[];
+}
+
+export interface TripStaySegment {
+  checkIn: string;
+  checkOut: string;
+  /** Omit unknown prices. A recorded booking price does not establish payment. */
+  cost?: TripStayCost;
+}
+
 export interface TripStay {
   id: string;
   name: string;
   location: string;
-  checkIns: Array<{ checkIn: string; checkOut: string }>;
+  checkIns: TripStaySegment[];
   status: "booked" | "pending";
   notes: string[];
 }

@@ -127,6 +127,15 @@ for (const folder of folders) {
       const checkIn = calendarDate(period.checkIn, `${folder}/${stay.id} check-in`);
       const checkOut = calendarDate(period.checkOut, `${folder}/${stay.id} check-out`);
       assert.ok(checkOut > checkIn, `${folder}/${stay.id}: check-out must follow check-in`);
+      if (period.cost) {
+        assert.match(period.cost.currency, /^[A-Z]{3}$/, `${folder}/${stay.id}/${checkIn}: use an ISO cost currency`);
+        assert.ok(Number.isFinite(period.cost.amount) && period.cost.amount >= 0, `${folder}/${stay.id}/${checkIn}: invalid booking amount`);
+        for (const extra of period.cost.estimatedAdditional ?? []) {
+          assert.ok(typeof extra.label === 'string' && extra.label.trim(), `${folder}/${stay.id}/${checkIn}: label the additional charge`);
+          assert.ok(Number.isFinite(extra.amount) && extra.amount >= 0, `${folder}/${stay.id}/${checkIn}: invalid additional charge`);
+        }
+        checkSources(period.cost.sourceIds, `${folder}/${stay.id}/${checkIn} cost`);
+      }
     }
   }
   for (const item of trip.checklist ?? []) {

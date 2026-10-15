@@ -43,11 +43,11 @@
       "style": "normal",
       "weight": "400 700",
       "subsetFile": "../../fonts/noto-serif-sc-display-subset.txt",
-      "characters": 572,
-      "hanCharacters": 456,
+      "characters": 573,
+      "hanCharacters": 457,
       "sourceFont": "https://raw.githubusercontent.com/google/fonts/main/ofl/notoserifsc/NotoSerifSC%5Bwght%5D.ttf",
       "subsetMethod": "Local FontTools/Brotli subset from generic public font",
-      "bytes": 222312
+      "bytes": 222836
     }
   ]
 }
