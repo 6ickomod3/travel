@@ -82,6 +82,8 @@ Add optional `cost` records to accommodation `checkIns` for booking totals and e
 
 Daily `stamps` can store ordered collection stops and route conditions; `stampGuide` stores booklet and eligibility guidance. These describe a plan without marking stamps collected or qualifications completed. Research references start collapsed across trip pages and remain available when printing.
 
+Optional `gallery` photos appear in a manual carousel at the top of a trip page. `sights` holds concise introductions and links to gallery photos; days and alternatives select them with `sightIds`. Photo credits remain visible, and optional sights stay with their separate routes.
+
 You can supply plain text or attachments. The workflow is: save the source, compare it with the existing plan, apply clear additions/corrections, record unresolved questions, then check and publish the trip page. New fragments do not silently replace unrelated accepted decisions.
 
 ## Record visited places

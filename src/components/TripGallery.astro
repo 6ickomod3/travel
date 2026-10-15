@@ -1,0 +1,191 @@
+---
+import Icon from './Icon.astro';
+import type { TripGalleryPhoto } from '../data/types';
+import { formatDate } from '../lib/trips';
+import { getImageCredit, getLicensedImageCredit } from '../lib/image-credits';
+import { withBase } from '../lib/urls';
+
+interface Props {
+  photos: TripGalleryPhoto[];
+  locale?: 'zh-CN' | 'en';
+}
+
+const { photos, locale = 'en' } = Astro.props;
+const isZh = locale === 'zh-CN';
+const text = (zh: string, en: string) => isZh ? zh : en;
+const slides = photos.map(photo => ({
+  ...photo,
+  imageCredit: getImageCredit(photo.image),
+  licensedCredit: getLicensedImageCredit(photo.image),
+}));
+const dayLabel = (date: string) => formatDate(date, { month: 'short', day: 'numeric' }, isZh ? 'zh-CN' : 'en-US');
+const itineraryFragment = (photo: TripGalleryPhoto) => photo.alternativeId
+  ? `#alternative-${photo.dayDate}-${photo.alternativeId}`
+  : `#day-${photo.dayDate}`;
+---
+{slides.length > 0 && <section
+  class="trip-gallery"
+  id="trip-gallery"
+  data-trip-gallery
+  lang={locale}
+  role="region"
+  aria-roledescription={text('照片轮播', 'carousel')}
+  aria-labelledby="trip-gallery-title"
+>
+  <div class="gallery-toolbar">
+    <div class="gallery-heading">
+      <h2 id="trip-gallery-title">{text('行程照片', 'Trip photos')}</h2>
+      {slides.length > 1 && <p id="trip-gallery-help">{text('左右滑动，或使用方向键。', 'Swipe or use the arrow keys.')}</p>}
+    </div>
+    <div class="gallery-toolbar-controls">
+      <span class="gallery-count" data-gallery-count aria-hidden="true">{slides.length} {text('张照片', slides.length === 1 ? 'photo' : 'photos')}</span>
+      {slides.length > 1 && <div class="gallery-buttons" data-gallery-controls hidden>
+        <button type="button" data-gallery-prev disabled aria-label={text('上一张照片', 'Previous photo')} aria-controls="trip-gallery-track"><Icon name="arrow-left" size={18} /></button>
+        <button type="button" data-gallery-next disabled aria-label={text('下一张照片', 'Next photo')} aria-controls="trip-gallery-track"><Icon name="arrow-right" size={18} /></button>
+      </div>}
+    </div>
+  </div>
+  <div
+    class="gallery-track"
+    id="trip-gallery-track"
+    data-gallery-track
+    tabindex="0"
+    aria-label={text('行程照片', 'Trip photos')}
+    aria-describedby={slides.length > 1 ? 'trip-gallery-help' : undefined}
+  >
+    {slides.map((photo, index) => <figure
+      class="gallery-slide"
+      id={`photo-${photo.id}`}
+      data-gallery-photo={photo.id}
+      data-gallery-title={photo.title}
+      role="group"
+      aria-roledescription={text('照片', 'slide')}
+      aria-label={`${index + 1} ${text('／', 'of')} ${slides.length} · ${photo.title}`}
+      tabindex="-1"
+    >
+      <div class="gallery-image" data-gallery-image>
+        <img
+          src={withBase(photo.image)}
+          alt={photo.alt}
+          width={photo.imageCredit?.width ?? 1800}
+          height={photo.imageCredit?.height ?? 1200}
+          style={`object-position: ${photo.objectPosition ?? photo.imageCredit?.objectPosition ?? '50% 50%'}`}
+          loading={index === 0 ? 'eager' : 'lazy'}
+          fetchpriority={index === 0 ? 'high' : 'low'}
+          decoding="async"
+          draggable="false"
+        />
+      </div>
+      <figcaption class="gallery-caption">
+        <div class="gallery-caption-main">
+          <div class="gallery-photo-copy">
+            <div class="gallery-photo-title"><h3>{photo.title}</h3>{photo.optional && <span class="gallery-optional">{text('可选地点', 'Optional stop')}</span>}</div>
+            {photo.caption && <p class="gallery-photo-description">{photo.caption}</p>}
+          </div>
+          {photo.dayDate && <a class="gallery-day-link" href={itineraryFragment(photo)}>
+            <time datetime={photo.dayDate}>{dayLabel(photo.dayDate)}</time>
+            <span>{photo.alternativeId ? text('查看备选安排', 'View alternative') : text('查看当天行程', 'View this day')}</span>
+            <Icon name="arrow-down" size={14} />
+          </a>}
+        </div>
+        {photo.licensedCredit ? <p class="gallery-credit">
+          <span>{text('图片：', 'Photo: ')}{photo.licensedCredit.author ?? text('作者见原图页', 'Author listed on source page')}</span>
+          <a href={photo.licensedCredit.source} target="_blank" rel="noopener noreferrer">{text('原图', 'Source')} <Icon name="external" size={10} /></a>
+          <a href={photo.licensedCredit.licenseUrl} target="_blank" rel="noopener noreferrer">{photo.licensedCredit.license} <Icon name="external" size={10} /></a>
+          {photo.licensedCredit.changes && <span class="gallery-credit-changes">{photo.licensedCredit.changes}</span>}
+        </p> : photo.imageCredit && <p class="gallery-credit">
+          <span>{photo.imageCredit.credit ?? photo.imageCredit.author ?? text('图片来源', 'Image source')}</span>
+          <a href={withBase(photo.imageCredit.creditsPath)} target="_blank" rel="noopener noreferrer">{text('来源与授权', 'Credits and license')} <Icon name="external" size={10} /></a>
+        </p>}
+      </figcaption>
+    </figure>)}
+  </div>
+  {slides.length > 1 && <nav class="gallery-pagination" data-gallery-pagination aria-label={text('选择照片', 'Choose a photo')}>
+    {slides.map((photo, index) => <a
+      class="gallery-page"
+      href={`#photo-${photo.id}`}
+      data-gallery-select={photo.id}
+      aria-label={text(`查看第${index + 1}张照片：${photo.title}`, `View photo ${index + 1}: ${photo.title}`)}
+      title={photo.title}
+    ><span class="gallery-page-dot" aria-hidden="true"></span></a>)}
+  </nav>}
+  <p class="sr-only" role="status" aria-live="polite" aria-atomic="true" data-gallery-status>{slides.length} {text('张行程照片', slides.length === 1 ? 'trip photo' : 'trip photos')}</p>
+</section>}
+
+<script>
+  import '../scripts/trip-gallery';
+</script>
+
+<style>
+  .trip-gallery { grid-column: 1 / -1; min-width: 0; width: 100%; margin-bottom: 36px; font-family: var(--sans); scroll-margin-top: 24px; }
+  .gallery-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 15px; }
+  .gallery-heading { min-width: 0; }
+  .gallery-heading h2 { font-family: var(--sans); font-size: 14px; font-weight: 600; line-height: 1.6; }
+  .gallery-heading > p { margin-top: 3px; color: var(--ink-soft); font-size: 11px; line-height: 1.7; }
+  .gallery-toolbar-controls { display: flex; align-items: center; gap: 17px; flex-shrink: 0; }
+  .gallery-count { color: var(--ink-soft); font-size: 12px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .gallery-buttons { display: flex; align-items: center; gap: 7px; }
+  .gallery-buttons button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 5px; background: var(--paper); color: var(--ink); }
+  .gallery-buttons button:hover:not(:disabled) { border-color: var(--accent-deep); color: var(--accent-deep); background: var(--paper-deep); }
+  .gallery-buttons button:disabled { opacity: .35; }
+  .gallery-track { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: 100%; align-items: stretch; min-width: 0; max-width: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: auto; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: #36574355 transparent; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; }
+  .gallery-track:focus-visible { outline-offset: 5px; }
+  .gallery-slide { min-width: 0; max-width: 100%; margin: 0; scroll-snap-align: start; scroll-snap-stop: always; }
+  .gallery-slide:focus { outline: 0; }
+  .gallery-image { position: relative; width: 100%; aspect-ratio: 2.1; overflow: hidden; background: var(--paper-deep); cursor: grab; }
+  .gallery-image img { width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
+  .gallery-track[data-gallery-dragging] { scroll-snap-type: none; cursor: grabbing; }
+  .gallery-track[data-gallery-dragging] .gallery-image { cursor: grabbing; }
+  .gallery-caption { padding: 22px 25px 18px; }
+  .gallery-caption-main { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px 30px; }
+  .gallery-photo-copy { min-width: 0; }
+  .gallery-photo-title { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
+  .gallery-photo-title h3 { font-family: var(--sans); font-size: 21px; font-weight: 500; line-height: 1.5; overflow-wrap: anywhere; }
+  .gallery-optional { flex-shrink: 0; padding: 2px 7px; border: 1px solid #b9462833; border-radius: 3px; color: var(--accent-deep); font-size: 10px; line-height: 1.7; }
+  .gallery-photo-description { margin-top: 7px; color: var(--ink-soft); font-size: 13px; line-height: 1.8; overflow-wrap: anywhere; }
+  .gallery-day-link { display: inline-flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 7px; flex-shrink: 0; min-height: 32px; margin-top: 2px; color: var(--accent-deep); font-size: 11px; line-height: 1.7; text-decoration: underline; text-underline-offset: 4px; }
+  .gallery-day-link time { color: var(--ink-soft); font-size: 10px; }
+  .gallery-credit { display: flex; align-items: baseline; flex-wrap: wrap; gap: 5px 13px; margin-top: 16px; color: var(--ink-soft); font-size: 10px; line-height: 1.8; overflow-wrap: anywhere; }
+  .gallery-credit > span { min-width: 0; }
+  .gallery-credit a { display: inline-flex; align-items: center; gap: 4px; max-width: 100%; min-height: 22px; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px; }
+  .gallery-credit a:hover { color: var(--accent-deep); }
+  .gallery-credit-changes { font-size: 9px; }
+  .gallery-pagination { position: relative; display: flex; flex-wrap: nowrap; gap: 0; overflow-x: auto; padding-top: 8px; scrollbar-width: thin; }
+  .gallery-page { display: grid; place-items: center; flex: 0 0 36px; height: 44px; border-radius: 4px; }
+  .gallery-page:first-child { margin-left: auto; }
+  .gallery-page:last-child { margin-right: auto; }
+  .gallery-page:focus-visible { outline-offset: -2px; }
+  .gallery-page-dot { width: 7px; height: 7px; border-radius: 5px; background: #36574345; transition: width .16s ease, background-color .16s ease; }
+  .gallery-page:hover .gallery-page-dot { background: var(--accent-deep); }
+  .gallery-page[aria-current="true"] .gallery-page-dot { width: 22px; background: var(--accent-deep); }
+  @media (max-width: 800px) { .gallery-caption { padding: 19px 20px 16px; } .gallery-caption-main { flex-direction: column; gap: 9px; } .gallery-day-link { justify-content: flex-start; margin-top: 0; } }
+  @media (max-width: 600px) {
+    .trip-gallery { margin-bottom: 29px; }
+    .gallery-toolbar { gap: 12px; margin-bottom: 12px; }
+    .gallery-heading h2 { font-size: 13px; }
+    .gallery-heading > p { max-width: 140px; font-size: 10px; }
+    .gallery-toolbar-controls { gap: 10px; }
+    .gallery-buttons { gap: 5px; }
+    .gallery-buttons button { width: 44px; height: 44px; }
+    .gallery-count { font-size: 11px; }
+    .gallery-image { aspect-ratio: 1.5; }
+    .gallery-caption { padding: 17px 16px 15px; }
+    .gallery-photo-title h3 { font-size: 18px; }
+    .gallery-photo-description { font-size: 13px; }
+    .gallery-credit { margin-top: 13px; font-size: 10px; }
+    .gallery-credit-changes { flex-basis: 100%; font-size: 9px; }
+    .gallery-page { flex-basis: 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .gallery-page-dot { transition: none; } }
+  @media print {
+    .trip-gallery { margin-block: 12px; break-inside: avoid; }
+    .gallery-toolbar, .gallery-pagination { display: none; }
+    .gallery-track { display: block; overflow: visible; border-radius: 0; }
+    .gallery-slide:not(:first-child) { display: none; }
+    .gallery-image { aspect-ratio: 2.6; }
+    .gallery-caption { padding: 12px; }
+    .gallery-photo-title h3 { font-size: 14px; }
+    .gallery-photo-description, .gallery-credit { font-size: 9px; }
+    .gallery-day-link { display: none; }
+  }
+</style>

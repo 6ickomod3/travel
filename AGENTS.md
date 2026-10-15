@@ -42,6 +42,10 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   schedules, accommodation, and other itinerary details on the trip pages.
 - Show useful information: dates, routes, schedules, transport, accommodation,
   booking states, walking details, and official sources.
+- Important sights may have concise factual introductions in their relevant
+  days. Keep trip photos together in a manual gallery at the top of the trip
+  page, with swiping, keyboard controls, and direct links from sight cards.
+  Use real photos of the named places and keep image licenses visible.
 - When costs are provided, put Costs at the end of the trip page. Show known
   booking amounts, estimated extra charges, and missing prices clearly.
 - Put a trip's pending checklist before flights, routes, and daily schedules.
@@ -128,6 +132,12 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   Keep shared booklet, collection, and registration guidance in `stampGuide`.
 - Source disclosures stay closed when expanding all days. Reveal a source's
   ancestor disclosures when following its direct fragment link.
+- Optional `gallery` stores photo IDs, local images, captions, and related day
+  or alternative links. `sights` stores introductions and photo/source IDs;
+  days and alternatives refer to them with `sightIds`. Keep optional sights
+  in their labeled alternative, and do not infer a new visit from a photo.
+- Keep galleries out of homepage previews. Load the first gallery photo with
+  priority, lazy-load later images, and avoid automatic slide rotation.
 
 ## Source submissions
 

@@ -10,6 +10,8 @@ import TripCosts from './TripCosts.astro';
 import TripReferences from './TripReferences.astro';
 import TripStamps from './TripStamps.astro';
 import TripStampGuide from './TripStampGuide.astro';
+import TripGallery from './TripGallery.astro';
+import TripSights from './TripSights.astro';
 import { tripCollection, type Trip, type TripDestination, type TripStay } from '../data/trips';
 import { durationDays, formatDateRange, formatDate } from '../lib/trips';
 import { withBase } from '../lib/urls';
@@ -47,6 +49,12 @@ const bookingWindows = trip.bookingWindows ?? [];
 const checklist = trip.checklist ?? [];
 const practicalNotes = trip.practicalNotes ?? [];
 const sources = trip.sources ?? [];
+const gallery = trip.gallery ?? [];
+const sights = trip.sights ?? [];
+const sightsFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
+  const sight = sights.find(item => item.id === id);
+  return sight ? [sight] : [];
+});
 const getSourceById = (id: string) => sources.find(source => source.id === id);
 const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
   const source = getSourceById(id);
@@ -78,11 +86,14 @@ const heroCredit = getLicensedImageCredit(trip.cover);
       <span>{trip.country} {trip.startDate.slice(0, 4)}</span>
     </div>
 
-    <section class="trip-hero container" aria-labelledby="trip-title">
+    <section class:list={['trip-hero', 'container', { 'trip-hero-with-gallery': gallery.length > 0 }]} aria-labelledby="trip-title">
       <div class="trip-hero-copy">
-        <p class="eyebrow"><span class="tiny-star" aria-hidden="true">✳</span> {text('旅行', 'TRIP')} {chapter} / {trip.country.toUpperCase()}</p>
-        <h1 id="trip-title">{titleParts.map((part, index) => <>{index > 0 && <wbr />}<span class="trip-title-part">{part}</span></>)}</h1>
-        <p>{trip.summary}</p>
+        <div class="trip-hero-heading">
+          <p class="eyebrow"><span class="tiny-star" aria-hidden="true">✳</span> {text('旅行', 'TRIP')} {chapter} / {trip.country.toUpperCase()}</p>
+          <h1 id="trip-title">{titleParts.map((part, index) => <>{index > 0 && <wbr />}<span class="trip-title-part">{part}</span></>)}</h1>
+          <p class="trip-summary">{trip.summary}</p>
+        </div>
+        <div class="trip-hero-details">
         <div class="trip-facts">
           <span><Icon name="calendar" size={16} /> {dateRange}</span>
           <span><Icon name="sun" size={16} /> {durationDays(trip)} {text('天', 'days')}{totalNights > 0 && <> · {totalNights} {text('晚', 'nights')}</>}</span>
@@ -93,8 +104,9 @@ const heroCredit = getLicensedImageCredit(trip.cover);
           <a class="button button-primary" href={checklist.length > 0 ? '#checklist' : '#itinerary'}>{checklist.length > 0 ? text('查看待办与待确认', 'View to do and to check') : text('查看每日行程', 'View itinerary')} <Icon name="arrow-down" size={16} /></a>
           <button class="button button-secondary" type="button" data-print-trip><Icon name="download" size={15} /> {text('打印行程', 'Print itinerary')}</button>
         </div>
+        </div>
       </div>
-      <figure class="trip-hero-figure">
+      {gallery.length > 0 ? <TripGallery photos={gallery} locale={locale} /> : <figure class="trip-hero-figure">
         <div class="trip-hero-image">
           <img src={withBase(trip.cover)} alt={trip.coverAlt} width={heroImage?.width ?? 1800} height={heroImage?.height ?? 1200} style={`object-position: ${heroImage?.objectPosition ?? '50% 50%'}`} fetchpriority="high" />
           <span class="trip-image-caption">{trip.country}</span>
@@ -102,7 +114,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
         <figcaption class="trip-photo-credits">
           {heroCredit ? <><span>{text('主图：', 'Cover photo: ')}</span><a href={heroCredit.source} target="_blank" rel="noopener noreferrer">{heroCredit.author ?? text('照片原页', 'Original photo')}</a><span aria-hidden="true"> · </span><a href={heroCredit.licenseUrl} target="_blank" rel="noopener noreferrer">{heroCredit.license}</a>{heroCredit.changes && <span class="photo-changes">{text(heroCredit.changes, 'Resized and converted to WebP; no crop saved.')}</span>}</> : <><span>{text('主图：', 'Cover photo: ')}{photoCredit}</span>{heroImage && <><span aria-hidden="true"> · </span><a href={withBase(heroImage.creditsPath)} target="_blank" rel="noopener noreferrer">{text('照片来源与授权', 'Photo sources and licenses')}</a></>}</>}
         </figcaption>
-      </figure>
+      </figure>}
     </section>
 
     <nav class="trip-subnav" aria-label={text('行程章节', 'Trip sections')}>
@@ -190,7 +202,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
       <div class="itinerary-list">
         {trip.days.map((day, index) => {
           const overnight = stayById(day.overnightId);
-          return <details class="itinerary-day" open={index === 0}>
+          return <details class="itinerary-day" id={`day-${day.date}`} open={index === 0}>
             <summary>
               <span class="day-index">{text('第', 'DAY ')}{String(dayNumber(day.date)).padStart(2, '0')}{isZh && '天'}</span>
               <span class="day-date"><time datetime={day.date}>{date(day.date)}</time><small>{date(day.date, { weekday: 'short', month: undefined, day: undefined })}</small></span>
@@ -207,6 +219,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
                   </div>
                 </li>)}
               </ol> : day.ideas.length > 0 && <><span class="day-ideas-title">{text('备选活动', 'SUGGESTED ACTIVITIES')} · {cityName(day.destinationId).toUpperCase()}</span><ul class="day-ideas">{day.ideas.map(idea => <li>{idea}</li>)}</ul></>}
+              <TripSights sights={sightsFor(day.sightIds)} photos={gallery} sources={sources} id={`day-${day.date}`} locale={locale} />
               {day.hike && <aside class="hike-card" aria-label={text('当天徒步信息', 'Walking information')}>
                 <p class="hike-route"><Icon name="compass" size={18} /> {day.hike.route}</p>
                 <dl class="hike-facts"><div><dt>{text('徒步距离', 'Distance')}</dt><dd>{text('约', 'About ')}{number(day.hike.distanceKm)} {text('公里', 'km')}</dd></div><div><dt>{text('官方参考', 'Official estimate')}</dt><dd>{day.hike.duration}</dd></div>{day.hike.ascentM !== undefined && <div><dt>{text('累计爬升', 'Total ascent')}</dt><dd>{text('约', 'About ')}{number(day.hike.ascentM)} {text('米', 'm')}</dd></div>}</dl>
@@ -224,6 +237,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
                       <span class="timeline-time">{item.time}</span>
                       <div class="timeline-copy"><p class="timeline-title">{item.title}{item.optional && <span class="timeline-optional">{text('可选', 'Optional')}</span>}</p>{item.description && <p class="timeline-description">{item.description}</p>}<TripReferences sources={sourcesFor(item.sourceIds)} locale={locale} /></div>
                     </li>)}</ol>
+                    <TripSights sights={sightsFor(alternative.sightIds)} photos={gallery} sources={sources} id={`alternative-${day.date}-${alternative.id}`} locale={locale} />
                     {alternative.notes.length > 0 && <aside class="day-important-notes"><p class="day-note-label">{text('此方案提醒', 'Alternative reminders')}</p><ul>{alternative.notes.map(note => <li>{note}</li>)}</ul></aside>}
                     <TripReferences sources={sourcesFor(alternative.sourceIds)} locale={locale} />
                   </div>
@@ -255,6 +269,14 @@ const heroCredit = getLicensedImageCredit(trip.cover);
 </script>
 
 <style>
+  .trip-hero-heading, .trip-hero-details { min-width: 0; }
+  .trip-summary { max-width: 435px; margin-top: 22px; color: var(--ink-soft); font-size: 13px; line-height: 1.9; }
+  .trip-hero-with-gallery { grid-template-columns: minmax(0, 1fr); gap: 30px; padding-bottom: 36px; }
+  .trip-hero-with-gallery .trip-hero-copy { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .9fr); align-items: end; gap: 40px 64px; }
+  .trip-hero-with-gallery .trip-hero-copy h1 { font-size: clamp(48px, 5.5vw, 76px); line-height: 1.2; }
+  .trip-hero-with-gallery .trip-summary { max-width: 650px; margin-top: 17px; }
+  .trip-hero-with-gallery .trip-facts { margin-top: 0; gap: 12px 20px; }
+  .trip-hero-with-gallery .trip-hero-actions { margin-top: 20px; }
   .trip-title-part { display: inline-block; max-width: 100%; }
   .trip-hero-actions { flex-wrap: wrap; }
   .trip-hero-figure { min-width: 0; margin: 0; }
@@ -342,12 +364,19 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     .timeline-entry { grid-template-columns: 96px minmax(0, 1fr); gap: 17px; }
   }
   @media (max-width: 800px) {
+    .trip-hero-with-gallery .trip-hero-copy { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+    .trip-hero-with-gallery .trip-hero-copy h1 { font-size: 57px; }
+    .trip-summary { font-size: 11px; }
     .rich-subnav-links { gap: 20px; }
     .stay-summary > span:last-child { width: 100%; margin-left: 0; }
     .day-content.has-schedule { padding: 0 0 24px; }
     .trip-stays-section, .trip-preparations-section, .trip-sources-section { padding-block: 48px; }
   }
   @media (max-width: 600px) {
+    .trip-hero-with-gallery { gap: 24px; padding-bottom: 27px; }
+    .trip-hero-with-gallery .trip-hero-copy h1 { font-size: 45px; }
+    .trip-hero-with-gallery .trip-summary { margin-top: 14px; }
+    .trip-summary { margin-top: 19px; font-size: 12px; }
     .rich-subnav-links { gap: 20px; }
     .stay-grid { grid-template-columns: 1fr; gap: 17px; }
     .stay-card { padding: 21px; }
@@ -373,6 +402,8 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     .trip-stays-section, .trip-preparations-section, .trip-sources-section { padding-block: 44px; }
   }
   @media print {
+    .trip-hero-with-gallery .trip-hero-copy { display: block; }
+    .trip-hero-with-gallery .trip-hero-copy h1 { font-size: 38px; }
     .day-alternative::details-content { content-visibility: visible; }
     .trip-stays-section, .trip-preparations-section, .trip-sources-section { padding-block: 20px; border: 0; }
     .stay-summary { margin-bottom: 12px; padding: 10px 13px; }

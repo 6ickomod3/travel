@@ -60,6 +60,11 @@ src/data/
   Research references use disclosures that start closed throughout trip
   pages. They open for printing and restore afterward; map and image
   attribution remains visible beside its content.
+  Optional `gallery` stores the trip's top photo sequence and related day or
+  alternative links. `sights` stores concise factual introductions, source
+  references, and photo IDs. Each day's or alternative's `sightIds` selects
+  its introduction cards. A photo does not establish a planned or completed
+  visit; preserve optional-route labels and existing schedules.
 - `inputs/` contains the publishable source submissions. Store each separately
   as `YYYY-MM-DD-NN-topic.md` or `.txt`; use the archive date and a two-digit
   sequence within that day. Preserve original wording, links, formatting,
@@ -72,6 +77,9 @@ src/data/
   attribution metadata. Keep unused retained images in its `archive/` folder.
   Metadata filenames are relative to their own `credits.json`; the shared
   resolver converts them to full public paths to avoid filename collisions.
+  Use real photos of the named sights, record author, source, license,
+  dimensions and any changes, and keep required credit links visible in the
+  gallery. Optimize local images rather than introducing paid image APIs.
 - Shared illustrations and font attribution belong in
   `public/images/shared/credits.json`. Font files remain in `public/fonts/`.
 - `src/data/types.ts` defines shared content types. `src/data/trips.ts` is a

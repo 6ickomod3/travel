@@ -9,6 +9,31 @@ export interface TripDestination {
   englishName?: string;
 }
 
+export interface TripGalleryPhoto {
+  id: string;
+  image: string;
+  alt: string;
+  title: string;
+  caption?: string;
+  /** Link to the related local itinerary day without adding a planned visit. */
+  dayDate?: string;
+  /** Optional variant ID within dayDate, used only for a labeled alternative. */
+  alternativeId?: string;
+  optional?: boolean;
+  objectPosition?: string;
+}
+
+export interface TripSight {
+  id: string;
+  name: string;
+  introduction: string;
+  /** References to photos in the trip's gallery; image credits stay with assets. */
+  photoIds: string[];
+  sourceIds?: string[];
+  optional?: boolean;
+  visitNote?: string;
+}
+
 export interface TripScheduleItem {
   time: string;
   title: string;
@@ -24,6 +49,7 @@ export interface TripDayAlternative {
   schedule: TripScheduleItem[];
   notes: string[];
   sourceIds?: string[];
+  sightIds?: string[];
 }
 
 export interface TripStampCollection {
@@ -66,6 +92,8 @@ export interface TripDay {
   alternatives?: TripDayAlternative[];
   /** Planned stamp stops, distinct from completed or qualifying pilgrimages. */
   stamps?: TripStampCollection;
+  /** Sight introductions for this day; optional visits remain explicitly labeled. */
+  sightIds?: string[];
   hike?: {
     distanceKm: number;
     duration: string;
@@ -192,6 +220,8 @@ export interface Trip {
   bookingWindows?: TripBookingWindow[];
   checklist?: TripChecklistItem[];
   sources?: TripSource[];
+  gallery?: TripGalleryPhoto[];
+  sights?: TripSight[];
   practicalNotes?: string[];
   stampGuide?: TripStampGuide;
   walkingSummary?: { distanceKm: number; days: number };

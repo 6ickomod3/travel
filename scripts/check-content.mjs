@@ -94,6 +94,8 @@ for (const folder of folders) {
   const destinations = uniqueIds(trip.destinations, `${folder} destinations`);
   const sources = uniqueIds(trip.sources ?? [], `${folder} sources`);
   const stays = uniqueIds(trip.stays ?? [], `${folder} stays`);
+  const photos = uniqueIds(trip.gallery ?? [], `${folder} gallery photos`);
+  const sights = uniqueIds(trip.sights ?? [], `${folder} sights`);
   uniqueIds(trip.checklist ?? [], `${folder} checklist`);
   uniqueIds(trip.flights ?? [], `${folder} flights`);
   uniqueIds(trip.ticketOptions ?? [], `${folder} ticket options`);
@@ -105,6 +107,9 @@ for (const folder of folders) {
   const checkSources = (ids, label) => {
     for (const id of ids ?? []) assert.ok(sources.has(id), `${label}: unknown source ${id}`);
   };
+  const checkSights = (ids, label) => {
+    for (const id of ids ?? []) assert.ok(sights.has(id), `${label}: unknown sight ${id}`);
+  };
   const dates = new Set();
   for (const day of trip.days) {
     const date = calendarDate(day.date, `${folder} day`);
@@ -114,6 +119,7 @@ for (const folder of folders) {
     assert.ok(destinations.has(day.destinationId), `${folder}/${date}: unknown destination ${day.destinationId}`);
     if (day.overnightId) assert.ok(stays.has(day.overnightId), `${folder}/${date}: unknown stay ${day.overnightId}`);
     checkSources(day.sourceIds, `${folder}/${date}`);
+    checkSights(day.sightIds, `${folder}/${date}`);
     if (day.stamps) {
       assert.ok(day.stamps.title && day.stamps.stops.length, `${folder}/${date}: name the stamp collection and add its stops`);
       for (const stop of day.stamps.stops) {
@@ -127,8 +133,29 @@ for (const folder of folders) {
     for (const alternative of day.alternatives ?? []) {
       assert.ok(alternative.title && alternative.description && alternative.schedule.length, `${folder}/${date}/${alternative.id}: complete the separate alternative plan`);
       checkSources(alternative.sourceIds, `${folder}/${date}/${alternative.id}`);
+      checkSights(alternative.sightIds, `${folder}/${date}/${alternative.id}`);
       for (const item of alternative.schedule) checkSources(item.sourceIds, `${folder}/${date}/${alternative.id} schedule`);
     }
+  }
+  for (const photo of trip.gallery ?? []) {
+    assert.match(photo.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `${folder}/${photo.id}: use a gallery fragment ID`);
+    publicFile(photo.image, `${folder}/${photo.id}`);
+    assert.ok(imageCredits.has(photo.image), `${folder}/${photo.id}: add image credit metadata`);
+    assert.ok(photo.title && photo.alt, `${folder}/${photo.id}: add a photo title and description`);
+    if (photo.dayDate) {
+      calendarDate(photo.dayDate, `${folder}/${photo.id} day`);
+      assert.ok(dates.has(photo.dayDate), `${folder}/${photo.id}: unknown itinerary day`);
+    }
+    if (photo.alternativeId) {
+      const day = trip.days.find(item => item.date === photo.dayDate);
+      assert.ok(day?.alternatives?.some(item => item.id === photo.alternativeId), `${folder}/${photo.id}: unknown day alternative`);
+      assert.equal(photo.optional, true, `${folder}/${photo.id}: label an alternative photo as optional`);
+    }
+  }
+  for (const sight of trip.sights ?? []) {
+    assert.ok(sight.name && sight.introduction && sight.photoIds.length, `${folder}/${sight.id}: add a sight introduction and photos`);
+    for (const id of sight.photoIds) assert.ok(photos.has(id), `${folder}/${sight.id}: unknown gallery photo ${id}`);
+    checkSources(sight.sourceIds, `${folder}/${sight.id} introduction`);
   }
   if (trip.stampGuide) {
     assert.ok(trip.stampGuide.title && trip.stampGuide.sections.length, `${folder}: name the stamp guide and add its sections`);

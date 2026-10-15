@@ -125,7 +125,7 @@ button:disabled { cursor: default; opacity: .5; }
 .trip-hero { display: grid; grid-template-columns: 1fr .85fr; gap: 50px; align-items: center; padding-block: 32px 54px; }
 .trip-hero-copy h1 { font-family: var(--serif); font-size: clamp(65px, 7vw, 95px); line-height: 1.01; letter-spacing: -1.5px; margin-top: 22px; }
 .trip-hero-copy h1 em { color: var(--accent-deep); }
-.trip-hero-copy > p:not(.eyebrow) { font-size: 13px; color: var(--ink-soft); max-width: 435px; line-height: 1.9; margin-top: 22px; }
+.trip-hero-copy .trip-summary { font-size: 13px; color: var(--ink-soft); max-width: 435px; line-height: 1.9; margin-top: 22px; }
 .trip-hero-image { position: relative; height: 350px; border-radius: 5px 65px 5px 5px; overflow: hidden; }
 .trip-hero-image img { width: 100%; height: 100%; object-fit: cover; }
 .trip-hero-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 60%, #13251e69); pointer-events: none; }
@@ -194,7 +194,7 @@ button:disabled { cursor: default; opacity: .5; }
 .travel-map:lang(zh-CN) .map-top-label { font-size: 11px; }
 .travel-map:lang(zh-CN) .map-hint { font-size: 11px; }
 .trip-page-zh .trip-hero-copy h1 { font-size: clamp(52px, 5.4vw, 76px); line-height: 1.3; letter-spacing: .025em; }
-.trip-page-zh .trip-hero-copy > p:not(.eyebrow) { font-size: 14px; line-height: 2; }
+.trip-page-zh .trip-hero-copy .trip-summary { font-size: 14px; line-height: 2; }
 .trip-page-zh .eyebrow { font-size: 11px; letter-spacing: .12em; }
 .trip-page-zh .section-heading h2 { font-size: clamp(31px, 3vw, 41px); line-height: 1.5; letter-spacing: .015em; }
 .trip-page-zh .section-intro { font-size: 12px; line-height: 1.9; }
@@ -255,7 +255,7 @@ button:disabled { cursor: default; opacity: .5; }
   .map-hint { left: 13px; right: 13px; max-width: calc(100% - 26px); font-size: 8px; }
   .trip-hero { grid-template-columns: 1fr .8fr; gap: 25px; }
   .trip-hero-copy h1 { font-size: 65px; }
-  .trip-hero-copy > p:not(.eyebrow) { font-size: 11px; }
+  .trip-hero-copy .trip-summary { font-size: 11px; }
   .trip-hero-image { height: 345px; }
   .trip-hero-actions .button { padding-inline: 15px; font-size: 10px; }
   .trip-facts { gap: 12px; font-size: 9px; }
@@ -292,7 +292,7 @@ button:disabled { cursor: default; opacity: .5; }
   .trip-breadcrumb { padding-top: 19px; font-size: 9px; }
   .trip-hero { grid-template-columns: 1fr; padding-block: 22px 34px; gap: 28px; }
   .trip-hero-copy h1 { font-size: 73px; margin-top: 18px; }
-  .trip-hero-copy > p:not(.eyebrow) { font-size: 12px; margin-top: 19px; }
+  .trip-hero-copy .trip-summary { font-size: 12px; margin-top: 19px; }
   .trip-facts { font-size: 10px; gap: 14px; margin-top: 23px; }
   .trip-hero-actions { margin-top: 23px; }
   .trip-hero-actions .button { font-size: 10px; min-height: 43px; padding-inline: 17px; gap: 10px; }

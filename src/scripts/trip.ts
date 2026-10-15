@@ -32,11 +32,11 @@ window.addEventListener('afterprint', () => {
 });
 document.querySelector('[data-print-trip]')?.addEventListener('click', () => window.print());
 
-function revealSourceFragment() {
+function revealTripFragment() {
   let id: string;
   try { id = decodeURIComponent(window.location.hash.slice(1)); }
   catch { return; }
-  if (!id.startsWith('source-')) return;
+  if (!id.startsWith('source-') && !id.startsWith('day-') && !id.startsWith('alternative-')) return;
   const target = document.getElementById(id);
   if (!target) return;
   for (let ancestor: Element | null = target; ancestor; ancestor = ancestor.parentElement) {
@@ -45,13 +45,13 @@ function revealSourceFragment() {
   target.scrollIntoView({ block: 'start', behavior: 'instant' });
   syncExpandButton();
 }
-window.addEventListener('hashchange', revealSourceFragment);
+window.addEventListener('hashchange', revealTripFragment);
 document.addEventListener('click', event => {
   if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
   const anchor = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href]') : null;
   if (!anchor || (anchor.target && anchor.target !== '_self') || anchor.hasAttribute('download')) return;
   const url = new URL(anchor.href);
-  if (url.origin === window.location.origin && url.pathname === window.location.pathname && url.search === window.location.search && url.hash === window.location.hash) revealSourceFragment();
+  if (url.origin === window.location.origin && url.pathname === window.location.pathname && url.search === window.location.search && url.hash === window.location.hash) revealTripFragment();
 });
-revealSourceFragment();
+revealTripFragment();
 syncExpandButton();

@@ -15,6 +15,254 @@ export default {
   "cover": "/images/trips/japan-2026/miyajima.webp",
   "coverAlt": "夕光下的宫岛严岛神社大鸟居，倒映在海水中。",
   "coverCredit": "图片：Jakub Hałun / Wikimedia Commons / CC BY 4.0",
+  "gallery": [
+    {
+      "id": "miyajima",
+      "image": "/images/trips/japan-2026/miyajima.webp",
+      "alt": "夕光下的宫岛严岛神社大鸟居，倒映在海水中。",
+      "title": "严岛神社与大鸟居",
+      "caption": "涨潮时的大鸟居与海面倒影。",
+      "dayDate": "2026-11-15"
+    },
+    {
+      "id": "hiroshima-dome",
+      "image": "/images/trips/japan-2026/hiroshima-dome.webp",
+      "alt": "广岛原爆圆顶馆的残存外墙与钢架圆顶，旁边树叶渐黄。",
+      "title": "原爆圆顶馆",
+      "caption": "广岛和平纪念公园内的建筑遗迹。",
+      "objectPosition": "45% 15%",
+      "dayDate": "2026-11-14"
+    },
+    {
+      "id": "misen",
+      "image": "/images/trips/japan-2026/misen.webp",
+      "alt": "从宫岛弥山眺望濑户内海，海面上散布着岛屿，前景是山林。",
+      "title": "弥山",
+      "caption": "从弥山眺望濑户内海的岛屿；登顶为可选。",
+      "dayDate": "2026-11-15"
+    },
+    {
+      "id": "daishoin",
+      "image": "/images/trips/japan-2026/daishoin.webp",
+      "alt": "宫岛大圣院的楼阁与灰瓦屋顶，周围树木间有红叶。",
+      "title": "大圣院",
+      "caption": "寺院楼阁、灰瓦屋顶与秋季树叶。",
+      "objectPosition": "40% 15%",
+      "dayDate": "2026-11-15"
+    },
+    {
+      "id": "kumano",
+      "image": "/images/trips/japan-2026/kumano.webp",
+      "alt": "熊野古道中边路的林间路标，指向近露王子和牛马童子像。",
+      "title": "熊野古道中边路",
+      "caption": "近露附近的林间路标，指向王子遗迹与牛马童子像。",
+      "dayDate": "2026-11-17"
+    },
+    {
+      "id": "kumano-hongu",
+      "image": "/images/trips/japan-2026/kumano-hongu.webp",
+      "alt": "熊野本宫大社的木造社殿与檜皮葺屋顶，背后是茂密树林。",
+      "title": "熊野本宫大社",
+      "caption": "树林环绕的木造社殿与桧皮葺屋顶。",
+      "dayDate": "2026-11-18"
+    },
+    {
+      "id": "oyunohara",
+      "image": "/images/trips/japan-2026/oyunohara.webp",
+      "alt": "大斋原参道穿过稻田，尽头是熊野本宫大社旧社地的巨大鸟居。",
+      "title": "大斋原",
+      "caption": "通往本宫旧社地的参道与大鸟居。",
+      "dayDate": "2026-11-18"
+    },
+    {
+      "id": "nachi-falls",
+      "image": "/images/trips/japan-2026/nachi-falls.webp",
+      "alt": "青岸渡寺的朱红三重塔与背后的那智瀑布，四周是熊野山林。",
+      "title": "那智瀑布与青岸渡寺",
+      "caption": "青岸渡寺三重塔与那智瀑布同框。",
+      "objectPosition": "30% 35%",
+      "dayDate": "2026-11-19"
+    },
+    {
+      "id": "hayatama",
+      "image": "/images/trips/japan-2026/hayatama-taisha.webp",
+      "alt": "新宫熊野速玉大社境内的朱红建筑与树木。",
+      "title": "熊野速玉大社",
+      "caption": "新宫市内的神社境内；仅属06:54早班备选。",
+      "dayDate": "2026-11-19",
+      "alternativeId": "hayatama-daimonzaka",
+      "optional": true
+    },
+    {
+      "id": "todai-ji",
+      "image": "/images/trips/japan-2026/todai-ji.webp",
+      "alt": "奈良东大寺大佛殿的正面，巨大的木造屋顶与草地映在蓝天下。",
+      "title": "东大寺",
+      "caption": "东大寺大佛殿外观。",
+      "dayDate": "2026-11-20"
+    },
+    {
+      "id": "kasuga-taisha",
+      "image": "/images/trips/japan-2026/kasuga-taisha.webp",
+      "alt": "春日大社朱红回廊内成排悬挂的青铜灯笼。",
+      "title": "春日大社",
+      "caption": "朱红回廊中悬挂的青铜灯笼。",
+      "dayDate": "2026-11-20"
+    },
+    {
+      "id": "nara-park",
+      "image": "/images/trips/japan-2026/nara-park.webp",
+      "alt": "奈良公园里，两只鹿在红叶下的溪水中饮水。",
+      "title": "奈良公园",
+      "caption": "秋季红叶下，在溪水中饮水的鹿。",
+      "dayDate": "2026-11-20"
+    }
+  ],
+  "sights": [
+    {
+      "id": "hiroshima-peace-memorials",
+      "name": "和平纪念公园、原爆圆顶馆与资料馆",
+      "introduction": "和平纪念公园建在原爆爆心地附近，设有慰灵碑等纪念设施。原爆圆顶馆是1945年原爆留下的遗址，资料馆通过遗物、照片和幸存者证言展示原爆及其影响。可重点查看个人遗物及其说明，了解原爆如何影响市民的生活。",
+      "photoIds": [
+        "hiroshima-dome"
+      ],
+      "sourceIds": [
+        "hiroshima-peace-park-introduction",
+        "peace-museum-introduction"
+      ]
+    },
+    {
+      "id": "itsukushima-shrine",
+      "name": "严岛神社与大鸟居",
+      "introduction": "严岛神社建在潮间带，朱红回廊与海中大鸟居共同构成参拜空间。现有社殿布局延续平清盛时代的营造形式，大鸟居则为1875年重建。可留意鸟居与回廊的相对位置，以及木地板缝隙为应对潮水而留下的结构。",
+      "photoIds": [
+        "miyajima"
+      ],
+      "sourceIds": [
+        "itsukushima-introduction",
+        "itsukushima-torii-introduction"
+      ]
+    },
+    {
+      "id": "misen",
+      "name": "弥山与狮子岩",
+      "introduction": "弥山原始林保留暖地植物、温带针叶树与多种古老植物类型。山上分布弥山本堂等修行遗迹，展望点可眺望濑户内海及周围岛屿。可留意自然植被与堂宇的分布，区分缆车终点狮子岩与真正的弥山山顶。",
+      "photoIds": [
+        "misen"
+      ],
+      "sourceIds": [
+        "misen-introduction",
+        "misen-ropeway-course"
+      ],
+      "visitNote": "以缆车及狮子岩一带为主；真正山顶按体力、排队与时间再决定。"
+    },
+    {
+      "id": "daishoin",
+      "name": "大圣院",
+      "introduction": "大圣院是真言宗御室派寺院，相传由空海于806年开创。明治维新以前，它负责严岛神社的佛教法会和祭事。院内有观音堂、敕愿堂与摩尼殿，各殿供奉不同本尊，可从殿堂与佛像了解宫岛长期相连的神佛信仰。",
+      "photoIds": [
+        "daishoin"
+      ],
+      "sourceIds": [
+        "daishoin-introduction"
+      ]
+    },
+    {
+      "id": "nakahechi",
+      "name": "熊野古道中边路",
+      "introduction": "中边路是连接熊野三山的主要古道，拥有千余年朝圣历史，也曾是皇族前往熊野的参拜路线。泷尻至近露一段经过森林、高原聚落和多个王子遗迹，沿路可留意古道路标和祭祀点，了解参拜路线如何连接山地村落。",
+      "photoIds": [
+        "kumano"
+      ],
+      "sourceIds": [
+        "nakahechi-introduction",
+        "takijiri-chikatsuyu"
+      ]
+    },
+    {
+      "id": "hongu-taisha",
+      "name": "熊野本宫大社",
+      "introduction": "熊野本宫大社是熊野三山之一，现址位于杉树与桧树林环绕的高地。1889年洪水后，幸存社殿从大斋原迁到这里。可留意素木社殿、桧皮覆盖的屋顶，以及屋脊上交叉的千木和横置的鲣木。",
+      "photoIds": [
+        "kumano-hongu"
+      ],
+      "sourceIds": [
+        "hongu-taisha-introduction"
+      ]
+    },
+    {
+      "id": "oyunohara",
+      "name": "大斋原",
+      "introduction": "大斋原是熊野本宫大社的旧址，原在熊野川与音无川汇流处的河洲上。1889年洪水后，主要社殿迁往现址，旧地仍留下高起的土台和祭祀遗迹。入口大鸟居高33.9米，重点可看鸟居尺度与旧神社基址。",
+      "photoIds": [
+        "oyunohara"
+      ],
+      "sourceIds": [
+        "hongu-taisha-introduction"
+      ]
+    },
+    {
+      "id": "nachi-shrines-falls",
+      "name": "那智大社、青岸渡寺与那智瀑布",
+      "introduction": "那智大社是熊野三山之一，信仰起源与那智瀑布的自然崇拜有关。邻近的青岸渡寺属于天台宗，两处社寺反映神道与佛教长期相连的传统。可观察社寺与133米瀑布形成的山地布局，理解这里为何成为参拜目的地。",
+      "photoIds": [
+        "nachi-falls"
+      ],
+      "sourceIds": [
+        "nachi-taisha-introduction"
+      ]
+    },
+    {
+      "id": "hayatama-taisha",
+      "name": "熊野速玉大社",
+      "introduction": "熊野速玉大社位于新宫、靠近熊野川河口，是熊野三山之一。境内约800年的梛树被视为神木，是熊野自然信仰的重要对象。可留意神木、社殿与参拜空间的布局，观察神社和河流、树木等自然要素的关系。",
+      "photoIds": [
+        "hayatama"
+      ],
+      "sourceIds": [
+        "hayatama-taisha-introduction"
+      ],
+      "optional": true,
+      "visitNote": "仅选择06:54速玉早班备选时参拜；08:39默认版不去。"
+    },
+    {
+      "id": "todai-ji",
+      "name": "东大寺",
+      "introduction": "东大寺是奈良时代国家佛寺体系中的中心寺院，752年举行大佛开眼供养。大佛殿多次因战火重建，现存殿堂落成于1709年。可重点观察巨大佛像与木结构殿堂的尺度，以及南大门和二月堂所保存的建筑传统。",
+      "photoIds": [
+        "todai-ji"
+      ],
+      "sourceIds": [
+        "todai-ji-introduction",
+        "todai-ji-daibutsuden"
+      ]
+    },
+    {
+      "id": "kasuga-taisha",
+      "name": "春日大社",
+      "introduction": "春日大社创建于768年，以朱红社殿、白墙和桧皮屋顶为特征，与春日山原始林共同构成古奈良文化遗产。参道石灯笼与回廊铜灯笼多由信众奉献，能看到长期累积的参拜传统。可留意灯笼的材质、形制和奉纳文字。",
+      "photoIds": [
+        "kasuga-taisha"
+      ],
+      "sourceIds": [
+        "kasuga-taisha-introduction"
+      ]
+    },
+    {
+      "id": "nara-park-kofukuji",
+      "name": "奈良公园与兴福寺",
+      "introduction": "奈良公园由寺社、草地与林地组成，鹿群是野生动物，也是受保护的天然纪念物。园内兴福寺与藤原氏历史密切相关，保存阿修罗像等奈良时代佛像。参观国宝馆时，可留意佛像的表情、姿态和雕刻细节。",
+      "photoIds": [
+        "nara-park"
+      ],
+      "sourceIds": [
+        "nara-park-introduction",
+        "nara-deer-introduction",
+        "kofukuji-introduction"
+      ],
+      "visitNote": "兴福寺国宝馆与中金堂择一重点参观；五重塔修缮期间外观不可保证。"
+    }
+  ],
   "routeSummary": [
     "大阪",
     "广岛 · 宫岛",
@@ -748,6 +996,91 @@ export default {
       "id": "kuroshio-36-reference",
       "label": "Kuroshio 36平日参考时刻（查询日期2026-10-21）",
       "url": "https://timetable.jr-odekake.net/train-timetable/144551?date=20261021"
+    },
+    {
+      "id": "hiroshima-peace-park-introduction",
+      "label": "广岛官方旅游：和平纪念公园",
+      "url": "https://dive-hiroshima.com/en/explore/2621/"
+    },
+    {
+      "id": "peace-museum-introduction",
+      "label": "广岛和平纪念资料馆：展览介绍",
+      "url": "https://hpmmuseum.jp/?lang=eng"
+    },
+    {
+      "id": "itsukushima-introduction",
+      "label": "宫岛观光协会：严岛神社",
+      "url": "https://www.miyajima.or.jp/sightseeing/ss_itsukushima.html"
+    },
+    {
+      "id": "itsukushima-torii-introduction",
+      "label": "宫岛观光协会：大鸟居",
+      "url": "https://www.miyajima.or.jp/sightseeing/ss_ootorii.html"
+    },
+    {
+      "id": "misen-introduction",
+      "label": "宫岛观光协会：弥山与原始林",
+      "url": "https://www.miyajima.or.jp/sightseeing/ss_misen.html"
+    },
+    {
+      "id": "misen-ropeway-course",
+      "label": "宫岛缆车：弥山步行路线",
+      "url": "https://miyajima-ropeway.info/course/"
+    },
+    {
+      "id": "daishoin-introduction",
+      "label": "宫岛观光协会：大圣院",
+      "url": "https://www.miyajima.or.jp/sightseeing/ss_daishoin.html"
+    },
+    {
+      "id": "nakahechi-introduction",
+      "label": "田边市熊野旅游局：中边路介绍",
+      "url": "https://www.tb-kumano.jp/en/kumano-kodo/nakahechi/"
+    },
+    {
+      "id": "hongu-taisha-introduction",
+      "label": "田边市熊野旅游局：熊野本宫大社与大斋原",
+      "url": "https://www.tb-kumano.jp/en/kumano-kodo/world-heritage/kumano-hongu-taisha/"
+    },
+    {
+      "id": "nachi-taisha-introduction",
+      "label": "田边市熊野旅游局：那智大社、青岸渡寺与瀑布",
+      "url": "https://www.tb-kumano.jp/en/kumano-kodo/world-heritage/kumano-nachi-taisha/"
+    },
+    {
+      "id": "hayatama-taisha-introduction",
+      "label": "田边市熊野旅游局：熊野速玉大社",
+      "url": "https://www.tb-kumano.jp/en/kumano-kodo/world-heritage/kumano-hayatama-taisha/"
+    },
+    {
+      "id": "todai-ji-introduction",
+      "label": "东大寺：历史",
+      "url": "https://www.todaiji.or.jp/en/history/"
+    },
+    {
+      "id": "todai-ji-daibutsuden",
+      "label": "东大寺：大佛殿",
+      "url": "https://www.todaiji.or.jp/en/information/daibutsuden/"
+    },
+    {
+      "id": "kasuga-taisha-introduction",
+      "label": "春日大社：历史与社殿",
+      "url": "https://www.kasugataisha.or.jp/en/about_en/"
+    },
+    {
+      "id": "nara-park-introduction",
+      "label": "奈良县：奈良公园概况",
+      "url": "https://www.pref.nara.lg.jp/site/park/1000.html"
+    },
+    {
+      "id": "nara-deer-introduction",
+      "label": "奈良县：奈良公园的鹿",
+      "url": "https://www.pref.nara.lg.jp/site/park/1003.html"
+    },
+    {
+      "id": "kofukuji-introduction",
+      "label": "奈良市观光协会：兴福寺",
+      "url": "https://narashikanko.or.jp/en/spot/detail_10029.html"
     }
   ],
   "practicalNotes": [
@@ -835,6 +1168,7 @@ export default {
     },
     {
       "date": "2026-11-14",
+      "sightIds": ["hiroshima-peace-memorials"],
       "destinationId": "hiroshima",
       "overnightId": "hiroshima",
       "type": "city",
@@ -923,6 +1257,7 @@ export default {
     },
     {
       "date": "2026-11-15",
+      "sightIds": ["misen","itsukushima-shrine","daishoin"],
       "destinationId": "miyajima",
       "overnightId": "hiroshima",
       "type": "excursion",
@@ -1123,6 +1458,7 @@ export default {
     },
     {
       "date": "2026-11-17",
+      "sightIds": ["nakahechi"],
       "destinationId": "kumano-kodo",
       "overnightId": "kumano-kodo",
       "type": "hike",
@@ -1248,6 +1584,7 @@ export default {
     },
     {
       "date": "2026-11-18",
+      "sightIds": ["hongu-taisha","oyunohara"],
       "destinationId": "kumano-kodo",
       "overnightId": "kawayu",
       "type": "hike",
@@ -1443,6 +1780,7 @@ export default {
     },
     {
       "date": "2026-11-19",
+      "sightIds": ["nachi-shrines-falls"],
       "destinationId": "nachi",
       "overnightId": "osaka",
       "type": "excursion",
@@ -1553,6 +1891,7 @@ export default {
       "alternatives": [
         {
           "id": "hayatama-daimonzaka",
+          "sightIds": ["hayatama-taisha"],
           "title": "可选加强版：速玉大社，大门坂可选",
           "description": "06:54早出发补熊野速玉大社参拜和第7章；大门坂步行按体力选择，和08:39默认版分开安排。",
           "schedule": [
@@ -1734,6 +2073,7 @@ export default {
     },
     {
       "date": "2026-11-20",
+      "sightIds": ["todai-ji","kasuga-taisha","nara-park-kofukuji"],
       "destinationId": "nara",
       "overnightId": "osaka",
       "type": "excursion",

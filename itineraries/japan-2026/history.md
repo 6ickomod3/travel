@@ -33,6 +33,11 @@
   proof and completed Kumano conditions. The optional Tanabe registration
   return changes only November 19's return journey; the default Kuroshio 30
   arrival in Osaka at 19:16 remains unchanged.
+- Important planned sights have concise factual introductions in their daily
+  sections. Keep all trip photos together in the manual top gallery, with
+  direct image links from sight cards and visible image attribution. These
+  additions do not change visits: the real Mount Misen summit remains
+  conditional, and Hayatama appears only in the early optional alternative.
 
 ## Source index
 
@@ -152,6 +157,61 @@
   Meals, transfer arrangements, and exact bus stops remain unresolved.
   No broader booking details were imported from the private original.
 
+### 2026-10-14-06-sight-introductions-gallery
+
+- Archived: October 14, 2026, using the user's America/Los_Angeles date.
+- Origin: the user's sight-introduction and swipe-gallery request in this
+  chat.
+- Original language: Simplified Chinese.
+- File: [inputs/2026-10-14-06-sight-introductions-gallery.txt](inputs/2026-10-14-06-sight-introductions-gallery.txt).
+  The one-line message is verbatim, with no heading, metadata, or added
+  newline (150 UTF-8 bytes).
+- SHA-256:
+  `a92da33b389d498d0e015481970883a12b801ed22bb98d897d1274a4a63a79ba`.
+- Applied: twelve concise sight introductions with official references,
+  related photo links in the appropriate days, and a manual top photo
+  gallery. Hiroshima's park, Dome, and museum share one card; Hongu and
+  Oyunohara have separate cards; Nachi's shrine, temple, and waterfall share
+  one card; Nara Park and Kofukuji share one card.
+- Scope: visual and explanatory content only. Existing dates, clock rows,
+  routes, flights, hotel details, booking states, costs, and pending tasks
+  remain unchanged. Misen's true summit remains conditional; Hayatama is
+  referenced only by the existing early optional alternative. No private
+  booking source was read or imported for this update.
+
+#### Official research for the introductions
+
+The following references were checked separately on October 14, 2026. They
+support the authored historical, architectural, and natural descriptions;
+they are not part of the user's raw request and do not verify future ticket
+availability or operating schedules. The structured plan's `sources` holds
+the website's official links, while photo credits retain their own sources
+and licenses.
+
+- Hiroshima: [official Peace Memorial Park guide](https://dive-hiroshima.com/en/explore/2621/)
+  (`hiroshima-peace-park-introduction`) and [Peace Memorial Museum](https://hpmmuseum.jp/?lang=eng)
+  (`peace-museum-introduction`).
+- Miyajima Tourism Association: [Itsukushima Shrine](https://www.miyajima.or.jp/sightseeing/ss_itsukushima.html)
+  (`itsukushima-introduction`), [Great Torii](https://www.miyajima.or.jp/sightseeing/ss_ootorii.html)
+  (`itsukushima-torii-introduction`), [Mount Misen and its forest](https://www.miyajima.or.jp/sightseeing/ss_misen.html)
+  (`misen-introduction`), and [Daishoin](https://www.miyajima.or.jp/sightseeing/ss_daishoin.html)
+  (`daishoin-introduction`); the [ropeway operator's walking courses](https://miyajima-ropeway.info/course/)
+  (`misen-ropeway-course`) distinguish the ropeway terminus from the summit.
+- Tanabe City Kumano Tourism Bureau: [Nakahechi](https://www.tb-kumano.jp/en/kumano-kodo/nakahechi/)
+  (`nakahechi-introduction`), [Hongu Taisha and Oyunohara](https://www.tb-kumano.jp/en/kumano-kodo/world-heritage/kumano-hongu-taisha/)
+  (`hongu-taisha-introduction`), [Nachi Taisha, Seigantoji, and the waterfall](https://www.tb-kumano.jp/en/kumano-kodo/world-heritage/kumano-nachi-taisha/)
+  (`nachi-taisha-introduction`), and [Hayatama Taisha](https://www.tb-kumano.jp/en/kumano-kodo/world-heritage/kumano-hayatama-taisha/)
+  (`hayatama-taisha-introduction`). The existing Takijiri-to-Chikatsuyu route
+  reference supports the planned Nakahechi segment.
+- Temple and shrine references: [Todai-ji history](https://www.todaiji.or.jp/en/history/)
+  (`todai-ji-introduction`), [Great Buddha Hall](https://www.todaiji.or.jp/en/information/daibutsuden/)
+  (`todai-ji-daibutsuden`), and [Kasuga Taisha history and architecture](https://www.kasugataisha.or.jp/en/about_en/)
+  (`kasuga-taisha-introduction`).
+- Nara: [prefectural park overview](https://www.pref.nara.lg.jp/site/park/1000.html)
+  (`nara-park-introduction`), [prefectural deer information](https://www.pref.nara.lg.jp/site/park/1003.html)
+  (`nara-deer-introduction`), and [Nara City Tourism Association's Kofukuji guide](https://narashikanko.or.jp/en/spot/detail_10029.html)
+  (`kofukuji-introduction`).
+
 ## Open information
 
 - Hiroshima's November 14–16 hotel booking and name still need confirmation.
@@ -199,3 +259,7 @@ when a source explicitly resolves or changes a decision.
   verbatim and recorded SEN RETREAT CHIKATSUYU and 川湯まつや as confirmed
   names. Existing booked states, dates, costs, and schedules remain intact;
   meal, transfer, and bus-stop confirmations are still pending.
+- October 14, 2026: archived the user's visual-content request verbatim and
+  documented the separately researched official references for twelve sight
+  introductions and a top swipe gallery. Preserved the existing daily plan,
+  Misen summit condition, and Hayatama's early-alternative-only status.
