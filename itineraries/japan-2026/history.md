@@ -528,6 +528,65 @@ and licenses.
   A full structured comparison confirmed that only `coverIntroduction`
   was added to the trip. Screenshots and reports remain outside the repository.
 
+### Daily Japanese epigraphs — October 16, 2026
+
+- Origin: the updated local Chinese itinerary and the user's chat request
+  for a daily-poem design, followed by explicit approval to implement it.
+  Archived the request and approval verbatim, without added newlines, in
+  [inputs/2026-10-16-04-daily-poems-plan.txt](inputs/2026-10-16-04-daily-poems-plan.txt)
+  (195 UTF-8 bytes; SHA-256
+  `b9481db7b35da07917af05ba8027b264b4aee3b645546f7f50d21a77101914f1`)
+  and [inputs/2026-10-16-05-daily-poems-approval.txt](inputs/2026-10-16-05-daily-poems-approval.txt)
+  (18 UTF-8 bytes; SHA-256
+  `f7b839c54b59774aeb60aaccd78288b1ef23d1af65e060452d97632540724cdd`).
+- Preserved the full updated working file unchanged in ignored private
+  storage at `.local/trips/japan-2026/inputs/2026-10-16-06-daily-poems.original.txt`
+  (71,650 bytes; SHA-256
+  `b78de30ba4c0ddb99b81ea995e9adcd8712d772921697ece4701c2e21e7a5876`).
+  The editable working copy remains ignored. The full document contains
+  unrelated booking material and is not authorized for public archiving.
+- Independently reviewed and archived only the requested poem triplets,
+  supplied epigraph introduction and chapter 11 literary sources/context in
+  [inputs/2026-10-16-06-daily-poems.md](inputs/2026-10-16-06-daily-poems.md)
+  (4,174 bytes; SHA-256
+  `77688e0584b22727fb2cc78394c9d333486f6e064b42c6e6d9c60e87964ddc99`).
+  This is a labeled scoped excerpt, not the full itinerary or booking document.
+- Applied: seven optional daily epigraphs for November 14–20, with the
+  exact Japanese wording, quotation marks, spaces and old kana retained.
+  The Chinese interpretations are supplied by the itinerary's author;
+  they are neither new assistant translations nor attributed published
+  translations. No poems were supplied for November 13 or 21.
+- Author, primary work and excerpt status remain visible. November 14–16
+  are excerpts; secondary numbering and compilation details stay in the
+  collapsed bibliography. November 16 identifies the compiler without
+  asserting authorship, and November 20 has no invented collection title.
+  Context retains November 15's borrowed shrine imagery and November 19's
+  original Minoh-waterfall association rather than claiming a Nachi origin.
+  Literary links are supplied references, not independently checked websites,
+  and remain local to each poem outside the official-source catalog.
+- Approved presentation: a compact Mincho epigraph after daily accommodation
+  and reminders, before the timetable; a smaller Chinese interpretation;
+  detailed sources and context collapsed by default. Focused date changes
+  use a brief opacity fade with reduced-motion support. Full-trip viewing
+  and printing include the poems and preserve prior disclosure states.
+  The initial implementation uses typography and existing system fonts.
+- Scope: daily epigraph content and reusable presentation/storage only.
+  Unrelated changes in the working TXT are not imported. The accepted cover,
+  all routes, timetables, bookings, costs, dining options, stamps, images and
+  pending items retain their existing values.
+- Verification: content validation and the production build passed with
+  zero diagnostics across 51 Astro files. Local production-preview checks
+  at 1280px and 320px confirmed all seven exact quotations/interpretations,
+  language tags, visible credits and excerpt flags, the agreed placement,
+  default-closed sources, native Mincho typography and no horizontal overflow.
+  Date focus, full-trip viewing, keyboard disclosures, Back/Forward,
+  reduced motion, all-poem printing and restored source/view state passed.
+  The native disclosure fallback works without scripts. No page errors or
+  missing local resources were found; screenshots and reports remain outside
+  the repository. An independent full structured comparison confirmed that
+  removing only `day.poem` restores every original field, including all
+  94 main timetable rows, 16 alternative rows and 91 official sources.
+
 ## Open information
 
 - For SEN RETREAT CHIKATSUYU and 川湯まつや, meals, early breakfast or packed
@@ -602,3 +661,7 @@ when a source explicitly resolves or changes a decision.
 - October 16, 2026: archived the supplied cover sentence, paired it with an
   authored Japanese translation and introduced optional bilingual cover
   presentation without changing the factual plan.
+- October 16, 2026: archived the daily-poem request and approval, preserved
+  the updated original privately, and added seven exact Japanese epigraphs
+  from a reviewed scoped excerpt with Chinese interpretations and attributed,
+  collapsed literary context before the daily timetable.

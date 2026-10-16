@@ -116,6 +116,22 @@ export interface TripDayMeal {
   sourceIds?: string[];
 }
 
+export interface TripDayPoem {
+  /** Preserve the supplied original wording, punctuation, spacing and line breaks. */
+  text: string;
+  language: string;
+  /** A supplied interpretation stays distinct from the quoted original. */
+  translation?: { text: string; language: string };
+  author?: string;
+  work?: string;
+  excerpt?: boolean;
+  /** Secondary bibliography and original-location context stay in a disclosure. */
+  attributionNote?: string;
+  context?: string;
+  /** Literary references belong to this epigraph, outside the official-source catalog. */
+  sources?: TripSource[];
+}
+
 export interface TripDay {
   /** Calendar date in YYYY-MM-DD format. */
   date: string;
@@ -135,6 +151,8 @@ export interface TripDay {
   sightIds?: string[];
   /** Meal alternatives shown after the day's existing plan, not schedule changes. */
   dining?: TripDayMeal[];
+  /** Requested daily epigraph displayed before the timetable without changing the plan. */
+  poem?: TripDayPoem;
   hike?: {
     distanceKm: number;
     duration: string;

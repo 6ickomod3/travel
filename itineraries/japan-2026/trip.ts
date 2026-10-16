@@ -1603,7 +1603,26 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      "poem": {
+        "text": "「くずれぬへいわを　へいわをかえせ」",
+        "language": "ja",
+        "translation": {
+          "text": "还我和平，永不崩塌的和平。",
+          "language": "zh-CN"
+        },
+        "author": "峠三吉",
+        "work": "原爆詩集·序",
+        "excerpt": true,
+        "context": "与和平纪念公园、资料馆相配。摘自《序》末尾，保留原文的祈求与呼喊。",
+        "sources": [
+          {
+            "id": "poem-2026-11-14",
+            "label": "峠三吉《原爆詩集·序》",
+            "url": "https://www.library.city.hiroshima.jp/touge/spot/index.html"
+          }
+        ]
+      }
     },
     {
       "date": "2026-11-15",
@@ -1779,7 +1798,27 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      "poem": {
+        "text": "「もみぢの錦　神のまにまに」",
+        "language": "ja",
+        "translation": {
+          "text": "以锦绣红叶奉于神前，任神意领受。",
+          "language": "zh-CN"
+        },
+        "author": "菅原道真（菅家）",
+        "work": "百人一首",
+        "excerpt": true,
+        "attributionNote": "《百人一首》第24首／《古今和歌集》羁旅420（末两句节选）",
+        "context": "借原歌以红叶供神的意境，配宫岛红叶谷与严岛神社；译文结合原歌上下文。",
+        "sources": [
+          {
+            "id": "poem-2026-11-15",
+            "label": "菅原道真《百人一首》第24首",
+            "url": "https://www.karuta.or.jp/karuta-everyday/2771/"
+          }
+        ]
+      }
     },
     {
       "date": "2026-11-16",
@@ -1900,7 +1939,26 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      "poem": {
+        "text": "「熊野へ参らむと思へども　徒歩より参れば道遠し」",
+        "language": "ja",
+        "translation": {
+          "text": "欲往熊野参拜，若凭双足前行，道路何其遥远。",
+          "language": "zh-CN"
+        },
+        "work": "梁塵秘抄",
+        "excerpt": true,
+        "attributionNote": "258番歌（节选；后白河法皇编纂的今样歌谣集）",
+        "context": "直接咏熊野参拜，配抵达纪伊田边、准备次日古道徒步的启程感。",
+        "sources": [
+          {
+            "id": "poem-2026-11-16",
+            "label": "《梁塵秘抄》258番歌",
+            "url": "https://www.jstage.jst.go.jp/article/nihonbungaku/67/2/67_12/_pdf"
+          }
+        ]
+      }
     },
     {
       "date": "2026-11-17",
@@ -2054,7 +2112,25 @@ export default {
             "dining-sen-chikatsuyu-food"
           ]
         }
-      ]
+      ],
+      "poem": {
+        "text": "「分け入つても分け入つても青い山」",
+        "language": "ja",
+        "translation": {
+          "text": "走进山里，再走进山里，眼前依然是青山。",
+          "language": "zh-CN"
+        },
+        "author": "種田山頭火",
+        "work": "草木塔",
+        "context": "配滝尻—高原—近露的山林步行，保留原文旧假名。",
+        "sources": [
+          {
+            "id": "poem-2026-11-17",
+            "label": "種田山頭火《草木塔》",
+            "url": "https://www.aozora.gr.jp/cards/000146/files/749_34457.html"
+          }
+        ]
+      }
     },
     {
       "date": "2026-11-18",
@@ -2286,7 +2362,25 @@ export default {
           ],
           "choices": []
         }
-      ]
+      ],
+      "poem": {
+        "text": "「よい湯からよい月へ出た」",
+        "language": "ja",
+        "translation": {
+          "text": "泡罢温泉，出来又遇好月色。",
+          "language": "zh-CN"
+        },
+        "author": "種田山頭火",
+        "work": "草木塔",
+        "context": "与步行抵达本宫、参拜后入住川汤温泉相配。",
+        "sources": [
+          {
+            "id": "poem-2026-11-18",
+            "label": "種田山頭火《草木塔》",
+            "url": "https://www.aozora.gr.jp/cards/000146/files/749_34457.html"
+          }
+        ]
+      }
     },
     {
       "date": "2026-11-19",
@@ -2622,7 +2716,25 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      "poem": {
+        "text": "「滝の上に　水現れて　落ちにけり」",
+        "language": "ja",
+        "translation": {
+          "text": "水自瀑顶现身，倏然飞落。",
+          "language": "zh-CN"
+        },
+        "author": "後藤夜半",
+        "work": "翠黛",
+        "context": "原句与箕面瀑布相关，这里取其瀑水初现、随即落下的画面配那智瀑布。",
+        "sources": [
+          {
+            "id": "poem-2026-11-19",
+            "label": "後藤夜半《翠黛》",
+            "url": "https://sectpoclit.com/haimakura-48/"
+          }
+        ]
+      }
     },
     {
       "date": "2026-11-20",
@@ -2761,7 +2873,24 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      "poem": {
+        "text": "「菊の香や　奈良には古き　仏たち」",
+        "language": "ja",
+        "translation": {
+          "text": "菊香幽幽，奈良的古佛依然。",
+          "language": "zh-CN"
+        },
+        "author": "松尾芭蕉",
+        "context": "直接咏奈良，与东大寺、古佛和古都秋意相配；奈良市旅游官方资料介绍了该句的句碑。",
+        "sources": [
+          {
+            "id": "poem-2026-11-20",
+            "label": "松尾芭蕉句碑资料",
+            "url": "https://www.naracity-guide.com/spots/25"
+          }
+        ]
+      }
     },
     {
       "date": "2026-11-21",

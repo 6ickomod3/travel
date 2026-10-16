@@ -5,6 +5,7 @@ import TripReferences from './TripReferences.astro';
 import TripStamps from './TripStamps.astro';
 import TripSights from './TripSights.astro';
 import TripDining from './TripDining.astro';
+import TripDayPoem from './TripDayPoem.astro';
 import type { Trip } from '../data/types';
 import { durationDays, formatDate, formatDateRange } from '../lib/trips';
 
@@ -79,6 +80,8 @@ const isThisJapan = trip.slug === 'japan-2026';
               {overnight && <div class="day-stay"><Icon name="pin" size={15} /><span class="day-stay-label">{text('当晚住宿', 'Overnight stay')}</span><a href={`#stay-${overnight.id}`}>{overnight.name}</a><BookingBadge status={overnight.status} locale={locale} /></div>}
               {Boolean(day.notes?.length) && <aside class="day-important-notes"><p class="day-note-label">{text('当天提醒', 'Daily reminders')}</p><ul>{day.notes!.map(note => <li>{note}</li>)}</ul></aside>}
             </div>
+
+            <TripDayPoem poem={day.poem} locale={locale} />
 
             {day.schedule?.length ? <ol class="day-timeline" aria-label={text(`${date(day.date)}时间表`, `${date(day.date)} schedule`)} role="list">
               {day.schedule.map(item => <li class:list={['timeline-entry', { 'timeline-entry-optional': item.optional }]}>

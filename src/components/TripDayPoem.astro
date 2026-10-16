@@ -1,0 +1,90 @@
+---
+import Icon from './Icon.astro';
+import TripReferences from './TripReferences.astro';
+import type { TripDayPoem as DayPoem } from '../data/types';
+
+interface Props {
+  poem?: DayPoem;
+  locale?: 'zh-CN' | 'en';
+}
+const { poem, locale = 'en' } = Astro.props;
+const text = (zh: string, en: string) => locale === 'zh-CN' ? zh : en;
+const sources = poem?.sources ?? [];
+const notes = [
+  { label: text('出处补充', 'Bibliographic note'), value: poem?.attributionNote },
+  { label: text('背景说明', 'Context'), value: poem?.context },
+].filter(note => Boolean(note.value));
+const referenceLabel = notes.length > 0 ? text('出处与说明', 'Sources and context') : text('参考资料', 'References');
+---
+
+{poem && <figure class="day-poem" data-day-poem aria-label={text('当日题记', 'Daily epigraph')}>
+  <blockquote class="poem-original" lang={poem.language} data-poem-original>{poem.text}</blockquote>
+  {poem.translation && <p class="poem-translation" lang={poem.translation.language} data-poem-translation>{poem.translation.text}</p>}
+  {(poem.author || poem.work || poem.excerpt || sources.length > 0 || notes.length > 0) && <figcaption>
+    {(poem.author || poem.work || poem.excerpt) && <div class="poem-attribution">
+      {poem.author && <span class="poem-author"><span class="sr-only">{text('作者：', 'Author: ')}</span>{poem.author}</span>}
+      {poem.work && <cite class="poem-work"><span class="sr-only">{text('作品：', 'Work: ')}</span>{poem.work}</cite>}
+      {poem.excerpt && <span class="poem-excerpt">{text('节选', 'Excerpt')}</span>}
+    </div>}
+    {sources.length > 0 ? <TripReferences sources={sources} locale={locale} label={referenceLabel}>
+      {notes.map(note => <p class="poem-detail-note"><span class="poem-detail-label">{note.label}</span><span class="poem-detail-text">{note.value}</span></p>)}
+    </TripReferences> : notes.length > 0 && <details class="poem-notes trip-references" data-trip-references lang={locale}>
+      <summary><span>{referenceLabel}</span><span class="poem-notes-chevron" aria-hidden="true"><Icon name="chevron-down" size={14} /></span></summary>
+      <div class="poem-notes-content">
+        {notes.map(note => <p class="poem-detail-note"><span class="poem-detail-label">{note.label}</span><span class="poem-detail-text">{note.value}</span></p>)}
+      </div>
+    </details>}
+  </figcaption>}
+</figure>}
+
+<style>
+  .day-poem { min-width: 0; margin: 22px 0 0; padding: 17px 20px 16px; border-left: 2px solid var(--accent); border-radius: 0 4px 4px 0; background: var(--paper); }
+  .poem-original { min-width: 0; margin: 0; color: var(--ink); font-family: 'Hiragino Mincho ProN', 'Yu Mincho', YuMincho, 'MS PMincho', 'Noto Serif CJK JP', 'Noto Serif JP', serif; font-size: 22px; font-style: normal; font-weight: 400; line-height: 1.9; letter-spacing: .025em; white-space: break-spaces; line-break: strict; word-break: normal; overflow-wrap: anywhere; }
+  .poem-translation { margin: 9px 0 0; color: var(--ink-soft); font-family: var(--sans); font-size: 14px; line-height: 1.9; white-space: break-spaces; overflow-wrap: anywhere; }
+  .poem-attribution { display: flex; align-items: baseline; flex-wrap: wrap; gap: 5px 12px; margin-top: 11px; color: var(--ink-soft); font-family: var(--sans); font-size: 11px; line-height: 1.8; }
+  .poem-author, .poem-work { min-width: 0; white-space: break-spaces; overflow-wrap: anywhere; }
+  .poem-work { font-style: normal; }
+  .poem-excerpt { padding: 0 5px; border: 1px solid var(--line); border-radius: 3px; font-size: 10px; line-height: 1.7; }
+  .poem-detail-note { min-width: 0; margin: 0 0 8px; color: var(--ink-soft); font-family: var(--sans); font-size: 12px; line-height: 1.9; overflow-wrap: anywhere; }
+  .poem-detail-label { display: block; margin-bottom: 2px; font-size: 11px; font-weight: 500; }
+  .poem-detail-text { white-space: break-spaces; }
+  .poem-notes { min-width: 0; max-width: 100%; margin-top: 10px; color: var(--ink-soft); font-family: var(--sans); font-size: 11px; line-height: 1.8; }
+  .poem-notes > summary { display: flex; align-items: center; gap: 8px; width: fit-content; max-width: 100%; min-height: 32px; padding: 2px 0; cursor: pointer; list-style: none; }
+  .poem-notes > summary::-webkit-details-marker { display: none; }
+  .poem-notes > summary::marker { content: ''; }
+  .poem-notes > summary > span:first-child { min-width: 0; font-weight: 500; overflow-wrap: anywhere; }
+  .poem-notes > summary:hover { color: var(--accent-deep); }
+  .poem-notes-chevron { flex-shrink: 0; }
+  .poem-notes[open] > summary .poem-notes-chevron { transform: rotate(180deg); }
+  .poem-notes-content { min-width: 0; padding-block: 4px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.daily-itinerary[data-itinerary-mode='focus']) :global(.itinerary-day[open]) .day-poem { animation: poem-reveal .18s ease-out; }
+  }
+  @keyframes poem-reveal { from { opacity: 0; } to { opacity: 1; } }
+  @media (max-width: 600px) {
+    .day-poem { margin-top: 18px; padding: 14px 14px 13px; }
+    .poem-original { font-size: 18px; line-height: 1.95; letter-spacing: .015em; }
+    .poem-translation { font-size: 13px; }
+    .poem-attribution { gap: 4px 10px; }
+    .poem-notes { font-size: 12px; }
+    .poem-notes > summary { min-height: 40px; }
+    .poem-detail-note { font-size: 13px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .day-poem { animation: none; }
+  }
+  @media print {
+    .day-poem { margin-top: 12px; padding: 10px 12px; border-left: 1px solid var(--line); background: white; break-inside: avoid; animation: none !important; }
+    .poem-original { color: #000; font-size: 13px; line-height: 1.7; }
+    .poem-translation { margin-top: 6px; font-size: 10px; }
+    .poem-attribution { margin-top: 7px; font-size: 9px; }
+    .poem-excerpt { border: 0; padding: 0; font-size: 9px; }
+    .poem-notes { margin-top: 6px; font-size: 9px; }
+    .poem-notes::details-content { content-visibility: visible; }
+    .poem-notes > summary { min-height: 0; padding: 0; }
+    .poem-notes-chevron { display: none; }
+    .poem-detail-note { font-size: 9px; line-height: 1.7; }
+    .poem-detail-label { font-size: 9px; }
+  }
+</style>

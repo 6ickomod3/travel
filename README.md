@@ -6,9 +6,9 @@ Live: [Trips](https://6ickomod3.github.io/travel/) · [Japan 2026](https://6icko
 
 ## Project context and design
 
-[AGENTS.md](AGENTS.md) records the project context and design guidelines in English. Internal documentation, development plans, handoffs, and code comments use English; public trip content can use English or Chinese.
+[AGENTS.md](AGENTS.md) records the project context and design guidelines in English. Internal documentation, development plans, handoffs, and code comments use English; public trip content follows each trip's language, with language-tagged quotations and translations.
 
-The site uses concise labels and factual travel information. The Idea/About section, editable travel notebooks, and ornamental prose have been removed. Visual design comes from typography, spacing, images, and interactive maps.
+The site uses concise labels and factual travel information. The Idea/About section, editable travel notebooks, and unsolicited ornamental prose have been removed. Requested cover copy and daily epigraphs keep their poetic wording. Visual design comes from typography, spacing, images, and interactive maps.
 
 The homepage highlights the current or next dated trip, links to each trip through compact cards, and shows a visited atlas. Routes, schedules, accommodation, and other itinerary details live on the individual trip pages. The next-trip highlight and date-based status labels update with the calendar in the browser, including after returning to an open tab.
 
@@ -101,6 +101,12 @@ Optional `gallery` photos appear in a manual carousel at the top of a trip page.
 Optional `coverIntroduction` displays requested cover copy and its
 language-tagged translations together. The factual `summary` remains
 available for page metadata.
+
+Optional daily `poem` stores the exact quotation, language-tagged interpretation,
+author, work, excerpt status, context and literary sources within its trip.
+It appears after daily accommodation and reminders, before the timetable.
+Credits stay visible; detailed references start collapsed and open for printing.
+Dates without a supplied poem remain unchanged.
 
 You can supply plain text or attachments. The workflow is: save the source, compare it with the existing plan, apply clear additions/corrections, record unresolved questions, then check and publish the trip page. New fragments do not silently replace unrelated accepted decisions.
 

@@ -45,6 +45,16 @@ src/data/
   language-tagged `translations`. It is displayed above the trip details;
   `summary` remains the factual overview used for page metadata. Preserve
   the user's primary wording and keep translations together with it.
+  Optional `days[].poem` keeps each requested daily epigraph with its exact
+  `text` and `language`, an optional language-tagged `translation`, `author`,
+  primary `work`, and `excerpt` flag. Secondary `attributionNote`, original
+  location or matching `context`, and local literary `sources` remain with
+  the poem, outside the official-source catalog. Preserve submitted spelling,
+  punctuation, spaces and line breaks, and identify borrowed imagery honestly.
+  Show the poem after accommodation and daily reminders, before the timetable,
+  with its interpretation and credit visible. Detailed references start
+  collapsed and open for printing with their previous states restored.
+  A missing poem renders nothing; no epigraph changes the accepted schedule.
   Optional flights, ticket options, booking windows, and separate day
   alternatives keep detailed logistics in that same plan. Flight endpoints
   use airport-local dates and times; booking openings use explicit offsets
@@ -162,8 +172,8 @@ publicly readable in the GitHub repository.
    and publish authorized changes. Summarize the changes and open questions.
 
 Keep internal guidelines, history entries, plans, and code comments in English.
-Original user submissions, quotations, and public itinerary content can remain
-Chinese or English.
+Original user submissions, quotations, and public itinerary content retain
+their supplied languages.
 
 ## Add a trip
 

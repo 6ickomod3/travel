@@ -171,6 +171,27 @@ for (const folder of folders) {
     if (day.overnightId) assert.ok(stays.has(day.overnightId), `${folder}/${date}: unknown stay ${day.overnightId}`);
     checkSources(day.sourceIds, `${folder}/${date}`);
     checkSights(day.sightIds, `${folder}/${date}`);
+    if (day.poem !== undefined) {
+      const poem = day.poem;
+      const label = `${folder}/${date} epigraph`;
+      assert.ok(poem && typeof poem === 'object' && !Array.isArray(poem), `${label}: use an epigraph object`);
+      assert.ok(typeof poem.text === 'string' && poem.text.trim(), `${label}: preserve the original text`);
+      assert.match(poem.language, /^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$/, `${label}: use an original language tag`);
+      for (const field of ['author', 'work', 'attributionNote', 'context']) {
+        if (poem[field] !== undefined) assert.ok(typeof poem[field] === 'string' && poem[field].trim(), `${label}: ${field} must contain text`);
+      }
+      assert.ok(poem.excerpt === undefined || typeof poem.excerpt === 'boolean', `${label}: excerpt must be a boolean`);
+      if (poem.translation !== undefined) {
+        assert.ok(typeof poem.translation.text === 'string' && poem.translation.text.trim(), `${label}: add interpretation text`);
+        assert.match(poem.translation.language, /^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$/, `${label}: use an interpretation language tag`);
+      }
+      uniqueIds(poem.sources ?? [], `${label} literary references`);
+      for (const source of poem.sources ?? []) {
+        assert.ok(typeof source.label === 'string' && source.label.trim(), `${label}: label each literary reference`);
+        assert.match(source.url, /^https:\/\//, `${label}: use a public HTTPS literary link`);
+        assert.equal(new URL(source.url).protocol, 'https:', `${label}: use a valid HTTPS literary link`);
+      }
+    }
     const meals = new Set();
     for (const group of day.dining ?? []) {
       assert.ok(['breakfast', 'lunch', 'dinner', 'snack'].includes(group.meal), `${folder}/${date}: invalid meal group`);

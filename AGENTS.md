@@ -4,11 +4,11 @@
 
 - Write all internal project context, guidelines, documentation, plans, handoffs,
   and code comments in English. Keep this file in English when updating it.
-- Public website content can be English or Chinese. Follow each trip's
-  `language` field.
+- Public website content follows each trip's `language` field. Quotations
+  and translations retain their own language tags.
 - Chat with the user in the language appropriate to their latest message.
-- Chinese itinerary text, destination names, image descriptions, source labels,
-  and font glyph subsets are public content, not internal instructions.
+- Itinerary text, quotations, destination names, image descriptions, source
+  labels, and font glyph subsets are public content, not internal instructions.
 
 ## Purpose
 
@@ -29,8 +29,9 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   for Chinese pages.
 - Remove ornamental prose, motivational statements, promotional language,
   abstract section names, and repeated descriptions of the same information.
-- Explicitly requested cover introductions may use poetic wording and
-  translations. Keep them in `coverIntroduction` with language-tagged text.
+- Explicitly requested cover introductions and daily epigraphs may use poetic
+  wording and translations. Keep cover text in `coverIntroduction` and daily
+  quotations in `TripDay.poem`, with language tags.
 - The Idea/About section and free-form travel notebooks have been removed at
   the user's request. Do not reintroduce them unless the user asks.
 - Keep factual day reminders and practical travel notes in the itinerary data.
@@ -183,6 +184,15 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   daily panels and dining reminders use these records. Keep options marked
   `requiresItineraryChange` visible but outside current-route reservation
   prompts. Dining references remain collapsed and are included in printing.
+- Optional `TripDay.poem` stores a requested epigraph's exact original,
+  language-tagged interpretation, author, primary work, excerpt flag,
+  bibliography, context and local literary references. Display it after
+  accommodation and daily reminders, before the timetable. Keep credits
+  visible and detailed references collapsed; printing includes and restores
+  their disclosures. Preserve original spelling, spacing and line breaks,
+  distinguish borrowed imagery from the original location, and do not invent
+  poems for days without a submission. Literary links stay outside the
+  official-source catalog and do not establish independent verification.
 - Source disclosures stay closed when expanding all days. Reveal a source's
   ancestor disclosures when following its direct fragment link.
 - Optional `gallery` stores photo IDs, local images, captions, and related day
