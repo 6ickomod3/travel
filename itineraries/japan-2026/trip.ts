@@ -467,7 +467,11 @@ export default {
                 "label": "住宿税",
                 "amount": 800,
                 "kind": "accommodation-tax",
-                "quantity": { "perPersonPerNight": 400, "people": 2, "nights": 1 }
+                "quantity": {
+                  "perPersonPerNight": 400,
+                  "people": 2,
+                  "nights": 1
+                }
               }
             ],
             "notes": [
@@ -489,7 +493,11 @@ export default {
                 "label": "住宿税",
                 "amount": 1600,
                 "kind": "accommodation-tax",
-                "quantity": { "perPersonPerNight": 400, "people": 2, "nights": 2 }
+                "quantity": {
+                  "perPersonPerNight": 400,
+                  "people": 2,
+                  "nights": 2
+                }
               }
             ],
             "notes": [
@@ -527,7 +535,11 @@ export default {
                 "label": "住宿税",
                 "amount": 800,
                 "kind": "accommodation-tax",
-                "quantity": { "perPersonPerNight": 200, "people": 2, "nights": 2 }
+                "quantity": {
+                  "perPersonPerNight": 200,
+                  "people": 2,
+                  "nights": 2
+                }
               }
             ],
             "notes": [
@@ -635,7 +647,10 @@ export default {
       "price": 26000,
       "estimatedTotal": 27800,
       "addOnTickets": [
-        { "label": "11/21 HARUKA单程优惠", "price": 1800 }
+        {
+          "label": "11/21 HARUKA单程优惠",
+          "price": 1800
+        }
       ],
       "estimateNote": "21号HARUKA优惠需另购，价格按当前计划估算。",
       "description": "7日成人券，选11/13–19；加21号HARUKA单程优惠后，铁路票券估算每人27,800日元，不含20号奈良。",
@@ -669,9 +684,18 @@ export default {
       "price": 17000,
       "estimatedTotal": 27020,
       "addOnTickets": [
-        { "label": "11/13 HARUKA单程优惠", "price": 1800 },
-        { "label": "11/21 HARUKA单程优惠", "price": 1800 },
-        { "label": "11/19 Kuroshio 30（WEB早特7）", "price": 6420 }
+        {
+          "label": "11/13 HARUKA单程优惠",
+          "price": 1800
+        },
+        {
+          "label": "11/21 HARUKA单程优惠",
+          "price": 1800
+        },
+        {
+          "label": "11/19 Kuroshio 30（WEB早特7）",
+          "price": 6420
+        }
       ],
       "estimateNote": "以买到19号WEB早特7为前提；无余票时需重新核价。",
       "description": "5日Pass加13号、21号HARUKA优惠及19号单独黑潮票；每人27,020日元以买到WEB早特7为前提，不含20号奈良。",
@@ -743,7 +767,10 @@ export default {
     {
       "id": "stamp-credential",
       "kind": "todo",
-      "timing": { "kind": "trip-date", "date": "2026-11-16" },
+      "timing": {
+        "kind": "trip-date",
+        "date": "2026-11-16"
+      },
       "title": "准备免费手账与盖章清单",
       "detail": "11/16 15:00–16:00在纪伊田边站旁中心，每人领取免费的Dual Pilgrim Credential和官方Stamp List；备防水袋，每天拍照。普通盖章不需预约。",
       "sourceIds": [
@@ -756,7 +783,10 @@ export default {
     {
       "id": "dual-pilgrim-eligibility",
       "kind": "check",
-      "timing": { "kind": "trip-date", "date": "2026-11-19" },
+      "timing": {
+        "kind": "trip-date",
+        "date": "2026-11-19"
+      },
       "title": "确认每人的Camino资格与19号选项",
       "detail": "分别核对Camino完成证明；选择08:39默认版或06:54速玉早班。只有本人同时满足两边条件且盖齐10章，才考虑田边现场登记与晚回大阪；大门坂不是日本条件③必走段。",
       "sourceIds": [
@@ -769,7 +799,10 @@ export default {
     {
       "id": "miyajima-ropeway",
       "kind": "todo",
-      "timing": { "kind": "trip-date", "date": "2026-11-15" },
+      "timing": {
+        "kind": "trip-date",
+        "date": "2026-11-15"
+      },
       "priority": "high",
       "priorityReason": "必须事前预约",
       "title": "预约11/15宫岛缆车",
@@ -782,7 +815,9 @@ export default {
     {
       "id": "rail-ticket-choice",
       "kind": "todo",
-      "timing": { "kind": "asap" },
+      "timing": {
+        "kind": "asap"
+      },
       "priority": "high",
       "priorityReason": "影响后续指定席预约",
       "title": "选择并购买JR票券",
@@ -797,7 +832,15 @@ export default {
     {
       "id": "long-distance-trains",
       "kind": "todo",
-      "timing": { "kind": "reservation-opens", "bookingWindowIds": ["jr-nov-14", "jr-nov-16", "jr-nov-19", "jr-nov-21"] },
+      "timing": {
+        "kind": "reservation-opens",
+        "bookingWindowIds": [
+          "jr-nov-14",
+          "jr-nov-16",
+          "jr-nov-19",
+          "jr-nov-21"
+        ]
+      },
       "priority": "high",
       "priorityReason": "长途车票尚未确认",
       "title": "预约JR指定席并取票",
@@ -813,7 +856,10 @@ export default {
     {
       "id": "peace-museum-ticket",
       "kind": "todo",
-      "timing": { "kind": "trip-date", "date": "2026-11-14" },
+      "timing": {
+        "kind": "trip-date",
+        "date": "2026-11-14"
+      },
       "title": "购买11/14资料馆WEB票",
       "detail": "买11/14 14:00左右WEB入场票，对应14:00–16:00参观；购票尚未确认。",
       "sourceIds": [
@@ -823,21 +869,30 @@ export default {
     {
       "id": "ryokan-meals",
       "kind": "check",
-      "timing": { "kind": "trip-date", "date": "2026-11-17" },
+      "timing": {
+        "kind": "trip-date",
+        "date": "2026-11-17"
+      },
       "title": "确认近露接驳与餐食",
       "detail": "SEN RETREAT CHIKATSUYU（11/17–18已订）：确认17号到店步行／接送、18号早饭／便当、去美术馆前站路线及晚餐最晚到达时间。"
     },
     {
       "id": "kawayu-ryokan",
       "kind": "check",
-      "timing": { "kind": "trip-date", "date": "2026-11-18" },
+      "timing": {
+        "kind": "trip-date",
+        "date": "2026-11-18"
+      },
       "title": "确认川汤站点与餐食",
       "detail": "川湯まつや（11/18–19已订）：确认18号下车站、19号上车站与发车时间、早餐／便当及晚餐最晚到达时间。选06:54早班还需提前退房。"
     },
     {
       "id": "osaka-hotel",
       "kind": "check",
-      "timing": { "kind": "trip-date", "date": "2026-11-14" },
+      "timing": {
+        "kind": "trip-date",
+        "date": "2026-11-14"
+      },
       "priority": "high",
       "priorityReason": "五晚寄存需酒店同意",
       "title": "确认大阪酒店跨5晚寄存",
@@ -1142,6 +1197,166 @@ export default {
       "id": "granvia-south-gate-facilities",
       "label": "Hotel Granvia Hiroshima South Gate：设施与行李寄存",
       "url": "https://jrwest-hotels.jp/granvia-hiroshima-southgate/facilities/"
+    },
+    {
+      "id": "dining-hanadako",
+      "label": "はなだこ：新梅田食道街店铺与营业信息",
+      "url": "https://shinume.com/shop/はなだこ/"
+    },
+    {
+      "id": "dining-reichan-shop",
+      "label": "麗ちゃん：门店与预约规则",
+      "url": "https://www.o-reichan.jp/shop.htm"
+    },
+    {
+      "id": "dining-reichan-menu",
+      "label": "麗ちゃん：现行菜单",
+      "url": "https://www.o-reichan.jp/menu.htm"
+    },
+    {
+      "id": "dining-reichan-ekie",
+      "label": "麗ちゃん：ekie店铺信息",
+      "url": "https://www.minamoa-ekie.jp/shop/?id=30"
+    },
+    {
+      "id": "dining-hitoshi-booking",
+      "label": "鮨処ひと志：TableCheck菜单与订位",
+      "url": "https://www.tablecheck.com/ja/shops/sushi-hitoshi/reserve"
+    },
+    {
+      "id": "dining-hitoshi-site",
+      "label": "鮨処ひと志：官网",
+      "url": "https://sushi-hitoshi.com/sp/"
+    },
+    {
+      "id": "dining-mametanuki-site",
+      "label": "まめたぬき：官网",
+      "url": "https://www.miyajima-mametanuki.com/"
+    },
+    {
+      "id": "dining-mametanuki-lunch",
+      "label": "まめたぬき：午市菜单与现场取号",
+      "url": "https://www.miyajima-mametanuki.com/lunch.html"
+    },
+    {
+      "id": "dining-ueno-location",
+      "label": "うえの：宫岛口本店位置",
+      "url": "https://www.anagomeshi.com/index.html"
+    },
+    {
+      "id": "dining-momijido",
+      "label": "紅葉堂：店铺与揚げもみじ",
+      "url": "https://momijido.com/"
+    },
+    {
+      "id": "dining-kanawa-seto-menu",
+      "label": "かき船かなわ「瀬戸」：官方菜单",
+      "url": "https://www.kanawa.co.jp/seto"
+    },
+    {
+      "id": "dining-kanawa-seto-booking",
+      "label": "かき船かなわ：TableCheck订位",
+      "url": "https://www.tablecheck.com/ja/shops/kakifune-kanawa/reserve"
+    },
+    {
+      "id": "dining-suishin-ekie-menu",
+      "label": "酔心ekie広島店：菜单与套餐预约规则",
+      "url": "https://www.suishin.or.jp/ekie/cuisine"
+    },
+    {
+      "id": "dining-suishin-ekie-shop",
+      "label": "酔心ekie広島店：门店信息",
+      "url": "https://www.suishin.or.jp/ekie/"
+    },
+    {
+      "id": "dining-551-butaman",
+      "label": "551蓬莱：豚まん商品",
+      "url": "https://www.551horai.co.jp/menu/butaman/"
+    },
+    {
+      "id": "dining-551-shinosaka-sotoe",
+      "label": "551蓬莱：エキマルシェ新大阪ソトエ店",
+      "url": "https://www.551horai.co.jp/shop/list/38/"
+    },
+    {
+      "id": "dining-ginchiro-site",
+      "label": "銀ちろ本店：官网",
+      "url": "https://ginchiro.jp/"
+    },
+    {
+      "id": "dining-ginchiro-menu",
+      "label": "銀ちろ本店：菜单",
+      "url": "https://ginchiro.jp/menu/"
+    },
+    {
+      "id": "dining-ginchiro-tourism",
+      "label": "銀ちろ本店：田边旅游局资料",
+      "url": "https://www.tb-kumano.jp/cuisine_guide/2959/"
+    },
+    {
+      "id": "dining-sen-chikatsuyu-food",
+      "label": "SEN.RETREAT CHIKATSUYU：餐食形式介绍",
+      "url": "https://sen-retreat.com/stay/chikatsuyu/food/"
+    },
+    {
+      "id": "dining-hongu-directory",
+      "label": "本宫：餐饮与营业日名录",
+      "url": "https://www.hongu.jp/eat/"
+    },
+    {
+      "id": "dining-chinchoan-hongu",
+      "label": "珍重庵本宫店：营业与休息日",
+      "url": "https://moudemochi.com/chinchoan-info/hongu/"
+    },
+    {
+      "id": "dining-chinchoan-nachi",
+      "label": "茶房珍重庵那智山店：营业与菜单",
+      "url": "https://moudemochi.com/chinchoan-info/nachisan/"
+    },
+    {
+      "id": "dining-takoume-stores",
+      "label": "たこ梅：分店、营业与预约规则",
+      "url": "https://takoume.jp/store"
+    },
+    {
+      "id": "dining-izasa-todaiji",
+      "label": "ゐざさ：东大寺门前梦风广场店",
+      "url": "https://www.izasa.co.jp/shop/todaiji-new/"
+    },
+    {
+      "id": "dining-izasa-menu",
+      "label": "ゐざさ茶屋：官方菜单",
+      "url": "https://www.izasa.co.jp/data/izasachaya_menu.pdf"
+    },
+    {
+      "id": "dining-izasa-takeout",
+      "label": "ゐざさ：外带预约",
+      "url": "https://izasa.take-eats.jp/"
+    },
+    {
+      "id": "dining-moritaya-lucua",
+      "label": "モリタ屋ルクアイーレ店：门店与官网预约入口",
+      "url": "https://moritaya-kyoto.co.jp/restaurant/lucua/"
+    },
+    {
+      "id": "dining-moritaya-menu",
+      "label": "モリタ屋ルクアイーレ店：晚餐菜单",
+      "url": "https://moritaya-kyoto.co.jp/restaurant/lucua/menu/"
+    },
+    {
+      "id": "dining-harijyu-dotonbori",
+      "label": "はり重道頓堀本店 日本料理：门店与菜单",
+      "url": "https://www.harijyu.co.jp/shop-info/category/doutonbori/"
+    },
+    {
+      "id": "dining-harijyu-november-prices",
+      "label": "はり重：2026年11月调价通知",
+      "url": "https://www.harijyu.co.jp/news/38749/"
+    },
+    {
+      "id": "dining-harijyu-booking",
+      "label": "はり重道頓堀本店 日本料理：官方订位",
+      "url": "https://booking.ebica.jp/webrsv/search/e014229301/36240"
     }
   ],
   "practicalNotes": [
@@ -1225,11 +1440,38 @@ export default {
       "sourceIds": [
         "haruka-timetable",
         "respire-access"
+      ],
+      "dining": [
+        {
+          "meal": "dinner",
+          "notes": [
+            "抵达并入住后在附近找仍营业的面店、定食或简餐，按实际进度决定；不订要求准点入席的套餐。"
+          ],
+          "choices": [
+            {
+              "optionId": "takoume-kita",
+              "note": "仅很早完成入住、营业和队伍允许时灵活考虑；抵达较晚时改附近简餐。"
+            }
+          ]
+        },
+        {
+          "meal": "snack",
+          "notes": [
+            "只作加餐，不为排队或营业时间额外绕路。"
+          ],
+          "choices": [
+            {
+              "optionId": "hanadako-umeda"
+            }
+          ]
+        }
       ]
     },
     {
       "date": "2026-11-14",
-      "sightIds": ["hiroshima-peace-memorials"],
+      "sightIds": [
+        "hiroshima-peace-memorials"
+      ],
       "destinationId": "hiroshima",
       "overnightId": "hiroshima",
       "type": "city",
@@ -1320,11 +1562,47 @@ export default {
         "peace-museum",
         "granvia-south-gate-access",
         "granvia-south-gate-facilities"
+      ],
+      "dining": [
+        {
+          "meal": "breakfast",
+          "notes": [
+            "在既定早餐空档自理。"
+          ],
+          "choices": []
+        },
+        {
+          "meal": "lunch",
+          "notes": [
+            "寄包后用餐；等位明显超过20分钟时改车站较快简餐，不挤占资料馆。"
+          ],
+          "choices": [
+            {
+              "optionId": "reichan-ekie"
+            }
+          ]
+        },
+        {
+          "meal": "dinner",
+          "notes": [
+            "吧台为候选席位，先查询两人的可预约情况。"
+          ],
+          "choices": [
+            {
+              "optionId": "sushi-hitoshi",
+              "note": "两档菜单可比较；选择更多配菜的套餐前，核对用餐长度是否适合现有行程。"
+            }
+          ]
+        }
       ]
     },
     {
       "date": "2026-11-15",
-      "sightIds": ["misen","itsukushima-shrine","daishoin"],
+      "sightIds": [
+        "misen",
+        "itsukushima-shrine",
+        "daishoin"
+      ],
       "destinationId": "miyajima",
       "overnightId": "hiroshima",
       "type": "excursion",
@@ -1445,6 +1723,53 @@ export default {
         "miyajima-tide",
         "daisho-in-firewalking",
         "miyajima-ferry"
+      ],
+      "dining": [
+        {
+          "meal": "breakfast",
+          "notes": [
+            "前晚备好简餐，保持早出发安排。"
+          ],
+          "choices": []
+        },
+        {
+          "meal": "lunch",
+          "notes": [
+            "现有午餐空档还包括步行、等位与出餐；仅能及时用完餐时入座，否则改现成便当或简餐。不压缩严岛神社和火渡。"
+          ],
+          "choices": [
+            {
+              "optionId": "mametanuki-miyajima"
+            }
+          ]
+        },
+        {
+          "meal": "snack",
+          "notes": [
+            "商店街散步时按胃口购买。"
+          ],
+          "choices": [
+            {
+              "optionId": "momijido-miyajima"
+            }
+          ]
+        },
+        {
+          "meal": "dinner",
+          "notes": [
+            "两家二选一，只预约最终选择的那家；先核对营业和交通是否适合现有行程。"
+          ],
+          "choices": [
+            {
+              "optionId": "kakifune-kanawa-seto",
+              "note": "若选择船上瀬戸店，先核对宫岛回程、餐厅交通与既有安排是否兼容，再决定订位。"
+            },
+            {
+              "optionId": "suishin-ekie-hiroshima",
+              "note": "车站附近的候选；所列套餐需至少提前3天预约，只有最终选择此店时才安排。"
+            }
+          ]
+        }
       ]
     },
     {
@@ -1526,11 +1851,53 @@ export default {
         "kuroshio-11-reference",
         "kumano-bus-overview",
         "granvia-south-gate-access"
+      ],
+      "dining": [
+        {
+          "meal": "breakfast",
+          "notes": [
+            "在现有早餐与退房空档自理。"
+          ],
+          "choices": []
+        },
+        {
+          "meal": "lunch",
+          "notes": [
+            "新大阪换乘时优先站内便当或快捷简餐，先确认黑潮站台。"
+          ],
+          "choices": []
+        },
+        {
+          "meal": "snack",
+          "label": "换乘时加餐",
+          "notes": [
+            "仅出闸方便、排队短且不影响换乘时购买。"
+          ],
+          "choices": [
+            {
+              "optionId": "551-shinosaka-sotoe"
+            }
+          ]
+        },
+        {
+          "meal": "dinner",
+          "notes": [
+            "在现有采购空档备好次日早餐、午饭、饮水与能量补给；也可提前准备川汤所需耐放食品。"
+          ],
+          "choices": [
+            {
+              "optionId": "ginchiro-tanabe",
+              "note": "先确认11/16营业；普通点菜与需预订鱼锅分开处理。"
+            }
+          ]
+        }
       ]
     },
     {
       "date": "2026-11-17",
-      "sightIds": ["nakahechi"],
+      "sightIds": [
+        "nakahechi"
+      ],
       "destinationId": "kumano-kodo",
       "overnightId": "kumano-kodo",
       "type": "hike",
@@ -1644,19 +2011,48 @@ export default {
             "englishName": "Chikatsuyu-oji"
           }
         ],
-      "notes": [
-        "这八章不属于日本条件③的官方10章，不能替代速玉大社参拜。"
+        "notes": [
+          "这八章不属于日本条件③的官方10章，不能替代速玉大社参拜。"
         ],
         "sourceIds": [
           "takijiri-chikatsuyu",
           "dual-pilgrim-stamp-list",
           "kumano-stamp-howto"
         ]
-      }
+      },
+      "dining": [
+        {
+          "meal": "breakfast",
+          "notes": [
+            "吃前日准备的食品，配合现有早班车安排。"
+          ],
+          "choices": []
+        },
+        {
+          "meal": "lunch",
+          "notes": [
+            "自带饭团、三明治、饮水和能量补给，在徒步休息时用餐，不依赖沿途餐馆营业。"
+          ],
+          "choices": []
+        },
+        {
+          "meal": "dinner",
+          "notes": [
+            "与SEN确认晚餐形式、实际菜单及用餐准备；早餐早取或打包方式也需沟通。"
+          ],
+          "choices": [],
+          "sourceIds": [
+            "dining-sen-chikatsuyu-food"
+          ]
+        }
+      ]
     },
     {
       "date": "2026-11-18",
-      "sightIds": ["hongu-taisha","oyunohara"],
+      "sightIds": [
+        "hongu-taisha",
+        "oyunohara"
+      ],
       "destinationId": "kumano-kodo",
       "overnightId": "kawayu",
       "type": "hike",
@@ -1838,8 +2234,8 @@ export default {
             "note": "参拜旧社地时找盖章点，不只拍大鸟居。"
           }
         ],
-      "notes": [
-        "本宫完成章是手账印章，不等于取得正式资格或纸质证书。速玉、那智尚未参拜时，条件③仍未完整完成。"
+        "notes": [
+          "本宫完成章是手账印章，不等于取得正式资格或纸质证书。速玉、那智尚未参拜时，条件③仍未完整完成。"
         ],
         "sourceIds": [
           "hosshinmon-hongu",
@@ -1848,11 +2244,46 @@ export default {
           "dual-pilgrim-stamp-list",
           "kumano-stamp-howto"
         ]
-      }
+      },
+      "dining": [
+        {
+          "meal": "breakfast",
+          "notes": [
+            "与SEN确认早餐形式及能否早取或打包，另备少量备用食品。"
+          ],
+          "choices": [],
+          "sourceIds": [
+            "dining-sen-chikatsuyu-food"
+          ]
+        },
+        {
+          "meal": "lunch",
+          "notes": [
+            "本宫大社附近选当天营业、出餐较快的荞麦面、乌冬或定食，也可吃随身食品。",
+            "珍重庵本宫店与しもじ本宫店均列周三休息；11/18是周三，不把两家设为当天用餐点。"
+          ],
+          "choices": [],
+          "sourceIds": [
+            "dining-hongu-directory",
+            "dining-chinchoan-hongu"
+          ]
+        },
+        {
+          "meal": "dinner",
+          "notes": [
+            "提前准备便当或耐放食品，同时备好次日早餐。",
+            "来源列4F微波炉07:00–22:00；是否方便使用可到店确认。",
+            "川汤附近没有便利店；本宫具体采购店、营业和库存仍需确认，耐放食品可在16号先备。"
+          ],
+          "choices": []
+        }
+      ]
     },
     {
       "date": "2026-11-19",
-      "sightIds": ["nachi-shrines-falls"],
+      "sightIds": [
+        "nachi-shrines-falls"
+      ],
       "destinationId": "nachi",
       "overnightId": "osaka",
       "type": "excursion",
@@ -1963,7 +2394,9 @@ export default {
       "alternatives": [
         {
           "id": "hayatama-daimonzaka",
-          "sightIds": ["hayatama-taisha"],
+          "sightIds": [
+            "hayatama-taisha"
+          ],
           "title": "可选加强版：速玉大社，大门坂可选",
           "description": "06:54早出发补熊野速玉大社参拜和第7章；大门坂步行按体力选择，和08:39默认版分开安排。",
           "schedule": [
@@ -2132,8 +2565,8 @@ export default {
             "englishName": "Hirou-jinja / Nachi Falls"
           }
         ],
-      "notes": [
-        "以18号完成发心门至本宫步行为前提，19号参拜三山并盖齐官方10章才满足日本条件③；正式Dual Pilgrim仍需每人自己的Camino完成证明。",
+        "notes": [
+          "以18号完成发心门至本宫步行为前提，19号参拜三山并盖齐官方10章才满足日本条件③；正式Dual Pilgrim仍需每人自己的Camino完成证明。",
           "大门坂可按体力选择，不是条件③的必走段；那智山台阶仍较多。"
         ],
         "sourceIds": [
@@ -2141,11 +2574,54 @@ export default {
           "dual-pilgrim-jp",
           "dual-pilgrim-stamp-list"
         ]
-      }
+      },
+      "dining": [
+        {
+          "meal": "breakfast",
+          "notes": [
+            "吃自备食品；若选择现有早班备选，准备无需微波的早餐。"
+          ],
+          "choices": []
+        },
+        {
+          "meal": "lunch",
+          "notes": [
+            "游览间隙仅用约20–25分钟吃简餐，不能因此推迟下山巴士；闭店或长队时用随身食品。"
+          ],
+          "choices": [
+            {
+              "optionId": "chinchoan-nachi"
+            }
+          ]
+        },
+        {
+          "meal": "snack",
+          "label": "车上补给",
+          "notes": [
+            "换乘空档准备便当、饮水，不额外安排需要排队的胜浦餐厅。"
+          ],
+          "choices": []
+        },
+        {
+          "meal": "dinner",
+          "notes": [
+            "默认回程后按营业和队伍情况考虑；若采用现有田边登记晚归备选，改车上便当或附近仍营业的简餐。"
+          ],
+          "choices": [
+            {
+              "optionId": "takoume-kita"
+            }
+          ]
+        }
+      ]
     },
     {
       "date": "2026-11-20",
-      "sightIds": ["todai-ji","kasuga-taisha","nara-park-kofukuji"],
+      "sightIds": [
+        "todai-ji",
+        "kasuga-taisha",
+        "nara-park-kofukuji"
+      ],
       "destinationId": "nara",
       "overnightId": "osaka",
       "type": "excursion",
@@ -2228,6 +2704,54 @@ export default {
       "sourceIds": [
         "todaiji",
         "kasuga-taisha"
+      ],
+      "dining": [
+        {
+          "meal": "breakfast",
+          "notes": [
+            "出门前自理早餐。"
+          ],
+          "choices": []
+        },
+        {
+          "meal": "lunch",
+          "notes": [
+            "从二月堂到店的步行也算在现有午餐空档；楼上排队或出餐来不及时改1F现成外带。"
+          ],
+          "choices": [
+            {
+              "optionId": "izasa-todaiji"
+            }
+          ]
+        },
+        {
+          "meal": "snack",
+          "notes": [
+            "回大阪后按胃口考虑，不额外安排时段或影响晚餐。"
+          ],
+          "choices": [
+            {
+              "optionId": "hanadako-umeda"
+            }
+          ]
+        },
+        {
+          "meal": "dinner",
+          "notes": [
+            "先比较套餐和可预约情况，在现有行程空档内安排；候选餐厅均未订位。"
+          ],
+          "choices": [
+            {
+              "optionId": "moritaya-lucua",
+              "note": "菜单档位与可预约席位可比较，未确定套餐。"
+            },
+            {
+              "optionId": "harijyu-dotonbori",
+              "note": "仅作寿喜烧餐厅比较；当前回程不适用，需另行确认行程后才能考虑，不列入当前待预约餐厅。",
+              "requiresItineraryChange": true
+            }
+          ]
+        }
       ]
     },
     {
@@ -2280,6 +2804,22 @@ export default {
       "sourceIds": [
         "haruka-timetable",
         "respire-access"
+      ],
+      "dining": [
+        {
+          "meal": "breakfast",
+          "notes": [
+            "可前晚备好食品，在现有早餐与退房空档用餐。"
+          ],
+          "choices": []
+        },
+        {
+          "meal": "lunch",
+          "notes": [
+            "到关西机场T1办妥值机、安检等手续后，按剩余时间选机场餐厅或便当；不为市区名店绕行。"
+          ],
+          "choices": []
+        }
       ]
     }
   ],
@@ -2370,5 +2910,303 @@ export default {
         ]
       }
     ]
-  }
+  },
+  "diningOptions": [
+    {
+      "id": "hanadako-umeda",
+      "name": "はなだこ（Hanadako）",
+      "area": "大阪 · 新梅田食道街",
+      "description": "章鱼烧店，可选普通款或葱量较多的ねぎマヨ；适合作为加餐。",
+      "notes": [
+        "距RESPIRE步行约5–10分钟。",
+        "参考消费约800日元／人，为估算。",
+        "来源列营业10:00–22:00；可外带。排队较长或赶不上营业时改附近简餐。"
+      ],
+      "reservation": {
+        "policy": "none",
+        "note": "不接受预约，现场购买或外带。"
+      },
+      "sourceIds": [
+        "dining-hanadako"
+      ]
+    },
+    {
+      "id": "reichan-ekie",
+      "name": "麗ちゃん",
+      "area": "广岛 · ekie 1F DINING",
+      "description": "广岛烧。基本款肉玉そば包含蔬菜、猪肉、鸡蛋与面条，来源菜单价1,000日元／人。",
+      "notes": [
+        "在车站北侧，与South Gate酒店在两侧，预留站内步行。",
+        "11:00开始营业。来源的收店时间有差异，午餐仍需以当日店铺信息为准。",
+        "周六不能保证即到即入；若预计等位明显超过20分钟，改较快午餐。"
+      ],
+      "reservation": {
+        "policy": "none",
+        "note": "官网明确不接受预约；现场排队。"
+      },
+      "sourceIds": [
+        "dining-reichan-shop",
+        "dining-reichan-menu",
+        "dining-reichan-ekie"
+      ]
+    },
+    {
+      "id": "sushi-hitoshi",
+      "name": "鮨処ひと志",
+      "area": "广岛 · 中区小町7-26",
+      "description": "板前寿司，可选カウンター席。鱼种包括九州、濑户内、北陆等产地的当季鱼。",
+      "notes": [
+        "「鮨」16,500日元／人：13贯握寿司、1道料理与汤；两人33,000日元。",
+        "「おまかせ」30,800日元／人：13贯、7道料理与汤；两人61,600日元。酒水等另计。",
+        "更多配菜的套餐需要更久用餐时间，选择前核对现有行程空档。",
+        "与和平公园／本通相距步行约15–25分钟；交通和现有安排的兼容性需确认。"
+      ],
+      "reservation": {
+        "policy": "recommended",
+        "note": "优先查询两位吧台。TableCheck席位类别选カウンター席 1~7名様，人数2；通常提前1个月放位，实时余位未确认。取消费从2天前起，具体以所选订单规则为准。预约时说明饮食要求。",
+        "url": "https://www.tablecheck.com/ja/shops/sushi-hitoshi/reserve",
+        "phone": "082-247-1787"
+      },
+      "sourceIds": [
+        "dining-hitoshi-booking",
+        "dining-hitoshi-site"
+      ]
+    },
+    {
+      "id": "mametanuki-miyajima",
+      "name": "まめたぬき",
+      "area": "宫岛 · 表参道商店街中段，宫岛町1133",
+      "description": "锦水馆直营店，以陶盒蒸煮穴子饭为主，也有炸牡蛎；来源菜单的穴子饭加炸牡蛎套餐为2,900日元。",
+      "notes": [
+        "来源列午市11:00–15:00。",
+        "仅候位很短、能在既定午餐空档内用完餐时入座，否则改便当或简餐。",
+        "宫岛口うえの在对岸，本次午饭不为它额外往返渡轮。",
+        "若晚餐选择牡蛎料理，午餐分量按胃口调整。"
+      ],
+      "reservation": {
+        "policy": "none",
+        "note": "不接受电话或邮件提前订席；现场取号，可离店等候。"
+      },
+      "sourceIds": [
+        "dining-mametanuki-site",
+        "dining-mametanuki-lunch",
+        "dining-ueno-location"
+      ]
+    },
+    {
+      "id": "momijido-miyajima",
+      "name": "紅葉堂「揚げもみじ」",
+      "area": "宫岛 · 表参道商店街",
+      "description": "现炸的红叶形夹馅点心，可选红豆、奶油等口味；商店街散步时顺路购买。",
+      "notes": [
+        "本店或弍番屋来源列约17:30关门，海岸通店约16:00关门；注意分店差异。"
+      ],
+      "reservation": {
+        "policy": "none",
+        "note": "单份点心现场购买，不需订位。"
+      },
+      "sourceIds": [
+        "dining-momijido"
+      ]
+    },
+    {
+      "id": "kakifune-kanawa-seto",
+      "name": "かき船かなわ「瀬戸」",
+      "area": "广岛 · 元安川边，和平公园附近",
+      "description": "停泊在河边的船上餐厅，提供广岛牡蛎料理；用餐不是游船航程。",
+      "notes": [
+        "地址：広島市中区大手町1丁目地先。",
+        "かきづくしコース9,900日元／人，含土手味噌锅、牡蛎饭等；生牡蛎为自选追加。",
+        "かき魚コース8,250日元／人；広島三昧コース11,000日元／人。",
+        "来源列晚间17:00起、20:00最后点餐。",
+        "预约类别选瀬戸；和久楼层、车站ekie店均是不同选择。"
+      ],
+      "reservation": {
+        "policy": "recommended",
+        "note": "建议提前1–2周查询；前一天或当天线上预约需直接询问餐厅。当前没有订位。预约时说明饮食要求。",
+        "url": "https://www.tablecheck.com/ja/shops/kakifune-kanawa/reserve",
+        "phone": "082-241-7416"
+      },
+      "sourceIds": [
+        "dining-kanawa-seto-menu",
+        "dining-kanawa-seto-booking"
+      ]
+    },
+    {
+      "id": "suishin-ekie-hiroshima",
+      "name": "酔心 ekie広島店",
+      "area": "广岛 · 车站北侧ekie DINING 1F",
+      "description": "广岛牡蛎、穴子、釜饭等地方菜，适合宫岛返回后在车站附近用餐。",
+      "notes": [
+        "地址：広島市南区松原町1-2 ekie 1F；从South Gate一侧预留10–15分钟站内移动。",
+        "牡蠣・穴子コース7,000日元／人；宮島コース7,500日元／人。",
+        "部分御膳在预订席不能点，预订前确认所选套餐。",
+        "来源列11:00–21:30营业、20:30最后点餐。",
+        "かなわekie店的周末预约时段与此店不同，不能套用船上瀬戸店规则。"
+      ],
+      "reservation": {
+        "policy": "required",
+        "note": "上述套餐至少提前3天预约；若选11/15，按来源要求最迟11/12完成。只在最终选择此店时预约，不与船上かなわ重复订。",
+        "url": "https://www.suishin.or.jp/ekie/cuisine",
+        "phone": "082-567-5519"
+      },
+      "sourceIds": [
+        "dining-suishin-ekie-menu",
+        "dining-suishin-ekie-shop"
+      ]
+    },
+    {
+      "id": "551-shinosaka-sotoe",
+      "name": "551蓬莱 エキマルシェ新大阪ソトエ店",
+      "area": "新大阪 · 改札外",
+      "description": "豚まん是猪肉与洋葱馅肉包；来源商品价两只500日元，适合两人分着尝。",
+      "notes": [
+        "来源列09:00–21:30营业。",
+        "在改札外，仅出闸方便、队伍短且不影响换乘时购买；否则在站内解决午餐。"
+      ],
+      "reservation": {
+        "policy": "none",
+        "note": "现场购买，不安排订席。"
+      },
+      "sourceIds": [
+        "dining-551-butaman",
+        "dining-551-shinosaka-sotoe"
+      ]
+    },
+    {
+      "id": "ginchiro-tanabe",
+      "name": "銀ちろ本店",
+      "area": "纪伊田边 · 和歌山県田辺市湊12-39",
+      "description": "纪州当地鱼料理，可询问当日鲣鱼、刺身、海鳝料理与当地海藻。",
+      "notes": [
+        "纪伊田边站步行约3分钟；从Comfort预留5–10分钟。",
+        "普通点菜预算3,000–5,000日元／人，为估算，非固定套餐价。",
+        "来源列晚餐17:00–20:00，旅游局列最后点餐19:45；休息日不定。",
+        "11/16是否营业尚未确认。"
+      ],
+      "reservation": {
+        "policy": "recommended",
+        "note": "先确认11/16营业，再建议订两位席。クエ、うつぼ等鱼锅需提前预订，并核对供货、人数、计价单位与总价。预约时说明饮食要求。",
+        "url": "https://ginchiro.jp/",
+        "phone": "0739-22-3960"
+      },
+      "sourceIds": [
+        "dining-ginchiro-site",
+        "dining-ginchiro-menu",
+        "dining-ginchiro-tourism"
+      ]
+    },
+    {
+      "id": "chinchoan-nachi",
+      "name": "茶房珍重庵 那智山店",
+      "area": "那智山 · 那智山39",
+      "description": "めはり寿司是高菜腌菜叶包饭，可搭配荞麦面或乌冬；是地方包饭，与板前握寿司不同。",
+      "notes": [
+        "在那智大社、青岸渡寺附近，适合顺路简餐。",
+        "预算1,000–1,500日元／人，为估算；来源菜单页面价格有差异，以当日为准。",
+        "不定休，尚未确认11/19营业；闭店或长队时用随身食品，不推迟下山巴士。",
+        "与周三休息的本宫店不同。"
+      ],
+      "reservation": {
+        "policy": "check",
+        "note": "需要临近确认营业；来源未提供本次订席确认或明确订席规则。",
+        "url": "https://moudemochi.com/chinchoan-info/nachisan/",
+        "phone": "0735-55-0811"
+      },
+      "sourceIds": [
+        "dining-chinchoan-nachi",
+        "dining-chinchoan-hongu",
+        "dining-hongu-directory"
+      ]
+    },
+    {
+      "id": "takoume-kita",
+      "name": "たこ梅 北店",
+      "area": "大阪 · 新梅田食道街1F，角田町9-26",
+      "description": "大阪关东煮与章鱼甘露煮等传统小菜。",
+      "notes": [
+        "距RESPIRE步行约5–10分钟。",
+        "几样菜配饮料预算4,000–6,000日元／人，为估算，非固定套餐。",
+        "来源列10–11月无休，平日16:00–22:30、最后点餐22:00，用餐90分钟。",
+        "队伍较长时改食道街其他能坐下用餐的店。"
+      ],
+      "reservation": {
+        "policy": "none",
+        "note": "北店与旁边分店不接受预约；道顿堀本店规则不适用于此店。"
+      },
+      "sourceIds": [
+        "dining-takoume-stores"
+      ]
+    },
+    {
+      "id": "izasa-todaiji",
+      "name": "ゐざさ 东大寺门前梦风广场店",
+      "area": "奈良 · 春日野町16",
+      "description": "柿叶寿司以鲭鱼、鲑鱼等鱼与醋饭包裹在柿叶中，吃时拆叶。1F外带，2F为ゐざさ茶屋。",
+      "notes": [
+        "4种柿叶寿司套餐含さば・さけ・たい・あじ，配热素面、芝麻豆腐，来源菜单价1,600日元／人。",
+        "另有名产寿司拼盘1,700日元、附天妇罗套餐1,950日元。",
+        "来源列1F 10:00–17:00；2F 11:00–17:00、最后点餐16:00。",
+        "来源的11月休店名单为10、16、24、30日，未列20日；仍需留意临时调整。",
+        "从二月堂步行约15–20分钟也算在现有午餐空档内；排队或出餐来不及时改1F现成外带。"
+      ],
+      "reservation": {
+        "policy": "check",
+        "note": "2F是否接受两人订席尚未核实。1F外带可在线预订；目录商品原则上提前3天，部分商品可前一天或当天订。外带订单不等于2F订席。",
+        "url": "https://www.izasa.co.jp/shop/todaiji-new/",
+        "phone": "0742-94-7133"
+      },
+      "sourceIds": [
+        "dining-izasa-todaiji",
+        "dining-izasa-menu",
+        "dining-izasa-takeout"
+      ]
+    },
+    {
+      "id": "moritaya-lucua",
+      "name": "モリタ屋 ルクア イーレ店",
+      "area": "大阪 · LUCUA 1100 10F，梅田3-1-3",
+      "description": "京都和牛寿喜烧品牌的大阪分店，与JR大阪站直连。",
+      "notes": [
+        "从RESPIRE连步行、电梯预留10–15分钟。",
+        "来源含税晚餐菜单：竹7,700、松8,800、特選10,450、極み13,200日元／人。",
+        "各档主要牛肉150g，可另加肉；特選档两人20,900日元，未选定套餐。",
+        "来源列不另收服务费／座位费，酒水与追加另计；平台费用另核对。",
+        "来源列11:00–23:00营业，最后入店／点餐22:00。"
+      ],
+      "reservation": {
+        "policy": "recommended",
+        "note": "官网WEB预约入口链接AutoReserve，也可电话。建议提前1–2周查询，周五更宜提前。当前未订。预约时说明饮食要求。",
+        "url": "https://moritaya-kyoto.co.jp/restaurant/lucua/",
+        "phone": "06-6341-1029"
+      },
+      "sourceIds": [
+        "dining-moritaya-lucua",
+        "dining-moritaya-menu"
+      ]
+    },
+    {
+      "id": "harijyu-dotonbori",
+      "name": "はり重 道頓堀本店 日本料理",
+      "area": "大阪 · 中央区道頓堀1-9-17",
+      "description": "寿喜烧餐厅比较候选；需另行确认行程安排，当前不列入待预约餐厅。",
+      "notes": [
+        "订位须选择道頓堀本店 日本料理，与同地址洋食グリル／咖喱店不同。",
+        "来源菜单列8,800、11,000、13,750、16,500、19,800日元／人，含税与服务。",
+        "官网已公告2026/11/1起部分调价，11/20须以最终确认价为准；可先按15,000–20,000日元／人准备预算。",
+        "来源列晚间17:00–21:00、最后点餐20:00。"
+      ],
+      "reservation": {
+        "policy": "recommended",
+        "note": "两人可在线预约；只在另行确定采用该替代餐厅及相应行程后订位。",
+        "url": "https://booking.ebica.jp/webrsv/search/e014229301/36240",
+        "phone": "06-6211-7777"
+      },
+      "sourceIds": [
+        "dining-harijyu-dotonbori",
+        "dining-harijyu-november-prices",
+        "dining-harijyu-booking"
+      ]
+    }
+  ]
 } satisfies Trip;

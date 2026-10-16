@@ -1,0 +1,105 @@
+---
+import Icon from './Icon.astro';
+import TripReferences from './TripReferences.astro';
+import type { TripSource } from '../data/types';
+import type { DiningReservationReminder } from '../lib/trip-dining';
+import { diningMealLabel, diningPhoneHref, diningPolicyLabel } from '../lib/trip-dining';
+import { formatDate } from '../lib/trips';
+
+interface Props {
+  reminders: DiningReservationReminder[];
+  sources?: TripSource[];
+  locale?: 'zh-CN' | 'en';
+}
+const { reminders, sources = [], locale = 'en' } = Astro.props;
+const isZh = locale === 'zh-CN';
+const text = (zh: string, en: string) => isZh ? zh : en;
+const date = (value: string) => formatDate(value, { month: 'numeric', day: 'numeric' }, isZh ? 'zh-CN' : 'en-US');
+const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
+  const source = sources.find(item => item.id === id);
+  return source ? [source] : [];
+});
+---
+{reminders.length > 0 && <section class="dining-reservations container" id="dining-reservations" aria-labelledby="dining-reservations-title" data-dining-reservations>
+  <div class="section-heading"><div><h2 id="dining-reservations-title">{text('用餐预约', 'Dining reservations')}</h2></div><p class="section-intro">{reminders.length} {text('处备选餐厅', reminders.length === 1 ? 'candidate restaurant' : 'candidate restaurants')}</p></div>
+  <p class="dining-reservations-note">{text('按首次用餐日排序；日期为用餐日，选定餐厅后再预约或确认。', 'Sorted by first meal date. Dates are meal dates; reserve or confirm after choosing a restaurant.')}</p>
+  <ol class="dining-reservation-list" role="list">
+    {reminders.map(reminder => {
+      const { option, usages, firstDate } = reminder;
+      const reservation = option.reservation;
+      const phoneHref = diningPhoneHref(reservation.phone);
+      return <li class="dining-reservation" id={`dining-reservation-${option.id}`} data-dining-reservation={option.id} data-dining-first-date={firstDate}>
+        <div class="dining-reservation-date"><span>{text('首次用餐', 'First meal')}</span><time datetime={firstDate}>{date(firstDate)}</time></div>
+        <div class="dining-reservation-content">
+          <div class="dining-reservation-heading"><h3>{option.name}</h3><span class:list={['reservation-policy', `reservation-policy-${reservation.policy}`]}>{diningPolicyLabel(reservation.policy, locale)}</span></div>
+          {option.area && <p class="dining-reservation-area"><Icon name="pin" size={12} />{option.area}</p>}
+          {reservation.note && <p class="dining-reservation-detail">{reservation.note}</p>}
+          <ul class="dining-usage-list" role="list">
+            {usages.map(usage => <li data-dining-usage-date={usage.date}>
+              <a class="dining-day-link" href={`#${usage.anchorId}`} aria-label={text(`查看${date(usage.date)}${diningMealLabel(usage.meal, locale)}的${option.name}选项`, `View ${option.name} for ${diningMealLabel(usage.meal, locale).toLowerCase()} on ${date(usage.date)}`)}>
+                <time datetime={usage.date}>{date(usage.date)}</time><span>{diningMealLabel(usage.meal, locale)}</span><Icon name="arrow-down" size={12} />
+              </a>
+              {usage.label && <span class="dining-usage-label">{usage.label}</span>}
+              {usage.note && <p class="dining-usage-note">{usage.note}</p>}
+            </li>)}
+          </ul>
+          {(reservation.url || reservation.phone) && <div class="dining-reservation-actions">
+            {reservation.url && <a href={reservation.url} target="_blank" rel="noopener noreferrer"><span>{reservation.policy === 'check' ? text('查看店铺信息', 'View restaurant information') : text('选定后预约', 'Reserve after choosing')}</span><Icon name="external" size={12} /></a>}
+            {reservation.phone && (phoneHref ? <a href={phoneHref}><span>{text('选定后致电：', 'Call after choosing: ')}{reservation.phone}</span><Icon name="arrow-up-right" size={12} /></a> : <span>{text('电话：', 'Phone: ')}{reservation.phone}</span>)}
+          </div>}
+          <TripReferences sources={sourcesFor(option.sourceIds)} locale={locale} />
+        </div>
+      </li>;
+    })}
+  </ol>
+</section>}
+
+<style>
+  .dining-reservations { padding-block: 40px; border-top: 1px solid var(--line); scroll-margin-top: 24px; }
+  .dining-reservations .section-heading { margin-bottom: 16px; }
+  .dining-reservations-note { max-width: 850px; margin-bottom: 20px; color: var(--ink-soft); font-size: 12px; line-height: 1.9; overflow-wrap: anywhere; }
+  .dining-reservation-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; min-width: 0; margin: 0; padding: 0; list-style: none; }
+  .dining-reservation { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 22px; min-width: 0; padding: 21px 24px; border: 1px solid var(--line); border-radius: 5px; background: #fbfaf5; scroll-margin-top: 24px; }
+  .dining-reservation-date { display: flex; flex-direction: column; gap: 6px; font-variant-numeric: tabular-nums; }
+  .dining-reservation-date > span { color: var(--ink-soft); font-size: 10px; }
+  .dining-reservation-date > time { font-size: 17px; font-weight: 500; line-height: 1.5; }
+  .dining-reservation-content { min-width: 0; }
+  .dining-reservation-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
+  .dining-reservation-heading h3 { min-width: 0; font-family: var(--sans); font-size: 15px; font-weight: 600; line-height: 1.8; overflow-wrap: anywhere; }
+  .reservation-policy { display: inline-block; max-width: 100%; padding: 2px 7px; border: 1px solid var(--line); border-radius: 3px; color: var(--ink-soft); font-size: 10px; line-height: 1.7; overflow-wrap: anywhere; }
+  .reservation-policy-required { border-color: #d7b38b; color: var(--pending); background: var(--pending-soft); }
+  .dining-reservation-area { display: flex; align-items: flex-start; gap: 5px; margin-top: 5px; color: var(--ink-soft); font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
+  .dining-reservation-area > svg { margin-top: 4px; }
+  .dining-reservation-detail { margin-top: 8px; color: var(--ink-soft); font-size: 12px; line-height: 1.9; overflow-wrap: anywhere; }
+  .dining-usage-list { margin: 10px 0 0; padding: 0; list-style: none; }
+  .dining-usage-list > li { min-width: 0; }
+  .dining-usage-list > li + li { margin-top: 8px; }
+  .dining-day-link { display: inline-flex; align-items: center; gap: 6px; max-width: 100%; min-height: 36px; color: var(--ink); font-size: 11px; text-decoration: underline; text-underline-offset: 3px; }
+  .dining-usage-label { margin-left: 10px; color: var(--ink-soft); font-size: 11px; overflow-wrap: anywhere; }
+  .dining-usage-note { margin-top: 3px; color: var(--ink-soft); font-size: 12px; line-height: 1.9; overflow-wrap: anywhere; }
+  .dining-reservation-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 5px 16px; margin-top: 7px; color: var(--accent-deep); font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
+  .dining-reservation-actions a { display: inline-flex; align-items: center; gap: 5px; max-width: 100%; min-height: 36px; text-decoration: underline; text-underline-offset: 3px; }
+  .dining-reservation-actions a > span { min-width: 0; overflow-wrap: anywhere; }
+  @media (max-width: 600px) {
+    .dining-reservations { padding-block: 32px; }
+    .dining-reservation { grid-template-columns: minmax(0, 1fr); gap: 10px; padding: 18px 16px; }
+    .dining-reservation-date { flex-direction: row; align-items: baseline; gap: 10px; }
+    .dining-reservation-heading h3 { font-size: 15px; }
+    .dining-reservation-detail, .dining-usage-note, .dining-reservations-note { font-size: 13px; }
+    .dining-day-link, .dining-reservation-actions { font-size: 12px; }
+    .dining-day-link, .dining-reservation-actions a { min-height: 40px; }
+    .dining-usage-label { margin-left: 7px; font-size: 12px; }
+  }
+  @media print {
+    .dining-reservations { padding-block: 20px; }
+    .dining-reservations .section-heading { margin-bottom: 12px; }
+    .dining-reservations-note { margin-bottom: 12px; font-size: 10px; }
+    .dining-reservation { grid-template-columns: 76px minmax(0, 1fr); gap: 14px; break-inside: avoid; padding: 13px; background: white; }
+    .dining-reservation-date > time { font-size: 12px; }
+    .dining-reservation-heading h3 { font-size: 11px; }
+    .dining-reservation-area, .dining-reservation-detail, .dining-usage-note, .dining-usage-label, .dining-day-link { font-size: 10px; }
+    .dining-day-link, .dining-reservation-actions a { min-height: 0; }
+    .dining-reservation-actions { font-size: 9px; }
+    .reservation-policy { color: var(--ink); background: white; font-size: 9px; }
+  }
+</style>

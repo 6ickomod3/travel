@@ -75,6 +75,15 @@ src/data/
   `quantity` with `perPersonPerNight`, `people`, and `nights`. Preserve the
   submitted rate and calculation; keep already included fees out of extras.
   Booking progress derives from recorded flight statuses and stay nights.
+  Optional `diningOptions` records trip-owned restaurants or meal alternatives,
+  reservation policies, public booking contacts and sources. Daily `dining`
+  groups reference their IDs by meal; a notes-only group can include public
+  `sourceIds` for food preparation or opening-day constraints. Suggestions stay outside
+  the existing timetable; recommendations do not imply selection or booking.
+  The day footer and separate chronological dining-reservation section share
+  these records. Keep a route-dependent alternative visible with
+  `requiresItineraryChange`, but exclude it from current-route reservation
+  reminders. Record dining confirmation only for the explicit date and meal.
   Optional daily `stamps` holds ordered collection stops, official numbers,
   and any route conditions. `stampGuide` holds shared collection and
   eligibility instructions. Planned stamps do not establish collection or
@@ -175,6 +184,10 @@ other private source files under `.local/trips/<slug>/inputs/` or
 served by the website. Keep only publishable originals or clearly identified
 redacted copies in the tracked input archive; never overwrite a private
 original with a redacted copy.
+
+Any retained editable working copy that contains private material must also
+be ignored by Git. Keep its receipt snapshot in the trip's private input
+archive, and publish only the reviewed facts within the requested scope.
 
 Ignored local files are not backed up by GitHub. Use a separate private backup
 when they need to be available on another device. Do not move private files

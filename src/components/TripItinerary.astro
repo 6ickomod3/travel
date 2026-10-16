@@ -11,12 +11,14 @@ import TripReferences from './TripReferences.astro';
 import TripStampGuide from './TripStampGuide.astro';
 import TripGallery from './TripGallery.astro';
 import TripDailyItinerary from './TripDailyItinerary.astro';
+import TripDiningReservations from './TripDiningReservations.astro';
 import BrandMark from './BrandMark.astro';
 import BookingBadge from './BookingBadge.astro';
 import { tripCollection, type Trip, type TripDestination, type TripStay } from '../data/trips';
 import { durationDays, formatDateRange, formatDate } from '../lib/trips';
 import { withBase } from '../lib/urls';
 import { getImageCredit, getLicensedImageCredit } from '../lib/image-credits';
+import { getDiningReservationReminders } from '../lib/trip-dining';
 
 interface Props { trip: Trip; }
 const { trip } = Astro.props;
@@ -46,6 +48,7 @@ const flights = trip.flights ?? [];
 const ticketOptions = trip.ticketOptions ?? [];
 const bookingWindows = trip.bookingWindows ?? [];
 const checklist = trip.checklist ?? [];
+const diningReminders = getDiningReservationReminders(trip.days, trip.diningOptions ?? []);
 const practicalNotes = trip.practicalNotes ?? [];
 const sources = trip.sources ?? [];
 const gallery = trip.gallery ?? [];
@@ -109,6 +112,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
       <div class="container">
         <div class="trip-subnav-links rich-subnav-links">
           {checklist.length > 0 && <a href="#checklist">{text('待办与待确认', 'To do / to check')}</a>}
+          {diningReminders.length > 0 && <a href="#dining-reservations">{text('用餐预约', 'Dining reservations')}</a>}
           {flights.length > 0 && <a href="#flights">{text('航班信息', 'Flights')}</a>}
           <a href="#route">{text('旅行路线', 'Route')}</a>
           {stays.length > 0 && <a href="#stays">{text('住宿安排', 'Accommodation')}</a>}
@@ -122,6 +126,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     </nav>
 
     {checklist.length > 0 && <TripChecklist items={checklist} sources={sources} locale={locale} flights={flights} stays={stays} bookingWindows={bookingWindows} hasTicketOptions={ticketOptions.length > 0} hasBookingWindows={bookingWindows.length > 0} />}
+    <TripDiningReservations reminders={diningReminders} sources={sources} locale={locale} />
 
     <div class="planning-note container">
       <Icon name="compass" size={21} />

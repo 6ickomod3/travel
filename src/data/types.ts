@@ -79,6 +79,43 @@ export interface TripStampGuide {
   }>;
 }
 
+export type TripMeal = "breakfast" | "lunch" | "dinner" | "snack";
+
+export interface TripDiningOption {
+  id: string;
+  name: string;
+  area?: string;
+  description: string;
+  notes?: string[];
+  reservation?: {
+    policy: "required" | "recommended" | "none" | "check";
+    note?: string;
+    /** Public booking link or restaurant phone, never a private confirmation. */
+    url?: string;
+    phone?: string;
+  };
+  sourceIds?: string[];
+}
+
+export interface TripDiningChoice {
+  optionId: string;
+  /** Date-specific constraints and suggested meal times stay outside the schedule. */
+  note?: string;
+  /** Retain an option without prompting a reservation for the accepted route. */
+  requiresItineraryChange?: true;
+  /** Record only an explicit confirmation for this date and meal. */
+  reservationStatus?: "booked";
+}
+
+export interface TripDayMeal {
+  meal: TripMeal;
+  label?: string;
+  notes?: string[];
+  choices: TripDiningChoice[];
+  /** Public references for meal logistics without a named restaurant. */
+  sourceIds?: string[];
+}
+
 export interface TripDay {
   /** Calendar date in YYYY-MM-DD format. */
   date: string;
@@ -96,6 +133,8 @@ export interface TripDay {
   stamps?: TripStampCollection;
   /** Sight introductions for this day; optional visits remain explicitly labeled. */
   sightIds?: string[];
+  /** Meal alternatives shown after the day's existing plan, not schedule changes. */
+  dining?: TripDayMeal[];
   hike?: {
     distanceKm: number;
     duration: string;
@@ -248,6 +287,8 @@ export interface Trip {
   sources?: TripSource[];
   gallery?: TripGalleryPhoto[];
   sights?: TripSight[];
+  /** Trip-owned option details reused by daily meal references and booking reminders. */
+  diningOptions?: TripDiningOption[];
   practicalNotes?: string[];
   stampGuide?: TripStampGuide;
   walkingSummary?: { distanceKm: number; days: number };

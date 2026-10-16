@@ -124,6 +124,7 @@ for (const folder of folders) {
   const stays = uniqueIds(trip.stays ?? [], `${folder} stays`);
   const photos = uniqueIds(trip.gallery ?? [], `${folder} gallery photos`);
   const sights = uniqueIds(trip.sights ?? [], `${folder} sights`);
+  const diningOptions = uniqueIds(trip.diningOptions ?? [], `${folder} dining options`);
   uniqueIds(trip.checklist ?? [], `${folder} checklist`);
   uniqueIds(trip.flights ?? [], `${folder} flights`);
   const ticketOptions = uniqueIds(trip.ticketOptions ?? [], `${folder} ticket options`);
@@ -139,6 +140,16 @@ for (const folder of folders) {
   const checkSights = (ids, label) => {
     for (const id of ids ?? []) assert.ok(sights.has(id), `${label}: unknown sight ${id}`);
   };
+  for (const option of trip.diningOptions ?? []) {
+    assert.match(option.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `${folder}/${option.id}: use a dining fragment ID`);
+    assert.ok(option.name && option.description, `${folder}/${option.id}: name and describe the dining option`);
+    if (option.reservation) {
+      assert.ok(['required', 'recommended', 'none', 'check'].includes(option.reservation.policy), `${folder}/${option.id}: invalid dining reservation policy`);
+      if (option.reservation.url !== undefined) assert.match(option.reservation.url, /^https:\/\//, `${folder}/${option.id}: use a public HTTPS dining link`);
+      if (option.reservation.phone !== undefined) assert.ok(typeof option.reservation.phone === 'string' && option.reservation.phone.trim(), `${folder}/${option.id}: record a restaurant phone`);
+    }
+    checkSources(option.sourceIds, `${folder}/${option.id} dining`);
+  }
   const dates = new Set();
   for (const day of trip.days) {
     const date = calendarDate(day.date, `${folder} day`);
@@ -149,6 +160,22 @@ for (const folder of folders) {
     if (day.overnightId) assert.ok(stays.has(day.overnightId), `${folder}/${date}: unknown stay ${day.overnightId}`);
     checkSources(day.sourceIds, `${folder}/${date}`);
     checkSights(day.sightIds, `${folder}/${date}`);
+    const meals = new Set();
+    for (const group of day.dining ?? []) {
+      assert.ok(['breakfast', 'lunch', 'dinner', 'snack'].includes(group.meal), `${folder}/${date}: invalid meal group`);
+      assert.ok(!meals.has(group.meal), `${folder}/${date}: duplicate meal group ${group.meal}`);
+      meals.add(group.meal);
+      assert.ok(Array.isArray(group.choices) && (group.choices.length > 0 || group.notes?.some(note => typeof note === 'string' && note.trim())), `${folder}/${date}/${group.meal}: add dining choices or meal guidance`);
+      checkSources(group.sourceIds, `${folder}/${date}/${group.meal} dining`);
+      const choices = new Set();
+      for (const choice of group.choices) {
+        assert.ok(diningOptions.has(choice.optionId), `${folder}/${date}: unknown dining option ${choice.optionId}`);
+        assert.ok(!choices.has(choice.optionId), `${folder}/${date}/${group.meal}: duplicate dining choice ${choice.optionId}`);
+        choices.add(choice.optionId);
+        assert.ok(choice.reservationStatus === undefined || choice.reservationStatus === 'booked', `${folder}/${date}: only explicit dining bookings use a status`);
+        assert.ok(choice.requiresItineraryChange === undefined || choice.requiresItineraryChange === true, `${folder}/${date}: route-change flag must be explicit`);
+      }
+    }
     if (day.stamps) {
       assert.ok(day.stamps.title && day.stamps.stops.length, `${folder}/${date}: name the stamp collection and add its stops`);
       for (const stop of day.stamps.stops) {

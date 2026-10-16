@@ -4,6 +4,7 @@ import BookingBadge from './BookingBadge.astro';
 import TripReferences from './TripReferences.astro';
 import TripStamps from './TripStamps.astro';
 import TripSights from './TripSights.astro';
+import TripDining from './TripDining.astro';
 import type { Trip } from '../data/types';
 import { durationDays, formatDate, formatDateRange } from '../lib/trips';
 
@@ -112,6 +113,7 @@ const isThisJapan = trip.slug === 'japan-2026';
               </details>)}
             </div>}
             <TripReferences sources={sourcesFor(day.sourceIds)} locale={locale} label={text('当天资料', 'Day sources')} />
+            <TripDining date={day.date} meals={day.dining ?? []} options={trip.diningOptions ?? []} sources={sources} locale={locale} />
           </div>
         </details>;
       })}

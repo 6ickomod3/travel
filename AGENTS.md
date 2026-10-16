@@ -47,6 +47,11 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   and a usable native disclosure fallback. Place daily reminders and the
   overnight stay near the start of each day. Sticky date navigation sits
   flush with the viewport top on desktop and mobile.
+- Put meal alternatives at the bottom of each day, after its existing plan.
+  Show dining reservation reminders in a separate section near pending items,
+  ordered by meal date. Restaurant recommendations do not establish a choice,
+  a reservation or available seats. Keep dining suggestions and seating-time
+  notes separate from the agreed timetable unless the user changes the plan.
 - The homepage is an overview: highlight the next trip, provide compact trip
   links, and show an atlas of visited places. Trip previews show only covers,
   titles, countries, dates, status, and links. Keep routes, day/night totals,
@@ -170,6 +175,12 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   with route or eligibility conditions stated explicitly. It does not assert
   that a stamp was collected or a pilgrimage qualification was completed.
   Keep shared booklet, collection, and registration guidance in `stampGuide`.
+- Optional `Trip.diningOptions` owns reusable restaurant and meal-option
+  details for that trip. `TripDay.dining` groups references by meal, with
+  date-specific conditions and explicit reservation confirmations. Both
+  daily panels and dining reminders use these records. Keep options marked
+  `requiresItineraryChange` visible but outside current-route reservation
+  prompts. Dining references remain collapsed and are included in printing.
 - Source disclosures stay closed when expanding all days. Reveal a source's
   ancestor disclosures when following its direct fragment link.
 - Optional `gallery` stores photo IDs, local images, captions, and related day

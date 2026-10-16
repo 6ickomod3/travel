@@ -7,5 +7,7 @@ dist/
 !.env.example
 # Private trip inputs and reservation documents.
 .local/
+# Local editable source containing private booking material.
+/日本行程_2026-11-13至21_更新版.txt
 test-results/
 playwright-report/

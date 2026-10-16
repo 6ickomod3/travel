@@ -416,7 +416,8 @@ and licenses.
   SHA-256, while retaining the direct asset URL requirement for downloaded
   logos. No unknown website image URL is invented to pass validation.
 - Verification: content checks and the production build passed with zero
-  diagnostics across 47 Astro files. Desktop 1280px and mobile 320px browser
+  diagnostics across 47 Astro files. Local production-preview browser checks
+  at desktop 1280px and mobile 320px
   checks confirmed the purple logo, the complete hotel name and official
   link, a 72px display height at the original 93:95 aspect ratio, and visible
   print output. The public SVG response matched the supplied SHA-256.
@@ -424,6 +425,82 @@ and licenses.
   image heights retained their prior values. There were no page errors,
   missing site resources or horizontal overflow. Screenshots and reports
   remain outside the published repository.
+
+### Dining-only update — October 16, 2026
+
+- Archived the user's request verbatim, without an added newline, in
+  [inputs/2026-10-16-01-dining-request.txt](inputs/2026-10-16-01-dining-request.txt)
+  (238 UTF-8 bytes; SHA-256
+  `d8e8d71fbb15d328bea0959c9d04b3a4336e3888d1aec78f79a00971eadc1ca3`).
+  The original typo is retained in the archive; the requested public heading
+  is interpreted as dining reservations.
+- Origin: the newly updated workspace file
+  `日本行程_2026-11-13至21_更新版.txt`, following the explicit dining-only request.
+- Preserved the complete 68,198-byte original unchanged in ignored private
+  storage, `.local/trips/japan-2026/inputs/2026-10-16-02-dining.original.txt`;
+  SHA-256 `5db3621ecd20c211cc1c578be4e8be05ff19807ad24d32ca7c45a89174dd26e2`.
+  The complete booking document and personal dietary detail remain private.
+  The original editable workspace copy is retained unchanged and ignored by
+  Git to prevent accidental staging; the private archive is the receipt snapshot.
+- Scope: meal alternatives for November 13–21 at each day's bottom, and a
+  separate dining-reservation reminder section. The user explicitly retains
+  the current itinerary and time plan. All restaurant candidates remain
+  unselected and unreserved; no current availability is inferred.
+- Published only a clearly labeled edited dining-fact extraction in
+  [inputs/2026-10-16-02-dining.md](inputs/2026-10-16-02-dining.md)
+  (29,494 UTF-8 bytes; SHA-256
+  `00d0635e3c069ed5b1a3996eba40c3ac605015cfc71d00affa0878706e0db2a1`).
+  Source ranges are review pointers, not raw public quotations. The extraction
+  was independently reviewed after personal clauses, hotel-order meal claims,
+  proposed seating times and new travel sequences were removed. No full
+  booking document or private confirmation is published.
+- Applied: 14 trip-owned dining options, 29 meal groups across nine days and
+  16 candidate references. Meals with no named restaurant retain practical
+  preparation guidance. Added 32 submitted public restaurant references;
+  meal-level references cover SEN coordination and Hongu opening constraints.
+  Public references stay collapsed by default and are included in printing.
+- The seven current-route reservation or confirmation candidates are grouped
+  by restaurant and sorted by first meal date: Hitoshi (November 14), Kanawa
+  or Suishin (November 15), Ginchiro (November 16), Chinchoan Nachisan
+  (November 19), and Izasa and Moritaya (November 20; lunch and dinner,
+  respectively). Candidates require a user choice before reservation; no
+  booking action was submitted and no menu tier was selected.
+- Retained branch-specific constraints: Takoume Kita accepts no reservations;
+  its Dotonbori branch rules do not apply. Izasa takeout orders do not reserve
+  its second-floor seats. Special Ginchiro fish hotpots need separate advance
+  arrangements if chosen. Suishin's three-day course requirement is conditional
+  on choosing that restaurant and course; Kanawa is the alternative dinner.
+  Izasa's main confirmation link opens its official shop information; its
+  distinct takeout-order link remains labeled in the collapsed references.
+- Retained Wednesday closures for Hongu's Chinchoan and Shimoji on November
+  18, irregular-opening checks for Ginchiro and Chinchoan Nachisan, food
+  preparation for trail and Kawayu days, and generic hotel-meal coordination.
+  Kawayu microwave hours are attributed only to the submitted dining text;
+  no public amenities reference was supplied or independently retrieved.
+- Harijyu is visible only as a comparison requiring an itinerary change and
+  is excluded from current-route reservation reminders. The source's new
+  return-route proposal is not accepted. Kanawa's transport is a compatibility
+  check, not a revised hotel/restaurant sequence.
+- A complete structured comparison confirmed that every existing field
+  remains identical after removing only the new dining fields and appended
+  sources: all 94 main timetable rows, 16 alternative rows, flights, hotels,
+  costs, checklists, stamps, sights and routes are preserved. Source-reported
+  menu prices stay in the options and do not enter accommodation totals.
+- Restaurant hours, menus and reservation terms come from the user's source.
+  No external restaurant pages or live availability were checked in this
+  update. All source-only proposed meal times are omitted.
+- Verification: content checks and the production build passed with zero
+  diagnostics across 50 Astro files. Local production-preview checks at
+  desktop 1280px and mobile 320px verified all nine dining footers, seven
+  chronologically grouped candidates, matching day links, route-change
+  exclusion, unchanged 94 main and 16 alternative timetable rows, closed
+  references, focused-day and Back/Forward behavior, direct meal fragments,
+  printing and restored state, and the native disclosure fallback. No page
+  errors, missing local resources or horizontal overflow were found. The
+  homepage and UK placeholder contain no dining details. Screenshots and
+  verification reports remain outside the published repository.
+- The public section uses the concise heading "用餐预约". Its existing
+  local display font covers the heading, with no font asset or license change.
 
 ## Open information
 
@@ -439,6 +516,9 @@ and licenses.
   The choice of the early Hayatama route and conditional Tanabe registration
   return remains pending; no stamps or formal qualifications are recorded
   as already completed.
+- Restaurant choices and reservations remain pending. In addition to booking
+  candidates, confirm irregular opening days and two-person Izasa seating;
+  retain prepared-food fallbacks where meal stops must fit existing transfers.
 
 Use `trip.ts` for current itinerary and checklist details. Update this record
 when a source explicitly resolves or changes a decision.
@@ -490,3 +570,6 @@ when a source explicitly resolves or changes a decision.
 - October 14, 2026: archived the official-logo correction and supplied SVG,
   replaced South Gate's SG display with the purple property artwork, and
   improved reusable vertical-logo sizing without changing itinerary facts.
+- October 16, 2026: archived the dining request and reviewed edited food
+  extraction, added daily meal footers and chronological conditional dining
+  reminders, and preserved all accepted timetable and booking facts.

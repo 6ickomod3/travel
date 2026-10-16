@@ -153,7 +153,7 @@ function initializeTripItinerary(element: HTMLElement) {
     let id: string;
     try { id = decodeURIComponent(hash.replace(/^#/, '')); }
     catch { return; }
-    if (!['source-', 'day-', 'alternative-', 'ticket-'].some(prefix => id.startsWith(prefix))) return;
+    if (!['source-', 'day-', 'alternative-', 'ticket-', 'dining-'].some(prefix => id.startsWith(prefix))) return;
     return document.getElementById(id) ?? undefined;
   }
 
@@ -190,7 +190,7 @@ function initializeTripItinerary(element: HTMLElement) {
     const day = targetDay(target);
     if (day) {
       selectedDate = day.dataset.itineraryDate!;
-      if (options.dateControl) mode = 'focus';
+      if (options.dateControl || target.id.startsWith('dining-')) mode = 'focus';
       applyView({ openSelected: true });
       announceDay();
     }

@@ -14,6 +14,10 @@ The homepage highlights the current or next dated trip, links to each trip throu
 
 Trip pages show outstanding tasks with recorded booking progress, reuse local brand marks, and provide date navigation with a focused day or full-trip view. Printing includes all days, alternatives, ticket details, and references and restores the previous view afterward.
 
+Meal options appear at the bottom of each day. A separate dining-reservation
+section near the pending checklist groups unbooked candidates by restaurant,
+ordered by their first meal date, with links to the relevant day.
+
 ## Project layout
 
 ```text
@@ -82,6 +86,13 @@ Use a year-only `TripPlaceholder` until dates and plans are known, following UK 
 Pending checklist items appear first on each trip page, grouped into To do actions and To check confirmations through their optional `kind` field. Each group sorts by optional `timing`: immediate actions, referenced reservation openings or calendar dates, then undated items. Related travel dates are labeled separately from deadlines. Optional `priority: "high"` and `priorityReason` identify important dependencies. Ticket comparisons, reservation-opening times, and practical reminders remain in Preparations.
 
 Add optional `cost` records to accommodation `checkIns` for booking totals and estimated extra charges. The same values appear on accommodation cards and in a final Costs section, totaled by currency; unknown prices stay unpriced and booking amounts do not imply payment.
+
+Optional `diningOptions` stores reusable restaurant details and public booking
+contacts within each trip. Daily `dining` groups refer to those options by meal,
+or provide practical meal guidance with collapsed public references. Keep
+food suggestions separate from the existing timetable. Only an explicit
+confirmation marks a date-and-meal reservation as booked; route-change
+alternatives remain visible but are excluded from current reservation reminders.
 
 Daily `stamps` can store ordered collection stops and route conditions; `stampGuide` stores booklet and eligibility guidance. These describe a plan without marking stamps collected or qualifications completed. Research references start collapsed across trip pages and remain available when printing.
 
