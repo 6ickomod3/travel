@@ -2,6 +2,7 @@
 import Icon from './Icon.astro';
 import TripReferences from './TripReferences.astro';
 import type { TripDayPoem as DayPoem } from '../data/types';
+import { withBase } from '../lib/urls';
 
 interface Props {
   poem?: DayPoem;
@@ -17,7 +18,7 @@ const notes = [
 const referenceLabel = notes.length > 0 ? text('出处与说明', 'Sources and context') : text('参考资料', 'References');
 ---
 
-{poem && <figure class="day-poem" data-day-poem aria-label={text('当日题记', 'Daily epigraph')}>
+{poem && <figure class="day-poem" data-day-poem aria-label={text('当日题记', 'Daily epigraph')} style={{ '--poem-sakura': `url("${withBase('images/shared/poem-sakura.svg')}")` }}>
   <blockquote class="poem-original" lang={poem.language} data-poem-original>{poem.text}</blockquote>
   {poem.translation && <p class="poem-translation" lang={poem.translation.language} data-poem-translation>{poem.translation.text}</p>}
   {(poem.author || poem.work || poem.excerpt || sources.length > 0 || notes.length > 0) && <figcaption>
@@ -38,7 +39,8 @@ const referenceLabel = notes.length > 0 ? text('出处与说明', 'Sources and c
 </figure>}
 
 <style>
-  .day-poem { min-width: 0; margin: 22px 0 0; padding: 17px 20px 16px; border-left: 2px solid var(--accent); border-radius: 0 4px 4px 0; background: var(--paper); }
+  .day-poem { --ink-soft: #536257; position: relative; isolation: isolate; min-width: 0; margin: 22px 0 0; padding: 23px 27px 20px; border: 1px solid #e8dcd5; border-left: 2px solid #c79d90; border-radius: 7px; background-color: #fbf7f0; background-image: repeating-linear-gradient(125deg, #ad948004 0 1px, transparent 1px 6px), radial-gradient(ellipse at right top, #f2ddd45c, transparent 68%), linear-gradient(110deg, #fcf9f2, #fbf6ef 62%, #f8eee8); box-shadow: inset 0 0 0 3px #ffffff50, 0 2px 12px #89695206; }
+  .day-poem::before { content: ''; position: absolute; z-index: -1; inset: 0; border-radius: inherit; background-image: var(--poem-sakura); background-repeat: no-repeat; background-position: right -8px top -8px; background-size: 260px auto; opacity: .56; pointer-events: none; }
   .poem-original { min-width: 0; margin: 0; color: var(--ink); font-family: 'Hiragino Mincho ProN', 'Yu Mincho', YuMincho, 'MS PMincho', 'Noto Serif CJK JP', 'Noto Serif JP', serif; font-size: 22px; font-style: normal; font-weight: 400; line-height: 1.9; letter-spacing: .025em; white-space: break-spaces; line-break: strict; word-break: normal; overflow-wrap: anywhere; }
   .poem-translation { margin: 9px 0 0; color: var(--ink-soft); font-family: var(--sans); font-size: 14px; line-height: 1.9; white-space: break-spaces; overflow-wrap: anywhere; }
   .poem-attribution { display: flex; align-items: baseline; flex-wrap: wrap; gap: 5px 12px; margin-top: 11px; color: var(--ink-soft); font-family: var(--sans); font-size: 11px; line-height: 1.8; }
@@ -63,7 +65,8 @@ const referenceLabel = notes.length > 0 ? text('出处与说明', 'Sources and c
   }
   @keyframes poem-reveal { from { opacity: 0; } to { opacity: 1; } }
   @media (max-width: 600px) {
-    .day-poem { margin-top: 18px; padding: 14px 14px 13px; }
+    .day-poem { margin-top: 18px; padding: 18px 16px 16px; }
+    .day-poem::before { background-position: right -16px top -10px; background-size: 156px auto; opacity: .4; }
     .poem-original { font-size: 18px; line-height: 1.95; letter-spacing: .015em; }
     .poem-translation { font-size: 13px; }
     .poem-attribution { gap: 4px 10px; }
@@ -74,8 +77,13 @@ const referenceLabel = notes.length > 0 ? text('出处与说明', 'Sources and c
   @media (prefers-reduced-motion: reduce) {
     .day-poem { animation: none; }
   }
+  @media (forced-colors: active) {
+    .day-poem { border-color: CanvasText; background: Canvas; box-shadow: none; }
+    .day-poem::before { display: none; }
+  }
   @media print {
-    .day-poem { margin-top: 12px; padding: 10px 12px; border-left: 1px solid var(--line); background: white; break-inside: avoid; animation: none !important; }
+    .day-poem { margin-top: 12px; padding: 10px 12px; border: 0; border-left: 1px solid var(--line); border-radius: 0; background: white; box-shadow: none; break-inside: avoid; animation: none !important; }
+    .day-poem::before { display: none; }
     .poem-original { color: #000; font-size: 13px; line-height: 1.7; }
     .poem-translation { margin-top: 6px; font-size: 10px; }
     .poem-attribution { margin-top: 7px; font-size: 9px; }

@@ -207,6 +207,9 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   distinguish borrowed imagery from the original location, and do not invent
   poems for days without a submission. Literary links stay outside the
   official-source catalog and do not establish independent verification.
+- Daily epigraphs use a subtle paper background with quiet decorative sakura
+  motifs from original local illustrations. Keep decoration noninteractive,
+  preserve text contrast and mobile reading width, and use plain print backgrounds.
 - Source disclosures stay closed when expanding all days. Reveal a source's
   ancestor disclosures when following its direct fragment link.
 - Optional `gallery` stores photo IDs, local images, captions, and related day

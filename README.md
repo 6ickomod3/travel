@@ -113,6 +113,8 @@ Optional daily `poem` stores the exact quotation, language-tagged interpretation
 author, work, excerpt status, context and literary sources within its trip.
 It appears after daily accommodation and reminders, before the timetable.
 Credits stay visible; detailed references start collapsed and open for printing.
+The epigraph background uses warm paper tones and subtle original sakura artwork,
+with smaller motifs on mobile and a plain background for printing.
 Dates without a supplied poem remain unchanged.
 
 You can supply plain text or attachments. The workflow is: save the source, compare it with the existing plan, apply clear additions/corrections, record unresolved questions, then check and publish the trip page. New fragments do not silently replace unrelated accepted decisions.

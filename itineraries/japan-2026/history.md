@@ -636,6 +636,47 @@ and licenses.
   seven poems and 91 official sources. Reports and screenshots remain outside
   the repository.
 
+### Sakura epigraph backgrounds — October 16, 2026
+
+- Origin: the user's chat request for a more beautiful background around
+  Japanese epigraphs, suggesting sakura motifs. Archived verbatim, without
+  an added newline, in
+  [inputs/2026-10-16-08-poem-background.txt](inputs/2026-10-16-08-poem-background.txt)
+  (81 UTF-8 bytes; SHA-256
+  `d8f8d573e270c02f597bce8aa10df4caf0889a2b814970a4f899d14b53d3a11d`).
+- Applied: shared daily-epigraph cards use warm cream and blush paper tones,
+  a fine border, and a quiet original sakura illustration at the right edge.
+  The local vector artwork belongs in `public/images/shared/`, with its
+  original-art provenance in that folder's `credits.json`. It is decorative,
+  noninteractive and separate from the trip's sight photography.
+- Artwork: `poem-sakura.svg` is an original 640 × 400 vector illustration
+  (2,773 bytes; SHA-256
+  `1f0cc6a693fb1b7318647e2e3a080ba36cbbd75bb7070fc52c83339cdd0890b9`).
+  It uses only local vector shapes and gradients, with no external resource,
+  font, script, embedded image or animation.
+- Mobile styling reduces the motif's size and intensity while preserving
+  the Japanese reading width and type size. Print and forced-color modes
+  remove the decorative layers. The existing reduced-motion behavior and
+  default-closed reference disclosures remain available.
+- Scope: epigraph backgrounds and shared English presentation guidelines.
+  All seven exact originals, interpretations, credits, bibliography and
+  context remain intact. The canonical itinerary is unchanged; no working
+  TXT or private booking document is ingested.
+- Verification: the production build passed with zero diagnostics across
+  52 Astro files. Local production-preview checks at 1280px and 320px
+  confirmed all seven exact quotations, interpretations, language tags and
+  author/work credits, successful local artwork loading, unrestricted text
+  width, no overflow and keyboard-operated source disclosures. Full-trip
+  viewing includes all seven epigraphs with references initially closed.
+  Printing removes decorative images, gradients, shadows and color washes,
+  includes the poems and sources, then restores the exact view/disclosure
+  state. Forced-color mode also hides the artwork, and reduced-motion mode
+  retains its existing animation-free presentation. No page errors or
+  missing local resources were found. Independent component/artwork review
+  and desktop/mobile screenshots confirmed clear text and quiet edge artwork;
+  reports and screenshots remain outside the repository. The canonical plan
+  is byte-for-byte unchanged.
+
 ## Open information
 
 - For SEN RETREAT CHIKATSUYU and 川湯まつや, meals, early breakfast or packed
@@ -717,3 +758,6 @@ when a source explicitly resolves or changes a decision.
 - October 16, 2026: archived the section-order correction, aligned navigation
   and page order, and added default-closed accommodation, cost and official
   source sections with summaries and default-expanded flights.
+- October 16, 2026: archived the epigraph-background request and added quiet
+  original sakura artwork and warm paper styling, with mobile, print and
+  forced-color treatments and stronger small-text contrast.

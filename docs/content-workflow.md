@@ -54,6 +54,9 @@ src/data/
   Show the poem after accommodation and daily reminders, before the timetable,
   with its interpretation and credit visible. Detailed references start
   collapsed and open for printing with their previous states restored.
+  Shared epigraph styling uses warm paper tones and a quiet local sakura
+  illustration; preserve reading width and contrast, keep decoration
+  noninteractive, and remove decorative backgrounds for print and forced colors.
   A missing poem renders nothing; no epigraph changes the accepted schedule.
   Optional flights, ticket options, booking windows, and separate day
   alternatives keep detailed logistics in that same plan. Flight endpoints

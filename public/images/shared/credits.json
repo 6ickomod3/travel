@@ -9,6 +9,17 @@
       "alt": "A simplified world outline without location markers.",
       "width": 1000,
       "height": 500
+    },
+    {
+      "file": "poem-sakura.svg",
+      "kind": "illustration",
+      "source": "/images/shared/poem-sakura.svg",
+      "author": "The Journey Atlas",
+      "credit": "Original decorative cherry-blossom illustration created for The Journey Atlas.",
+      "alt": "A delicate blush cherry-blossom branch with drifting petals on a transparent background.",
+      "width": 640,
+      "height": 400,
+      "objectPosition": "100% 0%"
     }
   ],
   "fontDirectory": "../../fonts/",
