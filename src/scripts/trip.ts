@@ -18,6 +18,17 @@ interface PrintSnapshot {
   focused: HTMLElement | null;
 }
 
+interface DaySwipe {
+  identifier: number;
+  day: HTMLDetailsElement;
+  date: string;
+  x: number;
+  y: number;
+  scrollX: number;
+  scrollY: number;
+  startedAt: number;
+}
+
 const HISTORY_KEY = 'journeyAtlasDailyView';
 
 function initializeTripItinerary(element: HTMLElement) {
@@ -50,6 +61,8 @@ function initializeTripItinerary(element: HTMLElement) {
   const viewLabel = element.querySelector<HTMLElement>('[data-itinerary-view-label]');
   const count = element.querySelector<HTMLElement>('[data-day-current]');
   const announcement = element.querySelector<HTMLElement>('[data-day-announcement]');
+  const swipeHint = element.querySelector<HTMLElement>('[data-day-swipe-hint]');
+  const supportsTouch = typeof TouchEvent !== 'undefined' && (navigator.maxTouchPoints > 0 || 'ontouchstart' in window);
   const isZh = element.dataset.tripLanguage === 'zh-CN';
   const slug = element.dataset.tripSlug ?? '';
   let selectedDate = days[0]?.dataset.itineraryDate ?? '';
@@ -59,6 +72,7 @@ function initializeTripItinerary(element: HTMLElement) {
   let restoreFrame: number | undefined;
   let isRestoringPrint = false;
   let isRestoringHistory = false;
+  let swipe: DaySwipe | undefined;
   const programmaticToggles = new WeakMap<HTMLDetailsElement, boolean>();
 
   const text = (zh: string, en: string) => isZh ? zh : en;
@@ -126,6 +140,7 @@ function initializeTripItinerary(element: HTMLElement) {
     if (viewLabel) viewLabel.textContent = mode === 'focus' ? text('单日查看', 'One day') : text('查看全程', 'All days');
     if (modeLabel) modeLabel.textContent = mode === 'focus' ? text('查看全程', 'View all') : text('单日查看', 'One day');
     modeButton?.setAttribute('aria-expanded', String(mode === 'all'));
+    if (swipeHint) swipeHint.hidden = !supportsTouch || mode !== 'focus' || days.length < 2;
 
     // Keep boundary controls focusable so selecting the last day does not lose keyboard focus.
     previous?.setAttribute('aria-disabled', String(index <= 0));
@@ -204,6 +219,7 @@ function initializeTripItinerary(element: HTMLElement) {
     if (printSnapshot || isRestoringPrint || isRestoringHistory) return;
     const target = fragmentTarget(hash);
     if (!target) return;
+    cancelSwipe();
     writeView();
     const day = targetDay(target);
     if (day) {
@@ -223,6 +239,69 @@ function initializeTripItinerary(element: HTMLElement) {
     navigateToFragment(`#day-${date}`, { dateControl: true });
   }
 
+  function adjacentDay(direction: -1 | 1) {
+    const index = selectedIndex();
+    return index < 0 ? undefined : days[index + direction];
+  }
+
+  function cancelSwipe() {
+    swipe = undefined;
+  }
+
+  function swipeBlocked() {
+    return mode !== 'focus' || Boolean(printSnapshot) || isRestoringPrint || isRestoringHistory
+      || (window.visualViewport?.scale ?? 1) > 1.05
+      || window.getSelection()?.isCollapsed === false;
+  }
+
+  function nativeGestureTarget(target: Element, day: HTMLDetailsElement) {
+    if (target.closest('a, button, input, textarea, select, label, summary, table, [contenteditable]:not([contenteditable="false"]), [tabindex]:not([tabindex="-1"]), [draggable="true"], [role="button"], [role="link"], [role="checkbox"], [role="radio"], [role="switch"], [role="slider"], [role="scrollbar"], [role="table"], img, video, audio, canvas, iframe, .leaflet-container, [data-gallery-track], [data-day-swipe-ignore]')) return true;
+    for (let ancestor: Element | null = target; ancestor && ancestor !== day; ancestor = ancestor.parentElement) {
+      const overflow = getComputedStyle(ancestor).overflowX;
+      if ((overflow === 'auto' || overflow === 'scroll') && ancestor.scrollWidth > ancestor.clientWidth + 1) return true;
+    }
+    return false;
+  }
+
+  function beginSwipe(event: TouchEvent) {
+    cancelSwipe();
+    if (swipeBlocked() || event.touches.length !== 1 || days.length < 2) return;
+    const target = event.target instanceof Element ? event.target : null;
+    const day = target?.closest<HTMLDetailsElement>('.itinerary-day');
+    const touch = event.touches[0];
+    if (!target?.closest('.day-content') || !day || day !== selectedDay() || !day.open || day.hidden
+      || touch.clientX < 24 || touch.clientX > window.innerWidth - 24 || nativeGestureTarget(target, day)) return;
+    swipe = { identifier: touch.identifier, day, date: selectedDate, x: touch.clientX, y: touch.clientY,
+      scrollX: window.scrollX, scrollY: window.scrollY, startedAt: performance.now() };
+  }
+
+  function moveSwipe(event: TouchEvent) {
+    const ongoing = swipe;
+    if (!ongoing) return;
+    const touch = [...event.touches].find(point => point.identifier === ongoing.identifier);
+    if (swipeBlocked() || event.touches.length !== 1 || !touch || selectedDate !== ongoing.date
+      || (Math.abs(touch.clientY - ongoing.y) > 18 && Math.abs(touch.clientY - ongoing.y) > Math.abs(touch.clientX - ongoing.x))
+      || Math.abs(window.scrollY - ongoing.scrollY) > 12 || Math.abs(window.scrollX - ongoing.scrollX) > 12) cancelSwipe();
+  }
+
+  function endSwipe(event: TouchEvent) {
+    const finished = swipe;
+    cancelSwipe();
+    if (!finished || swipeBlocked() || event.touches.length !== 0 || selectedDate !== finished.date
+      || selectedDay() !== finished.day || !finished.day.isConnected || !finished.day.open || finished.day.hidden
+      || performance.now() - finished.startedAt > 900
+      || Math.abs(window.scrollY - finished.scrollY) > 12 || Math.abs(window.scrollX - finished.scrollX) > 12) return;
+    const touch = [...event.changedTouches].find(point => point.identifier === finished.identifier);
+    if (!touch) return;
+    const distance = touch.clientX - finished.x;
+    if (Math.abs(distance) < Math.max(64, Math.min(100, finished.day.clientWidth * .18))
+      || Math.abs(distance) < Math.abs(touch.clientY - finished.y) * 1.7) return;
+    const destination = adjacentDay(distance < 0 ? 1 : -1);
+    if (!destination) return;
+    if (event.cancelable) event.preventDefault();
+    navigateToDate(destination.dataset.itineraryDate!);
+  }
+
   function readingDay(): HTMLDetailsElement | undefined {
     if (!navigation) return;
     const navRect = navigation.getBoundingClientRect();
@@ -236,6 +315,7 @@ function initializeTripItinerary(element: HTMLElement) {
 
   function toggleView() {
     if (printSnapshot || isRestoringPrint || isRestoringHistory || !days.length) return;
+    cancelSwipe();
     const priorDate = selectedDate;
     if (mode === 'all') selectedDate = readingDay()?.dataset.itineraryDate ?? selectedDate;
     mode = mode === 'focus' ? 'all' : 'focus';
@@ -267,6 +347,7 @@ function initializeTripItinerary(element: HTMLElement) {
   }
 
   function scheduleHistoryRestore(event: Event) {
+    cancelSwipe();
     // Capture the incoming entry before deferred disclosure events can write to history.
     const saved = { view: storedView(event instanceof PopStateEvent ? event.state : history.state), hash: location.hash };
     isRestoringHistory = true;
@@ -281,13 +362,27 @@ function initializeTripItinerary(element: HTMLElement) {
 
   modeButton?.addEventListener('click', toggleView);
   previous?.addEventListener('click', () => {
-    const day = days[selectedIndex() - 1];
+    const day = adjacentDay(-1);
     if (day) navigateToDate(day.dataset.itineraryDate!);
   });
   next?.addEventListener('click', () => {
-    const day = days[selectedIndex() + 1];
+    const day = adjacentDay(1);
     if (day) navigateToDate(day.dataset.itineraryDate!);
   });
+
+  // Passive movement preserves native scrolling; only a completed day change cancels a synthetic tap.
+  element.addEventListener('touchstart', beginSwipe, { passive: true });
+  element.addEventListener('touchmove', moveSwipe, { passive: true });
+  element.addEventListener('touchend', endSwipe, { passive: false });
+  window.addEventListener('touchstart', event => { if (event.touches.length > 1) cancelSwipe(); }, { passive: true, capture: true });
+  window.addEventListener('touchcancel', cancelSwipe, { passive: true });
+  window.addEventListener('blur', cancelSwipe);
+  element.addEventListener('contextmenu', cancelSwipe);
+  document.addEventListener('visibilitychange', cancelSwipe);
+  document.addEventListener('selectionchange', () => { if (window.getSelection()?.isCollapsed === false) cancelSwipe(); });
+  window.addEventListener('scroll', () => {
+    if (swipe && (Math.abs(window.scrollY - swipe.scrollY) > 12 || Math.abs(window.scrollX - swipe.scrollX) > 12)) cancelSwipe();
+  }, { passive: true });
 
   dateNavigation?.addEventListener('keydown', event => {
     if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
@@ -332,6 +427,7 @@ function initializeTripItinerary(element: HTMLElement) {
   else window.addEventListener('resize', measureNavigation);
 
   window.addEventListener('beforeprint', () => {
+    cancelSwipe();
     if (printSnapshot) return;
     if (restoreFrame !== undefined) window.cancelAnimationFrame(restoreFrame);
     isRestoringPrint = false;

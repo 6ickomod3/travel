@@ -50,6 +50,12 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   and a usable native disclosure fallback. Place daily reminders and the
   overnight stay near the start of each day. Sticky date navigation sits
   flush with the viewport top on desktop and mobile.
+- In one-day view, an intentional left swipe on the selected day's content
+  opens the next date; a right swipe opens the previous date. Stop at the
+  first and last dates without wrapping. Preserve native vertical scrolling,
+  scrolling in the date strip and other horizontally scrollable widgets,
+  and link/control activation. Full-trip view uses normal scrolling; date
+  links, arrows and keyboard controls remain available.
 - Put meal alternatives at the bottom of each day, after its existing plan.
   Show dining reservation reminders in a separate section near pending items,
   ordered by meal date. Restaurant recommendations do not establish a choice,

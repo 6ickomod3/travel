@@ -14,6 +14,13 @@ The homepage highlights the current or next dated trip, links to each trip throu
 
 Trip pages show outstanding tasks with recorded booking progress, reuse local brand marks, and provide date navigation with a focused day or full-trip view. Printing includes all days, alternatives, ticket details, and references and restores the previous view afterward.
 
+In one-day view, an intentional left swipe on the selected day's content opens
+the next date; a right swipe opens the previous date. Navigation stops at the
+first and last dates without wrapping. Native vertical scrolling, scrolling
+in the date strip and other horizontally scrollable widgets, and link/control
+activation keep their normal behavior. Full-trip view uses normal scrolling;
+date links, arrows and keyboard controls remain available.
+
 Navigation and page content follow the same order: Route, Daily itinerary,
 To do and confirmations, Dining reservations, Preparations, Accommodation,
 Flights, Costs, Official sources. Accommodation, Costs and Official sources

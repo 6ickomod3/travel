@@ -1,0 +1,1 @@
+When in the daily schedule section, can I swipe left/right to look for previous/next day? Do not loop on both ends.

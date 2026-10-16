@@ -109,8 +109,14 @@ src/data/
   pages. They open for printing and restore afterward; map and image
   attribution remains visible beside its content.
   Daily navigation focuses one day at a time while preserving a full-trip
-  view and native disclosures. Its sticky date bar is flush with the viewport
-  top at all screen widths. Navigation and page content share this order:
+  view and native disclosures. In one-day view, an intentional left swipe on
+  the selected day's content opens the next date; a right swipe opens the
+  previous date. Stop at the first and last dates without wrapping. Preserve
+  native vertical scrolling, scrolling in the date strip and other horizontally
+  scrollable widgets, and link/control activation. Full-trip view uses normal
+  scrolling; date links, arrows and keyboard controls remain available.
+  Its sticky date bar is flush with the viewport top at all screen widths.
+  Navigation and page content share this order:
   Route, Daily itinerary, To do and confirmations, Dining reservations,
   Preparations, Accommodation, Flights, Costs, Official sources. Omit absent
   sections. Accommodation, Costs and Official sources start collapsed;

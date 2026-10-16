@@ -43,7 +43,7 @@ const isThisJapan = trip.slug === 'japan-2026';
   {trip.days.length > 0 ? <>
     <div class="daily-navigation" data-day-navigation>
       <div class="daily-navigation-toolbar itinerary-toolbar">
-        <p data-itinerary-view-label>{text('全部日期', 'All dates')}</p>
+        <p><span data-itinerary-view-label>{text('全部日期', 'All dates')}</span><span class="daily-swipe-hint" data-day-swipe-hint hidden>{text('左滑下一天 · 右滑上一天', 'Swipe left for next · right for previous')}</span></p>
         <div class="daily-view-controls">
           <span class="daily-current-count" data-day-current hidden>1 / {trip.days.length}</span>
           <button type="button" class="daily-mode-button expand-button" data-expand-days aria-controls="itinerary-days" aria-expanded="false" hidden>
@@ -131,6 +131,8 @@ const isThisJapan = trip.slug === 'japan-2026';
   .daily-itinerary .daily-navigation { position: sticky; top: 0; z-index: 30; min-width: 0; margin-bottom: 24px; padding: 10px 14px 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); box-shadow: 0 5px 20px #23372c08; }
   .daily-itinerary .daily-navigation-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin: 0 0 8px; padding: 0; border: 0; }
   .daily-itinerary .daily-navigation-toolbar > p { color: var(--ink-soft); font-size: 12px; }
+  .daily-swipe-hint { margin-top: 2px; font-size: 11px; line-height: 1.6; }
+  .daily-swipe-hint:not([hidden]) { display: block; }
   .daily-view-controls { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
   .daily-current-count { color: var(--ink-soft); font-size: 11px; font-variant-numeric: tabular-nums; }
   .daily-itinerary .daily-mode-button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 8px 13px; border: 1px solid var(--line); border-radius: 4px; background: #fbfaf5; font-size: 12px; white-space: nowrap; }

@@ -677,6 +677,47 @@ and licenses.
   reports and screenshots remain outside the repository. The canonical plan
   is byte-for-byte unchanged.
 
+### Bounded daily touch navigation — October 16, 2026
+
+- Origin: the user's chat request to swipe left/right in the daily schedule
+  to reach the previous or next day, without looping at either end.
+  Archived verbatim, without an added newline, in
+  [inputs/2026-10-16-09-daily-swiping.txt](inputs/2026-10-16-09-daily-swiping.txt)
+  (115 UTF-8 bytes; SHA-256
+  `0b9531ebcbd6968fd48bdca93080c7b45c3d2b3264a7489ae096a9c5155e3976`).
+- Applied: one-day view accepts deliberate one-finger horizontal swipes
+  on the open day's content. A left swipe opens the next date; a right
+  swipe opens the previous date. Both gestures reuse existing date navigation,
+  including its date-strip selection, count, announcement, fragment links
+  and history. Out-of-range gestures at the first/last dates do nothing;
+  previous/next arrow controls share the same bounded adjacent-day lookup.
+- A small localized gesture hint appears on touch devices in one-day view.
+  Full-trip view keeps native scrolling and its existing date controls.
+  Passive start/move handling preserves native scrolling and zoom; only
+  a completed valid date change cancels the corresponding synthetic tap.
+- Gesture detection excludes controls, editable/selected text, media, tables,
+  map/gallery widgets, horizontally scrollable ancestors and browser-edge
+  gestures. Vertical scrolling, brief taps, long presses, multi-touch,
+  cancellation, zoomed viewports and changes of mode/date/history/print
+  invalidate a gesture. A second touch anywhere on the page also cancels it.
+- Scope: reusable daily navigation, its touch hint and English guidelines.
+  The canonical itinerary, poems, meals, bookings, costs and section order
+  remain unchanged; no working TXT or private booking source is ingested.
+- Verification: the final production build passed with zero diagnostics
+  across 52 Astro files. Local production-preview checks used real touch
+  input at 390px and 320px to traverse all nine dates in both directions
+  and confirm complete first/last-date no-ops, unchanged boundary history,
+  active date/count/announcements, and correct Back/Forward restoration.
+  Native vertical scrolling, date-strip scrolling, a horizontal descendant,
+  pinch zoom, hotel link taps, multi-touch outside the section, cancellation,
+  selected text, long presses, full-trip viewing and exact print restoration
+  passed. Desktop checks at 1280px confirmed hidden touch hints, keyboard
+  navigation and bounded arrow controls. Independent review corrected a
+  pending-gesture cancellation gap in controlled fragment navigation before
+  the final successful run. No page errors, missing local resources or
+  horizontal overflow were found. The canonical plan is byte-for-byte
+  unchanged; reports and screenshots remain outside the repository.
+
 ## Open information
 
 - For SEN RETREAT CHIKATSUYU and 川湯まつや, meals, early breakfast or packed
@@ -761,3 +802,6 @@ when a source explicitly resolves or changes a decision.
 - October 16, 2026: archived the epigraph-background request and added quiet
   original sakura artwork and warm paper styling, with mobile, print and
   forced-color treatments and stronger small-text contrast.
+- October 16, 2026: archived the daily-swipe request and added bounded touch
+  navigation between focused days, with native-scroll/control safeguards
+  and a localized touch hint.
