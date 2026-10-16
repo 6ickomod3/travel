@@ -115,6 +115,17 @@ for (const folder of folders) {
     continue;
   }
 
+  if (trip.coverIntroduction) {
+    assert.ok(typeof trip.coverIntroduction.text === 'string' && trip.coverIntroduction.text.trim(), `${folder}: add cover introduction text`);
+    const translationLanguages = new Set();
+    for (const translation of trip.coverIntroduction.translations ?? []) {
+      assert.match(translation.language, /^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$/, `${folder}: use a cover translation language tag`);
+      assert.ok(!translationLanguages.has(translation.language), `${folder}: duplicate cover translation language`);
+      translationLanguages.add(translation.language);
+      assert.ok(typeof translation.text === 'string' && translation.text.trim(), `${folder}: add cover translation text`);
+    }
+  }
+
   const start = calendarDate(trip.startDate, `${folder} start`);
   const end = calendarDate(trip.endDate, `${folder} end`);
   assert.ok(end >= start, `${folder}: end date precedes start`);

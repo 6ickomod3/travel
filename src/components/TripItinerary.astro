@@ -82,7 +82,8 @@ const heroCredit = getLicensedImageCredit(trip.cover);
         <div class="trip-hero-heading">
           <p class="eyebrow"><span class="tiny-star" aria-hidden="true">✳</span> {text('旅行', 'TRIP')} {chapter} / {trip.country.toUpperCase()}</p>
           <h1 id="trip-title">{titleParts.map((part, index) => <>{index > 0 && <wbr />}<span class="trip-title-part">{part}</span></>)}</h1>
-          <p class="trip-summary">{trip.summary}</p>
+          <p class="trip-summary">{trip.coverIntroduction?.text ?? trip.summary}</p>
+          {(trip.coverIntroduction?.translations ?? []).map(translation => <p class="trip-summary-translation" lang={translation.language}>{translation.text}</p>)}
         </div>
         <div class="trip-hero-details">
         <div class="trip-facts">
@@ -208,6 +209,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
 <style>
   .trip-hero-heading, .trip-hero-details { min-width: 0; }
   .trip-summary { max-width: 435px; margin-top: 22px; color: var(--ink-soft); font-size: 13px; line-height: 1.9; }
+  .trip-summary-translation { max-width: 650px; margin-top: 10px; color: var(--ink-soft); font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif CJK JP', serif; font-size: 12px; line-height: 2.05; letter-spacing: .025em; white-space: pre-line; overflow-wrap: anywhere; }
   .trip-hero-with-gallery { grid-template-columns: minmax(0, 1fr); gap: 30px; padding-bottom: 36px; }
   .trip-hero-with-gallery .trip-hero-copy { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .9fr); align-items: end; gap: 40px 64px; }
   .trip-hero-with-gallery .trip-hero-copy h1 { font-size: clamp(48px, 5.5vw, 76px); line-height: 1.2; }
@@ -276,6 +278,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     .trip-hero-with-gallery .trip-hero-copy h1 { font-size: 45px; }
     .trip-hero-with-gallery .trip-summary { margin-top: 14px; }
     .trip-summary { margin-top: 19px; font-size: 12px; }
+    .trip-summary-translation { margin-top: 9px; font-size: 12px; letter-spacing: .01em; line-height: 2; }
     .rich-subnav-links { gap: 20px; }
     .stay-grid { grid-template-columns: 1fr; gap: 17px; }
     .stay-card { padding: 21px; }
@@ -293,6 +296,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
   @media print {
     .trip-hero-with-gallery .trip-hero-copy { display: block; }
     .trip-hero-with-gallery .trip-hero-copy h1 { font-size: 38px; }
+    .trip-summary-translation { margin-top: 5px; font-size: 10px; line-height: 1.8; }
     .trip-stays-section, .trip-preparations-section, .trip-sources-section { padding-block: 20px; border: 0; }
     .stay-summary { margin-bottom: 12px; padding: 10px 13px; }
     .stay-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }

@@ -41,6 +41,10 @@ src/data/
   homepage previews, and visited atlas. Export its object as the default and
   check it with `satisfies Trip` or `satisfies TripPlaceholder` from
   `../../src/data/types`. Keep public trip content in its chosen language.
+  Optional `coverIntroduction` holds user-requested cover wording and
+  language-tagged `translations`. It is displayed above the trip details;
+  `summary` remains the factual overview used for page metadata. Preserve
+  the user's primary wording and keep translations together with it.
   Optional flights, ticket options, booking windows, and separate day
   alternatives keep detailed logistics in that same plan. Flight endpoints
   use airport-local dates and times; booking openings use explicit offsets

@@ -265,6 +265,11 @@ export interface Trip {
   endDate: string;
   status: TripStatus;
   summary: string;
+  /** Optional cover presentation with translations, separate from the factual summary. */
+  coverIntroduction?: {
+    text: string;
+    translations?: Array<{ language: string; text: string }>;
+  };
   cover: string;
   coverAlt: string;
   coverCredit: string;

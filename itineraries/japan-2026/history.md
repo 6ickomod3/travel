@@ -502,6 +502,32 @@ and licenses.
 - The public section uses the concise heading "用餐预约". Its existing
   local display font covers the heading, with no font asset or license change.
 
+### Bilingual cover introduction — October 16, 2026
+
+- Archived the user's request verbatim, without an added newline, in
+  [inputs/2026-10-16-03-cover-introduction.txt](inputs/2026-10-16-03-cover-introduction.txt)
+  (202 UTF-8 bytes; SHA-256
+  `6a14adf8668befc0843788f0228d0a8bd733907ba22c4fc9150f50fbefa4cd1c`).
+- Origin: the user's chat correction supplying the exact Chinese cover
+  sentence and asking for a poetic Japanese translation beside it.
+- Applied: retained the supplied Chinese sentence exactly, with an authored
+  Japanese translation beneath it. The translation follows the same sequence
+  of Miyajima's sea torii, Kumano's mountain paths, Nara's ancient temples and
+  Japan's deepening autumn. It is not a quotation from an external source.
+- This is an explicit request for poetic cover wording. Optional
+  `coverIntroduction` stores the presentation and language-tagged translations;
+  the factual summary continues to provide page metadata. The Japanese text
+  uses `lang="ja"`, natural wrapping and local system Mincho font fallbacks.
+- Scope: cover text and bilingual presentation only. All itinerary, dining,
+  dates, bookings, costs, photographs and source references remain unchanged.
+- Verification: the production build passed with zero diagnostics across
+  50 Astro files. Local production-preview checks at 1280px and 320px
+  confirmed the exact Chinese text, natural two-line Japanese source text,
+  stacked presentation, Japanese language tag, preserved factual metadata,
+  print visibility and no overflow, page errors or missing local resources.
+  A full structured comparison confirmed that only `coverIntroduction`
+  was added to the trip. Screenshots and reports remain outside the repository.
+
 ## Open information
 
 - For SEN RETREAT CHIKATSUYU and 川湯まつや, meals, early breakfast or packed
@@ -573,3 +599,6 @@ when a source explicitly resolves or changes a decision.
 - October 16, 2026: archived the dining request and reviewed edited food
   extraction, added daily meal footers and chronological conditional dining
   reminders, and preserved all accepted timetable and booking facts.
+- October 16, 2026: archived the supplied cover sentence, paired it with an
+  authored Japanese translation and introduced optional bilingual cover
+  presentation without changing the factual plan.

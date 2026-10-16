@@ -29,6 +29,8 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   for Chinese pages.
 - Remove ornamental prose, motivational statements, promotional language,
   abstract section names, and repeated descriptions of the same information.
+- Explicitly requested cover introductions may use poetic wording and
+  translations. Keep them in `coverIntroduction` with language-tagged text.
 - The Idea/About section and free-form travel notebooks have been removed at
   the user's request. Do not reintroduce them unless the user asks.
 - Keep factual day reminders and practical travel notes in the itinerary data.

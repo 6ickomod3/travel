@@ -12,6 +12,15 @@ export default {
   "travelers": 2,
   "itineraryStatus": "agreed",
   "summary": "大阪往返，经广岛、宫岛、熊野古道和川汤温泉，19号走新宫、那智、纪伊胜浦返回大阪；两天徒步约20.8公里。",
+  "coverIntroduction": {
+    "text": "从宫岛的海上鸟居，到熊野的山中古道，再到奈良的千年古寺，一路走进日本的深秋。",
+    "translations": [
+      {
+        "language": "ja",
+        "text": "宮島の海に立つ鳥居から、熊野の山あいの古道を経て、千年の歴史をもつ奈良の古寺へ。\n日本の深まる秋をたどる旅。"
+      }
+    ]
+  },
   "cover": "/images/trips/japan-2026/miyajima.webp",
   "coverAlt": "夕光下的宫岛严岛神社大鸟居，倒映在海水中。",
   "coverCredit": "图片：Jakub Hałun / Wikimedia Commons / CC BY 4.0",
