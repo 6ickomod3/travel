@@ -49,7 +49,7 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
 ---
 <section class="trip-checklist-section container" id="checklist" aria-labelledby="checklist-title">
   <div class="section-heading">
-    <div><h2 id="checklist-title">{text('待办与待确认', 'To do and to check')}</h2></div>
+    <div><h2 id="checklist-title">{text('待办与确认', 'To do and confirmations')}</h2></div>
     <p class="section-intro">{items.length} {text('项待处理', items.length === 1 ? 'open item' : 'open items')}</p>
   </div>
   <TripBookingProgress flights={flights} stays={stays} locale={locale} />

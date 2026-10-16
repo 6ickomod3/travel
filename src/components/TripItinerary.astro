@@ -7,7 +7,7 @@ import TripFlights from './TripFlights.astro';
 import TripPlanning from './TripPlanning.astro';
 import TripChecklist from './TripChecklist.astro';
 import TripCosts from './TripCosts.astro';
-import TripReferences from './TripReferences.astro';
+import TripSection from './TripSection.astro';
 import TripStampGuide from './TripStampGuide.astro';
 import TripGallery from './TripGallery.astro';
 import TripDailyItinerary from './TripDailyItinerary.astro';
@@ -57,6 +57,12 @@ const stayNights = (stay: TripStay) => stay.checkIns.reduce((total, segment) => 
 const totalNights = stays.reduce((total, stay) => total + stayNights(stay), 0);
 const bookedNights = stays.filter(stay => stay.status === 'booked').reduce((total, stay) => total + stayNights(stay), 0);
 const pendingNights = totalNights - bookedNights;
+const stayPeriods = stays.flatMap(stay => stay.checkIns);
+const stayStartDate = stayPeriods.map(segment => segment.checkIn).sort()[0];
+const stayEndDate = stayPeriods.map(segment => segment.checkOut).sort().at(-1);
+const stayDateRange = stayStartDate && stayEndDate
+  ? formatDateRange({ startDate: stayStartDate, endDate: stayEndDate }, dateLocale)
+  : undefined;
 const stayStatus = (stay: TripStay) => stay.status === 'booked' ? text('已订', 'Booked') : text('待确认', 'Awaiting confirmation');
 const hasPreparations = practicalNotes.length > 0 || ticketOptions.length > 0 || bookingWindows.length > 0 || Boolean(trip.stampGuide);
 const photoCredit = trip.coverCredit.replace(/^(?:Photo:|图片来源：|图片：)\s*/i, '');
@@ -93,7 +99,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
           <TripStatus trip={trip} locale={locale} />
         </div>
         <div class="trip-hero-actions">
-          <a class="button button-primary" href={checklist.length > 0 ? '#checklist' : '#itinerary'}>{checklist.length > 0 ? text('查看待办与待确认', 'View to do and to check') : text('查看每日行程', 'View itinerary')} <Icon name="arrow-down" size={16} /></a>
+          <a class="button button-primary" href={checklist.length > 0 ? '#checklist' : '#itinerary'}>{checklist.length > 0 ? text('查看待办与确认', 'View to do and confirmations') : text('查看每日行程', 'View itinerary')} <Icon name="arrow-down" size={16} /></a>
           <button class="button button-secondary" type="button" data-print-trip><Icon name="download" size={15} /> {text('打印行程', 'Print itinerary')}</button>
         </div>
         </div>
@@ -112,22 +118,19 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     <nav class="trip-subnav" aria-label={text('行程章节', 'Trip sections')}>
       <div class="container">
         <div class="trip-subnav-links rich-subnav-links">
-          {checklist.length > 0 && <a href="#checklist">{text('待办与待确认', 'To do / to check')}</a>}
-          {diningReminders.length > 0 && <a href="#dining-reservations">{text('用餐预约', 'Dining reservations')}</a>}
-          {flights.length > 0 && <a href="#flights">{text('航班信息', 'Flights')}</a>}
           <a href="#route">{text('旅行路线', 'Route')}</a>
-          {stays.length > 0 && <a href="#stays">{text('住宿安排', 'Accommodation')}</a>}
           <a href="#itinerary">{text('每日行程', 'Daily itinerary')}</a>
+          {checklist.length > 0 && <a href="#checklist">{text('待办与确认', 'To do and confirmations')}</a>}
+          {diningReminders.length > 0 && <a href="#dining-reservations">{text('用餐预约', 'Dining reservations')}</a>}
           {hasPreparations && <a href="#preparations">{text('行前准备', 'Preparations')}</a>}
-          {sources.length > 0 && <a href="#sources">{text('官方资料', 'Official sources')}</a>}
+          {stays.length > 0 && <a href="#stays">{text('住宿安排', 'Accommodation')}</a>}
+          {flights.length > 0 && <a href="#flights">{text('航班信息', 'Flights')}</a>}
           {hasCosts && <a href="#costs">{text('费用', 'Costs')}</a>}
+          {sources.length > 0 && <a href="#sources">{text('官方资料', 'Official sources')}</a>}
         </div>
         <span class="trip-subnav-note"><span class="status-dot"></span> {isAgreed ? text('行程已商定', 'Agreed itinerary') : text('行程草案', 'Draft itinerary')}</span>
       </div>
     </nav>
-
-    {checklist.length > 0 && <TripChecklist items={checklist} sources={sources} locale={locale} flights={flights} stays={stays} bookingWindows={bookingWindows} hasTicketOptions={ticketOptions.length > 0} hasBookingWindows={bookingWindows.length > 0} />}
-    <TripDiningReservations reminders={diningReminders} sources={sources} locale={locale} />
 
     <div class="planning-note container">
       <Icon name="compass" size={21} />
@@ -136,8 +139,6 @@ const heroCredit = getLicensedImageCredit(trip.cover);
         <p>{trip.routeNote}</p>
       </div>
     </div>
-
-    {flights.length > 0 && <TripFlights flights={flights} sources={sources} locale={locale} />}
 
     <section class="route-section container" id="route" aria-labelledby="route-title">
       <div class="section-heading">
@@ -162,11 +163,22 @@ const heroCredit = getLicensedImageCredit(trip.cover);
       </div>
     </section>
 
-    {stays.length > 0 && <section class="trip-stays-section container" id="stays" aria-labelledby="stays-title">
-      <div class="section-heading">
-        <div><h2 id="stays-title">{text('住宿安排', 'Accommodation')}</h2></div>
-        <p class="section-intro">{stays.length} {text('处住宿记录', 'stay records')} · {totalNights} {text('晚', 'nights')}<br />{bookedNights} {text('晚已订', 'nights booked')} · {pendingNights} {text('晚待确认', 'nights awaiting confirmation')}</p>
-      </div>
+    <TripDailyItinerary trip={trip} />
+
+    {checklist.length > 0 && <TripChecklist items={checklist} sources={sources} locale={locale} flights={flights} stays={stays} bookingWindows={bookingWindows} hasTicketOptions={ticketOptions.length > 0} hasBookingWindows={bookingWindows.length > 0} />}
+    <TripDiningReservations reminders={diningReminders} sources={sources} locale={locale} />
+
+    {hasPreparations && <section class="trip-preparations-section container" id="preparations" aria-labelledby="preparations-title">
+      <div class="section-heading"><div><h2 id="preparations-title">{text('行前准备', 'Preparations')}</h2></div><p class="section-intro">{text('预订、行李寄存、餐食与换乘。', 'Bookings, luggage, meals, and connections.')}<br />{text('参考班次不代表已购票。', 'Reference departures are not ticket confirmations.')}</p></div>
+      {(ticketOptions.length > 0 || bookingWindows.length > 0) && <TripPlanning ticketOptions={ticketOptions} bookingWindows={bookingWindows} sources={sources} locale={locale} travelers={trip.travelers} selectedTicketOptionId={trip.selectedTicketOptionId} />}
+      {trip.stampGuide && <TripStampGuide guide={trip.stampGuide} sources={sources} locale={locale} />}
+      {practicalNotes.length > 0 && <aside class="practical-panel"><div class="preparation-panel-heading"><Icon name="compass" size={20} /><h3>{text('行李、餐食与换乘', 'Luggage, meals, and connections')}</h3></div><ul class="practical-list">{practicalNotes.map(note => <li>{note}</li>)}</ul></aside>}
+    </section>}
+
+    {stays.length > 0 && <TripSection id="stays" title={text('住宿安排', 'Accommodation')} class="trip-stays-section" locale={locale}>
+      <span slot="summary" class="stay-section-meta">
+        {stayDateRange ? <>{stayDateRange}<span aria-hidden="true"> · </span>{totalNights} {text('晚', totalNights === 1 ? 'night' : 'nights')}</> : text('日期待补', 'Dates to be added')}
+      </span>
       <div class="stay-summary" aria-label={text('住宿预订概况', 'Accommodation booking summary')}>
         <span><Icon name="check" size={16} /> <strong>{bookedNights}</strong> {text('晚已有预订记录', 'nights have booking records')}</span>
         <span><Icon name="calendar" size={16} /> <strong>{pendingNights}</strong> {text('晚需要确认', 'nights need confirmation')}</span>
@@ -186,19 +198,18 @@ const heroCredit = getLicensedImageCredit(trip.cover);
           <ul class="stay-notes">{stay.notes.map(note => <li>{note}</li>)}</ul>
         </article>)}
       </div>
-    </section>}
+    </TripSection>}
 
-    <TripDailyItinerary trip={trip} />
-
-    {hasPreparations && <section class="trip-preparations-section container" id="preparations" aria-labelledby="preparations-title">
-      <div class="section-heading"><div><h2 id="preparations-title">{text('行前准备', 'Preparations')}</h2></div><p class="section-intro">{text('预订、行李寄存、餐食与换乘。', 'Bookings, luggage, meals, and connections.')}<br />{text('参考班次不代表已购票。', 'Reference departures are not ticket confirmations.')}</p></div>
-      {(ticketOptions.length > 0 || bookingWindows.length > 0) && <TripPlanning ticketOptions={ticketOptions} bookingWindows={bookingWindows} sources={sources} locale={locale} travelers={trip.travelers} selectedTicketOptionId={trip.selectedTicketOptionId} />}
-      {trip.stampGuide && <TripStampGuide guide={trip.stampGuide} sources={sources} locale={locale} />}
-      {practicalNotes.length > 0 && <aside class="practical-panel"><div class="preparation-panel-heading"><Icon name="compass" size={20} /><h3>{text('行李、餐食与换乘', 'Luggage, meals, and connections')}</h3></div><ul class="practical-list">{practicalNotes.map(note => <li>{note}</li>)}</ul></aside>}
-    </section>}
-
-    {sources.length > 0 && <section class="trip-sources-section container" id="sources" aria-labelledby="sources-title"><div class="section-heading"><div><h2 id="sources-title">{text('官方资料', 'Official sources')}</h2></div><p class="section-intro">{text('景点、交通与古道的官方资料。', 'Official information for sights, transport, and trails.')}</p></div><TripReferences sources={sources} locale={locale} catalog label={text('查看官方资料', 'View official sources')}><p class="sources-reference-note">{text(`链接中的列车时刻表日期是资料参考日期；列车、巴士与活动安排请按${dateRange}的实际出行日复核。行程中的参考班次不代表已经买票。`, 'Timetable dates identify the reference information. Recheck trains, buses, and event details for your travel dates; listed departures are not purchased tickets.')}</p></TripReferences></section>}
+    {flights.length > 0 && <TripFlights flights={flights} sources={sources} locale={locale} />}
     {hasCosts && <TripCosts stays={stays} sources={sources} travelers={trip.travelers} locale={locale} hasPreparations={hasPreparations} />}
+    {sources.length > 0 && <TripSection id="sources" title={text('官方资料', 'Official sources')} class="trip-sources-section" locale={locale}>
+      <span slot="summary">{sources.length} {text('条资料', sources.length === 1 ? 'source' : 'sources')}</span>
+      <p class="sources-intro">{text('景点、交通与古道的官方资料。', 'Official information for sights, transport, and trails.')}</p>
+      <p class="sources-reference-note">{text(`链接中的列车时刻表日期是资料参考日期；列车、巴士与活动安排请按${dateRange}的实际出行日复核。行程中的参考班次不代表已经买票。`, 'Timetable dates identify the reference information. Recheck trains, buses, and event details for your travel dates; listed departures are not purchased tickets.')}</p>
+      <ul class="official-source-list" data-source-catalog role="list">
+        {sources.map(source => <li id={`source-${source.id}`}><a href={source.url} target="_blank" rel="noopener noreferrer"><span>{source.label}</span><Icon name="external" size={12} /></a></li>)}
+      </ul>
+    </TripSection>}
   </div>
 </Layout>
 
@@ -225,7 +236,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
   .route-overview li { display: inline-flex; align-items: center; gap: 13px; font-size: 13px; }
   .route-overview li > span:first-child { border: 1px solid var(--line); padding: 5px 12px; border-radius: 4px; background: #fbfaf5; }
   .route-overview-arrow { color: var(--accent-deep); }
-  .trip-stays-section, .trip-preparations-section, .trip-sources-section { padding-block: 64px; border-top: 1px solid var(--line); }
+  .trip-preparations-section { padding-block: 64px; border-top: 1px solid var(--line); }
   .stay-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 26px; padding: 16px 19px; margin-bottom: 22px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper-deep); }
   .stay-summary > span { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; }
   .stay-summary > span:last-child { color: var(--ink-soft); margin-left: auto; font-size: 11px; }
@@ -260,7 +271,14 @@ const heroCredit = getLicensedImageCredit(trip.cover);
   .trip-photo-credits a { text-decoration: underline; text-underline-offset: 3px; }
   .trip-photo-credits a:hover { color: var(--accent-deep); }
   .photo-changes { margin-left: 9px; font-size: 9px; }
+  .sources-intro { margin-bottom: 10px; color: var(--ink-soft); font-size: 13px; line-height: 1.9; }
   .sources-reference-note { max-width: 850px; margin-bottom: 23px; font-size: 13px; line-height: 1.9; color: var(--ink-soft); }
+  .official-source-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; list-style: none; margin: 0; padding: 0; }
+  .official-source-list li { min-width: 0; max-width: 100%; }
+  .official-source-list a { display: flex; align-items: flex-start; gap: 5px; width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 4px; background: #fbfaf5; color: var(--accent-deep); font-size: 11px; line-height: 1.8; text-decoration: underline; text-underline-offset: 4px; }
+  .official-source-list a > span { min-width: 0; overflow-wrap: anywhere; }
+  .official-source-list a > svg { flex-shrink: 0; margin-top: 4px; margin-left: auto; }
+  .official-source-list a:hover { color: var(--ink); }
 
   @media (max-width: 1000px) {
     .stay-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -271,7 +289,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     .trip-summary { font-size: 11px; }
     .rich-subnav-links { gap: 20px; }
     .stay-summary > span:last-child { width: 100%; margin-left: 0; }
-    .trip-stays-section, .trip-preparations-section, .trip-sources-section { padding-block: 48px; }
+    .trip-preparations-section { padding-block: 48px; }
   }
   @media (max-width: 600px) {
     .trip-hero-with-gallery { gap: 24px; padding-bottom: 27px; }
@@ -291,13 +309,15 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     .trip-photo-credits { font-size: 11px; }
     .photo-changes { display: block; margin-left: 0; font-size: 10px; }
     .sources-reference-note { font-size: 13px; }
-    .trip-stays-section, .trip-preparations-section, .trip-sources-section { padding-block: 44px; }
+    .official-source-list { grid-template-columns: minmax(0, 1fr); }
+    .official-source-list a { font-size: 12px; }
+    .trip-preparations-section { padding-block: 44px; }
   }
   @media print {
     .trip-hero-with-gallery .trip-hero-copy { display: block; }
     .trip-hero-with-gallery .trip-hero-copy h1 { font-size: 38px; }
     .trip-summary-translation { margin-top: 5px; font-size: 10px; line-height: 1.8; }
-    .trip-stays-section, .trip-preparations-section, .trip-sources-section { padding-block: 20px; border: 0; }
+    .trip-preparations-section { padding-block: 20px; border: 0; }
     .stay-summary { margin-bottom: 12px; padding: 10px 13px; }
     .stay-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
     .stay-card { padding: 13px; break-inside: avoid; background: white; }
@@ -306,5 +326,9 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     .day-timeline { margin-top: 10px; }
     .practical-panel { padding: 15px; background: white; }
     .practical-list, .sources-reference-note { font-size: 10px; }
+    .sources-intro { font-size: 10px; }
+    .official-source-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .official-source-list li { break-inside: avoid; }
+    .official-source-list a { min-height: 0; padding: 7px 10px; background: white; font-size: 9px; }
   }
 </style>

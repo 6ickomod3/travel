@@ -25,6 +25,21 @@ function initializeTripItinerary(element: HTMLElement) {
 
   const days = [...element.querySelectorAll<HTMLDetailsElement>('.itinerary-day[data-itinerary-date]')];
   const dates = new Map(days.map(day => [day.dataset.itineraryDate!, day]));
+  const sectionDisclosures = new Map<string, HTMLDetailsElement>();
+  document.querySelectorAll<HTMLDetailsElement>('details[data-trip-section]').forEach(detail => {
+    const id = detail.dataset.tripSection;
+    const section = id ? document.getElementById(id) : null;
+    if (id && section?.tagName === 'SECTION' && detail.parentElement === section) sectionDisclosures.set(id, detail);
+  });
+  const navigationSections = new Set<string>();
+  document.querySelectorAll<HTMLAnchorElement>('.trip-subnav-links > a[href^="#"]').forEach(anchor => {
+    const url = new URL(anchor.href);
+    if (url.origin !== location.origin || url.pathname !== location.pathname || url.search !== location.search) return;
+    let id: string;
+    try { id = decodeURIComponent(url.hash.slice(1)); }
+    catch { return; }
+    if (document.getElementById(id)?.tagName === 'SECTION') navigationSections.add(id);
+  });
   const dateLinks = [...element.querySelectorAll<HTMLAnchorElement>('[data-day-select]')];
   const navigation = element.querySelector<HTMLElement>('[data-day-navigation]');
   const dateNavigation = element.querySelector<HTMLElement>('[data-day-date-navigation]');
@@ -153,7 +168,7 @@ function initializeTripItinerary(element: HTMLElement) {
     let id: string;
     try { id = decodeURIComponent(hash.replace(/^#/, '')); }
     catch { return; }
-    if (!['source-', 'day-', 'alternative-', 'ticket-', 'dining-'].some(prefix => id.startsWith(prefix))) return;
+    if (!navigationSections.has(id) && !sectionDisclosures.has(id) && !['source-', 'day-', 'alternative-', 'ticket-', 'dining-', 'stay-', 'cost-', 'flight-'].some(prefix => id.startsWith(prefix))) return;
     return document.getElementById(id) ?? undefined;
   }
 
@@ -163,20 +178,23 @@ function initializeTripItinerary(element: HTMLElement) {
   }
 
   function revealAncestors(target: HTMLElement) {
+    const sectionDisclosure = sectionDisclosures.get(target.id);
+    if (sectionDisclosure) setDetailsOpen(sectionDisclosure, true);
     for (let ancestor: Element | null = target; ancestor; ancestor = ancestor.parentElement) {
       if (ancestor instanceof HTMLDetailsElement) setDetailsOpen(ancestor, true);
     }
   }
 
   function scrollToTarget(target: HTMLElement) {
-    if (element.contains(target) && navigation) {
+    if (target !== element && element.contains(target) && navigation) {
       const inset = Number.parseFloat(getComputedStyle(navigation).top) || 0;
       window.scrollTo({ top: Math.max(0, target.getBoundingClientRect().top + window.scrollY - navigation.offsetHeight - inset - 18), behavior: 'instant' });
     } else target.scrollIntoView({ block: 'start', behavior: 'instant' });
   }
 
   function focusFragment(target: HTMLElement) {
-    const focusTarget = target instanceof HTMLDetailsElement ? target.querySelector<HTMLElement>(':scope > summary') : target;
+    const disclosure = target instanceof HTMLDetailsElement ? target : sectionDisclosures.get(target.id);
+    const focusTarget = disclosure ? disclosure.querySelector<HTMLElement>(':scope > summary') : target;
     if (!focusTarget) return;
     if (!focusTarget.hasAttribute('tabindex') && focusTarget.tagName !== 'SUMMARY') focusTarget.tabIndex = -1;
     focusTarget.focus({ preventScroll: true });
@@ -233,9 +251,10 @@ function initializeTripItinerary(element: HTMLElement) {
     const view = saved ? saved.view : storedView();
     const target = fragmentTarget(saved?.hash);
     const day = targetDay(target);
-    selectedDate = day?.dataset.itineraryDate ?? view?.date ?? days[0]?.dataset.itineraryDate ?? '';
-    mode = view?.mode ?? 'focus';
-    applyView({ openSelected: true, openAll: mode === 'all' });
+    const keepCurrentView = !view && Boolean(target) && !day && dates.has(selectedDate);
+    selectedDate = day?.dataset.itineraryDate ?? view?.date ?? (keepCurrentView ? selectedDate : days[0]?.dataset.itineraryDate ?? '');
+    mode = view?.mode ?? (keepCurrentView ? mode : 'focus');
+    applyView({ openSelected: !keepCurrentView, openAll: !keepCurrentView && mode === 'all' });
     if (view) {
       const openDates = new Set(view.openDates);
       days.forEach(item => setDetailsOpen(item, !item.hidden && openDates.has(item.dataset.itineraryDate!)));
@@ -316,7 +335,7 @@ function initializeTripItinerary(element: HTMLElement) {
     if (printSnapshot) return;
     if (restoreFrame !== undefined) window.cancelAnimationFrame(restoreFrame);
     isRestoringPrint = false;
-    const printDetails = [...document.querySelectorAll<HTMLDetailsElement>('.itinerary-day, .day-alternative, details[data-trip-references], details[data-ticket-details]')];
+    const printDetails = [...document.querySelectorAll<HTMLDetailsElement>('.itinerary-day, .day-alternative, details[data-trip-references], details[data-ticket-details], details[data-trip-section]')];
     printSnapshot = {
       date: selectedDate,
       mode,

@@ -587,6 +587,55 @@ and licenses.
   removing only `day.poem` restores every original field, including all
   94 main timetable rows, 16 alternative rows and 91 official sources.
 
+### Section order and collapsed summaries — October 16, 2026
+
+- Origin: the user's chat correction specifying nine navigation sections
+  and default disclosure states. Archived verbatim, without an added newline,
+  in [inputs/2026-10-16-07-section-order.txt](inputs/2026-10-16-07-section-order.txt)
+  (328 UTF-8 bytes; SHA-256
+  `5bf9a1bc609eb33d8e0d72ea158faa5373304da7189f2f4a2ea41669e1f36c6d`).
+- Applied the same order to navigation and page content: Route, Daily
+  itinerary, To do and confirmations, Dining reservations, Preparations,
+  Accommodation, Flights, Costs, Official sources. The pending section and
+  hero link use the user's shorter heading; the action/check groups and
+  their chronological sorting remain separate.
+- This explicitly supersedes the earlier checklist-first navigation/page
+  order and the placement of Costs after Official sources. The hero retains
+  its direct pending-item link; absent sections are omitted from navigation.
+- Accommodation starts closed, with the recorded check-in/check-out range
+  and total night count visible. The full hotel cards, logos, booking states,
+  dates, notes and price links remain inside. Costs starts closed with
+  currency-separated known accommodation booking totals, recorded estimated
+  extras and the combined accommodation estimate. These summaries do not
+  claim a complete trip budget or payment, and missing prices stay explicit.
+- Official sources now use one closed section disclosure, with the catalog
+  count visible and the same links, source IDs and timetable warning inside.
+  Flights use the same native disclosure and start expanded: the request's
+  flight-default wording was treated as a typo after stating that assumption
+  and offering optional clarification. Flights can also be closed manually.
+- Shared `TripSection.astro` supplies accessible headings, concise summaries,
+  native keyboard controls, mobile wrapping and print exposure. Existing
+  section, stay, cost, flight and source fragment links reveal the relevant
+  disclosure without changing the selected itinerary day. Printing opens
+  section details and references, then restores their previous states.
+- Scope: presentation order, disclosure states and shared English guidelines.
+  The canonical plan is unchanged; no updated working TXT or private document
+  is ingested by this layout correction.
+- Verification: the production build passed with zero diagnostics across
+  52 Astro files. Local production-preview checks at 1280px and 320px
+  confirmed all nine navigation and page-section positions, initial disclosure
+  states, recorded accommodation dates/night count, scoped JPY cost summaries,
+  keyboard operation and direct section/card/source links. Back/Forward and
+  every chapter link preserve the selected day and full-trip view; a discovered
+  hash-navigation reset was corrected before the successful final run.
+  Printing includes all section content, days, poems and references, then
+  restores the exact view and disclosure states. Native disclosures and print
+  exposure also passed without scripts. There was no horizontal overflow,
+  page error or missing local resource. The canonical plan is byte-for-byte
+  unchanged, including all 94 main timetable rows, 16 alternative rows,
+  seven poems and 91 official sources. Reports and screenshots remain outside
+  the repository.
+
 ## Open information
 
 - For SEN RETREAT CHIKATSUYU and 川湯まつや, meals, early breakfast or packed
@@ -665,3 +714,6 @@ when a source explicitly resolves or changes a decision.
   the updated original privately, and added seven exact Japanese epigraphs
   from a reviewed scoped excerpt with Chinese interpretations and attributed,
   collapsed literary context before the daily timetable.
+- October 16, 2026: archived the section-order correction, aligned navigation
+  and page order, and added default-closed accommodation, cost and official
+  source sections with summaries and default-expanded flights.

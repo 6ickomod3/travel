@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import TripReferences from './TripReferences.astro';
+import TripSection from './TripSection.astro';
 import type { TripStay, TripSource, TripStayCost } from '../data/trips';
 import { durationDays, formatDate } from '../lib/trips';
 
@@ -49,11 +50,19 @@ const summaries = [...new Set(pricedRows.map(row => row.cost.currency))].map(cur
 const referenceIds = [...new Set(pricedRows.flatMap(row => row.cost.sourceIds ?? []))];
 const references = referenceIds.flatMap(id => { const source = sources.find(item => item.id === id); return source ? [source] : []; });
 ---
-<section class="trip-costs-section container" id="costs" aria-labelledby="costs-title">
-  <div class="section-heading">
-    <div><h2 id="costs-title">{text('费用', 'Costs')}</h2></div>
-    <p class="section-intro">{text('住宿', 'Accommodation')} · {pricedRows.length} {text('笔订单', pricedRows.length === 1 ? 'booking' : 'bookings')} · {pricedNights} {text('晚已提供金额', 'nights priced')}{pendingNights > 0 && <> · {pendingNights} {text('晚价格待补', 'nights awaiting prices')}</>}</p>
-  </div>
+<TripSection id="costs" title={text('费用', 'Costs')} open={false} class="trip-costs-section" locale={locale}>
+  <Fragment slot="summary">
+    {summaries.map(summary => <span class="cost-section-currency" data-cost-summary-currency={summary.currency}>
+      <span class="cost-section-metric">{text('已知住宿订单合计', 'Known accommodation booking total')} <span class="cost-section-amount" data-cost-summary-total="bookings">{money(summary.bookingTotal, summary.currency)}</span> <span class="cost-section-code">{summary.currency}</span></span>
+      {summary.hasAdditional ? <>
+        <span class="cost-section-metric">{additionalLabel(summary.onlyAccommodationTax)} <span class="cost-section-amount" data-cost-summary-total="additional">{money(summary.additionalTotal, summary.currency)}</span></span>
+        <span class="cost-section-metric">{text('已知住宿估算', 'Known accommodation estimate')} <span class="cost-section-amount" data-cost-summary-total="budget">{money(summary.budget, summary.currency)}</span></span>
+      </> : <span class="cost-section-pending">{text('额外费用未记录', 'Extra charges not recorded')}</span>}
+    </span>)}
+    {summaries.length === 0 && <span class="cost-section-pending">{text('尚未记录住宿费用', 'No accommodation costs recorded')}</span>}
+    {pendingNights > 0 && <span class="cost-section-pending">{pendingNights} {text('晚住宿价格待补', 'accommodation nights awaiting prices')}</span>}
+  </Fragment>
+  <p class="cost-recorded">{text('住宿', 'Accommodation')} · {pricedRows.length} {text('笔订单', pricedRows.length === 1 ? 'booking' : 'bookings')} · {pricedNights} {text('晚已提供金额', 'nights priced')}{pendingNights > 0 && <> · {pendingNights} {text('晚价格待补', 'nights awaiting prices')}</>}</p>
   <p class="cost-basis">{text('以下为每笔住宿订单总价，不是每人价，也不代表已付款。', 'These are totals for each accommodation booking, not per-person prices or confirmed payments.')}{travelers !== undefined && travelers > 0 && <> {travelers} {text('人同行。', travelers === 1 ? 'traveler.' : 'travelers.')}</>}</p>
   {summaries.map(summary => <div class="cost-currency-summary" data-cost-currency={summary.currency}>
     <div class:list={['cost-summary-grid', { 'cost-summary-grid-single': !summary.hasAdditional }]}>
@@ -81,11 +90,17 @@ const references = referenceIds.flatMap(id => { const source = sources.find(item
   <p class="cost-scope">{pendingNights > 0 && <>{pendingNights} {text('晚住宿价格待补；', 'accommodation nights are unpriced. ')}</>}{text('以上是已知住宿部分预算。交通、未含餐食、景点等费用另计。', 'This is a partial accommodation budget. Transport, meals not included, and activities are separate.')}{summaries.length > 1 && <> {text('不同币种分别合计，未换汇合并。', 'Currencies are totaled separately, without conversion.')}</>}</p>
   <TripReferences sources={references} locale={locale} />
   {hasPreparations && <a class="cost-planning-link" href="#preparations">{text('查看票券方案与行前准备', 'View ticket options and preparations')} <Icon name="arrow-up-right" size={14} /></a>}
-</section>
+</TripSection>
 
 <style>
-  .trip-costs-section { padding-block: 64px; border-top: 1px solid var(--line); }
-  .cost-basis { margin: -9px 0 24px; color: var(--ink-soft); font-size: 13px; line-height: 1.9; }
+  .cost-section-currency { display: inline-flex; flex-wrap: wrap; gap: 5px 16px; max-width: 100%; }
+  .cost-section-currency + .cost-section-currency { margin-top: 5px; }
+  .cost-section-metric { min-width: 0; }
+  .cost-section-amount { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .cost-section-code { font-size: 10px; }
+  .cost-section-pending { color: var(--ink-soft); }
+  .cost-recorded { margin: 0 0 14px; color: var(--ink-soft); font-size: 13px; line-height: 1.9; }
+  .cost-basis { margin: 0 0 24px; color: var(--ink-soft); font-size: 13px; line-height: 1.9; }
   .cost-currency-summary + .cost-currency-summary { margin-top: 25px; }
   .cost-summary-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
   .cost-summary-grid-single { grid-template-columns: minmax(0, 1fr); }
@@ -115,7 +130,7 @@ const references = referenceIds.flatMap(id => { const source = sources.find(item
   .cost-row-pending .cost-amount > span { color: var(--accent-deep); }
   .cost-scope { margin-top: 18px; font-size: 12px; line-height: 1.9; color: var(--ink-soft); }
   .cost-planning-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; color: var(--accent-deep); font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
-  @media (max-width: 800px) { .trip-costs-section { padding-block: 48px; } .cost-summary-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; } .cost-metric { padding: 20px; } .cost-metric dd { font-size: 29px; } }
-  @media (max-width: 600px) { .trip-costs-section { padding-block: 44px; } .cost-basis, .cost-scope, .cost-tax-note { font-size: 13px; } }
-  @media print { .trip-costs-section { padding-block: 20px; border: 0; } .cost-summary-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; } .cost-summary-grid-single { grid-template-columns: minmax(0, 1fr); } .cost-metric { padding: 13px; background: white; } .cost-metric dd { font-size: 21px; } .cost-metric dt, .cost-basis, .cost-scope, .cost-tax-note { font-size: 10px; } .cost-table-wrapper { overflow: visible; } .cost-table { min-width: 0; } .cost-table th, .cost-table td { padding: 10px; } .cost-amount, .cost-additional { font-size: 11px; } .cost-stay ul { font-size: 9px; } .cost-table tbody tr { break-inside: avoid; } .cost-planning-link { display: none; } }
+  @media (max-width: 800px) { .cost-summary-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; } .cost-metric { padding: 20px; } .cost-metric dd { font-size: 29px; } }
+  @media (max-width: 600px) { .cost-basis, .cost-scope, .cost-tax-note { font-size: 13px; } }
+  @media print { .cost-summary-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; } .cost-summary-grid-single { grid-template-columns: minmax(0, 1fr); } .cost-metric { padding: 13px; background: white; } .cost-metric dd { font-size: 21px; } .cost-metric dt, .cost-recorded, .cost-basis, .cost-scope, .cost-tax-note { font-size: 10px; } .cost-table-wrapper { overflow: visible; } .cost-table { min-width: 0; } .cost-table th, .cost-table td { padding: 10px; } .cost-amount, .cost-additional { font-size: 11px; } .cost-stay ul { font-size: 9px; } .cost-table tbody tr { break-inside: avoid; } .cost-planning-link { display: none; } }
 </style>

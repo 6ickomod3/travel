@@ -67,7 +67,7 @@ src/data/
   itemizes extra tickets already counted in `estimatedTotal`; `estimateNote`
   provides a concise condition in the comparison. Only an explicit choice
   records `selectedTicketOptionId`, which does not establish purchase.
-  Pending checklist items appear first on trip pages. Use `kind: "todo"`
+  Pending checklist items follow Daily itinerary on trip pages. Use `kind: "todo"`
   for choosing, booking, buying, or preparing, and `kind: "check"` for
   missing details and confirmations. An omitted kind defaults to `todo`.
   Keep general guidance in practical notes and remove resolved checklist
@@ -82,7 +82,7 @@ src/data/
   dependencies without moving them out of chronological order.
   Optional `stays[].checkIns[].cost` records the total for that booking
   segment, its ISO currency, included fees, and estimated additional charges.
-  The accommodation cards and final Costs section use the same record.
+  The accommodation cards and Costs section use the same record.
   Missing prices remain absent and are excluded from partial totals. Sum
   currencies separately and never infer payment from a confirmed booking.
   Estimated extras can use `kind: "accommodation-tax"` and a supplied
@@ -107,8 +107,15 @@ src/data/
   attribution remains visible beside its content.
   Daily navigation focuses one day at a time while preserving a full-trip
   view and native disclosures. Its sticky date bar is flush with the viewport
-  top at all screen widths. Printing includes every day, alternatives,
-  ticket details, and references, then restores the previous screen state.
+  top at all screen widths. Navigation and page content share this order:
+  Route, Daily itinerary, To do and confirmations, Dining reservations,
+  Preparations, Accommodation, Flights, Costs, Official sources. Omit absent
+  sections. Accommodation, Costs and Official sources start collapsed;
+  Flights starts expanded. Shared `TripSection.astro` keeps the accommodation
+  date range and night count, or scoped cost totals, visible in its summary.
+  Section and detail fragment links reveal their containing disclosures.
+  Printing includes every day, alternatives, section details, ticket details,
+  and references, then restores the previous screen state.
   Optional `gallery` stores the trip's top photo sequence and related day or
   alternative links. `sights` stores concise factual introductions, source
   references, and photo IDs. Each day's or alternative's `sightIds` selects

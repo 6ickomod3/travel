@@ -55,6 +55,15 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   ordered by meal date. Restaurant recommendations do not establish a choice,
   a reservation or available seats. Keep dining suggestions and seating-time
   notes separate from the agreed timetable unless the user changes the plan.
+- Trip navigation and page sections use this order: Route, Daily itinerary,
+  To do and confirmations, Dining reservations, Preparations, Accommodation,
+  Flights, Costs, Official sources. Omit sections without content. Accommodation,
+  Costs and Official sources start collapsed; Flights starts expanded.
+  Collapsed accommodation shows its date range and night count. Collapsed
+  Costs shows known accommodation totals and recorded estimated extras,
+  with currencies separate and the scope clear. Keep direct links useful by
+  revealing the related section; printing includes all section details and
+  restores their previous states.
 - The homepage is an overview: highlight the next trip, provide compact trip
   links, and show an atlas of visited places. Trip previews show only covers,
   titles, countries, dates, status, and links. Keep routes, day/night totals,
@@ -65,14 +74,14 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   days. Keep trip photos together in a manual gallery at the top of the trip
   page, with swiping, keyboard controls, and direct links from sight cards.
   Use real photos of the named places and keep image licenses visible.
-- When costs are provided, put Costs at the end of the trip page. Show known
+- When costs are provided, put Costs immediately before Official sources. Show known
   booking amounts, estimated extra charges, and missing prices clearly.
   Label accommodation tax explicitly when it is the only recorded extra,
   and show the supplied per-person/per-night estimate without inventing rates.
-- Put a trip's pending checklist before flights, routes, and daily schedules.
-  Show separate To do actions and To check confirmations, with a direct link
-  from the hero and the first trip navigation link. Keep ticket comparisons,
-  reservation-opening tables, and general travel reminders below.
+- Put a trip's pending checklist after Daily itinerary and before Dining
+  reservations. Show separate To do actions and To check confirmations, with
+  a direct link from the hero. Keep ticket comparisons, reservation-opening
+  tables, and general travel reminders in Preparations.
   Sort each pending group chronologically: immediate actions, known opening
   times or relevant dates, then undated items. Identify important dependencies
   with a text-and-icon badge and concise reason without overriding date order.
@@ -136,6 +145,11 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   and `TripPlaceholder.astro` for every discovered entry.
 - Keep Leaflet maps, destination lists, expand/collapse, and itinerary printing.
   Images and fonts are local assets; map tiles come from OpenStreetMap.
+- `TripSection.astro` supplies native collapsible sections with stable IDs,
+  visible summary text and accessible headings. Accommodation, Flights,
+  Costs and the official-source catalog share this presentation. Section,
+  stay, cost, flight and source fragment links reveal the target's containing
+  disclosure. Print snapshots include section disclosures and restore them.
 - The user chose the current free Leaflet/OpenStreetMap map to avoid paid
   mapping services. Keep maps free of API billing. Google Maps and Apple Maps
   can be used for ordinary external navigation links.
