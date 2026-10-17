@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import LocalPlaceName from './LocalPlaceName.astro';
 import type { TripGalleryPhoto } from '../data/types';
 import { formatDate } from '../lib/trips';
 import { getImageCredit, getLicensedImageCredit } from '../lib/image-credits';
@@ -79,7 +80,7 @@ const itineraryFragment = (photo: TripGalleryPhoto) => photo.alternativeId
       <figcaption class="gallery-caption">
         <div class="gallery-caption-main">
           <div class="gallery-photo-copy">
-            <div class="gallery-photo-title"><h3>{photo.title}</h3>{photo.optional && <span class="gallery-optional">{text('可选地点', 'Optional stop')}</span>}</div>
+            <div class="gallery-photo-title"><div class="gallery-photo-name"><h3>{photo.title}</h3><LocalPlaceName primaryName={photo.title} localName={photo.localName} /></div>{photo.optional && <span class="gallery-optional">{text('可选地点', 'Optional stop')}</span>}</div>
             {photo.caption && <p class="gallery-photo-description">{photo.caption}</p>}
           </div>
           {photo.dayDate && <a class="gallery-day-link" href={itineraryFragment(photo)}>
@@ -140,6 +141,7 @@ const itineraryFragment = (photo: TripGalleryPhoto) => photo.alternativeId
   .gallery-caption-main { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px 30px; }
   .gallery-photo-copy { min-width: 0; }
   .gallery-photo-title { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
+  .gallery-photo-name { min-width: 0; }
   .gallery-photo-title h3 { font-family: var(--sans); font-size: 21px; font-weight: 500; line-height: 1.5; overflow-wrap: anywhere; }
   .gallery-optional { flex-shrink: 0; padding: 2px 7px; border: 1px solid #b9462833; border-radius: 3px; color: var(--accent-deep); font-size: 10px; line-height: 1.7; }
   .gallery-photo-description { margin-top: 7px; color: var(--ink-soft); font-size: 13px; line-height: 1.8; overflow-wrap: anywhere; }

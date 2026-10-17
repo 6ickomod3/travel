@@ -33,6 +33,14 @@ function clockTime(value, label) {
   assert.match(value, /^(?:[01]\d|2[0-3]):[0-5]\d$/, `${label}: use a valid HH:MM local time`);
 }
 
+function checkLocalName(localName, label) {
+  if (localName === undefined) return;
+  assert.ok(localName && typeof localName === 'object' && !Array.isArray(localName), `${label}: use a local-name object`);
+  assert.ok(typeof localName.text === 'string' && localName.text.trim(), `${label}: add local-name text`);
+  assert.ok(typeof localName.language === 'string' && localName.language.trim(), `${label}: add a local-name language tag`);
+  assert.doesNotThrow(() => new Intl.Locale(localName.language), `${label}: use a valid BCP 47 local-name language tag`);
+}
+
 function publicFile(path, label) {
   assert.ok(typeof path === 'string' && path.startsWith('/images/'), `${label}: use a public image path`);
   const file = resolve(publicRoot, `.${path}`);
@@ -142,6 +150,7 @@ for (const folder of folders) {
   if (trip.selectedTicketOptionId !== undefined) assert.ok(ticketOptions.has(trip.selectedTicketOptionId), `${folder}: selected ticket option must reference an existing option`);
   const bookingWindowIds = uniqueIds(trip.bookingWindows ?? [], `${folder} booking windows`);
   for (const place of trip.destinations) {
+    checkLocalName(place.localName, `${folder}/${place.id} destination`);
     assert.ok(Number.isFinite(place.lat) && Math.abs(place.lat) <= 90 && Number.isFinite(place.lng) && Math.abs(place.lng) <= 180, `${folder}/${place.id}: invalid coordinates`);
   }
   for (const id of trip.mapRoute ?? []) assert.ok(destinations.has(id), `${folder} route: unknown destination ${id}`);
@@ -226,6 +235,7 @@ for (const folder of folders) {
     }
   }
   for (const photo of trip.gallery ?? []) {
+    checkLocalName(photo.localName, `${folder}/${photo.id} photo`);
     assert.match(photo.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `${folder}/${photo.id}: use a gallery fragment ID`);
     publicFile(photo.image, `${folder}/${photo.id}`);
     assert.ok(imageCredits.has(photo.image), `${folder}/${photo.id}: add image credit metadata`);
@@ -241,6 +251,7 @@ for (const folder of folders) {
     }
   }
   for (const sight of trip.sights ?? []) {
+    checkLocalName(sight.localName, `${folder}/${sight.id} sight`);
     assert.ok(sight.name && sight.introduction && sight.photoIds.length, `${folder}/${sight.id}: add a sight introduction and photos`);
     for (const id of sight.photoIds) assert.ok(photos.has(id), `${folder}/${sight.id}: unknown gallery photo ${id}`);
     checkSources(sight.sourceIds, `${folder}/${sight.id} introduction`);

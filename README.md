@@ -6,31 +6,19 @@ Live: [Trips](https://6ickomod3.github.io/travel/) · [Japan 2026](https://6icko
 
 ## Project context and design
 
-[AGENTS.md](AGENTS.md) records the project context and design guidelines in English. Internal documentation, development plans, handoffs, and code comments use English; public trip content follows each trip's language, with language-tagged quotations and translations.
-
-The site uses concise labels and factual travel information. The Idea/About section, editable travel notebooks, and unsolicited ornamental prose have been removed. Requested cover copy and daily epigraphs keep their poetic wording. Visual design comes from typography, spacing, images, and interactive maps.
+[Trip design principles](docs/trip-design-principles.md) is the concise reference
+for shared presentation and content conventions. [AGENTS.md](AGENTS.md) records
+implementation contracts and project context. Internal documentation, plans,
+handoffs and comments use English; public content follows each trip's language,
+with language-tagged local names, quotations and translations.
 
 The homepage highlights the current or next dated trip, links to each trip through compact cards, and shows a visited atlas. Routes, schedules, accommodation, and other itinerary details live on the individual trip pages. The next-trip highlight and date-based status labels update with the calendar in the browser, including after returning to an open tab.
 
-Trip pages show outstanding tasks with recorded booking progress, reuse local brand marks, and provide date navigation with a focused day or full-trip view. Printing includes all days, alternatives, ticket details, and references and restores the previous view afterward.
-
-In one-day view, an intentional left swipe on the selected day's content opens
-the next date; a right swipe opens the previous date. Navigation stops at the
-first and last dates without wrapping. Native vertical scrolling, scrolling
-in the date strip and other horizontally scrollable widgets, and link/control
-activation keep their normal behavior. Full-trip view uses normal scrolling;
-date links, arrows and keyboard controls remain available.
-
-Navigation and page content follow the same order: Route, Daily itinerary,
-To do and confirmations, Dining reservations, Preparations, Accommodation,
-Flights, Costs, Official sources. Accommodation, Costs and Official sources
-start collapsed; Flights starts expanded. Accommodation keeps its dates and
-night count visible, and Costs keeps a scoped accommodation summary visible.
-Direct links and printing reveal section details, with print states restored.
-
-Meal options appear at the bottom of each day. A separate dining-reservation
-section near the pending checklist groups unbooked candidates by restaurant,
-ordered by their first meal date, with links to the relevant day.
+Trip pages combine practical schedules, recorded booking progress, local brand
+marks, focused-day navigation and a full-trip view. The design guide defines
+section order, disclosure defaults, bounded day swipes and reservation/cost
+semantics. Direct links reveal the relevant details, and printing includes the
+full plan before restoring the previous view.
 
 ## Project layout
 
@@ -46,7 +34,7 @@ src/pages/               Homepage, trip routes, and sitemap
 src/lib/                 Shared helpers
 src/scripts/             Browser interactions
 src/styles/              Shared visual styles
-docs/                    Content management workflow
+docs/                    Design principles and content workflow
 templates/trip/          Reusable new-trip package
 scripts/                 Content validation
 .local/trips/<slug>/     Private inputs and documents, ignored by Git
@@ -112,6 +100,11 @@ Daily `stamps` can store ordered collection stops and route conditions; `stampGu
 
 Optional `gallery` photos appear in a manual carousel at the top of a trip page. `sights` holds concise introductions and links to gallery photos; days and alternatives select them with `sightIds`. Photo credits remain visible, and optional sights stay with their separate routes.
 
+Optional `TripLocalName` records provide native names for destinations, sights
+and gallery photos. Keep the trip-language name primary and show the local form
+only when different, following the guide's language and font conventions.
+Local labels also accompany explicitly confirmed visits in the atlas.
+
 Optional `coverIntroduction` displays requested cover copy and its
 language-tagged translations together. The factual `summary` remains
 available for page metadata.
@@ -120,8 +113,9 @@ Optional daily `poem` stores the exact quotation, language-tagged interpretation
 author, work, excerpt status, context and literary sources within its trip.
 It appears after daily accommodation and reminders, before the timetable.
 Credits stay visible; detailed references start collapsed and open for printing.
-The epigraph background uses warm paper tones and subtle original sakura artwork,
-with smaller motifs on mobile and a plain background for printing.
+Paper tones and cultural motifs are optional per trip. Japan currently uses
+subtle original sakura artwork, with smaller motifs on mobile and a plain print
+background; future trips choose their own decoration.
 Dates without a supplied poem remain unchanged.
 
 You can supply plain text or attachments. The workflow is: save the source, compare it with the existing plan, apply clear additions/corrections, record unresolved questions, then check and publish the trip page. New fragments do not silently replace unrelated accepted decisions.
@@ -132,7 +126,13 @@ Set a dated trip's `status` to `completed` after confirming it was taken. Before
 
 The visited atlas automatically combines destinations from explicitly completed trips, deduplicates places within each country, and links each place to its completed trips. It shows no planned destinations or route lines. Calendar dates alone never mark a trip as completed. Until visits are recorded, the homepage shows a world graphic and an empty state.
 
-Tracked input archives are publicly readable on GitHub, even though they are not website pages. Store private originals and reservation documents in ignored `.local/trips/<slug>/` storage and keep only publishable or identified redacted copies in the tracked archive. GitHub does not back up ignored local files.
+Tracked input archives are publicly readable on GitHub, even though they are
+not website pages. Store private originals and reservation documents in ignored
+`.local/trips/<slug>/` storage. Add an excerpt or redacted copy to the tracked
+archive only with explicit authorization for the exact content being published;
+label its scope and record its provenance in the trip history. Removing private
+links does not establish that authorization. GitHub does not back up ignored
+local files.
 
 ## Hosting and maps
 

@@ -2,9 +2,16 @@ import type { BrandId } from '../lib/brands';
 
 export type TripStatus = "planning" | "upcoming" | "completed";
 
+export interface TripLocalName {
+  /** Original-script place name, with its BCP 47 language tag. */
+  text: string;
+  language: string;
+}
+
 export interface TripDestination {
   id: string;
   name: string;
+  localName?: TripLocalName;
   lat: number;
   lng: number;
   description: string;
@@ -16,6 +23,8 @@ export interface TripGalleryPhoto {
   image: string;
   alt: string;
   title: string;
+  /** Name of the depicted place, independent of the related itinerary day. */
+  localName?: TripLocalName;
   caption?: string;
   /** Link to the related local itinerary day without adding a planned visit. */
   dayDate?: string;
@@ -28,6 +37,7 @@ export interface TripGalleryPhoto {
 export interface TripSight {
   id: string;
   name: string;
+  localName?: TripLocalName;
   introduction: string;
   /** References to photos in the trip's gallery; image credits stay with assets. */
   photoIds: string[];

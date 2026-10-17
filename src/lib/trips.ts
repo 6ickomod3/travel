@@ -1,4 +1,4 @@
-import type { Trip, TripEntry, TripPlaceholder } from "../data/trips";
+import type { Trip, TripEntry, TripPlaceholder, TripLocalName } from "../data/trips";
 
 type TripDates = Pick<Trip, "startDate" | "endDate">;
 type TripStatusInput = TripDates & Pick<Trip, "status">;
@@ -12,6 +12,7 @@ export interface VisitedLocation {
   /** Country code plus the destination's stable identifier across trips. */
   id: string;
   name: string;
+  localName?: TripLocalName;
   englishName?: string;
   lat: number;
   lng: number;
@@ -256,6 +257,7 @@ export function aggregateVisitedAtlas(entries: readonly TripEntry[]): VisitedAtl
         location = {
           id,
           name: destination.name,
+          localName: destination.localName,
           englishName: destination.englishName,
           lat: destination.lat,
           lng: destination.lng,
@@ -264,8 +266,9 @@ export function aggregateVisitedAtlas(entries: readonly TripEntry[]): VisitedAtl
           trips: [],
         };
         locationRecords.set(id, location);
-      } else if (!location.englishName && destination.englishName) {
-        location.englishName = destination.englishName;
+      } else {
+        if (!location.englishName && destination.englishName) location.englishName = destination.englishName;
+        if (!location.localName && destination.localName) location.localName = destination.localName;
       }
 
       if (!location.trips.some(reference => reference.slug === trip.slug)) {

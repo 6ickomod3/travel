@@ -4,8 +4,8 @@
 
 - Write all internal project context, guidelines, documentation, plans, handoffs,
   and code comments in English. Keep this file in English when updating it.
-- Public website content follows each trip's `language` field. Quotations
-  and translations retain their own language tags.
+- Public website content follows each trip's `language` field. Local place
+  names, quotations and translations retain their own language tags.
 - Chat with the user in the language appropriate to their latest message.
 - Itinerary text, quotations, destination names, image descriptions, source
   labels, and font glyph subsets are public content, not internal instructions.
@@ -24,79 +24,11 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
 
 ## Design and content
 
-- Use concise, practical headings and labels: Next trip, Trips, Visited atlas,
-  Route, Accommodation, Daily itinerary, Preparations, and Official sources. Use direct equivalents
-  for Chinese pages.
-- Remove ornamental prose, motivational statements, promotional language,
-  abstract section names, and repeated descriptions of the same information.
-- Explicitly requested cover introductions and daily epigraphs may use poetic
-  wording and translations. Keep cover text in `coverIntroduction` and daily
-  quotations in `TripDay.poem`, with language tags.
-- The Idea/About section and free-form travel notebooks have been removed at
-  the user's request. Do not reintroduce them unless the user asks.
-- Keep factual day reminders and practical travel notes in the itinerary data.
-  These are different from the removed editable notebook feature.
-- Preserve a modern visual style through typography, spacing, the warm cream /
-  forest green / terracotta palette, images, and interactive maps.
-- Keep mobile layouts readable, controls accessible, and navigation direct.
-- Use small official airline, hotel, and transport brand marks where they help
-  identify a service. Reuse the shared brand registry and local assets; retain
-  original colors and proportions, the full name, and an honest text fallback.
-- Use a green check badge for confirmed flights and booked accommodation.
-  Show pending confirmations in amber. Booking progress counts recorded
-  flights and accommodation nights; agreed schedules remain separate.
-- Daily itineraries use date navigation with one day in focus by default.
-  Keep a full-trip view, previous/next controls, accessible fragment links,
-  and a usable native disclosure fallback. Place daily reminders and the
-  overnight stay near the start of each day. Sticky date navigation sits
-  flush with the viewport top on desktop and mobile.
-- In one-day view, an intentional left swipe on the selected day's content
-  opens the next date; a right swipe opens the previous date. Stop at the
-  first and last dates without wrapping. Preserve native vertical scrolling,
-  scrolling in the date strip and other horizontally scrollable widgets,
-  and link/control activation. Full-trip view uses normal scrolling; date
-  links, arrows and keyboard controls remain available.
-- Put meal alternatives at the bottom of each day, after its existing plan.
-  Show dining reservation reminders in a separate section near pending items,
-  ordered by meal date. Restaurant recommendations do not establish a choice,
-  a reservation or available seats. Keep dining suggestions and seating-time
-  notes separate from the agreed timetable unless the user changes the plan.
-- Trip navigation and page sections use this order: Route, Daily itinerary,
-  To do and confirmations, Dining reservations, Preparations, Accommodation,
-  Flights, Costs, Official sources. Omit sections without content. Accommodation,
-  Costs and Official sources start collapsed; Flights starts expanded.
-  Collapsed accommodation shows its date range and night count. Collapsed
-  Costs shows known accommodation totals and recorded estimated extras,
-  with currencies separate and the scope clear. Keep direct links useful by
-  revealing the related section; printing includes all section details and
-  restores their previous states.
-- The homepage is an overview: highlight the next trip, provide compact trip
-  links, and show an atlas of visited places. Trip previews show only covers,
-  titles, countries, dates, status, and links. Keep routes, day/night totals,
-  schedules, accommodation, and other itinerary details on the trip pages.
-- Show useful information: dates, routes, schedules, transport, accommodation,
-  booking states, walking details, and official sources.
-- Important sights may have concise factual introductions in their relevant
-  days. Keep trip photos together in a manual gallery at the top of the trip
-  page, with swiping, keyboard controls, and direct links from sight cards.
-  Use real photos of the named places and keep image licenses visible.
-- When costs are provided, put Costs immediately before Official sources. Show known
-  booking amounts, estimated extra charges, and missing prices clearly.
-  Label accommodation tax explicitly when it is the only recorded extra,
-  and show the supplied per-person/per-night estimate without inventing rates.
-- Put a trip's pending checklist after Daily itinerary and before Dining
-  reservations. Show separate To do actions and To check confirmations, with
-  a direct link from the hero. Keep ticket comparisons, reservation-opening
-  tables, and general travel reminders in Preparations.
-  Sort each pending group chronologically: immediate actions, known opening
-  times or relevant dates, then undated items. Identify important dependencies
-  with a text-and-icon badge and concise reason without overriding date order.
-- Preserve uncertainty and distinguish reference departures from confirmed
-  tickets. Do not invent dates, cities, activities, travelers, or reservations.
-- Keep image and map attribution visible beside the relevant content.
-- Collapse research references by default throughout trip pages, including
-  inline groups and the official source catalog. Use accessible disclosures;
-  printing includes references and restores their previous open states.
+Read [Trip design principles](docs/trip-design-principles.md) before changing
+shared presentation or content conventions. That concise reference defines
+section order and disclosure states, focused daily navigation, booking/cost
+semantics, local-language names, optional cultural content and source privacy.
+Keep the implementation contracts below aligned with that guide.
 
 ## Implementation
 
@@ -213,15 +145,22 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   distinguish borrowed imagery from the original location, and do not invent
   poems for days without a submission. Literary links stay outside the
   official-source catalog and do not establish independent verification.
-- Daily epigraphs use a subtle paper background with quiet decorative sakura
-  motifs from original local illustrations. Keep decoration noninteractive,
-  preserve text contrast and mobile reading width, and use plain print backgrounds.
+- Scope epigraph decoration to its trip. Japan currently uses a quiet paper
+  background and original local sakura illustrations. Keep decoration
+  noninteractive, preserve text contrast and mobile reading width, and use
+  plain print backgrounds.
 - Source disclosures stay closed when expanding all days. Reveal a source's
   ancestor disclosures when following its direct fragment link.
 - Optional `gallery` stores photo IDs, local images, captions, and related day
   or alternative links. `sights` stores introductions and photo/source IDs;
   days and alternatives refer to them with `sightIds`. Keep optional sights
   in their labeled alternative, and do not infer a new visit from a photo.
+- Optional `localName: TripLocalName` belongs to destinations, sights and
+  gallery photos, separate from primary names and `englishName`. Its `text`
+  preserves the local script and `language` is a valid BCP 47 tag. Reuse
+  `LocalPlaceName.astro` and `distinctLocalName()` for language-tagged display
+  and NFC duplicate suppression; map labels use the same rule with safe DOM
+  text nodes. Visited-location aggregation retains this optional metadata.
 - Keep galleries out of homepage previews. Load the first gallery photo with
   priority, lazy-load later images, and avoid automatic slide rotation.
 
@@ -244,8 +183,8 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
   documents. Ignored files need a separate private backup when required.
 - For a submission containing private booking material, preserve the full
   original in ignored private storage. A public excerpt must contain only
-  details authorized for publication and be labeled as an excerpt in its
-  file and history. Removing email links alone does not establish permission
+  details explicitly authorized for publication and be labeled as an excerpt
+  in its file and history. Removing email links alone does not establish permission
   to publish the remaining booking document.
 
 ## Verification and publication

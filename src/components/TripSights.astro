@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import LocalPlaceName from './LocalPlaceName.astro';
 import TripReferences from './TripReferences.astro';
 import type { TripSight, TripGalleryPhoto, TripSource } from '../data/types';
 
@@ -26,7 +27,7 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(sourceId => {
   <h3 id={`${id}-sights-title`}>{isZh ? '景点介绍' : 'About the sights'}</h3>
   <div class="sight-grid">
     {sights.map(sight => <article class:list={['sight-card', { 'sight-card-optional': sight.optional }]} id={`${id}-sight-${sight.id}`}>
-      <div class="sight-heading"><h4>{sight.name}</h4>{sight.optional && <span class="sight-optional">{isZh ? '备选' : 'Optional'}</span>}</div>
+      <div class="sight-heading"><div class="sight-name"><h4>{sight.name}</h4><LocalPlaceName primaryName={sight.name} localName={sight.localName} /></div>{sight.optional && <span class="sight-optional">{isZh ? '备选' : 'Optional'}</span>}</div>
       <p class="sight-introduction">{sight.introduction}</p>
       {sight.visitNote && <p class="sight-visit-note">{sight.visitNote}</p>}
       <div class="sight-photo-links">
@@ -46,6 +47,7 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(sourceId => {
   .sight-card { min-width: 0; padding: 19px 20px; border: 1px solid var(--line); border-radius: 5px; background: #fbfaf5; }
   .sight-card:only-child { grid-column: 1 / -1; }
   .sight-heading { display: flex; align-items: flex-start; gap: 10px; }
+  .sight-name { min-width: 0; }
   .sight-heading h4 { min-width: 0; font-family: var(--sans); font-size: 15px; font-weight: 600; line-height: 1.7; }
   .sight-optional { flex-shrink: 0; margin-left: auto; padding: 2px 7px; border: 1px solid #b9462833; border-radius: 3px; background: #dd674508; color: var(--accent-deep); font-size: 10px; line-height: 1.7; }
   .sight-introduction { margin-top: 10px; color: var(--ink-soft); font-size: 13px; line-height: 1.95; }

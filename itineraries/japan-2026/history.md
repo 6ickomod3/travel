@@ -29,8 +29,10 @@
   optional alternative, with Daimonzaka walking optional within that route.
 - Rail-pass selection, train reservations, museum tickets, and ropeway
   reservations have not been confirmed. Keep price comparisons conditional.
-- Prioritize outstanding tasks and missing confirmations at the top of the
-  trip page, in separate To do and To check lists.
+- Keep outstanding actions and missing confirmations in separate To do and
+  To check lists, reached directly from the hero. The current section order
+  is Route, Daily itinerary, To do and confirmations, Dining reservations,
+  Preparations, Accommodation, Flights, Costs, and Official sources.
 - Hotel cost amounts are stay-segment order totals for two travelers, not
   per-person prices or verified payments. Keep estimated additional taxes
   separate. All eight accommodation nights now have quoted prices: JPY
@@ -718,6 +720,56 @@ and licenses.
   horizontal overflow were found. The canonical plan is byte-for-byte
   unchanged; reports and screenshots remain outside the repository.
 
+### Approved design context and local place names — October 16, 2026
+
+- Origin: the user's request to review the core Japan design principles for
+  reuse in future trips, followed by approval of the eight-part summary and
+  a request for immersive local-language names for key places and sights.
+  The public chat messages are archived verbatim, without added newlines, in
+  [inputs/2026-10-16-10-design-context-review.txt](inputs/2026-10-16-10-design-context-review.txt)
+  (196 UTF-8 bytes; SHA-256
+  `bcfe14e268b470c7667a1e21afc5c47dc124c3c7d0ce713b8bc32ad311abec9c`)
+  and [inputs/2026-10-16-11-local-place-names.txt](inputs/2026-10-16-11-local-place-names.txt)
+  (107 UTF-8 bytes; SHA-256
+  `9c179dbaee31f6cbf49023de4bb2db32c9d0ed297c9c41478225df3504509cf3`).
+- Applied: the approved summary is consolidated in the shared English
+  `docs/trip-design-principles.md`, linked from the project context, README
+  and new-trip template. The guide records the latest section order,
+  disclosures, focused-day navigation, confirmation semantics, visual and
+  practical conventions, trip-owned storage, free maps and static publishing.
+  Quotations, decorative motifs and local fonts remain optional choices for
+  each trip; sakura is the current Japan treatment.
+- Local names: destinations, sight introductions and gallery photos receive
+  optional `localName: { text, language }` metadata. Chinese remains primary;
+  distinct Japanese names appear as quiet, language-tagged secondary labels
+  in the route list, day destination headings, sight cards, photo captions
+  and map details. Identical labels are not repeated. Names describe the
+  actual entity or photographed landmark, not every activity in a heading.
+- The shared renderer uses native Japanese font fallbacks and retains local
+  labels on mobile and in print. Atlas aggregation carries them into the
+  visited atlas only for explicitly completed trips, preserving stable IDs.
+  The content check validates nonempty text and valid language tags.
+- Scope: public place-name metadata, shared presentation and the approved
+  English context. No changes to accepted dates, timetables, routes, optional
+  visits, bookings, prices, dining choices, poems or official source links.
+  The labels do not represent new external verification or new visits.
+- Verification: the final content check, type check and production build
+  passed with zero diagnostics across 54 files and four generated pages.
+  Independent review confirmed 34 Japanese metadata records; removing only
+  their inserted blocks restores the prior source byte-for-byte and the
+  complete original object, including nine days, 94 main schedule rows and
+  16 alternative rows. Local production-preview checks at 1280px, 768px,
+  390px and 320px confirmed correct primary/native names, language tags,
+  Japanese font fallbacks, duplicate suppression, visible daily location
+  labels and no horizontal overflow. Map selection shows safe native text,
+  gallery captions and photo/day links work, the active local photo decodes,
+  and touch day navigation remains usable. Print includes native labels and
+  restores the exact view/disclosure state. Test-only completed-trip records
+  verify atlas metadata retention and stable deduplication while the real
+  planned trip stays outside the visited atlas. Homepage and UK placeholder
+  remain usable. No page errors or missing local resources were found;
+  screenshots and the report stay outside the repository.
+
 ## Open information
 
 - For SEN RETREAT CHIKATSUYU and 川湯まつや, meals, early breakfast or packed
@@ -805,3 +857,6 @@ when a source explicitly resolves or changes a decision.
 - October 16, 2026: archived the daily-swipe request and added bounded touch
   navigation between focused days, with native-scroll/control safeguards
   and a localized touch hint.
+- October 16, 2026: saved the approved shared design principles and added
+  reusable Japanese local-name labels to key places, sights, photo captions
+  and map details while retaining Chinese as the primary trip language.

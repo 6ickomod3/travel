@@ -6,6 +6,7 @@ import TripStamps from './TripStamps.astro';
 import TripSights from './TripSights.astro';
 import TripDining from './TripDining.astro';
 import TripDayPoem from './TripDayPoem.astro';
+import LocalPlaceName from './LocalPlaceName.astro';
 import type { Trip } from '../data/types';
 import { durationDays, formatDate, formatDateRange } from '../lib/trips';
 
@@ -29,7 +30,8 @@ const sightsFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
   const sight = sights.find(item => item.id === id);
   return sight ? [sight] : [];
 });
-const cityName = (id: string) => trip.destinations.find(stop => stop.id === id)?.name || id;
+const destinationById = (id: string) => trip.destinations.find(stop => stop.id === id);
+const cityName = (id: string) => destinationById(id)?.name || id;
 const stayById = (id?: string) => (trip.stays ?? []).find(stay => stay.id === id);
 const isThisJapan = trip.slug === 'japan-2026';
 ---
@@ -66,11 +68,12 @@ const isThisJapan = trip.slug === 'japan-2026';
     <div class="itinerary-list" id="itinerary-days">
       {trip.days.map((day, index) => {
         const overnight = stayById(day.overnightId);
+        const destination = destinationById(day.destinationId);
         return <details class="itinerary-day" id={`day-${day.date}`} data-itinerary-date={day.date} data-day-title={day.title} data-day-label={date(day.date)} open={index === 0}>
           <summary>
             <span class="day-index">{text('第', 'DAY ')}{String(dayNumber(day.date)).padStart(2, '0')}{isZh && '天'}</span>
             <span class="day-date"><time datetime={day.date}>{date(day.date)}</time><small>{date(day.date, { weekday: 'short', month: undefined, day: undefined })}</small></span>
-            <span class="day-title">{day.title}</span><span class="day-city">{cityName(day.destinationId)}</span><Icon name="chevron-down" size={17} class="day-chevron" />
+            <span class="day-title">{day.title}</span><span class="day-city"><span>{cityName(day.destinationId)}</span><LocalPlaceName primaryName={cityName(day.destinationId)} localName={destination?.localName} /></span><Icon name="chevron-down" size={17} class="day-chevron" />
           </summary>
           <div class:list={['day-content', { 'has-schedule': Boolean(day.schedule?.length) }]}>
             <p class="day-description">{day.description}</p>
@@ -218,7 +221,8 @@ const isThisJapan = trip.slug === 'japan-2026';
   @media (max-width: 800px) {
     .daily-itinerary { padding-block: 48px; }
     .daily-itinerary .itinerary-day > summary { grid-template-columns: 38px 64px minmax(0, 1fr) 18px; gap: 12px; padding: 20px; }
-    .daily-itinerary .day-city { display: none; }
+    .daily-itinerary .day-city { grid-column: 3; grid-row: 2; display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 10px; text-align: left; }
+    .daily-itinerary .day-chevron { grid-column: 4; grid-row: 1; }
     .daily-itinerary .day-title { font-size: 25px; }
     .daily-itinerary:lang(zh-CN) .day-title { font-size: 21px; }
     .daily-itinerary .day-content, .daily-itinerary .day-content.has-schedule { padding: 0 20px 24px; }
@@ -242,6 +246,7 @@ const isThisJapan = trip.slug === 'japan-2026';
     .daily-itinerary .day-date { grid-column: 1; grid-row: 1; flex-direction: row; align-items: center; gap: 8px; font-size: 11px; }
     .daily-itinerary .day-date small { margin-top: 0; font-size: 10px; }
     .daily-itinerary .day-title { grid-column: 1; grid-row: 2; font-size: 23px; line-height: 1.35; }
+    .daily-itinerary .day-city { grid-column: 1; grid-row: 3; }
     .daily-itinerary .day-chevron { grid-column: 2; grid-row: 1 / span 2; align-self: start; margin-top: 4px; }
     .daily-itinerary:lang(zh-CN) .day-title { font-size: 19px; line-height: 1.65; }
     .daily-itinerary .day-content, .daily-itinerary .day-content.has-schedule { padding: 0 15px 22px; }
@@ -272,6 +277,7 @@ const isThisJapan = trip.slug === 'japan-2026';
     .daily-itinerary .itinerary-day::details-content, .daily-itinerary .day-alternative::details-content { content-visibility: visible; }
     .daily-itinerary .itinerary-day > summary { grid-template-columns: 40px 65px minmax(0, 1fr) 70px; gap: 12px; padding: 13px 0; break-after: avoid; }
     .daily-itinerary .day-index, .daily-itinerary .day-city { display: block; font-size: 9px; }
+    .daily-itinerary .day-city { grid-column: auto; grid-row: auto; text-align: right; }
     .daily-itinerary .day-date { grid-column: auto; grid-row: auto; flex-direction: column; gap: 0; }
     .daily-itinerary .day-chevron, .daily-itinerary .day-alternative > summary > svg { display: none; }
     .daily-itinerary .day-title, .daily-itinerary:lang(zh-CN) .day-title { grid-column: auto; grid-row: auto; font-size: 17px; line-height: 1.5; }

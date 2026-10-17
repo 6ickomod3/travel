@@ -14,6 +14,7 @@ import TripDailyItinerary from './TripDailyItinerary.astro';
 import TripDiningReservations from './TripDiningReservations.astro';
 import BrandMark from './BrandMark.astro';
 import BookingBadge from './BookingBadge.astro';
+import LocalPlaceName from './LocalPlaceName.astro';
 import { tripCollection, type Trip, type TripDestination, type TripStay } from '../data/trips';
 import { durationDays, formatDateRange, formatDate } from '../lib/trips';
 import { withBase } from '../lib/urls';
@@ -153,7 +154,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
           {trip.destinations.map((stop, index) => <div class="route-stop">
             <button type="button" data-map-select="trip-route" data-stop-id={stop.id} aria-pressed="false" disabled>
               <span>{String(index + 1).padStart(2, '0')}</span>
-              <span><strong>{stop.name}</strong><small>{isAgreed ? stop.description : `${destinationDays(stop.id)} ${text('天行程', destinationDays(stop.id) === 1 ? 'day' : 'days')}`}</small></span>
+              <span><strong>{stop.name}</strong><LocalPlaceName primaryName={stop.name} localName={stop.localName} /><small>{isAgreed ? stop.description : `${destinationDays(stop.id)} ${text('天行程', destinationDays(stop.id) === 1 ? 'day' : 'days')}`}</small></span>
               <Icon name="arrow-up-right" size={17} />
             </button>
             <a class="city-map-link" href={`https://www.google.com/maps/search/?api=1&query=${stop.lat},${stop.lng}`} target="_blank" rel="noopener noreferrer">{text(`在地图中查看${stop.name}`, `View ${stop.name} in Google Maps`)} <Icon name="external" size={12} /></a>

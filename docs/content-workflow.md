@@ -54,8 +54,8 @@ src/data/
   Show the poem after accommodation and daily reminders, before the timetable,
   with its interpretation and credit visible. Detailed references start
   collapsed and open for printing with their previous states restored.
-  Shared epigraph styling uses warm paper tones and a quiet local sakura
-  illustration; preserve reading width and contrast, keep decoration
+  Epigraph styling may use warm paper tones and a quiet local illustration
+  suited to the trip; Japan currently uses sakura. Preserve reading width and contrast, keep decoration
   noninteractive, and remove decorative backgrounds for print and forced colors.
   A missing poem renders nothing; no epigraph changes the accepted schedule.
   Optional flights, ticket options, booking windows, and separate day
@@ -130,6 +130,14 @@ src/data/
   references, and photo IDs. Each day's or alternative's `sightIds` selects
   its introduction cards. A photo does not establish a planned or completed
   visit; preserve optional-route labels and existing schedules.
+  Optional `localName: { text, language }` on destinations, sights, and gallery
+  photos records an accurate name in its local script with a BCP 47 language
+  tag. For a photo, name the depicted place. Keep the trip-language label
+  primary, show the local name quietly beside it, and suppress identical
+  repeated text. Native labels also appear in map details and propagate to
+  the visited atlas only when a trip is explicitly completed. Reuse
+  `LocalPlaceName.astro` and native font fallbacks; do not concatenate
+  translations into names or rewrite the agreed timetable for this styling.
 - `inputs/` contains the publishable source submissions. Store each separately
   as `YYYY-MM-DD-NN-topic.md` or `.txt`; use the archive date and a two-digit
   sequence within that day. Preserve original wording, links, formatting,
@@ -211,9 +219,10 @@ the visited atlas, and their destinations must reflect actual visits.
 Store unredacted booking documents, confirmation codes, passport details, and
 other private source files under `.local/trips/<slug>/inputs/` or
 `.local/trips/<slug>/documents/`. This directory is ignored by Git and is not
-served by the website. Keep only publishable originals or clearly identified
-redacted copies in the tracked input archive; never overwrite a private
-original with a redacted copy.
+served by the website. Keep only publication-authorized originals or clearly
+identified, publication-authorized excerpts or redacted copies in the tracked
+input archive. Redaction alone does not authorize publication; never overwrite
+a private original with a redacted copy.
 
 Any retained editable working copy that contains private material must also
 be ignored by Git. Keep its receipt snapshot in the trip's private input

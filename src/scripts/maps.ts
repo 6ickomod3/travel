@@ -2,10 +2,23 @@ import 'leaflet/dist/leaflet.css';
 import type { TripDestination } from '../data/trips';
 import type { VisitedLocation } from '../lib/trips';
 import { withBase } from '../lib/urls';
+import { distinctLocalName } from '../lib/place-names';
 
 type MapDestination = TripDestination | VisitedLocation;
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function appendLocalName(element: HTMLElement, stop: MapDestination) {
+  const localName = distinctLocalName(stop.name, stop.localName);
+  if (!localName) return;
+  const label = document.createElement('span');
+  label.className = 'local-place-name';
+  label.lang = localName.language;
+  label.dir = 'auto';
+  label.dataset.localPlaceName = '';
+  label.textContent = localName.text;
+  element.append(label);
+}
 
 async function initializeMap(element: HTMLElement) {
   const id = element.dataset.travelMap!;
@@ -71,11 +84,14 @@ async function initializeMap(element: HTMLElement) {
     const markers = destinations.map((stop, index) => {
       const label = document.createElement('span');
       label.textContent = stop.name;
+      appendLocalName(label, stop);
+      const localName = distinctLocalName(stop.name, stop.localName);
+      const title = localName ? `${stop.name} · ${localName.text}` : stop.name;
       const marker = L.marker([stop.lat, stop.lng], {
-        title: stop.name,
+        title,
         alt: isVisited
-          ? isZh ? `${stop.name}，已到访地点` : `${stop.name}, visited place`
-          : isZh ? `${stop.name}，路线地点 ${index + 1}` : `${stop.name}, route stop ${index + 1}`,
+          ? isZh ? `${title}，已到访地点` : `${title}, visited place`
+          : isZh ? `${title}，路线地点 ${index + 1}` : `${title}, route stop ${index + 1}`,
         icon: L.divIcon({
           className: isVisited ? 'travel-marker travel-marker-visited' : 'travel-marker',
           html: isVisited ? '<span class="marker-core"><span class="visited-marker-dot" aria-hidden="true"></span></span>' : `<span class="marker-core">${index + 1}</span>`,
@@ -101,7 +117,9 @@ async function initializeMap(element: HTMLElement) {
           item.append(link);
           trips.append(item);
         });
-        popup.append(name, country, trips);
+        popup.append(name);
+        appendLocalName(popup, stop);
+        popup.append(country, trips);
         marker.bindPopup(popup, { minWidth: 180, maxWidth: 280 });
       }
       marker.on('click', () => select(index));

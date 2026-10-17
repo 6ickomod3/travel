@@ -31,6 +31,9 @@ svg { display: block; flex-shrink: 0; }
 h1, h2, h3, h4, p { margin: 0; }
 h1, h2, h3, h4 { font-weight: 400; }
 em { font-family: var(--serif); font-weight: 400; }
+.local-place-name { display: block; max-width: 100%; margin-top: 3px; color: var(--ink-soft); font-family: var(--sans); font-size: 12px; font-weight: 400; font-style: normal; line-height: 1.8; letter-spacing: .025em; text-transform: none; overflow-wrap: anywhere; unicode-bidi: isolate; }
+.local-place-name:lang(ja) { font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif CJK JP', 'Noto Serif JP', serif; }
+@media print { .local-place-name { color: var(--ink); font-size: 9px; } }
 button { color: inherit; }
 button:disabled { cursor: default; opacity: .5; }
 [hidden] { display: none !important; }
@@ -113,7 +116,8 @@ button:disabled { cursor: default; opacity: .5; }
 .travel-marker { display: grid; place-items: center; background: #dd674522; border-radius: 50%; }
 .marker-core { display: grid; place-items: center; width: 23px; height: 23px; border: 2px solid var(--paper); border-radius: 50%; background: var(--accent-deep); color: #fff; font-family: var(--sans); font-size: 9px; box-shadow: 0 2px 6px #23372c35; }
 .travel-marker:focus-visible { outline-offset: 5px; }
-.leaflet-tooltip.travel-map-tooltip { border: 0; background: var(--paper); color: var(--ink); padding: 5px 10px; box-shadow: 0 1px 5px #23372c15; font-family: var(--sans); font-size: 10px; }
+.leaflet-tooltip.travel-map-tooltip { max-width: min(240px, calc(100vw - 64px)); border: 0; background: var(--paper); color: var(--ink); padding: 5px 10px; box-shadow: 0 1px 5px #23372c15; font-family: var(--sans); font-size: 10px; white-space: normal; overflow-wrap: anywhere; }
+.leaflet-tooltip.travel-map-tooltip .local-place-name { margin-top: 1px; font-size: 11px; line-height: 1.7; }
 .leaflet-tooltip.travel-map-tooltip::before { border-top-color: var(--paper); }
 
 /* Site footer. */
@@ -157,9 +161,10 @@ button:disabled { cursor: default; opacity: .5; }
 .route-stop { padding: 12px 0; border-top: 1px solid var(--line); }
 .route-stop > button { display: flex; align-items: center; width: 100%; text-align: left; border: 0; background: transparent; gap: 12px; min-height: 40px; padding: 0; }
 .route-stop > button > span:first-child { display: grid; place-items: center; width: 25px; height: 25px; border: 1px solid var(--line); border-radius: 50%; font-size: 8px; color: var(--accent-deep); }
-.route-stop > button > span:nth-child(2) { flex: 1; }
+.route-stop > button > span:nth-child(2) { flex: 1; min-width: 0; }
 .route-stop strong { font-size: 14px; font-weight: 500; display: block; }
 .route-stop small { color: var(--ink-soft); font-size: 9px; display: block; margin-top: 1px; }
+.route-stop .local-place-name + small { display: block; margin-top: 2px; }
 .route-stop button:hover strong, .route-stop button[aria-pressed='true'] strong { color: var(--accent-deep); }
 .route-stop > .city-map-link { color: var(--ink-soft); margin-left: 37px; font-size: 8px; }
 .route-note { color: var(--ink-soft); font-size: 9px; line-height: 1.8; margin-top: 19px; }

@@ -1,0 +1,13 @@
+---
+import type { TripLocalName } from '../data/types';
+import { distinctLocalName } from '../lib/place-names';
+
+interface Props {
+  primaryName: string;
+  localName?: TripLocalName;
+}
+
+const { primaryName, localName } = Astro.props;
+const name = distinctLocalName(primaryName, localName);
+---
+{name && <span class="local-place-name" lang={name.language} dir="auto" data-local-place-name>{name.text}</span>}

@@ -27,6 +27,10 @@ export default {
   "gallery": [
     {
       "id": "miyajima",
+      "localName": {
+        "text": "厳島神社 大鳥居",
+        "language": "ja"
+      },
       "image": "/images/trips/japan-2026/miyajima.webp",
       "alt": "夕光下的宫岛严岛神社大鸟居，倒映在海水中。",
       "title": "严岛神社与大鸟居",
@@ -35,6 +39,10 @@ export default {
     },
     {
       "id": "hiroshima-dome",
+      "localName": {
+        "text": "原爆ドーム",
+        "language": "ja"
+      },
       "image": "/images/trips/japan-2026/hiroshima-dome.webp",
       "alt": "广岛原爆圆顶馆的残存外墙与钢架圆顶，旁边树叶渐黄。",
       "title": "原爆圆顶馆",
@@ -44,6 +52,10 @@ export default {
     },
     {
       "id": "misen",
+      "localName": {
+        "text": "弥山",
+        "language": "ja"
+      },
       "image": "/images/trips/japan-2026/misen.webp",
       "alt": "从宫岛弥山眺望濑户内海，海面上散布着岛屿，前景是山林。",
       "title": "弥山",
@@ -52,6 +64,10 @@ export default {
     },
     {
       "id": "daishoin",
+      "localName": {
+        "text": "大聖院",
+        "language": "ja"
+      },
       "image": "/images/trips/japan-2026/daishoin.webp",
       "alt": "宫岛大圣院的楼阁与灰瓦屋顶，周围树木间有红叶。",
       "title": "大圣院",
@@ -61,6 +77,10 @@ export default {
     },
     {
       "id": "kumano",
+      "localName": {
+        "text": "熊野古道 中辺路",
+        "language": "ja"
+      },
       "image": "/images/trips/japan-2026/kumano.webp",
       "alt": "熊野古道中边路的林间路标，指向近露王子和牛马童子像。",
       "title": "熊野古道中边路",
@@ -69,6 +89,10 @@ export default {
     },
     {
       "id": "kumano-hongu",
+      "localName": {
+        "text": "熊野本宮大社",
+        "language": "ja"
+      },
       "image": "/images/trips/japan-2026/kumano-hongu.webp",
       "alt": "熊野本宫大社的木造社殿与檜皮葺屋顶，背后是茂密树林。",
       "title": "熊野本宫大社",
@@ -77,6 +101,10 @@ export default {
     },
     {
       "id": "oyunohara",
+      "localName": {
+        "text": "大斎原",
+        "language": "ja"
+      },
       "image": "/images/trips/japan-2026/oyunohara.webp",
       "alt": "大斋原参道穿过稻田，尽头是熊野本宫大社旧社地的巨大鸟居。",
       "title": "大斋原",
@@ -85,6 +113,10 @@ export default {
     },
     {
       "id": "nachi-falls",
+      "localName": {
+        "text": "青岸渡寺・那智の滝",
+        "language": "ja"
+      },
       "image": "/images/trips/japan-2026/nachi-falls.webp",
       "alt": "青岸渡寺的朱红三重塔与背后的那智瀑布，四周是熊野山林。",
       "title": "那智瀑布与青岸渡寺",
@@ -94,6 +126,10 @@ export default {
     },
     {
       "id": "hayatama",
+      "localName": {
+        "text": "熊野速玉大社",
+        "language": "ja"
+      },
       "image": "/images/trips/japan-2026/hayatama-taisha.webp",
       "alt": "新宫熊野速玉大社境内的朱红建筑与树木。",
       "title": "熊野速玉大社",
@@ -104,6 +140,10 @@ export default {
     },
     {
       "id": "todai-ji",
+      "localName": {
+        "text": "東大寺 大仏殿",
+        "language": "ja"
+      },
       "image": "/images/trips/japan-2026/todai-ji.webp",
       "alt": "奈良东大寺大佛殿的正面，巨大的木造屋顶与草地映在蓝天下。",
       "title": "东大寺",
@@ -112,6 +152,10 @@ export default {
     },
     {
       "id": "kasuga-taisha",
+      "localName": {
+        "text": "春日大社",
+        "language": "ja"
+      },
       "image": "/images/trips/japan-2026/kasuga-taisha.webp",
       "alt": "春日大社朱红回廊内成排悬挂的青铜灯笼。",
       "title": "春日大社",
@@ -120,6 +164,10 @@ export default {
     },
     {
       "id": "nara-park",
+      "localName": {
+        "text": "奈良公園",
+        "language": "ja"
+      },
       "image": "/images/trips/japan-2026/nara-park.webp",
       "alt": "奈良公园里，两只鹿在红叶下的溪水中饮水。",
       "title": "奈良公园",
@@ -130,6 +178,10 @@ export default {
   "sights": [
     {
       "id": "hiroshima-peace-memorials",
+      "localName": {
+        "text": "平和記念公園・原爆ドーム・平和記念資料館",
+        "language": "ja"
+      },
       "name": "和平纪念公园、原爆圆顶馆与资料馆",
       "introduction": "和平纪念公园建在原爆爆心地附近，设有慰灵碑等纪念设施。原爆圆顶馆是1945年原爆留下的遗址，资料馆通过遗物、照片和幸存者证言展示原爆及其影响。可重点查看个人遗物及其说明，了解原爆如何影响市民的生活。",
       "photoIds": [
@@ -142,6 +194,10 @@ export default {
     },
     {
       "id": "itsukushima-shrine",
+      "localName": {
+        "text": "厳島神社・大鳥居",
+        "language": "ja"
+      },
       "name": "严岛神社与大鸟居",
       "introduction": "严岛神社建在潮间带，朱红回廊与海中大鸟居共同构成参拜空间。现有社殿布局延续平清盛时代的营造形式，大鸟居则为1875年重建。可留意鸟居与回廊的相对位置，以及木地板缝隙为应对潮水而留下的结构。",
       "photoIds": [
@@ -154,6 +210,10 @@ export default {
     },
     {
       "id": "misen",
+      "localName": {
+        "text": "弥山・獅子岩",
+        "language": "ja"
+      },
       "name": "弥山与狮子岩",
       "introduction": "弥山原始林保留暖地植物、温带针叶树与多种古老植物类型。山上分布弥山本堂等修行遗迹，展望点可眺望濑户内海及周围岛屿。可留意自然植被与堂宇的分布，区分缆车终点狮子岩与真正的弥山山顶。",
       "photoIds": [
@@ -167,6 +227,10 @@ export default {
     },
     {
       "id": "daishoin",
+      "localName": {
+        "text": "大聖院",
+        "language": "ja"
+      },
       "name": "大圣院",
       "introduction": "大圣院是真言宗御室派寺院，相传由空海于806年开创。明治维新以前，它负责严岛神社的佛教法会和祭事。院内有观音堂、敕愿堂与摩尼殿，各殿供奉不同本尊，可从殿堂与佛像了解宫岛长期相连的神佛信仰。",
       "photoIds": [
@@ -178,6 +242,10 @@ export default {
     },
     {
       "id": "nakahechi",
+      "localName": {
+        "text": "熊野古道 中辺路",
+        "language": "ja"
+      },
       "name": "熊野古道中边路",
       "introduction": "中边路是连接熊野三山的主要古道，拥有千余年朝圣历史，也曾是皇族前往熊野的参拜路线。泷尻至近露一段经过森林、高原聚落和多个王子遗迹，沿路可留意古道路标和祭祀点，了解参拜路线如何连接山地村落。",
       "photoIds": [
@@ -190,6 +258,10 @@ export default {
     },
     {
       "id": "hongu-taisha",
+      "localName": {
+        "text": "熊野本宮大社",
+        "language": "ja"
+      },
       "name": "熊野本宫大社",
       "introduction": "熊野本宫大社是熊野三山之一，现址位于杉树与桧树林环绕的高地。1889年洪水后，幸存社殿从大斋原迁到这里。可留意素木社殿、桧皮覆盖的屋顶，以及屋脊上交叉的千木和横置的鲣木。",
       "photoIds": [
@@ -201,6 +273,10 @@ export default {
     },
     {
       "id": "oyunohara",
+      "localName": {
+        "text": "大斎原",
+        "language": "ja"
+      },
       "name": "大斋原",
       "introduction": "大斋原是熊野本宫大社的旧址，原在熊野川与音无川汇流处的河洲上。1889年洪水后，主要社殿迁往现址，旧地仍留下高起的土台和祭祀遗迹。入口大鸟居高33.9米，重点可看鸟居尺度与旧神社基址。",
       "photoIds": [
@@ -212,6 +288,10 @@ export default {
     },
     {
       "id": "nachi-shrines-falls",
+      "localName": {
+        "text": "熊野那智大社・青岸渡寺・那智の滝",
+        "language": "ja"
+      },
       "name": "那智大社、青岸渡寺与那智瀑布",
       "introduction": "那智大社是熊野三山之一，信仰起源与那智瀑布的自然崇拜有关。邻近的青岸渡寺属于天台宗，两处社寺反映神道与佛教长期相连的传统。可观察社寺与133米瀑布形成的山地布局，理解这里为何成为参拜目的地。",
       "photoIds": [
@@ -223,6 +303,10 @@ export default {
     },
     {
       "id": "hayatama-taisha",
+      "localName": {
+        "text": "熊野速玉大社",
+        "language": "ja"
+      },
       "name": "熊野速玉大社",
       "introduction": "熊野速玉大社位于新宫、靠近熊野川河口，是熊野三山之一。境内约800年的梛树被视为神木，是熊野自然信仰的重要对象。可留意神木、社殿与参拜空间的布局，观察神社和河流、树木等自然要素的关系。",
       "photoIds": [
@@ -236,6 +320,10 @@ export default {
     },
     {
       "id": "todai-ji",
+      "localName": {
+        "text": "東大寺",
+        "language": "ja"
+      },
       "name": "东大寺",
       "introduction": "东大寺是奈良时代国家佛寺体系中的中心寺院，752年举行大佛开眼供养。大佛殿多次因战火重建，现存殿堂落成于1709年。可重点观察巨大佛像与木结构殿堂的尺度，以及南大门和二月堂所保存的建筑传统。",
       "photoIds": [
@@ -248,6 +336,10 @@ export default {
     },
     {
       "id": "kasuga-taisha",
+      "localName": {
+        "text": "春日大社",
+        "language": "ja"
+      },
       "name": "春日大社",
       "introduction": "春日大社创建于768年，以朱红社殿、白墙和桧皮屋顶为特征，与春日山原始林共同构成古奈良文化遗产。参道石灯笼与回廊铜灯笼多由信众奉献，能看到长期累积的参拜传统。可留意灯笼的材质、形制和奉纳文字。",
       "photoIds": [
@@ -259,6 +351,10 @@ export default {
     },
     {
       "id": "nara-park-kofukuji",
+      "localName": {
+        "text": "奈良公園・興福寺",
+        "language": "ja"
+      },
       "name": "奈良公园与兴福寺",
       "introduction": "奈良公园由寺社、草地与林地组成，鹿群是野生动物，也是受保护的天然纪念物。园内兴福寺与藤原氏历史密切相关，保存阿修罗像等奈良时代佛像。参观国宝馆时，可留意佛像的表情、姿态和雕刻细节。",
       "photoIds": [
@@ -299,6 +395,10 @@ export default {
   "destinations": [
     {
       "id": "osaka",
+      "localName": {
+        "text": "大阪",
+        "language": "ja"
+      },
       "name": "大阪",
       "englishName": "Osaka",
       "lat": 34.6937,
@@ -307,6 +407,10 @@ export default {
     },
     {
       "id": "hiroshima",
+      "localName": {
+        "text": "広島",
+        "language": "ja"
+      },
       "name": "广岛",
       "englishName": "Hiroshima",
       "lat": 34.3853,
@@ -315,6 +419,10 @@ export default {
     },
     {
       "id": "miyajima",
+      "localName": {
+        "text": "宮島",
+        "language": "ja"
+      },
       "name": "宫岛",
       "englishName": "Miyajima",
       "lat": 34.2955,
@@ -323,6 +431,10 @@ export default {
     },
     {
       "id": "kii-tanabe",
+      "localName": {
+        "text": "紀伊田辺",
+        "language": "ja"
+      },
       "name": "纪伊田边",
       "englishName": "Kii-Tanabe",
       "lat": 33.7331,
@@ -331,6 +443,10 @@ export default {
     },
     {
       "id": "kumano-kodo",
+      "localName": {
+        "text": "熊野古道",
+        "language": "ja"
+      },
       "name": "熊野古道",
       "englishName": "Kumano Kodo",
       "lat": 33.8155,
@@ -339,6 +455,10 @@ export default {
     },
     {
       "id": "kawayu",
+      "localName": {
+        "text": "川湯温泉",
+        "language": "ja"
+      },
       "name": "川汤温泉",
       "englishName": "Kawayu Onsen",
       "lat": 33.8131,
@@ -347,6 +467,10 @@ export default {
     },
     {
       "id": "shingu",
+      "localName": {
+        "text": "新宮",
+        "language": "ja"
+      },
       "name": "新宫",
       "englishName": "Shingu",
       "lat": 33.7242,
@@ -355,6 +479,10 @@ export default {
     },
     {
       "id": "nachi",
+      "localName": {
+        "text": "那智",
+        "language": "ja"
+      },
       "name": "那智",
       "englishName": "Nachi",
       "lat": 33.6689,
@@ -363,6 +491,10 @@ export default {
     },
     {
       "id": "kii-katsuura",
+      "localName": {
+        "text": "紀伊勝浦",
+        "language": "ja"
+      },
       "name": "纪伊胜浦",
       "englishName": "Kii-Katsuura",
       "lat": 33.6292,
@@ -371,6 +503,10 @@ export default {
     },
     {
       "id": "nara",
+      "localName": {
+        "text": "奈良",
+        "language": "ja"
+      },
       "name": "奈良",
       "englishName": "Nara",
       "lat": 34.6851,

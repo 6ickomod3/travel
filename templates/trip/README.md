@@ -10,3 +10,9 @@ decisions in `history.md`. Use a dated `Trip` once actual dates and plans are
 available; keep a `TripPlaceholder` while they are unknown.
 
 See [the complete workflow](../../docs/content-workflow.md).
+
+Follow [the shared trip design principles](../../docs/trip-design-principles.md)
+for page structure, navigation, status and visual conventions. Destinations,
+sights and gallery photos may have `localName: { text, language }` to display
+accurate local-script names alongside the trip's primary language. Choose
+quotes, motifs and native fonts to suit the destination.
