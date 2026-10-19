@@ -18,6 +18,51 @@ export interface TripDestination {
   englishName?: string;
 }
 
+export interface TripCoordinateSource {
+  label: string;
+  url: string;
+  /** Date the public geographic record was checked, when known. */
+  checkedOn?: string;
+}
+
+export interface TripMapPlace {
+  id: string;
+  name: string;
+  localName?: TripLocalName;
+  lat: number;
+  lng: number;
+  kind: "sight" | "station" | "airport" | "port" | "stay" | "checkpoint" | "bus-stop" | "town";
+  coordinateSource: TripCoordinateSource;
+  /** Describe a sourced shared-building or area point without claiming an entrance. */
+  coordinateNote?: string;
+}
+
+export interface TripMapStop {
+  placeId: string;
+  /** Stable ID in the main schedule, or in the view's named alternative. */
+  scheduleId?: string;
+  optional?: boolean;
+  /** Landmark position shown as a pin, excluded from travel-order connections. */
+  connect?: false;
+  note?: string;
+}
+
+export interface TripDayMapView {
+  id: string;
+  label: string;
+  scope: "activity" | "transport" | "alternative" | "optional";
+  alternativeId?: string;
+  stops: TripMapStop[];
+  note?: string;
+  /** Verified path geometry as [latitude, longitude], with its own provenance. */
+  track?: { coordinates: Array<[number, number]>; source: TripCoordinateSource };
+}
+
+export interface TripDayMap {
+  defaultViewId: string;
+  views: TripDayMapView[];
+}
+
 export interface TripGalleryPhoto {
   id: string;
   image: string;
@@ -47,6 +92,8 @@ export interface TripSight {
 }
 
 export interface TripScheduleItem {
+  /** Optional stable anchor for map-to-timetable links. */
+  id?: string;
   time: string;
   title: string;
   description?: string;
@@ -146,6 +193,8 @@ export interface TripDay {
   /** Calendar date in YYYY-MM-DD format. */
   date: string;
   destinationId: string;
+  /** Optional day-specific map with ordered place references and separate scopes. */
+  map?: TripDayMap;
   title: string;
   description: string;
   ideas: string[];
@@ -302,6 +351,8 @@ export interface Trip {
   coverAlt: string;
   coverCredit: string;
   destinations: TripDestination[];
+  /** Trip-owned public place coordinates, reused by each day's map views. */
+  places?: TripMapPlace[];
   routeNote: string;
   days: TripDay[];
   language?: "zh-CN" | "en";

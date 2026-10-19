@@ -173,4 +173,4 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 }, { rootMargin: '300px' });
-document.querySelectorAll<HTMLElement>('[data-travel-map]').forEach((element) => observer.observe(element));
+document.querySelectorAll<HTMLElement>('[data-travel-map]:not([data-map-daily])').forEach((element) => observer.observe(element));

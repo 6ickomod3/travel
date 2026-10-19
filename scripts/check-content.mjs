@@ -41,6 +41,23 @@ function checkLocalName(localName, label) {
   assert.doesNotThrow(() => new Intl.Locale(localName.language), `${label}: use a valid BCP 47 local-name language tag`);
 }
 
+function coordinates(lat, lng, label) {
+  assert.ok(Number.isFinite(lat) && Math.abs(lat) <= 90 && Number.isFinite(lng) && Math.abs(lng) <= 180, `${label}: invalid coordinates`);
+}
+
+function coordinateSource(source, label) {
+  assert.ok(source && typeof source.label === 'string' && source.label.trim(), `${label}: name the geographic source`);
+  assert.ok(typeof source.url === 'string' && /^https:\/\//.test(source.url), `${label}: use a public HTTPS geographic source`);
+  assert.doesNotThrow(() => new URL(source.url), `${label}: invalid geographic source URL`);
+  if (source.checkedOn !== undefined) calendarDate(source.checkedOn, `${label} source check`);
+}
+
+function scheduleIds(schedule, label) {
+  const records = schedule.filter(item => item.id !== undefined);
+  for (const item of records) assert.match(item.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `${label}: use a stable schedule ID`);
+  return uniqueIds(records, label);
+}
+
 function publicFile(path, label) {
   assert.ok(typeof path === 'string' && path.startsWith('/images/'), `${label}: use a public image path`);
   const file = resolve(publicRoot, `.${path}`);
@@ -139,6 +156,7 @@ for (const folder of folders) {
   assert.ok(end >= start, `${folder}: end date precedes start`);
   assert.ok(['planning', 'upcoming', 'completed'].includes(trip.status), `${folder}: invalid trip status`);
   const destinations = uniqueIds(trip.destinations, `${folder} destinations`);
+  const places = uniqueIds(trip.places ?? [], `${folder} map places`);
   const sources = uniqueIds(trip.sources ?? [], `${folder} sources`);
   const stays = uniqueIds(trip.stays ?? [], `${folder} stays`);
   const photos = uniqueIds(trip.gallery ?? [], `${folder} gallery photos`);
@@ -152,6 +170,15 @@ for (const folder of folders) {
   for (const place of trip.destinations) {
     checkLocalName(place.localName, `${folder}/${place.id} destination`);
     assert.ok(Number.isFinite(place.lat) && Math.abs(place.lat) <= 90 && Number.isFinite(place.lng) && Math.abs(place.lng) <= 180, `${folder}/${place.id}: invalid coordinates`);
+  }
+  for (const place of trip.places ?? []) {
+    assert.match(place.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `${folder}/${place.id}: use a stable map-place ID`);
+    assert.ok(typeof place.name === 'string' && place.name.trim(), `${folder}/${place.id}: name the map place`);
+    coordinates(place.lat, place.lng, `${folder}/${place.id}`);
+    checkLocalName(place.localName, `${folder}/${place.id}`);
+    coordinateSource(place.coordinateSource, `${folder}/${place.id}`);
+    assert.ok(['sight', 'station', 'airport', 'port', 'stay', 'checkpoint', 'bus-stop', 'town'].includes(place.kind), `${folder}/${place.id}: identify the map-place kind`);
+    if (place.coordinateNote !== undefined) assert.ok(typeof place.coordinateNote === 'string' && place.coordinateNote.trim(), `${folder}/${place.id}: coordinate notes must contain text`);
   }
   for (const id of trip.mapRoute ?? []) assert.ok(destinations.has(id), `${folder} route: unknown destination ${id}`);
   const checkSources = (ids, label) => {
@@ -180,6 +207,40 @@ for (const folder of folders) {
     if (day.overnightId) assert.ok(stays.has(day.overnightId), `${folder}/${date}: unknown stay ${day.overnightId}`);
     checkSources(day.sourceIds, `${folder}/${date}`);
     checkSights(day.sightIds, `${folder}/${date}`);
+    const mainScheduleIds = scheduleIds(day.schedule ?? [], `${folder}/${date} schedule`);
+    for (const alternative of day.alternatives ?? []) scheduleIds(alternative.schedule, `${folder}/${date}/${alternative.id} schedule`);
+    if (day.map !== undefined) {
+      const map = day.map;
+      assert.ok(map && Array.isArray(map.views) && map.views.length, `${folder}/${date}: add map views`);
+      const views = uniqueIds(map.views, `${folder}/${date} map views`);
+      assert.ok(views.has(map.defaultViewId), `${folder}/${date}: default map view must exist`);
+      const defaultView = map.views.find(view => view.id === map.defaultViewId);
+      assert.ok(['activity', 'transport'].includes(defaultView.scope), `${folder}/${date}: default map view must show the main plan`);
+      for (const view of map.views) {
+        const label = `${folder}/${date}/${view.id} map`;
+        assert.match(view.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `${label}: use a stable map-view ID`);
+        assert.ok(typeof view.label === 'string' && view.label.trim(), `${label}: label the view`);
+        assert.ok(['activity', 'transport', 'alternative', 'optional'].includes(view.scope), `${label}: invalid map scope`);
+        assert.ok(Array.isArray(view.stops) && view.stops.length, `${label}: add ordered stops`);
+        const alternative = view.alternativeId ? day.alternatives?.find(item => item.id === view.alternativeId) : undefined;
+        if (view.scope === 'alternative') assert.ok(alternative, `${label}: reference the existing alternative schedule`);
+        else assert.equal(view.alternativeId, undefined, `${label}: alternative IDs belong to alternative views`);
+        const entries = alternative ? scheduleIds(alternative.schedule, `${label} schedule`) : mainScheduleIds;
+        for (const stop of view.stops) {
+          assert.ok(places.has(stop.placeId), `${label}: unknown place ${stop.placeId}`);
+          if (stop.scheduleId !== undefined) assert.ok(entries.has(stop.scheduleId), `${label}: unknown schedule entry ${stop.scheduleId}`);
+          assert.ok(stop.optional === undefined || typeof stop.optional === 'boolean', `${label}: optional must be a boolean`);
+          assert.ok(stop.connect === undefined || stop.connect === false, `${label}: connect:false identifies landmark-only pins`);
+          if (stop.note !== undefined) assert.ok(typeof stop.note === 'string' && stop.note.trim(), `${label}: stop notes must contain text`);
+        }
+        if (view.note !== undefined) assert.ok(typeof view.note === 'string' && view.note.trim(), `${label}: view notes must contain text`);
+        if (view.track !== undefined) {
+          assert.ok(Array.isArray(view.track.coordinates) && view.track.coordinates.length >= 2, `${label}: add verified path geometry`);
+          for (const point of view.track.coordinates) { assert.ok(Array.isArray(point) && point.length === 2, `${label}: use [latitude, longitude] path points`); coordinates(point[0], point[1], label); }
+          coordinateSource(view.track.source, `${label} path`);
+        }
+      }
+    }
     if (day.poem !== undefined) {
       const poem = day.poem;
       const label = `${folder}/${date} epigraph`;

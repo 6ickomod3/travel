@@ -130,12 +130,12 @@ src/data/
   references, and photo IDs. Each day's or alternative's `sightIds` selects
   its introduction cards. A photo does not establish a planned or completed
   visit; preserve optional-route labels and existing schedules.
-  Optional `localName: { text, language }` on destinations, sights, and gallery
-  photos records an accurate name in its local script with a BCP 47 language
-  tag. For a photo, name the depicted place. Keep the trip-language label
-  primary, show the local name quietly beside it, and suppress identical
-  repeated text. Native labels also appear in map details and propagate to
-  the visited atlas only when a trip is explicitly completed. Reuse
+  Optional `localName: { text, language }` on destinations, daily-map places,
+  sights, and gallery photos records an accurate name in its local script with
+  a BCP 47 language tag. For a photo, name the depicted place. Keep the
+  trip-language label primary, show the local name quietly beside it, and suppress identical
+  repeated text. Native labels also appear in map details. Destination labels
+  propagate to the visited atlas only when a trip is explicitly completed. Reuse
   `LocalPlaceName.astro` and native font fallbacks; do not concatenate
   translations into names or rewrite the agreed timetable for this styling.
 - `inputs/` contains the publishable source submissions. Store each separately
@@ -168,6 +168,39 @@ src/data/
 The archived text and history are not emitted as website pages. They remain
 publicly readable in the GitHub repository.
 
+## Daily-map data
+
+The same optional structure supports daily maps on future trips. Keep coordinates
+in the trip-owned `places` registry, reusing stable place IDs across its days.
+Each place records `id`, `name`, optional `localName`, `lat`, `lng`, `kind`, and
+`coordinateSource` with `label`, `url` and `checkedOn`. Record coordinate provenance
+honestly; omit an unknown bus-stop marker rather than guess its location. Retain
+the accepted schedule text when a place cannot yet be mapped. Do not use runtime
+geocoding or a paid mapping API.
+
+Use `coordinateNote` to identify a shared building or an approximate named area
+when the source does not establish an exact entrance. Display that note in the
+stop list as well as map details.
+
+Each optional `days[].map` has a `defaultViewId` and labeled `views`. A view has
+an `id`, `label`, a scope of `activity`, `transport`, `alternative` or `optional`,
+ordered `stops`, and optional notes. An alternative view's `alternativeId` references an
+existing alternative. Stops reference `placeId` and may include `scheduleId`,
+`optional`, `connect: false` and `note`. Optional stops are excluded from the
+main sequence line. Set `connect: false` for a landmark-only marker, such as an
+offshore torii seen from the shore; explain the actual viewing location in its
+note. Add stable `id` values to mapped schedule rows without
+changing their times, wording or order. A `scheduleId` resolves to the main
+schedule or the view's referenced alternative schedule. Validate every place,
+schedule, alternative and default-view reference.
+
+Optional `track` data has `coordinates` as `[latitude, longitude]` pairs and a
+`source` with the same provenance fields as `coordinateSource`. It requires
+verified route geometry; without it, connections show only stop order. Keep
+optional routes and unselected meal candidates distinct from accepted stops. Follow the
+[daily-map presentation and interaction rules](trip-design-principles.md#daily-maps)
+for visible-day initialization, phone controls, fallback lists and printing.
+
 ## Process a new submission
 
 1. Identify the trip from the message or attachment. If it is unclear, ask
@@ -187,9 +220,10 @@ publicly readable in the GitHub repository.
    Keep confirmed flights separate from planned ground transport, and keep
    complete optional/fallback routes in a day's `alternatives` rather than
    mixing their departures into the main schedule.
-6. Keep destination, stay, checklist, and official-source IDs stable. Repeated
-   IDs in `mapRoute` represent return journeys and are intentional. Submitted
-   text provenance belongs in the history; `Trip.sources` contains official
+6. Keep destination, map-place, mapped schedule, stay, checklist, and
+   official-source IDs stable. Repeated IDs in `mapRoute` represent return
+   journeys and are intentional. Submitted text provenance belongs in the
+   history; `Trip.sources` contains official
    links that can be shown on the trip page.
 7. Update the history with what was applied and what remains unresolved. Run
    the content check and production build, inspect relevant page behavior,

@@ -1522,6 +1522,1202 @@ export default {
     "东大寺大佛殿11月08:00–17:00，目前现场购票、只收现金；春日大社一般参拜07:00–17:00、特别参拜09:00–16:00。普通个人现场购票即可，特殊展览另看规则。",
     "如关心Dual Pilgrim，发心门至本宫步行加熊野三山参拜是熊野部分的一种合格方式；默认版不去速玉，不能按这一条件视为完成。正式资格、徽章与证书另需圣地亚哥条件，单来日本不会自动获得。"
   ],
+  "places": [
+    {
+      "id": "respire-osaka",
+      "name": "Hotel Hankyu RESPIRE Osaka",
+      "localName": {
+        "text": "ホテル阪急 レスパイア大阪",
+        "language": "ja"
+      },
+      "lat": 34.7045871,
+      "lng": 135.4960115,
+      "kind": "stay",
+      "coordinateSource": {
+        "label": "OpenStreetMap：Hotel Hankyu RESPIRE Osaka",
+        "url": "https://www.openstreetmap.org/node/7375548910",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "osaka-station",
+      "name": "JR大阪站",
+      "localName": {
+        "text": "大阪駅",
+        "language": "ja"
+      },
+      "lat": 34.7025087,
+      "lng": 135.4961773,
+      "kind": "station",
+      "coordinateSource": {
+        "label": "OpenStreetMap：JR大阪站",
+        "url": "https://www.openstreetmap.org/relation/17915329",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "umekita-gate",
+      "name": "梅北地下口",
+      "localName": {
+        "text": "うめきた地下口",
+        "language": "ja"
+      },
+      "lat": 34.7028245,
+      "lng": 135.4934392,
+      "kind": "station",
+      "coordinateSource": {
+        "label": "OpenStreetMap：梅北地下口",
+        "url": "https://www.openstreetmap.org/node/10748809573",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "shin-osaka-station",
+      "name": "JR新大阪站",
+      "localName": {
+        "text": "新大阪駅",
+        "language": "ja"
+      },
+      "lat": 34.7340782,
+      "lng": 135.5018726,
+      "kind": "station",
+      "coordinateSource": {
+        "label": "OpenStreetMap：JR新大阪站",
+        "url": "https://www.openstreetmap.org/node/6641323161",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "kix-station",
+      "name": "关西机场站",
+      "localName": {
+        "text": "関西空港駅",
+        "language": "ja"
+      },
+      "lat": 34.4359259,
+      "lng": 135.2434129,
+      "kind": "station",
+      "coordinateSource": {
+        "label": "OpenStreetMap：关西机场站",
+        "url": "https://www.openstreetmap.org/node/6468743342",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "kix-t1",
+      "name": "关西机场T1",
+      "localName": {
+        "text": "関西国際空港 第1ターミナル",
+        "language": "ja"
+      },
+      "lat": 34.4343322,
+      "lng": 135.2441973,
+      "kind": "airport",
+      "coordinateSource": {
+        "label": "OpenStreetMap：关西机场第1航站楼",
+        "url": "https://www.openstreetmap.org/way/61818937",
+        "checkedOn": "2026-10-19"
+      },
+      "coordinateNote": "航站楼位置参考，未标定楼层、柜台或具体入口。"
+    },
+    {
+      "id": "granvia-south-gate",
+      "name": "Hotel Granvia Hiroshima South Gate",
+      "localName": {
+        "text": "ホテルグランヴィア広島サウスゲート",
+        "language": "ja"
+      },
+      "lat": 34.3970504,
+      "lng": 132.4751307,
+      "kind": "stay",
+      "coordinateSource": {
+        "label": "OpenStreetMap：minamoa共用建筑位置",
+        "url": "https://www.openstreetmap.org/node/12685318592",
+        "checkedOn": "2026-10-19"
+      },
+      "coordinateNote": "使用酒店所在minamoa共用建筑的位置参考，非酒店专用入口；前往7楼前台仍按已记录的酒店指引。"
+    },
+    {
+      "id": "hiroshima-station",
+      "name": "JR广岛站",
+      "localName": {
+        "text": "広島駅",
+        "language": "ja"
+      },
+      "lat": 34.3978256,
+      "lng": 132.4755766,
+      "kind": "station",
+      "coordinateSource": {
+        "label": "OpenStreetMap：JR广岛站",
+        "url": "https://www.openstreetmap.org/way/121045837",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "genbaku-dome-tram-stop",
+      "name": "原爆圆顶馆前电车站",
+      "localName": {
+        "text": "原爆ドーム前",
+        "language": "ja"
+      },
+      "lat": 34.3960989,
+      "lng": 132.4541153,
+      "kind": "station",
+      "coordinateSource": {
+        "label": "OpenStreetMap：原爆ドーム前电车站",
+        "url": "https://www.openstreetmap.org/node/1794340172",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "atomic-bomb-dome",
+      "name": "原爆圆顶馆",
+      "localName": {
+        "text": "原爆ドーム",
+        "language": "ja"
+      },
+      "lat": 34.3954661,
+      "lng": 132.4535245,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：原爆圆顶馆",
+        "url": "https://www.openstreetmap.org/relation/1506282",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "hiroshima-peace-park",
+      "name": "和平纪念公园",
+      "localName": {
+        "text": "平和記念公園",
+        "language": "ja"
+      },
+      "lat": 34.3931714,
+      "lng": 132.4523008,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：和平纪念公园",
+        "url": "https://www.openstreetmap.org/relation/1971933",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "hiroshima-cenotaph",
+      "name": "原爆死难者慰灵碑",
+      "localName": {
+        "text": "原爆死没者慰霊碑",
+        "language": "ja"
+      },
+      "lat": 34.3929718,
+      "lng": 132.4525711,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：原爆死难者慰灵碑",
+        "url": "https://www.openstreetmap.org/node/1805765497",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "hiroshima-peace-museum",
+      "name": "广岛和平纪念资料馆",
+      "localName": {
+        "text": "広島平和記念資料館",
+        "language": "ja"
+      },
+      "lat": 34.3918121,
+      "lng": 132.4521048,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：广岛和平纪念资料馆本馆",
+        "url": "https://www.openstreetmap.org/way/60867023",
+        "checkedOn": "2026-10-19"
+      },
+      "coordinateNote": "标记资料馆本馆建筑位置；实际入馆按现场入口指引。"
+    },
+    {
+      "id": "hiroshima-hondori",
+      "name": "本通商店街",
+      "localName": {
+        "text": "本通商店街",
+        "language": "ja"
+      },
+      "lat": 34.3938202,
+      "lng": 132.4569738,
+      "kind": "town",
+      "coordinateSource": {
+        "label": "OpenStreetMap：本通商店街公共案内牌",
+        "url": "https://www.openstreetmap.org/node/13618198950",
+        "checkedOn": "2026-10-19"
+      },
+      "coordinateNote": "以商店街内的公共案内牌作为街区位置参考，非固定停留点。"
+    },
+    {
+      "id": "miyajimaguchi-station",
+      "name": "JR宫岛口站",
+      "localName": {
+        "text": "宮島口駅",
+        "language": "ja"
+      },
+      "lat": 34.3123127,
+      "lng": 132.3029382,
+      "kind": "station",
+      "coordinateSource": {
+        "label": "OpenStreetMap：JR宫岛口站",
+        "url": "https://www.openstreetmap.org/node/6063546665",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "miyajimaguchi-ferry-terminal",
+      "name": "宫岛口渡轮旅客码头",
+      "localName": {
+        "text": "宮島口フェリーのりば旅客ターミナル",
+        "language": "ja"
+      },
+      "lat": 34.3111052,
+      "lng": 132.3052206,
+      "kind": "port",
+      "coordinateSource": {
+        "label": "OpenStreetMap：宫岛口渡轮旅客航站楼",
+        "url": "https://www.openstreetmap.org/way/930789199",
+        "checkedOn": "2026-10-19"
+      },
+      "coordinateNote": "旅客航站楼位置参考；持适用JR Pass时按既定计划选择JR西日本渡轮，具体登船口按现场指引。"
+    },
+    {
+      "id": "miyajima-ferry-terminal",
+      "name": "宫岛码头",
+      "localName": {
+        "text": "宮島桟橋",
+        "language": "ja"
+      },
+      "lat": 34.3020947,
+      "lng": 132.322247,
+      "kind": "port",
+      "coordinateSource": {
+        "label": "OpenStreetMap：宫岛共用旅客码头",
+        "url": "https://www.openstreetmap.org/way/93107543",
+        "checkedOn": "2026-10-19"
+      },
+      "coordinateNote": "共用旅客码头位置参考，具体登船口按JR西日本渡轮指引。"
+    },
+    {
+      "id": "momijidani-ropeway",
+      "name": "红叶谷缆车站",
+      "localName": {
+        "text": "紅葉谷駅",
+        "language": "ja"
+      },
+      "lat": 34.2932285,
+      "lng": 132.3267776,
+      "kind": "station",
+      "coordinateSource": {
+        "label": "OpenStreetMap：宫岛缆车紅葉谷站",
+        "url": "https://www.openstreetmap.org/node/512124574",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "kayadani-ropeway",
+      "name": "榧谷缆车站",
+      "localName": {
+        "text": "榧谷駅",
+        "language": "ja"
+      },
+      "lat": 34.2836859,
+      "lng": 132.3283461,
+      "kind": "station",
+      "coordinateSource": {
+        "label": "OpenStreetMap：宫岛缆车榧谷站",
+        "url": "https://www.openstreetmap.org/node/12229440680",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "shishiiwa-ropeway",
+      "name": "狮子岩缆车站",
+      "localName": {
+        "text": "獅子岩駅",
+        "language": "ja"
+      },
+      "lat": 34.2795786,
+      "lng": 132.3251865,
+      "kind": "station",
+      "coordinateSource": {
+        "label": "OpenStreetMap：宫岛缆车獅子岩站",
+        "url": "https://www.openstreetmap.org/node/512139532",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "shishiiwa-viewpoint",
+      "name": "狮子岩展望台",
+      "localName": {
+        "text": "獅子岩展望台",
+        "language": "ja"
+      },
+      "lat": 34.2787815,
+      "lng": 132.3254206,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：狮子岩展望台",
+        "url": "https://www.openstreetmap.org/node/520028226",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "misen-summit",
+      "name": "弥山山顶",
+      "localName": {
+        "text": "弥山",
+        "language": "ja"
+      },
+      "lat": 34.279592,
+      "lng": 132.319611,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：弥山山峰",
+        "url": "https://www.openstreetmap.org/node/1702632098",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "itsukushima-shrine",
+      "name": "严岛神社",
+      "localName": {
+        "text": "厳島神社",
+        "language": "ja"
+      },
+      "lat": 34.2965274,
+      "lng": 132.3190065,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：严岛神社境内范围",
+        "url": "https://www.openstreetmap.org/way/1306168429",
+        "checkedOn": "2026-10-19"
+      },
+      "coordinateNote": "境内位置参考；回廊参观及海边拍照按现场步行路线。"
+    },
+    {
+      "id": "itsukushima-torii",
+      "name": "严岛神社大鸟居",
+      "localName": {
+        "text": "大鳥居",
+        "language": "ja"
+      },
+      "lat": 34.2972999,
+      "lng": 132.3181356,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：严岛神社大鸟居建筑",
+        "url": "https://www.openstreetmap.org/way/555763409",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "daisho-in",
+      "name": "大圣院",
+      "localName": {
+        "text": "大聖院",
+        "language": "ja"
+      },
+      "lat": 34.2917287,
+      "lng": 132.3185775,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：大圣院",
+        "url": "https://www.openstreetmap.org/way/111989802",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "momijidani-park",
+      "name": "红叶谷公园",
+      "localName": {
+        "text": "紅葉谷公園",
+        "language": "ja"
+      },
+      "lat": 34.2938092,
+      "lng": 132.3250384,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：红叶谷公园",
+        "url": "https://www.openstreetmap.org/node/5152466741",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "kii-tanabe-station",
+      "name": "JR纪伊田边站",
+      "localName": {
+        "text": "紀伊田辺駅",
+        "language": "ja"
+      },
+      "lat": 33.7330485,
+      "lng": 135.3841551,
+      "kind": "station",
+      "coordinateSource": {
+        "label": "OpenStreetMap：JR纪伊田边站",
+        "url": "https://www.openstreetmap.org/way/243021832",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "comfort-kii-tanabe",
+      "name": "Comfort Hotel Kii Tanabe",
+      "localName": {
+        "text": "コンフォートホテル紀伊田辺",
+        "language": "ja"
+      },
+      "lat": 33.7309972,
+      "lng": 135.38609,
+      "kind": "stay",
+      "coordinateSource": {
+        "label": "OpenStreetMap：Comfort Hotel Kii Tanabe",
+        "url": "https://www.openstreetmap.org/way/1252405229",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "tanabe-tourist-information",
+      "name": "田边旅游信息中心",
+      "localName": {
+        "text": "田辺市観光センター",
+        "language": "ja"
+      },
+      "lat": 33.7328319,
+      "lng": 135.384433,
+      "kind": "checkpoint",
+      "coordinateSource": {
+        "label": "OpenStreetMap：Tanabe Tourist Information办公室",
+        "url": "https://www.openstreetmap.org/node/5002387921",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "takijiri-bus-stop",
+      "name": "泷尻巴士站",
+      "localName": {
+        "text": "滝尻",
+        "language": "ja"
+      },
+      "lat": 33.7750977,
+      "lng": 135.5030135,
+      "kind": "bus-stop",
+      "coordinateSource": {
+        "label": "OpenStreetMap：泷尻巴士站",
+        "url": "https://www.openstreetmap.org/node/5106695759",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "takijiri-oji",
+      "name": "泷尻王子",
+      "localName": {
+        "text": "滝尻王子",
+        "language": "ja"
+      },
+      "lat": 33.7755327,
+      "lng": 135.5036869,
+      "kind": "checkpoint",
+      "coordinateSource": {
+        "label": "OpenStreetMap：泷尻王子",
+        "url": "https://www.openstreetmap.org/node/3207246310",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "nezu-oji",
+      "name": "不寝王子",
+      "localName": {
+        "text": "不寝王子",
+        "language": "ja"
+      },
+      "lat": 33.7769547,
+      "lng": 135.5060531,
+      "kind": "checkpoint",
+      "coordinateSource": {
+        "label": "OpenStreetMap：不寝王子跡",
+        "url": "https://www.openstreetmap.org/node/3207089462",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "takahara-kumano-jinja",
+      "name": "高原熊野神社",
+      "localName": {
+        "text": "高原熊野神社",
+        "language": "ja"
+      },
+      "lat": 33.7942677,
+      "lng": 135.5293252,
+      "kind": "checkpoint",
+      "coordinateSource": {
+        "label": "OpenStreetMap：高原熊野神社",
+        "url": "https://www.openstreetmap.org/node/3207110207",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "daimon-oji",
+      "name": "大门王子",
+      "localName": {
+        "text": "大門王子",
+        "language": "ja"
+      },
+      "lat": 33.7973551,
+      "lng": 135.5470483,
+      "kind": "checkpoint",
+      "coordinateSource": {
+        "label": "OpenStreetMap：大门王子",
+        "url": "https://www.openstreetmap.org/node/3207115271",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "jujo-oji",
+      "name": "十丈王子",
+      "localName": {
+        "text": "十丈王子",
+        "language": "ja"
+      },
+      "lat": 33.800592,
+      "lng": 135.5596822,
+      "kind": "checkpoint",
+      "coordinateSource": {
+        "label": "OpenStreetMap：十丈王子",
+        "url": "https://www.openstreetmap.org/node/3207115272",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "osakamoto-oji",
+      "name": "大坂本王子",
+      "localName": {
+        "text": "大坂本王子",
+        "language": "ja"
+      },
+      "lat": 33.8144013,
+      "lng": 135.5885102,
+      "kind": "checkpoint",
+      "coordinateSource": {
+        "label": "OpenStreetMap：Oosakamoto-oji",
+        "url": "https://www.openstreetmap.org/node/3207275604",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "gyuba-doji",
+      "name": "牛马童子",
+      "localName": {
+        "text": "牛馬童子",
+        "language": "ja"
+      },
+      "lat": 33.8109584,
+      "lng": 135.6013021,
+      "kind": "checkpoint",
+      "coordinateSource": {
+        "label": "OpenStreetMap：牛马童子",
+        "url": "https://www.openstreetmap.org/node/3207275603",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "chikatsuyu-oji",
+      "name": "近露王子",
+      "localName": {
+        "text": "近露王子",
+        "language": "ja"
+      },
+      "lat": 33.8143643,
+      "lng": 135.6057234,
+      "kind": "checkpoint",
+      "coordinateSource": {
+        "label": "OpenStreetMap：近露王子",
+        "url": "https://www.openstreetmap.org/node/3207304713",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "chikatsuyu-area",
+      "name": "近露聚落",
+      "localName": {
+        "text": "中辺路町近露",
+        "language": "ja"
+      },
+      "lat": 33.8145845,
+      "lng": 135.6092605,
+      "kind": "town",
+      "coordinateSource": {
+        "label": "OpenStreetMap：中辺路町近露聚落",
+        "url": "https://www.openstreetmap.org/node/8744220706",
+        "checkedOn": "2026-10-19"
+      },
+      "coordinateNote": "仅为近露聚落位置参考，非SEN RETREAT CHIKATSUYU具体位置；末段步行／接送及去巴士站的路线仍待确认。"
+    },
+    {
+      "id": "nakahechi-museum-bus-stop",
+      "name": "美术馆前巴士站",
+      "localName": {
+        "text": "なかへち美術館前",
+        "language": "ja"
+      },
+      "lat": 33.8130704,
+      "lng": 135.6071343,
+      "kind": "bus-stop",
+      "coordinateSource": {
+        "label": "OpenStreetMap：中辺美術館前巴士站",
+        "url": "https://www.openstreetmap.org/node/5106701649",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "hosshinmon-bus-stop",
+      "name": "发心门王子巴士站",
+      "localName": {
+        "text": "発心門王子",
+        "language": "ja"
+      },
+      "lat": 33.8617469,
+      "lng": 135.7206005,
+      "kind": "bus-stop",
+      "coordinateSource": {
+        "label": "OpenStreetMap：发心门王子巴士站",
+        "url": "https://www.openstreetmap.org/node/5429763201",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "hosshinmon-oji",
+      "name": "发心门王子",
+      "localName": {
+        "text": "発心門王子",
+        "language": "ja"
+      },
+      "lat": 33.86184,
+      "lng": 135.7207693,
+      "kind": "checkpoint",
+      "coordinateSource": {
+        "label": "OpenStreetMap：発心門王子跡",
+        "url": "https://www.openstreetmap.org/node/4856387821",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "mizunomi-oji",
+      "name": "水吞／水呑王子",
+      "localName": {
+        "text": "水呑王子",
+        "language": "ja"
+      },
+      "lat": 33.8584282,
+      "lng": 135.7369837,
+      "kind": "checkpoint",
+      "coordinateSource": {
+        "label": "OpenStreetMap：水呑王子跡",
+        "url": "https://www.openstreetmap.org/node/4856329723",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "fushiogami-oji",
+      "name": "伏拝王子",
+      "localName": {
+        "text": "伏拝王子",
+        "language": "ja"
+      },
+      "lat": 33.8602049,
+      "lng": 135.7568176,
+      "kind": "checkpoint",
+      "coordinateSource": {
+        "label": "OpenStreetMap：伏拝王子",
+        "url": "https://www.openstreetmap.org/node/4856309922",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "sangenjaya",
+      "name": "三轩茶屋遗迹",
+      "localName": {
+        "text": "三軒茶屋跡",
+        "language": "ja"
+      },
+      "lat": 33.854871,
+      "lng": 135.7645992,
+      "kind": "checkpoint",
+      "coordinateSource": {
+        "label": "OpenStreetMap：Sangenjaya三軒茶屋跡〔熊野古道〕",
+        "url": "https://www.openstreetmap.org/node/2430696718",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "haraido-oji",
+      "name": "祓殿王子",
+      "localName": {
+        "text": "祓殿王子",
+        "language": "ja"
+      },
+      "lat": 33.8417477,
+      "lng": 135.772922,
+      "kind": "checkpoint",
+      "coordinateSource": {
+        "label": "OpenStreetMap：Haraido Oji（本宫北侧古道）",
+        "url": "https://www.openstreetmap.org/node/3210797191",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "kumano-hongu-taisha",
+      "name": "熊野本宫大社",
+      "localName": {
+        "text": "熊野本宮大社",
+        "language": "ja"
+      },
+      "lat": 33.8403512,
+      "lng": 135.7736333,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：熊野本宫大社",
+        "url": "https://www.openstreetmap.org/way/797748245",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "oyunohara",
+      "name": "大斋原旧社地",
+      "localName": {
+        "text": "大斎原",
+        "language": "ja"
+      },
+      "lat": 33.8346547,
+      "lng": 135.774411,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：大斋原旧社地",
+        "url": "https://www.openstreetmap.org/way/299050053",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "hongu-taisha-bus-stop",
+      "name": "本宫大社前巴士站",
+      "localName": {
+        "text": "本宮大社前",
+        "language": "ja"
+      },
+      "lat": 33.8386316,
+      "lng": 135.7753645,
+      "kind": "bus-stop",
+      "coordinateSource": {
+        "label": "OpenStreetMap：本宫大社前巴士站",
+        "url": "https://www.openstreetmap.org/node/5115823424",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "kawayu-matsuya",
+      "name": "川湯まつや",
+      "localName": {
+        "text": "山水館 川湯まつや",
+        "language": "ja"
+      },
+      "lat": 33.812284,
+      "lng": 135.7688548,
+      "kind": "stay",
+      "coordinateSource": {
+        "label": "OpenStreetMap：川湯まつや",
+        "url": "https://www.openstreetmap.org/way/551371686",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "shingu-station",
+      "name": "JR新宫站",
+      "localName": {
+        "text": "新宮駅",
+        "language": "ja"
+      },
+      "lat": 33.7250784,
+      "lng": 135.9940846,
+      "kind": "station",
+      "coordinateSource": {
+        "label": "OpenStreetMap：JR新宫站",
+        "url": "https://www.openstreetmap.org/node/4355134041",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "nachi-station",
+      "name": "JR那智站",
+      "localName": {
+        "text": "那智駅",
+        "language": "ja"
+      },
+      "lat": 33.6440079,
+      "lng": 135.9365521,
+      "kind": "station",
+      "coordinateSource": {
+        "label": "OpenStreetMap：JR那智站",
+        "url": "https://www.openstreetmap.org/node/9678998668",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "nachisan-bus-stop",
+      "name": "那智山巴士终点站",
+      "localName": {
+        "text": "那智山",
+        "language": "ja"
+      },
+      "lat": 33.6690911,
+      "lng": 135.8925835,
+      "kind": "bus-stop",
+      "coordinateSource": {
+        "label": "OpenStreetMap：Nachisan巴士站",
+        "url": "https://www.openstreetmap.org/node/3578364302",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "kumano-nachi-taisha",
+      "name": "熊野那智大社",
+      "localName": {
+        "text": "熊野那智大社",
+        "language": "ja"
+      },
+      "lat": 33.6684286,
+      "lng": 135.8904398,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：熊野那智大社",
+        "url": "https://www.openstreetmap.org/way/797310025",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "seiganto-ji",
+      "name": "青岸渡寺",
+      "localName": {
+        "text": "青岸渡寺",
+        "language": "ja"
+      },
+      "lat": 33.6693139,
+      "lng": 135.889923,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：青岸渡寺",
+        "url": "https://www.openstreetmap.org/way/797310021",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "seiganto-pagoda",
+      "name": "青岸渡寺三重塔",
+      "localName": {
+        "text": "青岸渡寺 三重塔",
+        "language": "ja"
+      },
+      "lat": 33.6710686,
+      "lng": 135.8888677,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：青岸渡寺三重塔",
+        "url": "https://www.openstreetmap.org/way/351906993",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "hirou-jinja",
+      "name": "飞泷神社",
+      "localName": {
+        "text": "飛瀧神社",
+        "language": "ja"
+      },
+      "lat": 33.6741888,
+      "lng": 135.8876666,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：飞泷神社",
+        "url": "https://www.openstreetmap.org/way/713718304",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "nachi-falls",
+      "name": "那智瀑布",
+      "localName": {
+        "text": "那智の滝",
+        "language": "ja"
+      },
+      "lat": 33.6752833,
+      "lng": 135.8876266,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：那智滝瀑布位置",
+        "url": "https://www.openstreetmap.org/node/975026052",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "nachi-falls-bus-stop",
+      "name": "那智瀑布前巴士站",
+      "localName": {
+        "text": "那智の滝前",
+        "language": "ja"
+      },
+      "lat": 33.6725722,
+      "lng": 135.8893523,
+      "kind": "bus-stop",
+      "coordinateSource": {
+        "label": "OpenStreetMap：Nachinotaki-mae巴士站",
+        "url": "https://www.openstreetmap.org/node/3578362161",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "kii-katsuura-station",
+      "name": "JR纪伊胜浦站",
+      "localName": {
+        "text": "紀伊勝浦駅",
+        "language": "ja"
+      },
+      "lat": 33.6281084,
+      "lng": 135.9418263,
+      "kind": "station",
+      "coordinateSource": {
+        "label": "OpenStreetMap：JR纪伊胜浦站",
+        "url": "https://www.openstreetmap.org/way/832917891",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "hayatama-bus-stop",
+      "name": "速玉大社前巴士站",
+      "localName": {
+        "text": "速玉大社前",
+        "language": "ja"
+      },
+      "lat": 33.7315363,
+      "lng": 135.9849475,
+      "kind": "bus-stop",
+      "coordinateSource": {
+        "label": "OpenStreetMap：速玉大社前巴士站",
+        "url": "https://www.openstreetmap.org/node/4355134045",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "kumano-hayatama-taisha",
+      "name": "熊野速玉大社",
+      "localName": {
+        "text": "熊野速玉大社",
+        "language": "ja"
+      },
+      "lat": 33.7322978,
+      "lng": 135.9836823,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：熊野速玉大社",
+        "url": "https://www.openstreetmap.org/way/211578006",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "daimonzaka-bus-stop",
+      "name": "大门坂巴士站",
+      "localName": {
+        "text": "大門坂",
+        "language": "ja"
+      },
+      "lat": 33.6706886,
+      "lng": 135.9013138,
+      "kind": "bus-stop",
+      "coordinateSource": {
+        "label": "OpenStreetMap：Daimonzaka巴士站",
+        "url": "https://www.openstreetmap.org/node/8316893332",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "daimonzaka",
+      "name": "大门坂古道",
+      "localName": {
+        "text": "大門坂",
+        "language": "ja"
+      },
+      "lat": 33.670609,
+      "lng": 135.8965048,
+      "kind": "checkpoint",
+      "coordinateSource": {
+        "label": "OpenStreetMap：大門坂古道石阶",
+        "url": "https://www.openstreetmap.org/way/124998079",
+        "checkedOn": "2026-10-19"
+      },
+      "coordinateNote": "古道石阶的位置参考，标记不是步行入口；地图连线仅示停靠顺序。"
+    },
+    {
+      "id": "nara-station",
+      "name": "JR奈良站",
+      "localName": {
+        "text": "奈良駅",
+        "language": "ja"
+      },
+      "lat": 34.6809042,
+      "lng": 135.8189012,
+      "kind": "station",
+      "coordinateSource": {
+        "label": "OpenStreetMap：JR奈良站",
+        "url": "https://www.openstreetmap.org/way/220852400",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "todaiji-kasuga-bus-stop",
+      "name": "东大寺大佛殿・春日大社前巴士站",
+      "localName": {
+        "text": "東大寺大仏殿・春日大社前",
+        "language": "ja"
+      },
+      "lat": 34.6831052,
+      "lng": 135.8399756,
+      "kind": "bus-stop",
+      "coordinateSource": {
+        "label": "OpenStreetMap：大仏殿春日大社前巴士站",
+        "url": "https://www.openstreetmap.org/node/2618209197",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "todaiji-nandaimon",
+      "name": "东大寺南大门",
+      "localName": {
+        "text": "東大寺 南大門",
+        "language": "ja"
+      },
+      "lat": 34.6857978,
+      "lng": 135.8398737,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：东大寺南大门",
+        "url": "https://www.openstreetmap.org/way/43558121",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "todaiji-daibutsuden",
+      "name": "东大寺大佛殿",
+      "localName": {
+        "text": "東大寺 大仏殿",
+        "language": "ja"
+      },
+      "lat": 34.6888779,
+      "lng": 135.839835,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：大仏殿建筑",
+        "url": "https://www.openstreetmap.org/way/43558119",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "todaiji-nigatsudo",
+      "name": "东大寺二月堂",
+      "localName": {
+        "text": "東大寺 二月堂",
+        "language": "ja"
+      },
+      "lat": 34.6892745,
+      "lng": 135.8442675,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：东大寺二月堂",
+        "url": "https://www.openstreetmap.org/way/354993353",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "kasuga-taisha",
+      "name": "春日大社",
+      "localName": {
+        "text": "春日大社",
+        "language": "ja"
+      },
+      "lat": 34.6805063,
+      "lng": 135.8460746,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：春日大社",
+        "url": "https://www.openstreetmap.org/way/1134481286",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "nara-park",
+      "name": "奈良公园",
+      "localName": {
+        "text": "奈良公園",
+        "language": "ja"
+      },
+      "lat": 34.6849859,
+      "lng": 135.8445509,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：奈良公园范围",
+        "url": "https://www.openstreetmap.org/way/456314269",
+        "checkedOn": "2026-10-19"
+      },
+      "coordinateNote": "园区范围参考点，非当天固定停靠点；看鹿与向兴福寺步行按现场实际路线。"
+    },
+    {
+      "id": "kofuku-ji",
+      "name": "兴福寺",
+      "localName": {
+        "text": "興福寺",
+        "language": "ja"
+      },
+      "lat": 34.6829744,
+      "lng": 135.8318653,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：兴福寺",
+        "url": "https://www.openstreetmap.org/way/1134439456",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "kofukuji-national-treasure-hall",
+      "name": "兴福寺国宝馆",
+      "localName": {
+        "text": "興福寺 国宝館",
+        "language": "ja"
+      },
+      "lat": 34.683566,
+      "lng": 135.8324891,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：兴福寺国宝馆建筑",
+        "url": "https://www.openstreetmap.org/way/98093576",
+        "checkedOn": "2026-10-19"
+      }
+    },
+    {
+      "id": "kofukuji-chukondo",
+      "name": "兴福寺中金堂",
+      "localName": {
+        "text": "興福寺 中金堂",
+        "language": "ja"
+      },
+      "lat": 34.6832422,
+      "lng": 135.8311062,
+      "kind": "sight",
+      "coordinateSource": {
+        "label": "OpenStreetMap：中金堂建筑",
+        "url": "https://www.openstreetmap.org/way/158203506",
+        "checkedOn": "2026-10-19"
+      }
+    }
+  ],
   "days": [
     {
       "date": "2026-11-13",
@@ -1547,11 +2743,13 @@ export default {
           "description": "预留入境与取行李排队时间。"
         },
         {
+          "id": "arrivals-meetup",
           "time": "18:45–19:15预计",
           "title": "完成入境后会合",
           "description": "实际取决于排队；会合后从T1到2楼连廊步行至关西机场站，预留取票与找站台时间。"
         },
         {
+          "id": "haruka-to-osaka",
           "time": "19:16–20:01",
           "title": "主选HARUKA 50：关西机场 → 大阪",
           "description": "参考班次，不代表已出票。晚一点备选HARUKA 52为19:46–20:31；排队更久则改后续班次，不压缩入境时间赶车。",
@@ -1560,6 +2758,7 @@ export default {
           ]
         },
         {
+          "id": "umekita-to-hotel",
           "time": "20:01到达后",
           "title": "梅北地下口 → 酒店",
           "description": "走“うめきた地下口／Umekita Underground Gate”去Yodobashi Umeda Tower／LINKS UMEDA。官网出闸后步行约6分钟，含出站与电梯预留15–25分钟；前台在9楼。",
@@ -1568,6 +2767,7 @@ export default {
           ]
         },
         {
+          "id": "respire-check-in",
           "time": "20:20–21:00左右",
           "title": "Hotel Hankyu RESPIRE Osaka办理入住",
           "description": "首段11/13–14已订，入住时间按实际机场列车调整。"
@@ -1610,7 +2810,41 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      "map": {
+        "defaultViewId": "transport",
+        "views": [
+          {
+            "id": "transport",
+            "label": "机场接驳",
+            "scope": "transport",
+            "stops": [
+              {
+                "placeId": "kix-t1",
+                "scheduleId": "arrivals-meetup",
+                "note": "完成入境、取行李后在T1公共到达区域会合。"
+              },
+              {
+                "placeId": "kix-station",
+                "scheduleId": "haruka-to-osaka"
+              },
+              {
+                "placeId": "osaka-station",
+                "scheduleId": "haruka-to-osaka"
+              },
+              {
+                "placeId": "umekita-gate",
+                "scheduleId": "umekita-to-hotel"
+              },
+              {
+                "placeId": "respire-osaka",
+                "scheduleId": "respire-check-in"
+              }
+            ],
+            "note": "按实际入境时间选择机场列车；HARUKA仍为参考班次。"
+          }
+        ]
+      }
     },
     {
       "date": "2026-11-14",
@@ -1629,11 +2863,13 @@ export default {
       ],
       "schedule": [
         {
+          "id": "respire-checkout",
           "time": "07:15–08:00",
           "title": "早餐、退房、寄存大箱",
           "description": "酒店确认接受寄存后再办理；大箱留在大阪至19号。"
         },
         {
+          "id": "walk-to-osaka-station",
           "time": "08:15",
           "title": "离开酒店，步行到JR大阪站",
           "description": "建议预留15分钟找入口和站台。"
@@ -1644,11 +2880,13 @@ export default {
           "description": "乘往京都／新大阪方向的普通、快速或新快速，约4分钟。"
         },
         {
+          "id": "shin-osaka-transfer",
           "time": "08:35–09:00",
           "title": "新大阪换乘山阳新干线",
           "description": "走Shinkansen换乘闸口。"
         },
         {
+          "id": "nozomi-to-hiroshima",
           "time": "09:02–10:27",
           "title": "Nozomi／のぞみ5：新大阪 → 广岛",
           "description": "计划班次，普通车指定席建议提前订；参考页查询日期为2026-10-12。",
@@ -1657,6 +2895,7 @@ export default {
           ]
         },
         {
+          "id": "south-gate-bag-drop",
           "time": "10:40–11:15",
           "title": "South Gate酒店7楼前台寄存小包",
           "description": "酒店位于广岛站南侧minamoa上层；从二楼西入口附近的酒店专用入口乘电梯到7楼。先寄存小包，房间14:00起可入住。",
@@ -1670,16 +2909,19 @@ export default {
           "title": "午餐"
         },
         {
+          "id": "tram-to-dome",
           "time": "12:15前后",
           "title": "路面电车 → 原爆ドーム前",
           "description": "从广岛站南侧2楼路面电车站乘2号线（宫岛口／西广岛方向）或6号线（江波方向），乘车约15–25分钟，另留候车时间。"
         },
         {
+          "id": "peace-park-walk",
           "time": "12:45–13:45",
           "title": "原爆圆顶馆、和平纪念公园、慰灵碑",
           "description": "外观与园区步行。"
         },
         {
+          "id": "peace-museum",
           "time": "14:00–16:00",
           "title": "广岛和平纪念资料馆",
           "description": "建议提前买14:00左右WEB票。11月现行营业07:30–19:00，部分早晚时段需网络预约。",
@@ -1688,11 +2930,13 @@ export default {
           ]
         },
         {
+          "id": "hondori-walk",
           "time": "16:00–17:30",
           "title": "河边、本通商店街散步",
           "description": "按体力延长或删减，不追加更多核心景点。"
         },
         {
+          "id": "south-gate-check-in",
           "time": "18:00左右",
           "title": "晚餐后回South Gate酒店办理入住",
           "description": "路面电车或出租车回广岛站南侧minamoa，到酒店7楼前台办理入住；到店时间按晚餐与散步调整。"
@@ -1758,6 +3002,120 @@ export default {
             "url": "https://www.library.city.hiroshima.jp/touge/spot/index.html"
           }
         ]
+      },
+      "map": {
+        "defaultViewId": "activity",
+        "views": [
+          {
+            "id": "activity",
+            "label": "广岛市区",
+            "scope": "activity",
+            "stops": [
+              {
+                "placeId": "granvia-south-gate",
+                "scheduleId": "south-gate-bag-drop"
+              },
+              {
+                "placeId": "hiroshima-station",
+                "scheduleId": "tram-to-dome",
+                "note": "从广岛站南侧2楼路面电车站出发；标记为JR站建筑位置，具体电车站台按现场指引。"
+              },
+              {
+                "placeId": "genbaku-dome-tram-stop",
+                "scheduleId": "tram-to-dome"
+              },
+              {
+                "placeId": "atomic-bomb-dome",
+                "scheduleId": "peace-park-walk"
+              },
+              {
+                "placeId": "hiroshima-peace-park",
+                "scheduleId": "peace-park-walk"
+              },
+              {
+                "placeId": "hiroshima-cenotaph",
+                "scheduleId": "peace-park-walk"
+              },
+              {
+                "placeId": "hiroshima-peace-museum",
+                "scheduleId": "peace-museum"
+              },
+              {
+                "placeId": "hiroshima-hondori",
+                "scheduleId": "hondori-walk",
+                "optional": true,
+                "note": "河边与商店街散步按体力延长或删减。"
+              },
+              {
+                "placeId": "granvia-south-gate",
+                "scheduleId": "south-gate-check-in"
+              }
+            ]
+          },
+          {
+            "id": "transport",
+            "label": "全程交通",
+            "scope": "transport",
+            "stops": [
+              {
+                "placeId": "respire-osaka",
+                "scheduleId": "respire-checkout"
+              },
+              {
+                "placeId": "osaka-station",
+                "scheduleId": "walk-to-osaka-station"
+              },
+              {
+                "placeId": "shin-osaka-station",
+                "scheduleId": "shin-osaka-transfer"
+              },
+              {
+                "placeId": "hiroshima-station",
+                "scheduleId": "nozomi-to-hiroshima"
+              },
+              {
+                "placeId": "granvia-south-gate",
+                "scheduleId": "south-gate-bag-drop"
+              },
+              {
+                "placeId": "hiroshima-station",
+                "scheduleId": "tram-to-dome",
+                "note": "从广岛站南侧2楼路面电车站出发；标记为JR站建筑位置，具体电车站台按现场指引。"
+              },
+              {
+                "placeId": "genbaku-dome-tram-stop",
+                "scheduleId": "tram-to-dome"
+              },
+              {
+                "placeId": "atomic-bomb-dome",
+                "scheduleId": "peace-park-walk"
+              },
+              {
+                "placeId": "hiroshima-peace-park",
+                "scheduleId": "peace-park-walk"
+              },
+              {
+                "placeId": "hiroshima-cenotaph",
+                "scheduleId": "peace-park-walk"
+              },
+              {
+                "placeId": "hiroshima-peace-museum",
+                "scheduleId": "peace-museum"
+              },
+              {
+                "placeId": "hiroshima-hondori",
+                "scheduleId": "hondori-walk",
+                "optional": true,
+                "note": "河边与商店街散步按体力延长或删减。"
+              },
+              {
+                "placeId": "granvia-south-gate",
+                "scheduleId": "south-gate-check-in"
+              }
+            ],
+            "note": "大阪酒店的大箱寄存需先取得酒店确认；列车仍为计划参考。"
+          }
+        ]
       }
     },
     {
@@ -1779,16 +3137,19 @@ export default {
       ],
       "schedule": [
         {
+          "id": "south-gate-to-station",
           "time": "06:45–07:00",
           "title": "从South Gate酒店前往广岛站",
           "description": "订单不含早餐，提前自行准备；从广岛站南侧酒店前往JR站内。"
         },
         {
+          "id": "hiroshima-to-miyajimaguchi",
           "time": "07:23–07:51",
           "title": "JR山阳本线：广岛 → 宫岛口",
           "description": "岩国方向，约28分钟。备选07:33–08:01；赶不上08:10船就乘08:25。"
         },
         {
+          "id": "walk-to-ferry",
           "time": "07:51到达后",
           "title": "步行到JR西日本宫岛渡轮码头",
           "description": "出站后预留约10分钟及排队。",
@@ -1797,6 +3158,7 @@ export default {
           ]
         },
         {
+          "id": "ferry-to-miyajima",
           "time": "08:10–约08:20",
           "title": "JR西日本宫岛渡轮：宫岛口 → 宫岛",
           "description": "后备发船08:25。持适用JR Pass选JR西日本渡轮，访问税100日元另付。",
@@ -1805,11 +3167,13 @@ export default {
           ]
         },
         {
+          "id": "walk-to-ropeway",
           "time": "08:20–08:50",
           "title": "码头步行至红叶谷缆车站",
           "description": "经海边／红叶谷方向，约20–30分钟。"
         },
         {
+          "id": "ropeway-up",
           "time": "09:00",
           "title": "预约宫岛缆车上行",
           "description": "红叶谷→榧谷→獅子岩两段，纯乘车约10＋4分钟，另计换乘排队。09:00余位未核实；往返现行成人2,000日元另付。",
@@ -1819,11 +3183,13 @@ export default {
           ]
         },
         {
+          "id": "shishiiwa-misen-walk",
           "time": "09:30–11:00",
           "title": "獅子岩展望、弥山一带散步",
           "description": "真正弥山山顶按体力与排队追加；山上缆车站至山顶往返另约1小时。"
         },
         {
+          "id": "ropeway-down",
           "time": "10:45–11:00前后",
           "title": "回獅子岩站排下行",
           "description": "目标11:30左右下到山脚。排队增长时缩短山上步行，留好严岛与火渡时间。"
@@ -1833,6 +3199,7 @@ export default {
           "title": "简单午餐、向严岛神社移动"
         },
         {
+          "id": "itsukushima-shrine",
           "time": "12:15–13:10",
           "title": "严岛神社回廊、海边鸟居拍照",
           "description": "气象厅广岛港预测高潮13:13、307cm，宫岛协会表13:12；严岛当地略有差异，无需卡秒。中午至下午早段适合水中鸟居，离岛前不要期待退潮走到鸟居脚下。",
@@ -1846,6 +3213,7 @@ export default {
           "description": "预留约20分钟及台阶。"
         },
         {
+          "id": "daisho-in-firewalking",
           "time": "13:30–15:00",
           "title": "大圣院秋季大祭、火渡",
           "description": "2026年度已确认11/15举办。常设介绍为11:00大般若法要、13:00柴灯大护摩、14:00火渡、约15:00结束；细分时刻临近复核。若要看13:00护摩全过程，严岛神社提前为12:00–12:45。",
@@ -1854,11 +3222,13 @@ export default {
           ]
         },
         {
+          "id": "island-afternoon-walk",
           "time": "15:00–16:45",
           "title": "大圣院、红叶谷／町家通、表参道",
           "description": "按体力删减。"
         },
         {
+          "id": "ferry-return",
           "time": "17:10–17:20",
           "title": "渡轮：宫岛 → 宫岛口",
           "description": "后备17:25–17:35，随后配合后备JR班次。",
@@ -1867,11 +3237,13 @@ export default {
           ]
         },
         {
+          "id": "jr-return-to-hiroshima",
           "time": "17:33–18:03",
           "title": "JR宫岛口 → 广岛",
           "description": "步行回JR站；后备17:49–18:20。"
         },
         {
+          "id": "return-to-south-gate",
           "time": "抵达广岛后",
           "title": "晚餐、回South Gate酒店"
         }
@@ -1954,6 +3326,190 @@ export default {
             "url": "https://www.karuta.or.jp/karuta-everyday/2771/"
           }
         ]
+      },
+      "map": {
+        "defaultViewId": "activity",
+        "views": [
+          {
+            "id": "activity",
+            "label": "宫岛活动",
+            "scope": "activity",
+            "stops": [
+              {
+                "placeId": "miyajima-ferry-terminal",
+                "scheduleId": "ferry-to-miyajima"
+              },
+              {
+                "placeId": "momijidani-ropeway",
+                "scheduleId": "walk-to-ropeway"
+              },
+              {
+                "placeId": "kayadani-ropeway",
+                "scheduleId": "ropeway-up"
+              },
+              {
+                "placeId": "shishiiwa-ropeway",
+                "scheduleId": "ropeway-up"
+              },
+              {
+                "placeId": "shishiiwa-viewpoint",
+                "scheduleId": "shishiiwa-misen-walk"
+              },
+              {
+                "placeId": "shishiiwa-ropeway",
+                "scheduleId": "ropeway-down"
+              },
+              {
+                "placeId": "kayadani-ropeway",
+                "scheduleId": "ropeway-down"
+              },
+              {
+                "placeId": "momijidani-ropeway",
+                "scheduleId": "ropeway-down"
+              },
+              {
+                "placeId": "itsukushima-shrine",
+                "scheduleId": "itsukushima-shrine"
+              },
+              {
+                "placeId": "itsukushima-torii",
+                "scheduleId": "itsukushima-shrine",
+                "connect": false,
+                "note": "在严岛神社回廊及海边看满潮鸟居；标记为海中建筑位置，当天不走到鸟居脚下。"
+              },
+              {
+                "placeId": "daisho-in",
+                "scheduleId": "daisho-in-firewalking"
+              },
+              {
+                "placeId": "momijidani-park",
+                "scheduleId": "island-afternoon-walk",
+                "optional": true,
+                "note": "下午散步按体力删减；町家通与表参道未固定街区停靠点。"
+              },
+              {
+                "placeId": "miyajima-ferry-terminal",
+                "scheduleId": "ferry-return"
+              }
+            ],
+            "note": "主线为缆车、狮子岩、严岛神社及大圣院；真正弥山山顶另见可选视图。"
+          },
+          {
+            "id": "transport",
+            "label": "全程交通",
+            "scope": "transport",
+            "stops": [
+              {
+                "placeId": "granvia-south-gate",
+                "scheduleId": "south-gate-to-station"
+              },
+              {
+                "placeId": "hiroshima-station",
+                "scheduleId": "hiroshima-to-miyajimaguchi"
+              },
+              {
+                "placeId": "miyajimaguchi-station",
+                "scheduleId": "hiroshima-to-miyajimaguchi"
+              },
+              {
+                "placeId": "miyajimaguchi-ferry-terminal",
+                "scheduleId": "walk-to-ferry"
+              },
+              {
+                "placeId": "miyajima-ferry-terminal",
+                "scheduleId": "ferry-to-miyajima"
+              },
+              {
+                "placeId": "momijidani-ropeway",
+                "scheduleId": "walk-to-ropeway"
+              },
+              {
+                "placeId": "kayadani-ropeway",
+                "scheduleId": "ropeway-up"
+              },
+              {
+                "placeId": "shishiiwa-ropeway",
+                "scheduleId": "ropeway-up"
+              },
+              {
+                "placeId": "shishiiwa-viewpoint",
+                "scheduleId": "shishiiwa-misen-walk"
+              },
+              {
+                "placeId": "shishiiwa-ropeway",
+                "scheduleId": "ropeway-down"
+              },
+              {
+                "placeId": "kayadani-ropeway",
+                "scheduleId": "ropeway-down"
+              },
+              {
+                "placeId": "momijidani-ropeway",
+                "scheduleId": "ropeway-down"
+              },
+              {
+                "placeId": "itsukushima-shrine",
+                "scheduleId": "itsukushima-shrine"
+              },
+              {
+                "placeId": "itsukushima-torii",
+                "scheduleId": "itsukushima-shrine",
+                "connect": false,
+                "note": "在严岛神社回廊及海边看满潮鸟居；标记为海中建筑位置，当天不走到鸟居脚下。"
+              },
+              {
+                "placeId": "daisho-in",
+                "scheduleId": "daisho-in-firewalking"
+              },
+              {
+                "placeId": "momijidani-park",
+                "scheduleId": "island-afternoon-walk",
+                "optional": true,
+                "note": "下午散步按体力删减；町家通与表参道未固定街区停靠点。"
+              },
+              {
+                "placeId": "miyajima-ferry-terminal",
+                "scheduleId": "ferry-return"
+              },
+              {
+                "placeId": "miyajimaguchi-ferry-terminal",
+                "scheduleId": "ferry-return"
+              },
+              {
+                "placeId": "miyajimaguchi-station",
+                "scheduleId": "jr-return-to-hiroshima"
+              },
+              {
+                "placeId": "hiroshima-station",
+                "scheduleId": "jr-return-to-hiroshima"
+              },
+              {
+                "placeId": "granvia-south-gate",
+                "scheduleId": "return-to-south-gate"
+              }
+            ]
+          },
+          {
+            "id": "misen-summit",
+            "label": "弥山山顶（可选）",
+            "scope": "optional",
+            "stops": [
+              {
+                "placeId": "shishiiwa-ropeway",
+                "scheduleId": "shishiiwa-misen-walk"
+              },
+              {
+                "placeId": "misen-summit",
+                "scheduleId": "shishiiwa-misen-walk"
+              },
+              {
+                "placeId": "shishiiwa-ropeway",
+                "scheduleId": "ropeway-down"
+              }
+            ],
+            "note": "仅体力、排队与时间允许时追加；缆车山上站至真正山顶往返另约1小时，保留中午严岛与下午火渡时间。"
+          }
+        ]
       }
     },
     {
@@ -1970,6 +3526,7 @@ export default {
       ],
       "schedule": [
         {
+          "id": "south-gate-checkout",
           "time": "08:30–09:10",
           "title": "自行安排早餐、South Gate退房 → 广岛站",
           "description": "到酒店7楼前台办理退房，直接前往广岛站；09:20前到新干线候车区。",
@@ -1978,6 +3535,7 @@ export default {
           ]
         },
         {
+          "id": "nozomi-to-shin-osaka",
           "time": "09:43–11:04",
           "title": "Nozomi／のぞみ14：广岛 → 新大阪",
           "description": "计划班次，不代表已出票。",
@@ -1986,11 +3544,13 @@ export default {
           ]
         },
         {
+          "id": "shin-osaka-transfer",
           "time": "11:04–12:00",
           "title": "新大阪换乘、午餐、买饮水",
           "description": "直接换车，不需先去大阪站追同一班黑潮。"
         },
         {
+          "id": "kuroshio-to-tanabe",
           "time": "12:13–14:29",
           "title": "Kuroshio 11／特急くろしお11：新大阪 → 纪伊田边",
           "description": "计划班次；参考页查询日期为2026-09-12。14:29到和歌山县JR紀伊田辺／Kii-Tanabe。",
@@ -1999,11 +3559,13 @@ export default {
           ]
         },
         {
+          "id": "comfort-bag-drop",
           "time": "14:40前后",
           "title": "步行到Comfort Hotel Kii Tanabe",
           "description": "距车站约5分钟；如未到入住时间，先寄包。住宿已订。"
         },
         {
+          "id": "tanabe-information-visit",
           "time": "15:00–16:00",
           "title": "Tanabe Tourist Information Center",
           "description": "每人领取一本免费的Dual Pilgrim Credential和一份官方Stamp List，再拿地图、确认次日巴士站与最新路况。中心营业09:00–18:00；普通盖章不需预先登记或预约。",
@@ -2020,6 +3582,7 @@ export default {
           "description": "买17号早餐、午餐、能量补给与饮水。"
         },
         {
+          "id": "comfort-evening-rest",
           "time": "晚上",
           "title": "整理背包、早点休息",
           "description": "酒店早餐06:30开始，次日06:38车不能从容吃早餐，提前买好。"
@@ -2094,6 +3657,47 @@ export default {
             "url": "https://www.jstage.jst.go.jp/article/nihonbungaku/67/2/67_12/_pdf"
           }
         ]
+      },
+      "map": {
+        "defaultViewId": "transport",
+        "views": [
+          {
+            "id": "transport",
+            "label": "全程交通",
+            "scope": "transport",
+            "stops": [
+              {
+                "placeId": "granvia-south-gate",
+                "scheduleId": "south-gate-checkout"
+              },
+              {
+                "placeId": "hiroshima-station",
+                "scheduleId": "nozomi-to-shin-osaka"
+              },
+              {
+                "placeId": "shin-osaka-station",
+                "scheduleId": "shin-osaka-transfer"
+              },
+              {
+                "placeId": "kii-tanabe-station",
+                "scheduleId": "kuroshio-to-tanabe"
+              },
+              {
+                "placeId": "comfort-kii-tanabe",
+                "scheduleId": "comfort-bag-drop"
+              },
+              {
+                "placeId": "tanabe-tourist-information",
+                "scheduleId": "tanabe-information-visit"
+              },
+              {
+                "placeId": "comfort-kii-tanabe",
+                "scheduleId": "comfort-evening-rest"
+              }
+            ],
+            "note": "新大阪直接换乘黑潮，不绕去大阪站；超市／便利店按实际选择，未作为固定停靠点。"
+          }
+        ]
       }
     },
     {
@@ -2119,15 +3723,18 @@ export default {
       },
       "schedule": [
         {
+          "id": "comfort-checkout",
           "time": "05:45–06:10",
           "title": "起床、预备早餐、退房",
           "description": "吃16号提前买好的早餐。"
         },
         {
+          "id": "tanabe-bus-queue",
           "time": "06:15前后",
           "title": "纪伊田边站前2号巴士站排队"
         },
         {
+          "id": "bus-to-takijiri",
           "time": "06:38–07:16",
           "title": "明光巴士95系統“栗栖川行”：纪伊田边 → 泷尻",
           "description": "Takijiri／滝尻，支持交通IC或现金。备选龙神熊野古道快速06:55–07:27，首到首得，不预约。",
@@ -2138,10 +3745,12 @@ export default {
           ]
         },
         {
+          "id": "takijiri-oji-start",
           "time": "07:16–07:35",
           "title": "厕所、整理装备、泷尻王子参拜盖章"
         },
         {
+          "id": "walk-to-takahara",
           "time": "07:35–10:00／10:30",
           "title": "古道上山至高原熊野神社、高原聚落",
           "description": "中途按脚程休息。",
@@ -2150,11 +3759,13 @@ export default {
           ]
         },
         {
+          "id": "jujo-walk-lunch",
           "time": "10:30–12:00",
           "title": "继续古道，在十丈王子一带午餐",
           "description": "自带午饭，时间按脚程调整。"
         },
         {
+          "id": "walk-to-chikatsuyu",
           "time": "12:30–15:00／16:00",
           "title": "大坂本王子、牛马童子 → 近露",
           "description": "到近露王子后前往SEN RETREAT CHIKATSUYU；末段步行／接送待确认。"
@@ -2266,6 +3877,117 @@ export default {
             "url": "https://www.aozora.gr.jp/cards/000146/files/749_34457.html"
           }
         ]
+      },
+      "map": {
+        "defaultViewId": "activity",
+        "views": [
+          {
+            "id": "activity",
+            "label": "泷尻至近露徒步",
+            "scope": "activity",
+            "stops": [
+              {
+                "placeId": "takijiri-oji",
+                "scheduleId": "takijiri-oji-start"
+              },
+              {
+                "placeId": "nezu-oji",
+                "scheduleId": "walk-to-takahara"
+              },
+              {
+                "placeId": "takahara-kumano-jinja",
+                "scheduleId": "walk-to-takahara"
+              },
+              {
+                "placeId": "daimon-oji",
+                "scheduleId": "jujo-walk-lunch",
+                "note": "此处是大门王子，与19号那智的大门坂不同。"
+              },
+              {
+                "placeId": "jujo-oji",
+                "scheduleId": "jujo-walk-lunch"
+              },
+              {
+                "placeId": "osakamoto-oji",
+                "scheduleId": "walk-to-chikatsuyu"
+              },
+              {
+                "placeId": "gyuba-doji",
+                "scheduleId": "walk-to-chikatsuyu"
+              },
+              {
+                "placeId": "chikatsuyu-oji",
+                "scheduleId": "walk-to-chikatsuyu"
+              },
+              {
+                "placeId": "chikatsuyu-area",
+                "scheduleId": "walk-to-chikatsuyu",
+                "connect": false,
+                "note": "近露住宿区域参考；SEN RETREAT CHIKATSUYU具体位置与末段接驳尚未标定。"
+              }
+            ],
+            "note": "八处沿途纪念章按步行顺序显示；近露王子后的SEN RETREAT CHIKATSUYU末段步行／接送待确认。"
+          },
+          {
+            "id": "transport",
+            "label": "全程交通",
+            "scope": "transport",
+            "stops": [
+              {
+                "placeId": "comfort-kii-tanabe",
+                "scheduleId": "comfort-checkout"
+              },
+              {
+                "placeId": "kii-tanabe-station",
+                "scheduleId": "tanabe-bus-queue",
+                "note": "前往站前2号巴士站候车；地图为JR站位置，未标定具体站杆。"
+              },
+              {
+                "placeId": "takijiri-bus-stop",
+                "scheduleId": "bus-to-takijiri"
+              },
+              {
+                "placeId": "takijiri-oji",
+                "scheduleId": "takijiri-oji-start"
+              },
+              {
+                "placeId": "nezu-oji",
+                "scheduleId": "walk-to-takahara"
+              },
+              {
+                "placeId": "takahara-kumano-jinja",
+                "scheduleId": "walk-to-takahara"
+              },
+              {
+                "placeId": "daimon-oji",
+                "scheduleId": "jujo-walk-lunch",
+                "note": "此处是大门王子，与19号那智的大门坂不同。"
+              },
+              {
+                "placeId": "jujo-oji",
+                "scheduleId": "jujo-walk-lunch"
+              },
+              {
+                "placeId": "osakamoto-oji",
+                "scheduleId": "walk-to-chikatsuyu"
+              },
+              {
+                "placeId": "gyuba-doji",
+                "scheduleId": "walk-to-chikatsuyu"
+              },
+              {
+                "placeId": "chikatsuyu-oji",
+                "scheduleId": "walk-to-chikatsuyu"
+              },
+              {
+                "placeId": "chikatsuyu-area",
+                "scheduleId": "walk-to-chikatsuyu",
+                "connect": false,
+                "note": "近露住宿区域参考；SEN RETREAT CHIKATSUYU具体位置与末段接驳尚未标定。"
+              }
+            ]
+          }
+        ]
       }
     },
     {
@@ -2292,16 +4014,19 @@ export default {
       },
       "schedule": [
         {
+          "id": "sen-checkout",
           "time": "06:30–07:10",
           "title": "早餐、退房",
           "description": "与SEN RETREAT CHIKATSUYU确认早餐时间。"
         },
         {
+          "id": "museum-bus-queue",
           "time": "07:30",
           "title": "美术馆前站候车",
           "description": "站名“なかへち美術館前／Nakahechi Bijutsukan-mae”；SEN RETREAT CHIKATSUYU至车站路线与出门时间待确认。"
         },
         {
+          "id": "fast-bus-to-hosshinmon",
           "time": "07:51–08:54",
           "title": "龙神熊野古道快速：美术馆前 → 发心门王子",
           "description": "直达発心門王子／Hosshinmon-oji；不停近露王子站。2026/9/19–12/10每天运营，不接受预约，满员可能无法上车。",
@@ -2310,6 +4035,7 @@ export default {
           ]
         },
         {
+          "id": "hosshinmon-hongu-walk",
           "time": "09:05–12:00／12:30",
           "title": "发心门经王子遗迹 → 熊野本宫大社",
           "description": "经水吞、伏拝、三轩茶屋、祓殿王子，沿途盖章；约7.5公里、爬升190米，含休息按3小时以上。",
@@ -2318,6 +4044,7 @@ export default {
           ]
         },
         {
+          "id": "hongu-visit",
           "time": "12:00／12:30–13:15",
           "title": "本宫大社参拜、盖本宫完成章",
           "sourceIds": [
@@ -2329,11 +4056,13 @@ export default {
           "title": "午饭"
         },
         {
+          "id": "oyunohara-visit",
           "time": "14:00–14:40",
           "title": "大斋原大鸟居、旧社地",
           "description": "单程步行约10分钟，留拍照时间，再返回本宫大社前巴士站。"
         },
         {
+          "id": "hongu-bus-queue",
           "time": "14:50",
           "title": "本宫大社前候车"
         },
@@ -2346,6 +4075,7 @@ export default {
           ]
         },
         {
+          "id": "kawayu-check-in",
           "time": "入住后",
           "title": "川湯まつや入住、泡汤、晚餐",
           "description": "已订11/18–19；11月按旅馆温泉安排。"
@@ -2358,6 +4088,7 @@ export default {
           "description": "用明光93到本宫，再转龙神81到发心门，约11点开始徒步；下午行程调整，改16:40去川汤。",
           "schedule": [
             {
+              "id": "museum-to-hongu",
               "time": "09:42–10:12",
               "title": "明光93系統：美术馆前 → 本宫大社前",
               "sourceIds": [
@@ -2365,6 +4096,7 @@ export default {
               ]
             },
             {
+              "id": "hongu-to-hosshinmon",
               "time": "10:30–10:45",
               "title": "龙神81系統：本宫 → 发心门王子",
               "sourceIds": [
@@ -2372,6 +4104,7 @@ export default {
               ]
             },
             {
+              "id": "fallback-hongu-walk",
               "time": "11:00左右",
               "title": "开始发心门至本宫徒步",
               "description": "约7.5公里，按脚程调整下午参拜和拍照时间。",
@@ -2380,11 +4113,13 @@ export default {
               ]
             },
             {
+              "id": "fallback-hongu-oyunohara",
               "time": "下午",
               "title": "本宫大社、大斋原",
               "description": "保留16:40巴士候车余量。"
             },
             {
+              "id": "fallback-kawayu-bus",
               "time": "16:40–16:51",
               "title": "本宫 → 川汤",
               "description": "藤屋前16:48、龟屋前16:49、川汤温泉16:51；下车站按旅馆位置决定。",
@@ -2516,6 +4251,173 @@ export default {
             "url": "https://www.aozora.gr.jp/cards/000146/files/749_34457.html"
           }
         ]
+      },
+      "map": {
+        "defaultViewId": "activity",
+        "views": [
+          {
+            "id": "activity",
+            "label": "发心门徒步与本宫",
+            "scope": "activity",
+            "stops": [
+              {
+                "placeId": "hosshinmon-oji",
+                "scheduleId": "hosshinmon-hongu-walk"
+              },
+              {
+                "placeId": "mizunomi-oji",
+                "scheduleId": "hosshinmon-hongu-walk"
+              },
+              {
+                "placeId": "fushiogami-oji",
+                "scheduleId": "hosshinmon-hongu-walk"
+              },
+              {
+                "placeId": "sangenjaya",
+                "scheduleId": "hosshinmon-hongu-walk"
+              },
+              {
+                "placeId": "haraido-oji",
+                "scheduleId": "hosshinmon-hongu-walk"
+              },
+              {
+                "placeId": "kumano-hongu-taisha",
+                "scheduleId": "hongu-visit"
+              },
+              {
+                "placeId": "oyunohara",
+                "scheduleId": "oyunohara-visit"
+              },
+              {
+                "placeId": "hongu-taisha-bus-stop",
+                "scheduleId": "hongu-bus-queue"
+              }
+            ]
+          },
+          {
+            "id": "transport",
+            "label": "全程交通",
+            "scope": "transport",
+            "stops": [
+              {
+                "placeId": "chikatsuyu-area",
+                "scheduleId": "sen-checkout",
+                "connect": false,
+                "note": "近露住宿区域参考；SEN RETREAT CHIKATSUYU具体位置与末段接驳尚未标定。"
+              },
+              {
+                "placeId": "nakahechi-museum-bus-stop",
+                "scheduleId": "museum-bus-queue"
+              },
+              {
+                "placeId": "hosshinmon-bus-stop",
+                "scheduleId": "fast-bus-to-hosshinmon"
+              },
+              {
+                "placeId": "hosshinmon-oji",
+                "scheduleId": "hosshinmon-hongu-walk"
+              },
+              {
+                "placeId": "mizunomi-oji",
+                "scheduleId": "hosshinmon-hongu-walk"
+              },
+              {
+                "placeId": "fushiogami-oji",
+                "scheduleId": "hosshinmon-hongu-walk"
+              },
+              {
+                "placeId": "sangenjaya",
+                "scheduleId": "hosshinmon-hongu-walk"
+              },
+              {
+                "placeId": "haraido-oji",
+                "scheduleId": "hosshinmon-hongu-walk"
+              },
+              {
+                "placeId": "kumano-hongu-taisha",
+                "scheduleId": "hongu-visit"
+              },
+              {
+                "placeId": "oyunohara",
+                "scheduleId": "oyunohara-visit"
+              },
+              {
+                "placeId": "hongu-taisha-bus-stop",
+                "scheduleId": "hongu-bus-queue"
+              },
+              {
+                "placeId": "kawayu-matsuya",
+                "scheduleId": "kawayu-check-in",
+                "note": "川汤下车站仍需按旅馆确认；不预设藤屋前、龟屋前或川汤温泉中的哪一站。"
+              }
+            ],
+            "note": "主线乘07:51快速直达发心门；川汤实际下车站与酒店末段步行待确认。"
+          },
+          {
+            "id": "missed-fast-bus",
+            "label": "错过快速：经本宫转车",
+            "scope": "alternative",
+            "alternativeId": "missed-fast-bus",
+            "stops": [
+              {
+                "placeId": "chikatsuyu-area",
+                "scheduleId": "museum-to-hongu",
+                "connect": false,
+                "note": "近露住宿区域参考；SEN RETREAT CHIKATSUYU具体位置与末段接驳尚未标定。"
+              },
+              {
+                "placeId": "nakahechi-museum-bus-stop",
+                "scheduleId": "museum-to-hongu"
+              },
+              {
+                "placeId": "hongu-taisha-bus-stop",
+                "scheduleId": "museum-to-hongu"
+              },
+              {
+                "placeId": "hosshinmon-bus-stop",
+                "scheduleId": "hongu-to-hosshinmon"
+              },
+              {
+                "placeId": "hosshinmon-oji",
+                "scheduleId": "fallback-hongu-walk"
+              },
+              {
+                "placeId": "mizunomi-oji",
+                "scheduleId": "fallback-hongu-walk"
+              },
+              {
+                "placeId": "fushiogami-oji",
+                "scheduleId": "fallback-hongu-walk"
+              },
+              {
+                "placeId": "sangenjaya",
+                "scheduleId": "fallback-hongu-walk"
+              },
+              {
+                "placeId": "haraido-oji",
+                "scheduleId": "fallback-hongu-walk"
+              },
+              {
+                "placeId": "kumano-hongu-taisha",
+                "scheduleId": "fallback-hongu-oyunohara"
+              },
+              {
+                "placeId": "oyunohara",
+                "scheduleId": "fallback-hongu-oyunohara"
+              },
+              {
+                "placeId": "hongu-taisha-bus-stop",
+                "scheduleId": "fallback-kawayu-bus"
+              },
+              {
+                "placeId": "kawayu-matsuya",
+                "scheduleId": "fallback-kawayu-bus",
+                "note": "川汤下车站仍需按旅馆确认；不预设藤屋前、龟屋前或川汤温泉中的哪一站。"
+              }
+            ],
+            "note": "仅快速满员或错过时使用；经本宫转车后徒步，保留16:40回川汤的候车余量。"
+          }
+        ]
       }
     },
     {
@@ -2535,6 +4437,7 @@ export default {
       ],
       "schedule": [
         {
+          "id": "kawayu-checkout",
           "time": "07:15–08:00",
           "title": "早餐、退房"
         },
@@ -2553,6 +4456,7 @@ export default {
           ]
         },
         {
+          "id": "shingu-transfer",
           "time": "09:37–10:00",
           "title": "新宫站换车、厕所",
           "description": "留23分钟换乘。"
@@ -2566,10 +4470,12 @@ export default {
           ]
         },
         {
+          "id": "nachi-transfer",
           "time": "10:39–11:12",
           "title": "那智站换乘那智山线"
         },
         {
+          "id": "bus-to-nachisan",
           "time": "11:12–11:31",
           "title": "31系統“那智山行”：那智站 → 那智山",
           "description": "经过大门坂11:23、那智瀑布前11:28；主方案坐到终点11:31。",
@@ -2578,20 +4484,24 @@ export default {
           ]
         },
         {
+          "id": "nachi-taisha-visit",
           "time": "11:31–12:15",
           "title": "熊野那智大社"
         },
         {
+          "id": "seigantoji-pagoda-visit",
           "time": "12:15–13:00",
           "title": "青岸渡寺、三重塔与瀑布远景",
           "description": "穿插简单午餐。"
         },
         {
+          "id": "hirou-falls-visit",
           "time": "13:00–13:40",
           "title": "下行至飞泷神社、那智瀑布",
           "description": "下行仍有台阶。"
         },
         {
+          "id": "falls-bus-queue",
           "time": "13:45–13:50",
           "title": "回那智の滝前巴士站排队",
           "description": "Nachi-no-Taki-mae，留好下山车候车余量。"
@@ -2605,11 +4515,13 @@ export default {
           ]
         },
         {
+          "id": "katsuura-train-preparation",
           "time": "14:23–15:00",
           "title": "确认列车、买便当与饮水",
           "description": "14:23到站至15:21发车共58分钟换乘余量。"
         },
         {
+          "id": "kuroshio-to-osaka",
           "time": "15:21–19:16",
           "title": "Kuroshio 30／特急くろしお30：纪伊胜浦 → 大阪",
           "description": "全车指定席，运转日明确含2026/11/19；计划班次不代表已出票。17:06到纪伊田边、17:08继续开，留在车上，不下车换乘或取物。",
@@ -2618,6 +4530,7 @@ export default {
           ]
         },
         {
+          "id": "umekita-respire-return",
           "time": "19:16",
           "title": "大阪地下24站台下车，返回RESPIRE",
           "description": "走梅北地下口，取大箱并办理11/19–21第二段已订入住。",
@@ -2640,6 +4553,7 @@ export default {
           "description": "06:54早出发补熊野速玉大社参拜和第7章；大门坂步行按体力选择，和08:39默认版分开安排。",
           "schedule": [
             {
+              "id": "early-hayatama-bus",
               "time": "06:54–07:48",
               "title": "54系統：川汤 → 速玉大社前",
               "sourceIds": [
@@ -2647,6 +4561,7 @@ export default {
               ]
             },
             {
+              "id": "hayatama-visit",
               "time": "07:48到达后",
               "title": "参拜熊野速玉大社、盖第7章",
               "sourceIds": [
@@ -2654,6 +4569,7 @@ export default {
               ]
             },
             {
+              "id": "hayatama-to-nachi",
               "time": "09:04–09:28",
               "title": "11系統：速玉大社前 → 那智站",
               "sourceIds": [
@@ -2661,6 +4577,7 @@ export default {
               ]
             },
             {
+              "id": "early-nachisan-bus",
               "time": "09:57–10:08",
               "title": "31系統：那智站出发，大门坂可选下车",
               "sourceIds": [
@@ -2669,12 +4586,14 @@ export default {
               "description": "09:57发车；走大门坂则10:08下车，不走则继续乘车到那智山。"
             },
             {
+              "id": "optional-daimonzaka-walk",
               "time": "10:10–11:10",
               "title": "可选：大门坂步行上山",
               "description": "仅选择10:08下车时安排；不走这段不影响日本条件③。",
               "optional": true
             },
             {
+              "id": "early-nachi-sights",
               "time": "11:10以后",
               "title": "那智大社、青岸渡寺与瀑布",
               "description": "步行版按11:10以后参拜；不走大门坂可在乘车抵达后开始。盖第8–10章，保留13:59下山车与15:21黑潮，按脚程调整。",
@@ -2683,6 +4602,7 @@ export default {
               ]
             },
             {
+              "id": "early-katsuura-bus",
               "time": "13:59–14:23",
               "title": "32系統：瀑布前 → 纪伊胜浦",
               "sourceIds": [
@@ -2690,6 +4610,7 @@ export default {
               ]
             },
             {
+              "id": "early-kuroshio-to-osaka",
               "time": "15:21–19:16",
               "title": "Kuroshio 30：纪伊胜浦 → 大阪",
               "description": "全车指定席，仍需落实车票。",
@@ -2720,6 +4641,7 @@ export default {
           "description": "仅替换19号返程：本人须已有Camino完成证明，并按早班路线完成日本条件③、盖齐官方10章，且决定本次现场登记。",
           "schedule": [
             {
+              "id": "katsuura-to-tanabe",
               "time": "15:21–17:06",
               "title": "Kuroshio 30：纪伊胜浦 → 纪伊田边",
               "description": "此备选在田边下车办理登记；指定席按实际分段重核。默认直达大阪行程仍独立保留。",
@@ -2728,6 +4650,7 @@ export default {
               ]
             },
             {
+              "id": "conditional-tanabe-registration",
               "time": "17:06到站后，18:00前",
               "title": "Tanabe Tourist Information Center本人登记",
               "description": "每人带熊野10章手账和自己的Camino完成证明或照片／电子版。中心09:00–18:00；预留步行、排队与两人办理时间，资格由工作人员现场核验。",
@@ -2738,6 +4661,7 @@ export default {
               ]
             },
             {
+              "id": "late-kuroshio-to-osaka",
               "time": "19:50–22:02",
               "title": "Kuroshio 36：纪伊田边 → 大阪",
               "description": "平日运行的计划参考，11/19为星期四；出发前重核当日运转与指定席。晚回大阪后到RESPIRE取大箱并入住，提前告知酒店晚到。",
@@ -2870,6 +4794,309 @@ export default {
             "url": "https://sectpoclit.com/haimakura-48/"
           }
         ]
+      },
+      "map": {
+        "defaultViewId": "activity",
+        "views": [
+          {
+            "id": "activity",
+            "label": "那智山参拜",
+            "scope": "activity",
+            "stops": [
+              {
+                "placeId": "nachisan-bus-stop",
+                "scheduleId": "bus-to-nachisan"
+              },
+              {
+                "placeId": "kumano-nachi-taisha",
+                "scheduleId": "nachi-taisha-visit"
+              },
+              {
+                "placeId": "seiganto-ji",
+                "scheduleId": "seigantoji-pagoda-visit"
+              },
+              {
+                "placeId": "seiganto-pagoda",
+                "scheduleId": "seigantoji-pagoda-visit"
+              },
+              {
+                "placeId": "hirou-jinja",
+                "scheduleId": "hirou-falls-visit"
+              },
+              {
+                "placeId": "nachi-falls",
+                "scheduleId": "hirou-falls-visit",
+                "connect": false,
+                "note": "从飞泷神社及观瀑区域看瀑布；标记为瀑布位置，不是可走入的停靠点。"
+              },
+              {
+                "placeId": "nachi-falls-bus-stop",
+                "scheduleId": "falls-bus-queue"
+              }
+            ],
+            "note": "默认坐车到那智山终点；不加入速玉大社或大门坂步行。"
+          },
+          {
+            "id": "transport",
+            "label": "全程交通",
+            "scope": "transport",
+            "stops": [
+              {
+                "placeId": "kawayu-matsuya",
+                "scheduleId": "kawayu-checkout",
+                "note": "实际候车站与发车分钟按旅馆位置复核；未标定川汤站杆。"
+              },
+              {
+                "placeId": "shingu-station",
+                "scheduleId": "shingu-transfer"
+              },
+              {
+                "placeId": "nachi-station",
+                "scheduleId": "nachi-transfer"
+              },
+              {
+                "placeId": "nachisan-bus-stop",
+                "scheduleId": "bus-to-nachisan"
+              },
+              {
+                "placeId": "kumano-nachi-taisha",
+                "scheduleId": "nachi-taisha-visit"
+              },
+              {
+                "placeId": "seiganto-ji",
+                "scheduleId": "seigantoji-pagoda-visit"
+              },
+              {
+                "placeId": "seiganto-pagoda",
+                "scheduleId": "seigantoji-pagoda-visit"
+              },
+              {
+                "placeId": "hirou-jinja",
+                "scheduleId": "hirou-falls-visit"
+              },
+              {
+                "placeId": "nachi-falls",
+                "scheduleId": "hirou-falls-visit",
+                "connect": false,
+                "note": "从飞泷神社及观瀑区域看瀑布；标记为瀑布位置，不是可走入的停靠点。"
+              },
+              {
+                "placeId": "nachi-falls-bus-stop",
+                "scheduleId": "falls-bus-queue"
+              },
+              {
+                "placeId": "kii-katsuura-station",
+                "scheduleId": "katsuura-train-preparation"
+              },
+              {
+                "placeId": "osaka-station",
+                "scheduleId": "kuroshio-to-osaka"
+              },
+              {
+                "placeId": "umekita-gate",
+                "scheduleId": "umekita-respire-return"
+              },
+              {
+                "placeId": "respire-osaka",
+                "scheduleId": "umekita-respire-return"
+              }
+            ],
+            "note": "主线08:39经新宫至那智，15:21黑潮直达大阪；纪伊田边留在车上，不下车或取物。"
+          },
+          {
+            "id": "hayatama-early",
+            "label": "速玉早班（不走大门坂）",
+            "scope": "alternative",
+            "alternativeId": "hayatama-daimonzaka",
+            "stops": [
+              {
+                "placeId": "kawayu-matsuya",
+                "scheduleId": "early-hayatama-bus",
+                "note": "06:54早出发备选；实际上车站与发车分钟仍按旅馆确认。"
+              },
+              {
+                "placeId": "hayatama-bus-stop",
+                "scheduleId": "early-hayatama-bus"
+              },
+              {
+                "placeId": "kumano-hayatama-taisha",
+                "scheduleId": "hayatama-visit"
+              },
+              {
+                "placeId": "hayatama-bus-stop",
+                "scheduleId": "hayatama-to-nachi"
+              },
+              {
+                "placeId": "nachi-station",
+                "scheduleId": "hayatama-to-nachi"
+              },
+              {
+                "placeId": "nachisan-bus-stop",
+                "scheduleId": "early-nachisan-bus"
+              },
+              {
+                "placeId": "kumano-nachi-taisha",
+                "scheduleId": "early-nachi-sights"
+              },
+              {
+                "placeId": "seiganto-ji",
+                "scheduleId": "early-nachi-sights"
+              },
+              {
+                "placeId": "seiganto-pagoda",
+                "scheduleId": "early-nachi-sights"
+              },
+              {
+                "placeId": "hirou-jinja",
+                "scheduleId": "early-nachi-sights"
+              },
+              {
+                "placeId": "nachi-falls",
+                "scheduleId": "early-nachi-sights",
+                "connect": false,
+                "note": "从飞泷神社及观瀑区域看瀑布；标记为瀑布位置，不是可走入的停靠点。"
+              },
+              {
+                "placeId": "nachi-falls-bus-stop",
+                "scheduleId": "early-katsuura-bus"
+              },
+              {
+                "placeId": "kii-katsuura-station",
+                "scheduleId": "early-katsuura-bus"
+              },
+              {
+                "placeId": "osaka-station",
+                "scheduleId": "early-kuroshio-to-osaka"
+              },
+              {
+                "placeId": "umekita-gate",
+                "scheduleId": "early-kuroshio-to-osaka"
+              },
+              {
+                "placeId": "respire-osaka",
+                "scheduleId": "early-kuroshio-to-osaka"
+              }
+            ],
+            "note": "仅选择06:54早班时去速玉；不走大门坂则从那智站继续坐到那智山，仍保留13:59下山车与15:21黑潮。"
+          },
+          {
+            "id": "hayatama-daimonzaka-walk",
+            "label": "速玉＋大门坂（可选）",
+            "scope": "alternative",
+            "alternativeId": "hayatama-daimonzaka",
+            "stops": [
+              {
+                "placeId": "kawayu-matsuya",
+                "scheduleId": "early-hayatama-bus",
+                "note": "06:54早出发备选；实际上车站与发车分钟仍按旅馆确认。"
+              },
+              {
+                "placeId": "hayatama-bus-stop",
+                "scheduleId": "early-hayatama-bus"
+              },
+              {
+                "placeId": "kumano-hayatama-taisha",
+                "scheduleId": "hayatama-visit"
+              },
+              {
+                "placeId": "hayatama-bus-stop",
+                "scheduleId": "hayatama-to-nachi"
+              },
+              {
+                "placeId": "nachi-station",
+                "scheduleId": "hayatama-to-nachi"
+              },
+              {
+                "placeId": "daimonzaka-bus-stop",
+                "scheduleId": "early-nachisan-bus"
+              },
+              {
+                "placeId": "daimonzaka",
+                "scheduleId": "optional-daimonzaka-walk"
+              },
+              {
+                "placeId": "kumano-nachi-taisha",
+                "scheduleId": "early-nachi-sights"
+              },
+              {
+                "placeId": "seiganto-ji",
+                "scheduleId": "early-nachi-sights"
+              },
+              {
+                "placeId": "seiganto-pagoda",
+                "scheduleId": "early-nachi-sights"
+              },
+              {
+                "placeId": "hirou-jinja",
+                "scheduleId": "early-nachi-sights"
+              },
+              {
+                "placeId": "nachi-falls",
+                "scheduleId": "early-nachi-sights",
+                "connect": false,
+                "note": "从飞泷神社及观瀑区域看瀑布；标记为瀑布位置，不是可走入的停靠点。"
+              },
+              {
+                "placeId": "nachi-falls-bus-stop",
+                "scheduleId": "early-katsuura-bus"
+              },
+              {
+                "placeId": "kii-katsuura-station",
+                "scheduleId": "early-katsuura-bus"
+              },
+              {
+                "placeId": "osaka-station",
+                "scheduleId": "early-kuroshio-to-osaka"
+              },
+              {
+                "placeId": "umekita-gate",
+                "scheduleId": "early-kuroshio-to-osaka"
+              },
+              {
+                "placeId": "respire-osaka",
+                "scheduleId": "early-kuroshio-to-osaka"
+              }
+            ],
+            "note": "仅选择速玉早班并在10:08大门坂下车时安排步行；大门坂不是日本条件③必走段，参拜时间按脚程调整。"
+          },
+          {
+            "id": "dual-pilgrim-registration-return",
+            "label": "条件式田边登记回程",
+            "scope": "alternative",
+            "alternativeId": "dual-pilgrim-registration-return",
+            "stops": [
+              {
+                "placeId": "kii-katsuura-station",
+                "scheduleId": "katsuura-to-tanabe"
+              },
+              {
+                "placeId": "kii-tanabe-station",
+                "scheduleId": "katsuura-to-tanabe"
+              },
+              {
+                "placeId": "tanabe-tourist-information",
+                "scheduleId": "conditional-tanabe-registration"
+              },
+              {
+                "placeId": "kii-tanabe-station",
+                "scheduleId": "late-kuroshio-to-osaka"
+              },
+              {
+                "placeId": "osaka-station",
+                "scheduleId": "late-kuroshio-to-osaka"
+              },
+              {
+                "placeId": "umekita-gate",
+                "scheduleId": "late-kuroshio-to-osaka"
+              },
+              {
+                "placeId": "respire-osaka",
+                "scheduleId": "late-kuroshio-to-osaka"
+              }
+            ],
+            "note": "仅满足各人的Camino证明与日本条件、选择本人登记时使用；此图只显示登记回程，默认直达大阪仍保留。"
+          }
+        ]
       }
     },
     {
@@ -2891,20 +5118,24 @@ export default {
       ],
       "schedule": [
         {
+          "id": "hotel-to-osaka-station",
           "time": "09:10前后",
           "title": "从大阪酒店出发，步行至JR大阪站"
         },
         {
+          "id": "yamatoji-to-nara",
           "time": "09:42–10:33",
           "title": "大和路快速：大阪 → JR奈良",
           "description": "计划班次，直达不换乘。"
         },
         {
+          "id": "nara-city-bus",
           "time": "10:40前后",
           "title": "市内循环公交 → 东大寺外围",
           "description": "到“東大寺大仏殿・春日大社前”，下车后步行入寺；候车与步行预留20–30分钟，累了可打车。"
         },
         {
+          "id": "todaiji-visit",
           "time": "11:00–12:15",
           "title": "东大寺南大门、大佛殿",
           "description": "11月08:00–17:00；大佛殿目前现场购票、只收现金。普通个人现场购票即可，特殊展览另看规则。",
@@ -2913,6 +5144,7 @@ export default {
           ]
         },
         {
+          "id": "nigatsudo-visit",
           "time": "12:15–12:45",
           "title": "二月堂一带"
         },
@@ -2921,6 +5153,7 @@ export default {
           "title": "午饭"
         },
         {
+          "id": "kasuga-visit",
           "time": "13:30–14:45",
           "title": "步行到春日大社参拜",
           "description": "一般参拜07:00–17:00，特别参拜09:00–16:00；进入特别参拜区域看回廊、吊灯笼。",
@@ -2929,10 +5162,12 @@ export default {
           ]
         },
         {
+          "id": "nara-park-walk",
           "time": "14:45–15:30",
           "title": "奈良公园看鹿，向兴福寺走"
         },
         {
+          "id": "kofukuji-choice",
           "time": "15:30–16:15",
           "title": "兴福寺：国宝馆／中金堂选一重点",
           "description": "五重塔修缮中，东金堂也受工程影响。"
@@ -2944,11 +5179,13 @@ export default {
           "optional": true
         },
         {
+          "id": "jr-return-to-osaka",
           "time": "17:10–18:10",
           "title": "JR区间快速：奈良 → 大阪",
           "description": "回程参考，直达约60分钟；晚一些可乘后续直达班次。"
         },
         {
+          "id": "umeda-evening",
           "time": "18:30后",
           "title": "梅田晚餐、整理行李"
         }
@@ -3026,6 +5263,142 @@ export default {
             "url": "https://www.naracity-guide.com/spots/25"
           }
         ]
+      },
+      "map": {
+        "defaultViewId": "activity",
+        "views": [
+          {
+            "id": "activity",
+            "label": "奈良活动",
+            "scope": "activity",
+            "stops": [
+              {
+                "placeId": "nara-station",
+                "scheduleId": "yamatoji-to-nara"
+              },
+              {
+                "placeId": "todaiji-kasuga-bus-stop",
+                "scheduleId": "nara-city-bus"
+              },
+              {
+                "placeId": "todaiji-nandaimon",
+                "scheduleId": "todaiji-visit"
+              },
+              {
+                "placeId": "todaiji-daibutsuden",
+                "scheduleId": "todaiji-visit"
+              },
+              {
+                "placeId": "todaiji-nigatsudo",
+                "scheduleId": "nigatsudo-visit"
+              },
+              {
+                "placeId": "kasuga-taisha",
+                "scheduleId": "kasuga-visit"
+              },
+              {
+                "placeId": "nara-park",
+                "scheduleId": "nara-park-walk",
+                "connect": false,
+                "note": "看鹿后向兴福寺走；园区标记仅作位置参考，不是固定途经点。"
+              },
+              {
+                "placeId": "kofuku-ji",
+                "scheduleId": "kofukuji-choice"
+              },
+              {
+                "placeId": "kofukuji-national-treasure-hall",
+                "scheduleId": "kofukuji-choice",
+                "optional": true,
+                "note": "国宝馆／中金堂二选一重点，尚未指定选择。"
+              },
+              {
+                "placeId": "kofukuji-chukondo",
+                "scheduleId": "kofukuji-choice",
+                "optional": true,
+                "note": "国宝馆／中金堂二选一重点，尚未指定选择。"
+              },
+              {
+                "placeId": "nara-station",
+                "scheduleId": "jr-return-to-osaka"
+              }
+            ],
+            "note": "奈良町仅时间允许时短逛，未标定街区内固定停靠点。"
+          },
+          {
+            "id": "transport",
+            "label": "全程交通",
+            "scope": "transport",
+            "stops": [
+              {
+                "placeId": "respire-osaka",
+                "scheduleId": "hotel-to-osaka-station"
+              },
+              {
+                "placeId": "osaka-station",
+                "scheduleId": "hotel-to-osaka-station"
+              },
+              {
+                "placeId": "nara-station",
+                "scheduleId": "yamatoji-to-nara"
+              },
+              {
+                "placeId": "todaiji-kasuga-bus-stop",
+                "scheduleId": "nara-city-bus"
+              },
+              {
+                "placeId": "todaiji-nandaimon",
+                "scheduleId": "todaiji-visit"
+              },
+              {
+                "placeId": "todaiji-daibutsuden",
+                "scheduleId": "todaiji-visit"
+              },
+              {
+                "placeId": "todaiji-nigatsudo",
+                "scheduleId": "nigatsudo-visit"
+              },
+              {
+                "placeId": "kasuga-taisha",
+                "scheduleId": "kasuga-visit"
+              },
+              {
+                "placeId": "nara-park",
+                "scheduleId": "nara-park-walk",
+                "connect": false,
+                "note": "看鹿后向兴福寺走；园区标记仅作位置参考，不是固定途经点。"
+              },
+              {
+                "placeId": "kofuku-ji",
+                "scheduleId": "kofukuji-choice"
+              },
+              {
+                "placeId": "kofukuji-national-treasure-hall",
+                "scheduleId": "kofukuji-choice",
+                "optional": true,
+                "note": "国宝馆／中金堂二选一重点，尚未指定选择。"
+              },
+              {
+                "placeId": "kofukuji-chukondo",
+                "scheduleId": "kofukuji-choice",
+                "optional": true,
+                "note": "国宝馆／中金堂二选一重点，尚未指定选择。"
+              },
+              {
+                "placeId": "nara-station",
+                "scheduleId": "jr-return-to-osaka"
+              },
+              {
+                "placeId": "osaka-station",
+                "scheduleId": "jr-return-to-osaka"
+              },
+              {
+                "placeId": "respire-osaka",
+                "scheduleId": "umeda-evening"
+              }
+            ]
+          }
+        ]
       }
     },
     {
@@ -3041,10 +5414,12 @@ export default {
       ],
       "schedule": [
         {
+          "id": "respire-checkout",
           "time": "07:00–07:45",
           "title": "早餐、整理、退房"
         },
         {
+          "id": "hotel-to-umekita",
           "time": "08:15",
           "title": "带全部行李离开RESPIRE",
           "description": "到JR大阪站梅北地下口，含电梯、进站与步行预留30分钟以上。",
@@ -3053,6 +5428,7 @@ export default {
           ]
         },
         {
+          "id": "haruka-to-kix",
           "time": "08:50–09:34",
           "title": "主选HARUKA 11：大阪 → 关西机场",
           "description": "大阪地下21站台为现行安排，现场再看；计划班次不代表已出票。后备HARUKA 13为09:19–10:04，到T1出发层约10:15，主方案不主动依赖后备。",
@@ -3061,6 +5437,7 @@ export default {
           ]
         },
         {
+          "id": "walk-to-t1-departures",
           "time": "09:34–约09:50",
           "title": "机场站连廊 → T1国际出发层",
           "description": "到4楼东航／上海航空柜台。"
@@ -3094,7 +5471,41 @@ export default {
           ],
           "choices": []
         }
-      ]
+      ],
+      "map": {
+        "defaultViewId": "airport-transfer",
+        "views": [
+          {
+            "id": "airport-transfer",
+            "label": "机场接驳",
+            "scope": "transport",
+            "stops": [
+              {
+                "placeId": "respire-osaka",
+                "scheduleId": "respire-checkout"
+              },
+              {
+                "placeId": "umekita-gate",
+                "scheduleId": "hotel-to-umekita"
+              },
+              {
+                "placeId": "osaka-station",
+                "scheduleId": "haruka-to-kix"
+              },
+              {
+                "placeId": "kix-station",
+                "scheduleId": "haruka-to-kix"
+              },
+              {
+                "placeId": "kix-t1",
+                "scheduleId": "walk-to-t1-departures",
+                "note": "从机场站连廊到T1国际出发层4楼，按现场指引前往东航／上海航空柜台。"
+              }
+            ],
+            "note": "HARUKA仍为参考班次；带齐全部行李并留足进站、连廊与电梯时间。"
+          }
+        ]
+      }
     }
   ],
   "stampGuide": {

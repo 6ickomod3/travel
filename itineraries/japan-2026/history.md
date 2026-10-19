@@ -770,6 +770,70 @@ and licenses.
   remain usable. No page errors or missing local resources were found;
   screenshots and the report stay outside the repository.
 
+### Daily itinerary maps — October 19, 2026
+
+- Origin: the user's request to place each day's route map at the start of
+  its itinerary, followed by approval of the proposed map design. The exact
+  public chat messages are archived without added newlines in
+  [inputs/2026-10-19-01-daily-map-discussion.txt](inputs/2026-10-19-01-daily-map-discussion.txt)
+  (99 UTF-8 bytes; SHA-256
+  `2fd86d83fa76a96ef13d7ba903b5224ce03d011054816565df217304cf8d9c88`)
+  and [inputs/2026-10-19-02-daily-map-approval.txt](inputs/2026-10-19-02-daily-map-approval.txt)
+  (12 UTF-8 bytes; SHA-256
+  `2e38f414ed9008049eb963d7bcb4594ad51b62d92261768e80d703b6406d208b`).
+- Applied: reusable daily maps appear immediately below day titles, before
+  the existing practical information, epigraphs and timetables. A trip-owned
+  public place registry supplies numbered stops, Chinese primary names,
+  distinct Japanese labels, timetable anchors and external Google/Apple
+  Maps links. Mixed days separate local activity and full-day transport;
+  alternative or optional coverage has an explicit label. All nine dates
+  receive maps, using 74 places and 20 views with 217 stop references.
+- Coordinate provenance belongs to each map place. Public geographic records
+  establish positions, not train timetables, hotel access instructions,
+  reservations or completed visits. Shared-building and area points carry
+  visible caveats; unresolved bus stops are omitted rather than guessed.
+  The public OpenStreetMap node, way and relation metadata was checked on
+  October 19. South Gate uses the minamoa shared building, and SEN uses an
+  unconnected Chikatsuyu settlement reference. Torii and waterfall pins are
+  unconnected landmarks viewed from the shore or shrine area; the true Misen
+  summit, early Hayatama/Daimonzaka route and Tanabe registration return stay
+  in their explicitly conditional views. Nara's two hall choices remain
+  optional. Dashed connections show stop order. No precise trail geometry
+  is claimed.
+- Map scopes and selected pins affect map presentation only. The accepted
+  schedules, optional routes, hotel bookings, costs, meal candidates,
+  quotations and source links retain their prior meaning. Stable IDs on
+  mapped timetable rows provide links without rewriting their text or times.
+- Phone maps start with normal page scrolling; the localized map activation
+  button enables dragging and pinch zoom. The entire map wrapper is excluded
+  from day swipes. Maps mount only for open, visible days and retain their
+  local view when reopened. Stop lists and external links remain available
+  without JavaScript or tiles; printing includes all map views as text.
+- The shared English design guide, data contract and project context record
+  these conventions for future trips. No private itinerary or booking source
+  was read or ingested for this addition.
+- Verification: the final content check, type check and production build
+  passed with zero diagnostics across 57 files and four generated pages.
+  Independent audits confirmed that removing only the new places, day maps
+  and row IDs restores the complete original object, including all 94 main
+  schedule rows and 16 alternative rows. All place, view and timetable
+  references resolve, and mapped connected stops follow the accepted order.
+- Local production browser checks at 1280px, 390px and 320px verified layout,
+  native labels, 44px phone controls, scope/pin selection without history
+  changes, grouped repeat visits, optional markers, timetable links, cached
+  reopening, real page scrolling, map pan/pinch/zoom, wrapper swipe isolation
+  and bounded off-map date swipes. The initial 31 of 32 groups passed; the
+  remaining direct-load row-offset issue was corrected with native scroll
+  margins, and all 23 focused post-fix checks passed, including Back/Forward
+  and exact print restoration. No-JavaScript views expose all stop lists.
+- Separate delayed-module and failed-module checks verified that a newly
+  hidden date is not mounted, is retried when visible, and retains usable
+  timetable/external links when maps fail. Homepage, UK placeholder and the
+  existing whole-trip map also passed focused checks. External requests were
+  blocked before dispatch during browser testing, including tiles; tile
+  fallback remained readable. No page errors or missing local assets were
+  found. Reports and screenshots remain outside the repository.
+
 ## Open information
 
 - For SEN RETREAT CHIKATSUYU and 川湯まつや, meals, early breakfast or packed
@@ -860,3 +924,7 @@ when a source explicitly resolves or changes a decision.
 - October 16, 2026: saved the approved shared design principles and added
   reusable Japanese local-name labels to key places, sights, photo captions
   and map details while retaining Chinese as the primary trip language.
+- October 19, 2026: archived the daily-map discussion and approval, added
+  trip-owned sourced place coordinates and reusable daily map views, and
+  recorded their phone, fallback and print behavior in the English design
+  context while preserving the accepted itinerary.

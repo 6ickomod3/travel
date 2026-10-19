@@ -1,0 +1,131 @@
+---
+import Icon from './Icon.astro';
+import LocalPlaceName from './LocalPlaceName.astro';
+import TravelMap from './TravelMap.astro';
+import type { TripDay, TripMapPlace } from '../data/types';
+import { resolveDayMap } from '../lib/trip-maps';
+import type { TripDayMapView } from '../data/types';
+
+interface Props {
+  day: TripDay;
+  places: TripMapPlace[];
+  locale?: 'zh-CN' | 'en';
+}
+
+const { day, places, locale = 'en' } = Astro.props;
+const isZh = locale === 'zh-CN';
+const text = (zh: string, en: string) => isZh ? zh : en;
+const config = resolveDayMap(day, places);
+const id = `day-${day.date}-map`;
+const defaultView = config?.views.find(view => view.id === config.defaultViewId);
+const initialPlaces = defaultView?.stops.map(stop => stop.place) ?? [];
+const viewKind = (view: TripDayMapView) => {
+  const kind = view.scope === 'alternative' ? text('备选', 'Alternative') : view.scope === 'optional' ? text('可选', 'Optional') : undefined;
+  return kind && !view.label.toLocaleLowerCase(locale).includes(kind.toLocaleLowerCase(locale)) ? kind : undefined;
+};
+const kindLabel: Record<TripMapPlace['kind'], string> = {
+  sight: text('景点', 'Sight'), station: text('车站', 'Station'), airport: text('机场', 'Airport'),
+  port: text('码头', 'Ferry terminal'), stay: text('住宿', 'Stay'), checkpoint: text('步道途经点', 'Trail stop'),
+  'bus-stop': text('巴士站', 'Bus stop'), town: text('区域', 'Area'),
+};
+---
+{config && defaultView && <section class="day-map" id={id} data-day-map={day.date} data-day-map-config={JSON.stringify(config)} data-day-swipe-ignore lang={locale} aria-labelledby={`${id}-title`}>
+  <div class="day-map-heading">
+    <h3 id={`${id}-title`}><Icon name="map" size={17} />{text('当天地图', 'Day map')}</h3>
+    <button class="day-map-interaction" type="button" data-map-interact aria-pressed="false" aria-controls={`${id}-canvas`} hidden disabled>{text('操作地图', 'Explore map')}</button>
+  </div>
+  {config.views.length > 1 && <div class="day-map-views" role="group" aria-label={text('地图范围与方案', 'Map scopes and alternatives')}>
+    {config.views.map(view => <button type="button" data-day-map-view={view.id} aria-controls={`${id}-view-${view.id}`} aria-pressed={view.id === config.defaultViewId} disabled>
+      {viewKind(view) && <span class="day-map-view-kind">{viewKind(view)}</span>}{view.label}
+    </button>)}
+  </div>}
+  <TravelMap id={id} destinations={initialPlaces} variant="daily" label={text(`${day.date}当天行程地图`, `Itinerary map for ${day.date}`)} locale={locale} />
+  <div class="day-map-route-panels">
+    {config.views.map(view => <section class="day-map-view-panel" id={`${id}-view-${view.id}`} data-day-map-panel={view.id} hidden={view.id !== config.defaultViewId} aria-labelledby={`${id}-view-${view.id}-title`}>
+      <h4 class="sr-only" id={`${id}-view-${view.id}-title`}>{view.label}</h4>
+      {view.note && <p class="day-map-view-note">{view.note}</p>}
+      <ol class="day-map-stops" role="list" aria-label={text(`${view.label}地点顺序`, `Stops for ${view.label}`)}>
+        {view.stops.map((stop, index) => <li class:list={['day-map-stop', { 'day-map-stop-optional': stop.optional }]}>
+          <button type="button" class="day-map-stop-button" data-day-map-stop={index} data-day-map-stop-view={view.id} aria-pressed="false" aria-controls={`${id}-canvas`} disabled>
+            <span class="day-map-stop-number" aria-hidden="true">{index + 1}</span>
+            <span class="day-map-stop-name"><strong>{stop.place.name}</strong><LocalPlaceName primaryName={stop.place.name} localName={stop.place.localName} /><small>{kindLabel[stop.place.kind]}{stop.optional && <> · {text('可选', 'Optional')}</>}</small></span>
+          </button>
+          {(stop.note || stop.place.coordinateNote) && <p class="day-map-stop-note">{[stop.note, stop.place.coordinateNote].filter((note, index, notes) => note && notes.indexOf(note) === index).join(' ')}</p>}
+          <div class="day-map-stop-links">
+            {stop.scheduleHref && <a href={stop.scheduleHref}>{text('行程', 'Schedule')}</a>}
+            <a href={`https://www.google.com/maps/search/?api=1&query=${stop.place.lat},${stop.place.lng}`} target="_blank" rel="noopener noreferrer">Google Maps</a>
+            <a href={`https://maps.apple.com/?ll=${stop.place.lat},${stop.place.lng}&q=${encodeURIComponent(stop.place.localName?.text ?? stop.place.name)}`} target="_blank" rel="noopener noreferrer">Apple Maps</a>
+          </div>
+        </li>)}
+      </ol>
+      <p class="day-map-line-note">{view.track ? text('线路按已记录的路线资料绘制。', 'Path drawn from the recorded route data.') : text('虚线表示地点顺序，具体道路与步道请结合行程和官方地图查看。', 'Dashed lines show stop order. Use the itinerary and official maps for roads and trails.')}</p>
+    </section>)}
+  </div>
+  <p class="day-map-status" data-map-status={id} role="status" aria-live="polite">{text('点击地点查看详情。', 'Select a stop for details.')}</p>
+  <noscript><style is:inline>
+    .day-map .travel-map { height: auto !important; min-height: 0 !important; background: none; }
+    .day-map .map-canvas, .day-map .map-buttons, .day-map .day-map-views, .day-map .day-map-status { display: none !important; }
+    .day-map .map-noscript { position: static; padding: 10px; }
+    .day-map-view-panel[hidden] { display: block !important; }
+    .day-map-view-panel > h4 { position: static; width: auto; height: auto; clip: auto; overflow: visible; margin-top: 16px; }
+  </style></noscript>
+</section>}
+
+<script>
+  import '../scripts/daily-maps';
+</script>
+
+<style>
+  .day-map { min-width: 0; margin: 0 0 22px; padding: 15px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); }
+  .day-map-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+  .day-map-heading h3 { display: inline-flex; align-items: center; gap: 8px; font-family: var(--sans); font-size: 13px; font-weight: 600; line-height: 1.7; }
+  .day-map-interaction { min-height: 40px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 4px; background: #fbfaf5; font-size: 11px; }
+  .day-map-interaction[aria-pressed='true'] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+  .day-map-views { display: flex; gap: 6px; overflow-x: auto; margin: 0 0 11px; padding: 2px; scrollbar-width: thin; }
+  .day-map-views > button { display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto; min-height: 40px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 4px; background: #fbfaf5; color: var(--ink-soft); font-size: 11px; }
+  .day-map-views > button[aria-pressed='true'] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+  .day-map-views > button:disabled, .day-map-stop-button:disabled { opacity: 1; }
+  .day-map-view-kind { font-size: 9px; opacity: .8; }
+  .day-map :global(.travel-map-daily) { height: 320px; min-height: 320px; border: 1px solid var(--line); border-radius: 5px; overflow: hidden; }
+  .day-map :global(.travel-map-daily .map-buttons) { top: 12px; right: 12px; }
+  .day-map :global(.travel-map-daily .map-buttons button) { width: 40px; height: 40px; }
+  .day-map[data-map-interactive='false'] :global(.map-canvas) { touch-action: pan-y pinch-zoom; }
+  .day-map-view-note { margin-top: 12px; color: var(--ink-soft); font-size: 12px; line-height: 1.85; }
+  .day-map-stops { display: flex; gap: 10px; min-width: 0; margin: 12px 0 0; padding: 2px 2px 8px; list-style: none; overflow-x: auto; scrollbar-width: thin; scrollbar-color: #bfc5b7 transparent; }
+  .day-map-stop { flex: 0 0 190px; min-width: 0; padding: 11px 12px; border: 1px solid var(--line); border-radius: 4px; background: #fbfaf5; }
+  .day-map-stop-optional { border-style: dashed; }
+  .day-map-stop-button { display: flex; align-items: flex-start; gap: 9px; width: 100%; padding: 0; border: 0; background: none; text-align: left; }
+  .day-map-stop-number { display: grid; place-items: center; flex: 0 0 22px; height: 22px; margin-top: 2px; border: 1px solid var(--line); border-radius: 50%; color: var(--accent-deep); font-size: 10px; }
+  .day-map-stop-name { min-width: 0; }
+  .day-map-stop-name strong { display: block; font-size: 12px; font-weight: 500; line-height: 1.7; overflow-wrap: anywhere; }
+  .day-map-stop-name small { display: block; margin-top: 3px; color: var(--ink-soft); font-size: 10px; line-height: 1.7; }
+  .day-map-stop-button[aria-pressed='true'] .day-map-stop-number { border-color: var(--accent-deep); background: var(--accent-deep); color: white; }
+  .day-map-stop-note { margin-top: 8px; color: var(--ink-soft); font-size: 11px; line-height: 1.85; }
+  .day-map-stop-links { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 8px; }
+  .day-map-stop-links a { min-height: 26px; padding-block: 3px; color: var(--accent-deep); font-size: 10px; line-height: 1.7; text-decoration: underline; text-underline-offset: 3px; }
+  .day-map-line-note, .day-map-status { margin-top: 9px; color: var(--ink-soft); font-size: 10px; line-height: 1.85; }
+  .day-map-status { min-height: 1.85em; }
+  @media (max-width: 600px) {
+    .day-map { padding: 11px; margin-bottom: 19px; }
+    .day-map-heading { margin-bottom: 9px; }
+    .day-map-interaction, .day-map-views > button { min-height: 44px; }
+    .day-map :global(.travel-map-daily) { height: 240px; min-height: 240px; }
+    .day-map :global(.travel-map-daily .map-buttons) { top: 9px; right: 9px; }
+    .day-map :global(.travel-map-daily .map-buttons button) { width: 44px; height: 44px; }
+    .day-map-stop { flex-basis: 174px; padding: 10px; }
+    .day-map-stop-links a { min-height: 32px; font-size: 11px; }
+    .day-map-line-note, .day-map-status { font-size: 11px; }
+  }
+  @media print {
+    .day-map { padding: 10px; margin-bottom: 14px; background: white; break-inside: auto; }
+    .day-map-heading { margin-bottom: 6px; }
+    .day-map :global(.travel-map), .day-map-views, .day-map-interaction, .day-map-status { display: none !important; }
+    .day-map-view-panel, .day-map-view-panel[hidden] { display: block !important; margin-top: 8px; }
+    .day-map-view-panel > h4 { position: static; width: auto; height: auto; overflow: visible; clip: auto; font-family: var(--sans); font-size: 10px; font-weight: 600; }
+    .day-map-stops { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; overflow: visible; padding: 0; margin-top: 7px; }
+    .day-map-stop { break-inside: avoid; padding: 7px; }
+    .day-map-stop-name strong { font-size: 10px; }
+    .day-map-stop-name small, .day-map-stop-note, .day-map-view-note, .day-map-line-note, .day-map-stop-links a { font-size: 9px; }
+    .day-map-stop-links a { min-height: 0; padding: 0; }
+  }
+</style>

@@ -64,9 +64,35 @@ opens the previous date. Stop at the first and last dates without wrapping.
 Preserve vertical scrolling, scrollable date strips and other horizontal widgets,
 and link/control activation. Full-trip view uses normal scrolling.
 
-Place the overnight stay and daily reminders near the start, followed by any
-supplied epigraph and the timetable. Keep optional schedules separate, retain
-practical walking/stamp details, and put meal options at the very bottom.
+When supplied, place the daily map directly below the day title. Follow it with
+the overnight stay and daily reminders, any supplied epigraph, and the timetable.
+Keep optional schedules separate, retain practical walking/stamp details, and
+put meal options at the very bottom.
+
+### Daily maps
+
+Use a responsive map about 320px high on desktop and 240px on mobile. Number
+the accepted stops in order. Keep trip-language names primary (Chinese for Japan),
+with accurate, distinct native labels and links to relevant itinerary rows and
+external maps. An always-readable stop list provides the same useful links.
+
+On mixed days, distinguish local activity coverage from whole-day transport with
+clearly labeled views. Keep alternative routes, optional summit detours and
+unselected meal candidates separate from the accepted sequence. Optional points
+must be labeled; their presence does not establish selection or a planned visit.
+Dashed connections indicate stop order, not an exact walking or transport path.
+Show a precise track only when verified route geometry and its source are supplied.
+Keep landmark-only positions out of travel-order lines, and state the actual
+viewing area. Identify shared-building or area coordinates in the visible stop
+list when an exact entrance has not been verified.
+
+On phones, ordinary page scrolling is the default. An explicit `操作地图`
+control, localized for other trips, activates map interaction. Exclude the entire
+map wrapper from day-swipe gestures, including before activation. Initialize a
+map only when its containing day is both open and visible; full-trip mode must
+not load every offscreen map. Preserve the stop list and external-map fallback
+without JavaScript or available tiles. Print the scope, stop list and useful
+links, omitting interactive controls.
 
 ## 5. Bookings, pending items and costs
 
@@ -110,14 +136,14 @@ later images and avoid autoplay.
 Reuse verified brand marks with original colors/proportions, honest provenance
 and a named fallback when no exact mark is available.
 
-Key destinations, sights and gallery photos may carry an optional shared
-`TripLocalName`. Keep the trip-language name primary and show a small accurate
-local name only when it differs from that text. Preserve its native script and
+Key destinations, daily-map places, sights and gallery photos may carry an
+optional shared `TripLocalName`. Keep the trip-language name primary and show a
+small accurate local name only when it differs from that text. Preserve its native script and
 language tag, using supplied or verified local forms. Use an appropriate native
 font or platform fallback with glyph coverage checked. Japanese labels use
 system native fonts. Schedule sentences stay in the trip's primary language.
-Carry the same local-name metadata into
-the visited atlas when those visits are explicitly confirmed.
+Carry destination local-name metadata into the visited atlas when those visits
+are explicitly confirmed.
 
 ## 7. Optional cultural content
 

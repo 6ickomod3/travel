@@ -85,6 +85,15 @@ New `*/trip.ts` files are discovered automatically and appear in the homepage co
 
 Use a year-only `TripPlaceholder` until dates and plans are known, following UK 2026. Once an itinerary is ready, change that same file to a dated `Trip`, keeping its slug and URL. Optional schedules, flights, stays, ticket options, reservation opening times, checklists, practical notes, and official sources keep detailed plans together. `mapRoute` records returns and transfers separately from unique destinations; complete alternative day plans have their own labeled schedules.
 
+Optional trip-owned `places` and daily `map` views add maps below day titles.
+Reuse sourced coordinates, number accepted stops, and distinguish local activity,
+whole-day transport, alternative and optional coverage. Stable place and schedule
+IDs link stops to the itinerary. Dashed connections show order; precise tracks
+require verified geometry and a source. Keep unknown locations unmapped rather
+than guess. The [data contract](docs/content-workflow.md#daily-map-data) and
+[design guide](docs/trip-design-principles.md#daily-maps) cover phone activation,
+visible-day loading, native labels, stop lists, external links and print fallback.
+
 Pending checklist items follow Daily itinerary, grouped into To do actions and To check confirmations through their optional `kind` field. Each group sorts by optional `timing`: immediate actions, referenced reservation openings or calendar dates, then undated items. Related travel dates are labeled separately from deadlines. Optional `priority: "high"` and `priorityReason` identify important dependencies. Ticket comparisons, reservation-opening times, and practical reminders remain in Preparations.
 
 Add optional `cost` records to accommodation `checkIns` for booking totals and estimated extra charges. The same values appear on accommodation cards and in Costs before Official sources, totaled by currency; unknown prices stay unpriced and booking amounts do not imply payment.
@@ -100,10 +109,11 @@ Daily `stamps` can store ordered collection stops and route conditions; `stampGu
 
 Optional `gallery` photos appear in a manual carousel at the top of a trip page. `sights` holds concise introductions and links to gallery photos; days and alternatives select them with `sightIds`. Photo credits remain visible, and optional sights stay with their separate routes.
 
-Optional `TripLocalName` records provide native names for destinations, sights
-and gallery photos. Keep the trip-language name primary and show the local form
-only when different, following the guide's language and font conventions.
-Local labels also accompany explicitly confirmed visits in the atlas.
+Optional `TripLocalName` records provide native names for destinations, daily-map
+places, sights and gallery photos. Keep the trip-language name primary and show
+the local form only when different, following the guide's language and font
+conventions.
+Destination local labels also accompany explicitly confirmed visits in the atlas.
 
 Optional `coverIntroduction` displays requested cover copy and its
 language-tagged translations together. The factual `summary` remains
@@ -136,7 +146,7 @@ local files.
 
 ## Hosting and maps
 
-Astro builds static pages, so there is no backend to maintain. The interactive map uses Leaflet and externally fetched OpenStreetMap tiles; no map key is needed. Images and fonts are served locally, and no analytics or tracking scripts are included.
+Astro builds static pages, so there is no backend to maintain. The interactive maps use Leaflet and externally fetched OpenStreetMap tiles; no map key is needed. Images and fonts are served locally, and no analytics or tracking scripts are included.
 
 Accommodation confirmation states are maintained in the trip data.
 

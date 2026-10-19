@@ -7,8 +7,10 @@ import TripSights from './TripSights.astro';
 import TripDining from './TripDining.astro';
 import TripDayPoem from './TripDayPoem.astro';
 import LocalPlaceName from './LocalPlaceName.astro';
+import TripDayMap from './TripDayMap.astro';
 import type { Trip } from '../data/types';
 import { durationDays, formatDate, formatDateRange } from '../lib/trips';
+import { scheduleRowId } from '../lib/trip-maps';
 
 interface Props { trip: Trip; }
 const { trip } = Astro.props;
@@ -76,6 +78,7 @@ const isThisJapan = trip.slug === 'japan-2026';
             <span class="day-title">{day.title}</span><span class="day-city"><span>{cityName(day.destinationId)}</span><LocalPlaceName primaryName={cityName(day.destinationId)} localName={destination?.localName} /></span><Icon name="chevron-down" size={17} class="day-chevron" />
           </summary>
           <div class:list={['day-content', { 'has-schedule': Boolean(day.schedule?.length) }]}>
+            <TripDayMap day={day} places={trip.places ?? []} locale={locale} />
             <p class="day-description">{day.description}</p>
             {isThisJapan && (day.type === 'arrival' || day.type === 'departure') && <p class="travel-day-note"><Icon name="train" size={15} />{day.type === 'arrival' ? text('抵达日：办理入境、入住和整理行李，不安排景点。', 'Arrival day: immigration, check-in, and unpacking; no sightseeing planned.') : text('返程日：退房、机场和回程，不安排景点。', 'Departure day: check-out, airport, and the journey home; no sightseeing planned.')}</p>}
 
@@ -87,7 +90,7 @@ const isThisJapan = trip.slug === 'japan-2026';
             <TripDayPoem poem={day.poem} locale={locale} />
 
             {day.schedule?.length ? <ol class="day-timeline" aria-label={text(`${date(day.date)}时间表`, `${date(day.date)} schedule`)} role="list">
-              {day.schedule.map(item => <li class:list={['timeline-entry', { 'timeline-entry-optional': item.optional }]}>
+              {day.schedule.map((item, scheduleIndex) => <li class:list={['timeline-entry', { 'timeline-entry-optional': item.optional }]} id={scheduleRowId(day.date, scheduleIndex, item.id)}>
                 <span class="timeline-time">{item.time}</span>
                 <div class="timeline-copy"><p class="timeline-title">{item.title}{item.optional && <span class="timeline-optional">{text('可选', 'Optional')}</span>}</p>{item.description && <p class="timeline-description">{item.description}</p>}<TripReferences sources={sourcesFor(item.sourceIds)} locale={locale} /></div>
               </li>)}
@@ -108,7 +111,7 @@ const isThisJapan = trip.slug === 'japan-2026';
                 <div class="alternative-content">
                   <p class="alternative-description">{alternative.description}</p>
                   <p class="alternative-scope">{text('此方案整体替代上面的对应安排。', 'Use this option in place of the corresponding main schedule.')}</p>
-                  <ol class="day-timeline" aria-label={text(`${alternative.title}时间表`, `${alternative.title} schedule`)} role="list">{alternative.schedule.map(item => <li class:list={['timeline-entry', { 'timeline-entry-optional': item.optional }]}>
+                  <ol class="day-timeline" aria-label={text(`${alternative.title}时间表`, `${alternative.title} schedule`)} role="list">{alternative.schedule.map((item, scheduleIndex) => <li class:list={['timeline-entry', { 'timeline-entry-optional': item.optional }]} id={scheduleRowId(day.date, scheduleIndex, item.id, alternative.id)}>
                     <span class="timeline-time">{item.time}</span>
                     <div class="timeline-copy"><p class="timeline-title">{item.title}{item.optional && <span class="timeline-optional">{text('可选', 'Optional')}</span>}</p>{item.description && <p class="timeline-description">{item.description}</p>}<TripReferences sources={sourcesFor(item.sourceIds)} locale={locale} /></div>
                   </li>)}</ol>
@@ -182,7 +185,7 @@ const isThisJapan = trip.slug === 'japan-2026';
   .daily-itinerary .day-important-notes ul { margin: 8px 0 0; padding-left: 18px; color: var(--ink-soft); font-size: 13px; line-height: 1.95; overflow-wrap: anywhere; }
   .daily-itinerary .day-important-notes li + li { margin-top: 7px; }
   .daily-itinerary .day-timeline { margin: 24px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
-  .daily-itinerary .timeline-entry { display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 24px; min-width: 0; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .daily-itinerary .timeline-entry { display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 24px; min-width: 0; padding: 18px 0; border-bottom: 1px solid var(--line); scroll-margin-top: calc(var(--daily-nav-height) + 18px); }
   .timeline-copy { min-width: 0; overflow-wrap: anywhere; }
   .daily-itinerary .timeline-time { display: block; padding-top: 2px; font-size: 12px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1.8; overflow-wrap: anywhere; }
   .daily-itinerary .timeline-title { font-size: 15px; line-height: 1.8; font-weight: 600; }

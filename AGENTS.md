@@ -26,8 +26,9 @@ the site at https://6ickomod3.github.io/travel/ using GitHub Pages.
 
 Read [Trip design principles](docs/trip-design-principles.md) before changing
 shared presentation or content conventions. That concise reference defines
-section order and disclosure states, focused daily navigation, booking/cost
-semantics, local-language names, optional cultural content and source privacy.
+section order and disclosure states, focused daily navigation and maps,
+booking/cost semantics, local-language names, optional cultural content and
+source privacy.
 Keep the implementation contracts below aligned with that guide.
 
 ## Implementation
@@ -83,6 +84,15 @@ Keep the implementation contracts below aligned with that guide.
   and `TripPlaceholder.astro` for every discovered entry.
 - Keep Leaflet maps, destination lists, expand/collapse, and itinerary printing.
   Images and fonts are local assets; map tiles come from OpenStreetMap.
+- Optional trip-owned `places` and `TripDay.map` share daily-map coordinates and
+  labeled activity, transport, alternative or optional views. Follow the
+  [daily-map data contract](docs/content-workflow.md#daily-map-data) and validate
+  place, schedule, alternative and default-view references. Record coordinate
+  sources; omit unknown locations instead of guessing. Dashed connections show
+  stop order; a precise track requires sourced, verified geometry. Do not use
+  runtime geocoding. Follow the design guide's placement, phone interaction and
+  fallback rules: initialize only open, visible days, exclude map wrappers from
+  day swipes, and preserve printable stop lists and external-map links.
 - `TripSection.astro` supplies native collapsible sections with stable IDs,
   visible summary text and accessible headings. Accommodation, Flights,
   Costs and the official-source catalog share this presentation. Section,
@@ -155,12 +165,12 @@ Keep the implementation contracts below aligned with that guide.
   or alternative links. `sights` stores introductions and photo/source IDs;
   days and alternatives refer to them with `sightIds`. Keep optional sights
   in their labeled alternative, and do not infer a new visit from a photo.
-- Optional `localName: TripLocalName` belongs to destinations, sights and
-  gallery photos, separate from primary names and `englishName`. Its `text`
-  preserves the local script and `language` is a valid BCP 47 tag. Reuse
+- Optional `localName: TripLocalName` belongs to destinations, daily-map places,
+  sights and gallery photos, separate from primary names and `englishName`.
+  Its `text` preserves the local script and `language` is a valid BCP 47 tag. Reuse
   `LocalPlaceName.astro` and `distinctLocalName()` for language-tagged display
   and NFC duplicate suppression; map labels use the same rule with safe DOM
-  text nodes. Visited-location aggregation retains this optional metadata.
+  text nodes. Visited-location aggregation retains destination local names.
 - Keep galleries out of homepage previews. Load the first gallery photo with
   priority, lazy-load later images, and avoid automatic slide rotation.
 
