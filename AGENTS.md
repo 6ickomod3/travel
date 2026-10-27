@@ -131,6 +131,24 @@ Keep the implementation contracts below aligned with that guide.
   itemizes tickets already included in an option's `estimatedTotal`.
   Only an explicit user decision sets `selectedTicketOptionId`; a design
   approval or selection preference does not confirm purchase or payment.
+  Compare options only when multiple current strategies remain. A single
+  explicitly selected strategy shows its per-person and traveler prices
+  without retaining superseded alternatives or calling the choice a booking.
+- Optional `transport` owns a single ISO currency, dated `legs`, referenced
+  `budgetItems`, `budgetNotes`, payment guidance and official-source IDs.
+  Leg coverage is `pass`, `additional` or `mixed`; `fare` is the known
+  additional amount per adult, and `regularFare` records a supplied
+  alternative to a conditional discounted fare. Explain covered and extra
+  amounts or choices for mixed coverage. Omit unknown fares rather than zero.
+  Budget items reference either a `ticketOptionId` or `legIds`; compute
+  per-person and traveler totals from those records without copied amounts.
+  Validate currency, references, known referenced fares and overlapping budget
+  entries. Keep covered fares and already included extras out of repeated
+  totals. Show the journey/payment list in Preparations and the scoped
+  transport budget separately from accommodation in Costs, with their scopes
+  clear in the collapsed summary. Keep assumptions and exclusions with the
+  budget. It is an estimate, not evidence of purchase, payment or a complete
+  trip budget.
 - Keep `TripDay.alternatives` as separate labeled schedules. Never interleave
   an optional or fallback route into the main day's itinerary or map route.
   Printing opens both daily and alternative details, then restores their state.

@@ -19,6 +19,7 @@ const money = (option: TripTicketOption, value: number) => new Intl.NumberFormat
 const ticketDates = (option: TripTicketOption) => formatDateRange({ startDate: option.validFrom, endDate: option.validThrough }, dateLocale);
 const partySize = travelers !== undefined && Number.isInteger(travelers) && travelers > 0 ? travelers : undefined;
 const selectedOption = ticketOptions.find(option => option.id === selectedTicketOptionId);
+const singleOption = ticketOptions.length === 1 ? ticketOptions[0] : undefined;
 const hasEstimateNotes = ticketOptions.some(option => option.estimateNote);
 const comparableOptions = ticketOptions.length === 2 && ticketOptions.every(option => option.estimatedTotal !== undefined && option.currency === ticketOptions[0].currency);
 const estimateDifference = comparableOptions ? Math.abs(ticketOptions[0].estimatedTotal! - ticketOptions[1].estimatedTotal!) : undefined;
@@ -35,14 +36,18 @@ const bookingSources = [...new Set(bookingWindows.flatMap(window => window.sourc
 <div class="trip-planning-details">
   {ticketOptions.length > 0 && <div class="ticket-options" aria-labelledby="ticket-options-title">
     <div class="planning-details-heading">
-      <h3 id="ticket-options-title">{text('票券方案', 'Ticket options')}</h3>
-      {selectedOption ? <p class="ticket-choice-note">{text('偏好方案：', 'Preferred option: ')}<strong>{selectedOption.title}</strong>{text('。购票状态以确认记录为准。', '. Ticket confirmation is recorded separately.')}</p> : <p class="ticket-choice-note"><span class="ticket-pending-label">{text('待定', 'Pending')}</span>{ticketOptions.length > 1 ? text('以下方案选一套。', 'Choose one of these options.') : text('方案待确认。', 'The option awaits confirmation.')}</p>}
-      <p>{text('组合估算已计入所列另购车票，其他费用另计。', 'Package estimates include the listed additional tickets. Other costs are separate.')}</p>
+      <h3 id="ticket-options-title">{text('交通票券', 'Transport tickets')}</h3>
+      {selectedOption ? <p class="ticket-choice-note" data-ticket-choice={selectedOption.id}><span class="ticket-selected-label">{text('已选方案', 'Selected option')}</span><strong>{selectedOption.title}</strong><span>{text('购票与指定席状态见待办与确认。', 'See the checklist for purchase and seat reservations.')}</span></p> : <p class="ticket-choice-note"><span class="ticket-pending-label">{text('待定', 'Pending')}</span>{ticketOptions.length > 1 ? text('以下方案选一套。', 'Choose one of these options.') : text('方案待确认。', 'The option awaits confirmation.')}</p>}
+      {!singleOption && <p>{text('组合估算已计入所列另购车票，其他费用另计。', 'Package estimates include the listed additional tickets. Other costs are separate.')}</p>}
     </div>
-    <div class="ticket-comparison-wrapper" tabindex="0" role="region" aria-label={text('票券方案对比', 'Ticket option comparison')}>
+    {singleOption ? <div class="ticket-single" data-ticket-single={singleOption.id}>
+      <dl><dt>{text('Pass有效期', 'Pass validity')}</dt><dd>{ticketDates(singleOption)}</dd></dl>
+      <dl><dt>{text('Pass价格／人', 'Pass / person')}</dt><dd data-ticket-price="person">{money(singleOption, singleOption.price)}</dd></dl>
+      {partySize !== undefined && partySize > 1 && <dl><dt>{partySize}{text('人Pass合计', ' travelers, pass total')}</dt><dd data-ticket-price="party">{money(singleOption, singleOption.price * partySize)}</dd></dl>}
+    </div> : <div class="ticket-comparison-wrapper" tabindex="0" role="region" aria-label={text('票券方案对比', 'Ticket option comparison')}>
       <table class="ticket-comparison" style={ticketOptions.length > 2 ? `min-width: ${180 + ticketOptions.length * 190}px` : undefined}>
         <caption class="sr-only">{text('备选购票组合、有效期、每人及同行人数估算', 'Alternative ticket packages, validity, per-person and party estimates')}</caption>
-        <thead><tr><th scope="col">{text('项目', 'Item')}</th>{ticketOptions.map(option => <th scope="col" class:list={{ 'ticket-preferred-cell': isSelected(option) }}><span class="ticket-comparison-title">{option.title}</span>{isSelected(option) && <span class="ticket-preferred-label">{text('偏好方案', 'Preferred option')}</span>}</th>)}</tr></thead>
+        <thead><tr><th scope="col">{text('项目', 'Item')}</th>{ticketOptions.map(option => <th scope="col" class:list={{ 'ticket-preferred-cell': isSelected(option) }}><span class="ticket-comparison-title">{option.title}</span>{isSelected(option) && <span class="ticket-preferred-label">{text('已选方案', 'Selected option')}</span>}</th>)}</tr></thead>
         <tbody>
           <tr><th scope="row">{text('Pass有效期', 'Pass validity')}</th>{ticketOptions.map(option => <td class="ticket-validity">{ticketDates(option)}</td>)}</tr>
           <tr><th scope="row">{text('Pass价格／人', 'Pass / person')}</th>{ticketOptions.map(option => <td class="ticket-price-cell"><strong>{money(option, option.price)}</strong></td>)}</tr>
@@ -53,7 +58,7 @@ const bookingSources = [...new Set(bookingWindows.flatMap(window => window.sourc
           <tr><th scope="row">{text('覆盖与条件', 'Coverage and conditions')}</th>{ticketOptions.map(option => <td><a class="ticket-details-link" href={`#ticket-${option.id}`}>{text('查看详情', 'View details')}</a></td>)}</tr>
         </tbody>
       </table>
-    </div>
+    </div>}
     {estimateDifference !== undefined && <p class="ticket-comparison-difference">{text('按以上条件，两方案估算相差', 'Under these conditions, the estimates differ by ')} <strong>{money(ticketOptions[0], estimateDifference)}</strong>{text('／人', ' per person')}{partySize !== undefined && partySize > 1 && <>{text('（', ' (')}{partySize}{text('人', ' travelers')}{text('共', ': ')} <strong>{money(ticketOptions[0], estimateDifference * partySize)}</strong>{text('）', ')')}</>}{text('。', '.')}</p>}
     <div class="ticket-options-details">
       {ticketOptions.map(option => <details class="ticket-option" id={`ticket-${option.id}`} data-ticket-option={option.id} data-ticket-details>
@@ -86,7 +91,13 @@ const bookingSources = [...new Set(bookingWindows.flatMap(window => window.sourc
   .planning-details-heading p { margin-top: 8px; color: var(--ink-soft); font-size: 12px; }
   .ticket-choice-note { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; }
   .ticket-choice-note strong { color: var(--ink); font-weight: 500; }
+  .ticket-selected-label { padding: 2px 8px; border-radius: 3px; color: var(--confirmed); background: var(--confirmed-soft, #3657430c); font-size: 11px; font-weight: 500; }
   .ticket-pending-label { padding: 2px 8px; border-radius: 3px; color: var(--pending, #9a5c20); background: var(--pending-soft, #fff4e5); font-size: 11px; font-weight: 500; }
+  .ticket-single { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; padding: 22px; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; }
+  .ticket-single dl { min-width: 0; margin: 0; }
+  .ticket-single dt { color: var(--ink-soft); font-size: 12px; }
+  .ticket-single dd { margin: 9px 0 0; font-size: 20px; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .ticket-single dl:first-child dd { font-size: 15px; line-height: 1.9; }
   .ticket-comparison-wrapper { overflow-x: auto; max-width: 100%; border: 1px solid var(--line); border-radius: 6px; }
   .ticket-comparison { width: 100%; border-collapse: collapse; table-layout: fixed; background: #fbfaf5; font-size: 12px; text-align: left; }
   .ticket-comparison th, .ticket-comparison td { padding: 15px 20px; font-weight: 400; vertical-align: top; overflow-wrap: anywhere; }
@@ -138,7 +149,9 @@ const bookingSources = [...new Set(bookingWindows.flatMap(window => window.sourc
   .booking-table tbody th > span { display: block; margin-top: 4px; font-size: 11px; color: var(--ink-soft); }
   .booking-table td { white-space: nowrap; font-variant-numeric: tabular-nums; }
   @media (max-width: 600px) { .ticket-comparison th, .ticket-comparison td { padding: 13px 10px; } .ticket-comparison tr > :first-child { width: 22%; } .ticket-comparison-title { font-size: 12px; } .ticket-validity, .ticket-addons, .ticket-estimate-note { font-size: 11px; } .ticket-price-cell strong { font-size: 16px; } .ticket-total-row .ticket-price-cell strong { font-size: 18px; } .ticket-option > summary { padding: 16px; gap: 9px; } .ticket-option-content { padding: 0 16px 18px; } .ticket-details-hint { display: none; } .ticket-description, .ticket-coverage ul, .ticket-notes { font-size: 13px; } }
+  @media (max-width: 600px) { .ticket-single { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 18px; gap: 18px 14px; } .ticket-single dl:first-child { grid-column: 1 / -1; } .ticket-single dd { font-size: 21px; } }
   @media (max-width: 380px) { .ticket-comparison th, .ticket-comparison td { padding: 12px 7px; } .ticket-comparison tbody th, .ticket-details-link { font-size: 11px; } .ticket-price-cell strong { font-size: 14px; } .ticket-total-row .ticket-price-cell strong { font-size: 15px; } }
   @media (prefers-reduced-motion: reduce) { .ticket-details-toggle { transition: none; } }
   @media print { .trip-planning-details { gap: 18px; margin-bottom: 18px; } .ticket-comparison-wrapper, .booking-table-wrapper { overflow: visible; } .ticket-comparison { min-width: 0 !important; } .ticket-comparison th, .ticket-comparison td { padding: 10px; font-size: 10px; } .ticket-comparison-title { font-size: 11px; } .ticket-price-cell strong, .ticket-total-row .ticket-price-cell strong { font-size: 15px; } .ticket-options-details { gap: 10px; } .ticket-option { background: white; break-inside: avoid; } .ticket-option > summary { padding: 12px; } .ticket-option-content { padding: 0 12px 12px; } .ticket-details-hint, .ticket-details-toggle { display: none; } .ticket-description, .ticket-coverage ul, .ticket-notes, .booking-table { font-size: 10px; } .booking-table { min-width: 0; } .booking-table th, .booking-table td { padding: 10px; } }
+  @media print { .ticket-single { grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 12px; gap: 12px; break-inside: avoid; background: white; } .ticket-single dl:first-child { grid-column: auto; } .ticket-single dt { font-size: 10px; } .ticket-single dd { font-size: 17px; } }
 </style>

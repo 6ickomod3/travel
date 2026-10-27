@@ -44,7 +44,7 @@ Preparations → Accommodation → Flights → Costs → Official sources.
 | --- | --- | --- |
 | Accommodation | Closed | Date range and night count |
 | Flights | Open | Flight count |
-| Costs | Closed | Known accommodation totals and recorded estimated extras, with scope and currencies clear |
+| Costs | Closed | Known accommodation totals, recorded extras and transport estimates, labeled separately by scope and currency |
 | Official sources | Closed | Reference count |
 
 Use native, keyboard-accessible disclosures and stable fragment links. Research
@@ -105,9 +105,12 @@ Keep a hero link to pending items. Separate To do actions from To check
 confirmations. Sort immediate actions first, actual reservation openings or
 relevant dates next, and undated items last, retaining stable ties. Important
 badges explain dependencies without reordering items. Related travel dates are
-labeled as travel dates; deadlines require an actual supplied deadline. Put
-ticket comparisons and opening tables
-in Preparations; only an explicit decision selects a ticket strategy.
+labeled as travel dates; deadlines require an actual supplied deadline. A
+supplied price cutoff remains a price condition rather than a seat-sale deadline.
+Put ticket comparisons and opening tables in Preparations; only an explicit
+decision selects a ticket strategy. Compare multiple current options, or show
+the single selected strategy with its per-person and traveler prices. Selection
+does not establish purchase or reservation.
 
 Restaurants remain candidates until explicitly selected or booked. Reservation
 reminders are conditional on choosing an option and sort by first meal date.
@@ -119,6 +122,15 @@ Reuse recorded accommodation amounts for cards and Costs. Separate currencies,
 booking totals, estimated extras and unknown prices; booking amounts do not imply
 payment. Label accommodation tax explicitly when it is the only recorded extra.
 Show supplied tax scope, rates and per-person/per-night calculations clearly.
+
+When supplied, keep dated transport coverage, extra fares and payment guidance
+in Preparations. Compute a distinct transport budget in Costs from the selected
+pass and referenced extra fares, with per-person and traveler totals. Label
+discount, payment and purchase-date conditions, and explain omitted city rides,
+taxis or other unknown costs. Omit unknown amounts and avoid counting covered
+journeys or included fees twice. The collapsed Costs summary keeps accommodation
+and transport scopes separate; neither estimate establishes payment or a complete
+trip cost.
 
 ## 6. Visuals and local names
 

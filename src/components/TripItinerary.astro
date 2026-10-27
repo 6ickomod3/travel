@@ -5,6 +5,7 @@ import TripStatus from './TripStatus.astro';
 import TravelMap from './TravelMap.astro';
 import TripFlights from './TripFlights.astro';
 import TripPlanning from './TripPlanning.astro';
+import TripTransport from './TripTransport.astro';
 import TripChecklist from './TripChecklist.astro';
 import TripCosts from './TripCosts.astro';
 import TripSection from './TripSection.astro';
@@ -44,7 +45,7 @@ const route = (trip.mapRoute?.length ? trip.mapRoute : trip.destinations.map(sto
   .filter((stop): stop is TripDestination => Boolean(stop));
 const stays = trip.stays ?? [];
 const hasStayBrands = stays.some(stay => stay.brandId);
-const hasCosts = stays.some(stay => stay.checkIns.some(segment => segment.cost));
+const hasCosts = stays.some(stay => stay.checkIns.some(segment => segment.cost)) || Boolean(trip.transport?.budgetItems.length);
 const flights = trip.flights ?? [];
 const ticketOptions = trip.ticketOptions ?? [];
 const bookingWindows = trip.bookingWindows ?? [];
@@ -65,7 +66,7 @@ const stayDateRange = stayStartDate && stayEndDate
   ? formatDateRange({ startDate: stayStartDate, endDate: stayEndDate }, dateLocale)
   : undefined;
 const stayStatus = (stay: TripStay) => stay.status === 'booked' ? text('已订', 'Booked') : text('待确认', 'Awaiting confirmation');
-const hasPreparations = practicalNotes.length > 0 || ticketOptions.length > 0 || bookingWindows.length > 0 || Boolean(trip.stampGuide);
+const hasPreparations = practicalNotes.length > 0 || ticketOptions.length > 0 || bookingWindows.length > 0 || Boolean(trip.stampGuide) || Boolean(trip.transport);
 const photoCredit = trip.coverCredit.replace(/^(?:Photo:|图片来源：|图片：)\s*/i, '');
 const heroImage = getImageCredit(trip.cover);
 const heroCredit = getLicensedImageCredit(trip.cover);
@@ -172,6 +173,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     {hasPreparations && <section class="trip-preparations-section container" id="preparations" aria-labelledby="preparations-title">
       <div class="section-heading"><div><h2 id="preparations-title">{text('行前准备', 'Preparations')}</h2></div><p class="section-intro">{text('预订、行李寄存、餐食与换乘。', 'Bookings, luggage, meals, and connections.')}<br />{text('参考班次不代表已购票。', 'Reference departures are not ticket confirmations.')}</p></div>
       {(ticketOptions.length > 0 || bookingWindows.length > 0) && <TripPlanning ticketOptions={ticketOptions} bookingWindows={bookingWindows} sources={sources} locale={locale} travelers={trip.travelers} selectedTicketOptionId={trip.selectedTicketOptionId} />}
+      {trip.transport && <TripTransport plan={trip.transport} sources={sources} locale={locale} />}
       {trip.stampGuide && <TripStampGuide guide={trip.stampGuide} sources={sources} locale={locale} />}
       {practicalNotes.length > 0 && <aside class="practical-panel"><div class="preparation-panel-heading"><Icon name="compass" size={20} /><h3>{text('行李、餐食与换乘', 'Luggage, meals, and connections')}</h3></div><ul class="practical-list">{practicalNotes.map(note => <li>{note}</li>)}</ul></aside>}
     </section>}
@@ -202,7 +204,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     </TripSection>}
 
     {flights.length > 0 && <TripFlights flights={flights} sources={sources} locale={locale} />}
-    {hasCosts && <TripCosts stays={stays} sources={sources} travelers={trip.travelers} locale={locale} hasPreparations={hasPreparations} />}
+    {hasCosts && <TripCosts stays={stays} sources={sources} travelers={trip.travelers} locale={locale} hasPreparations={hasPreparations} transport={trip.transport} ticketOptions={ticketOptions} />}
     {sources.length > 0 && <TripSection id="sources" title={text('官方资料', 'Official sources')} class="trip-sources-section" locale={locale}>
       <span slot="summary">{sources.length} {text('条资料', sources.length === 1 ? 'source' : 'sources')}</span>
       <p class="sources-intro">{text('景点、交通与古道的官方资料。', 'Official information for sights, transport, and trails.')}</p>

@@ -11,7 +11,7 @@ export default {
   "language": "zh-CN",
   "travelers": 2,
   "itineraryStatus": "agreed",
-  "summary": "大阪往返，经广岛、宫岛、熊野古道和川汤温泉，19号走新宫、那智、纪伊胜浦返回大阪；两天徒步约20.8公里。",
+  "summary": "大阪往返，经广岛、宫岛、熊野古道和川汤温泉，19号参拜速玉与那智后从纪伊胜浦返回大阪；两天徒步约20.8公里。",
   "coverIntroduction": {
     "text": "从宫岛的海上鸟居，到熊野的山中古道，再到奈良的千年古寺，一路走进日本的深秋。",
     "translations": [
@@ -133,10 +133,8 @@ export default {
       "image": "/images/trips/japan-2026/hayatama-taisha.webp",
       "alt": "新宫熊野速玉大社境内的朱红建筑与树木。",
       "title": "熊野速玉大社",
-      "caption": "新宫市内的神社境内；仅属06:54早班备选。",
-      "dayDate": "2026-11-19",
-      "alternativeId": "hayatama-daimonzaka",
-      "optional": true
+      "caption": "新宫市内的神社境内；19号早班抵达后参拜。",
+      "dayDate": "2026-11-19"
     },
     {
       "id": "todai-ji",
@@ -315,8 +313,7 @@ export default {
       "sourceIds": [
         "hayatama-taisha-introduction"
       ],
-      "optional": true,
-      "visitNote": "仅选择06:54速玉早班备选时参拜；08:39默认版不去。"
+      "visitNote": "19号乘06:54早班车前往，参拜并计划盖第7章。"
     },
     {
       "id": "todai-ji",
@@ -475,7 +472,7 @@ export default {
       "englishName": "Shingu",
       "lat": 33.7242,
       "lng": 135.9928,
-      "description": "19号主方案在新宫站换巴士去那智；熊野速玉大社仅在另列可选加强版中参拜。"
+      "description": "19号乘06:54早班车到速玉大社前，参拜熊野速玉大社、计划盖第7章，再换车去那智。"
     },
     {
       "id": "nachi",
@@ -514,7 +511,7 @@ export default {
       "description": "大阪往返：东大寺、二月堂、春日大社、奈良公园与兴福寺，奈良町按时间短逛。"
     }
   ],
-  "routeNote": "机票与全部8晚住宿按确认记录标为已订。列车、巴士均为计划班次，不代表已出票。19号主方案经新宫、那智、纪伊胜浦回大阪；速玉大社与大门坂另列可选加强版。地图标记是目的地的大致位置。",
+  "routeNote": "机票与全部8晚住宿按确认记录标为已订。已选11/13–19的7日JR西日本全地区Pass，购买和指定席仍待落实。19号06:54出发参拜速玉、那智，再经纪伊胜浦回大阪，不徒步大门坂。地图标记是目的地的大致位置。",
   "walkingSummary": {
     "distanceKm": 20.8,
     "days": 2
@@ -785,83 +782,32 @@ export default {
   "ticketOptions": [
     {
       "id": "all-area-pass",
-      "title": "JR-WEST All Area Pass：省事方案",
+      "title": "JR西日本全地区7日Pass",
       "validFrom": "2026-11-13",
       "validThrough": "2026-11-19",
       "currency": "JPY",
       "price": 26000,
-      "estimatedTotal": 27800,
-      "addOnTickets": [
-        {
-          "label": "11/21 HARUKA单程优惠",
-          "price": 1800
-        }
-      ],
-      "estimateNote": "21号HARUKA优惠需另购，价格按当前计划估算。",
-      "description": "7日成人券，选11/13–19；加21号HARUKA单程优惠后，铁路票券估算每人27,800日元，不含20号奈良。",
+      "description": "已选定7日券，11/13启用、11/19最后一天；成人26,000日元／人，两人各买一张。购买、指定席预约和付款仍待落实。",
       "includes": [
-        "13号关西机场进大阪的HARUKA。",
-        "14号、16号山阳新干线；15号JR电车和JR西日本宫岛渡轮。",
-        "16号前往纪伊田边的Kuroshio 11，以及19号纪伊胜浦返回大阪的Kuroshio 30。"
+        "11/13关西机场到大阪的HARUKA；11/14大阪到新大阪的JR列车。",
+        "11/14 Nozomi 5、11/16 Nozomi 14与Kuroshio 11、11/19 Kuroshio 30，普通车指定席包含，仍需提前划座。",
+        "11/15广岛与宫岛口之间的JR往返、JR西日本宫岛渡轮船费。",
+        "广岛めいぷる～ぷJR观光巴士，路线合适时可凭Pass乘坐。"
       ],
       "excludes": [
-        "20号奈良往返与市内交通。",
-        "21号机场HARUKA需另买。",
-        "宫岛访问税、宫岛缆车、广岛路面电车、熊野各家巴士。"
+        "11/20奈良JR往返：Pass已过期，约1,680日元／人另付。",
+        "11/21大阪到关西机场的HARUKA：另买优惠单程票。",
+        "熊野巴士、宫岛缆车、宫岛访问税，以及广岛路面电车、奈良市内巴士与出租车。"
       ],
       "notes": [
-        "适用于持外国护照、以Temporary Visitor短期滞在入境的旅客；持Pass仍需给指定席划位。",
-        "估算总价26,000＋21号HARUKA优惠1,800＝27,800日元／人；不代表已经购买。",
-        "与买到WEB早特7的5日券组合按同口径比较，差约780日元；若早特无票，需重新比较。",
-        "HARUKA外国游客单程优惠需出发前在线购买，不作为到日本后现场购买价。"
+        "适用于持外国护照、以Temporary Visitor短期滞在入境的旅客；资格按官方规则核对。",
+        "11/13–19连续7天使用；选择方案不代表已经买票、划座或付款。",
+        "17–19号熊野巴士按单次付费，无需购买当地巴士通票。"
       ],
       "sourceIds": [
         "jrwest-all-area",
-        "haruka-oneway"
-      ]
-    },
-    {
-      "id": "kansai-hiroshima-combination",
-      "title": "关西&广岛5日Pass：组合方案",
-      "validFrom": "2026-11-14",
-      "validThrough": "2026-11-18",
-      "currency": "JPY",
-      "price": 17000,
-      "estimatedTotal": 27020,
-      "addOnTickets": [
-        {
-          "label": "11/13 HARUKA单程优惠",
-          "price": 1800
-        },
-        {
-          "label": "11/21 HARUKA单程优惠",
-          "price": 1800
-        },
-        {
-          "label": "11/19 Kuroshio 30（WEB早特7）",
-          "price": 6420
-        }
-      ],
-      "estimateNote": "以买到19号WEB早特7为前提；无余票时需重新核价。",
-      "description": "5日Pass加13号、21号HARUKA优惠及19号单独黑潮票；每人27,020日元以买到WEB早特7为前提，不含20号奈良。",
-      "includes": [
-        "11/14–18关西&广岛5日Pass，成人17,000日元；覆盖这期间适用的JR线路与渡轮。"
-      ],
-      "excludes": [
-        "13号和21号HARUKA单程优惠各1,800日元，另买。",
-        "19号Kuroshio 30必须另买；WEB早特7通常期胜浦→大阪基本运费与优惠特急费合计约6,420日元。",
-        "20号奈良往返与市内交通；宫岛访问税、缆车、广岛路面电车与熊野巴士。"
-      ],
-      "notes": [
-        "条件总价17,000＋1,800＋1,800＋6,420＝27,020日元／人；WEB早特7无余票时重新比较。",
-        "与All Area加21号HARUKA的同口径估算相差约780日元，无需为这点价差改变路线。",
-        "如已选择5日券，路线仍可使用，但19号黑潮必须另买；尚未确认本次最终票券选择。",
-        "适用资格按官方外国游客／Temporary Visitor规则核对；HARUKA单程优惠出发前在线买。"
-      ],
-      "sourceIds": [
-        "kansai-hiroshima-pass",
-        "haruka-oneway",
-        "web-hayatoku-7"
+        "jrwest-reservations",
+        "hiroshima-meipuru-bus"
       ]
     }
   ],
@@ -932,8 +878,8 @@ export default {
         "kind": "trip-date",
         "date": "2026-11-19"
       },
-      "title": "确认每人的Camino资格与19号选项",
-      "detail": "分别核对Camino完成证明；选择08:39默认版或06:54速玉早班。只有本人同时满足两边条件且盖齐10章，才考虑田边现场登记与晚回大阪；大门坂不是日本条件③必走段。",
+      "title": "确认每人的Camino资格与登记需求",
+      "detail": "分别核对自己的Camino完成证明。19号已安排速玉与那智、计划盖第7–10章；满足熊野条件后仍需各自的Camino证明才有正式Dual Pilgrim资格。现行Kuroshio 30直达大阪，不安排田边现场登记；如希望本次领取，先核对资格再另行调整行程。",
       "sourceIds": [
         "dual-pilgrim",
         "dual-pilgrim-jp",
@@ -950,11 +896,12 @@ export default {
       },
       "priority": "high",
       "priorityReason": "必须事前预约",
-      "title": "预约11/15宫岛缆车",
-      "detail": "11/15须事前WEB预约，争取09:00附近；余位与预约结果尚未确认。",
+      "title": "预约11/15缆车时段并购买往返票",
+      "detail": "两人优先预约09:00附近上行时段；预约时段后仍需另买成人往返票2,000日元／人。余位、时段预约和车票购买均尚未确认。",
       "sourceIds": [
         "miyajima-ropeway",
-        "miyajima-ropeway-booking"
+        "miyajima-ropeway-booking",
+        "miyajima-ropeway-fare"
       ]
     },
     {
@@ -965,13 +912,11 @@ export default {
       },
       "priority": "high",
       "priorityReason": "影响后续指定席预约",
-      "title": "选择并购买JR票券",
-      "detail": "选7日All Area或5日券组合；后者19号黑潮另买，估价以WEB早特7余票为条件。HARUKA单程优惠出发前在线买。",
+      "title": "购买两张7日JR西日本全地区Pass",
+      "detail": "已选定11/13启用、11/19结束的7日全地区券，成人26,000日元／人，两人52,000日元；各买一张。购买与付款尚未确认，买好后预约Pass内指定席。",
       "sourceIds": [
         "jrwest-all-area",
-        "kansai-hiroshima-pass",
-        "haruka-oneway",
-        "web-hayatoku-7"
+        "jrwest-reservations"
       ]
     },
     {
@@ -982,20 +927,36 @@ export default {
         "bookingWindowIds": [
           "jr-nov-14",
           "jr-nov-16",
-          "jr-nov-19",
-          "jr-nov-21"
+          "jr-nov-19"
         ]
       },
       "priority": "high",
       "priorityReason": "长途车票尚未确认",
-      "title": "预约JR指定席并取票",
-      "detail": "14号Nozomi 5，16号Nozomi 14＋Kuroshio 11，19号Kuroshio 30，21号HARUKA 11；出票尚未确认，持Pass划位或单独购票二选一。",
+      "title": "预约Pass内四段长途列车指定席",
+      "detail": "买Pass后预约普通车指定席：11/14 Nozomi 5（09:02–10:27），11/16 Nozomi 14（09:43–11:04）与Kuroshio 11（12:13–14:29），11/19 Kuroshio 30（15:21–19:16）。均包含在Pass内，预约和取票尚未确认；21号HARUKA另购票。",
       "sourceIds": [
+        "jrwest-reservations",
         "nozomi-5-reference",
         "nozomi-14-reference",
         "kuroshio-11-reference",
-        "kuroshio-30-reference",
-        "haruka-timetable"
+        "kuroshio-30-reference"
+      ]
+    },
+    {
+      "id": "haruka-airport-ticket",
+      "kind": "todo",
+      "timing": {
+        "kind": "deadline",
+        "date": "2026-10-31"
+      },
+      "priority": "high",
+      "priorityReason": "10/31前购买可用较低票价",
+      "title": "10/31前购买11/21 HARUKA优惠票并划座",
+      "detail": "另买大阪→关西机场单程优惠票，两人主选HARUKA 11（08:50–09:34）。按购票日期定价：10/31前1,800日元／人，11/1起1,900日元／人；10/31是较低票价的截止日，并非停售或指定席截止日。车票与指定席尚未确认。",
+      "sourceIds": [
+        "haruka-oneway",
+        "haruka-timetable",
+        "jrwest-reservations"
       ]
     },
     {
@@ -1029,7 +990,24 @@ export default {
         "date": "2026-11-18"
       },
       "title": "确认川汤站点与餐食",
-      "detail": "川湯まつや（11/18–19已订）：确认18号下车站、19号上车站与发车时间、早餐／便当及晚餐最晚到达时间。选06:54早班还需提前退房。"
+      "detail": "川湯まつや（11/18–19已订）：确认18号准确下车站、早餐／便当与晚餐安排。19号06:54早班的提前退房、钥匙归还和准确上车站另列重要确认。"
+    },
+    {
+      "id": "kawayu-early-checkout",
+      "kind": "check",
+      "timing": {
+        "kind": "trip-date",
+        "date": "2026-11-19"
+      },
+      "priority": "high",
+      "priorityReason": "06:54早班依赖旅馆提前退房安排",
+      "title": "确认川汤06:54早班前退房、归还钥匙与上车站",
+      "detail": "提前与川湯まつや确认07:00前办理退房、归还钥匙的方式，实际须在06:54发车前完成并提前到站。确认旅馆对应的准确站点与发车分钟；准备无需微波的早餐。两人各自使用自己的卡或手机，上下车使用同一支付方式，以适用早班结算后半价优惠。",
+      "sourceIds": [
+        "kawayu-shingu-bus",
+        "kumano-bus-payment",
+        "kumano-early-discount"
+      ]
     },
     {
       "id": "osaka-hotel",
@@ -1084,19 +1062,9 @@ export default {
       "url": "https://www.westjr.co.jp/travel-information/en/tickets-passes/jrwest-rail-pass/all/"
     },
     {
-      "id": "kansai-hiroshima-pass",
-      "label": "关西&广岛5日Pass：范围、价格与资格",
-      "url": "https://www.westjr.co.jp/travel-information/en/tickets-passes/jrwest-rail-pass/kansai_hiroshima/"
-    },
-    {
       "id": "haruka-oneway",
       "label": "外国游客HARUKA单程优惠",
       "url": "https://www.westjr.co.jp/travel-information/en/tickets-passes/oneway/haruka/"
-    },
-    {
-      "id": "web-hayatoku-7",
-      "label": "WEB早特7：提前购票条件",
-      "url": "https://tickets.jr-odekake.net/shohindb/view/consumer/tokutoku/detail.html?staticShnId=100019581"
     },
     {
       "id": "peace-museum",
@@ -1237,16 +1205,6 @@ export default {
       "id": "nakahechi-gold-ofuda",
       "label": "中边路町观光协会：金色OFUDA迷你御札",
       "url": "https://www.nakahechi.jp/2025/06/11/%E7%86%8A%E9%87%8E%E5%8F%A4%E9%81%93%E4%B8%AD%E8%BE%BA%E8%B7%AF%E3%83%AB%E3%83%BC%E3%83%88%E8%B8%8F%E7%A0%B4%E8%A8%98%E5%BF%B5%E3%80%8C%E9%87%91%E3%81%AEofuda%E3%83%9F%E3%83%8B%E3%80%8D%E3%82%92/"
-    },
-    {
-      "id": "kuroshio-32-reference",
-      "label": "Kuroshio 32参考时刻（查询日期2026-10-04）",
-      "url": "https://timetable.jr-odekake.net/train-timetable/100421?date=20261004"
-    },
-    {
-      "id": "kuroshio-36-reference",
-      "label": "Kuroshio 36平日参考时刻（查询日期2026-10-21）",
-      "url": "https://timetable.jr-odekake.net/train-timetable/144551?date=20261021"
     },
     {
       "id": "hiroshima-peace-park-introduction",
@@ -1502,6 +1460,31 @@ export default {
       "id": "dining-harijyu-booking",
       "label": "はり重道頓堀本店 日本料理：官方订位",
       "url": "https://booking.ebica.jp/webrsv/search/e014229301/36240"
+    },
+    {
+      "id": "jrwest-reservations",
+      "label": "JR西日本：订票、Pass与指定席预约",
+      "url": "https://www.westjr.co.jp/global/en/ticket/overview/"
+    },
+    {
+      "id": "kumano-fast-bus-fare",
+      "label": "龙神熊野古道快速：2026秋季专用票价表",
+      "url": "https://www.ryujinbus.com/app/wp-content/uploads/2026/08/55f2ac7a620cd59f52c87b8a537099b9.pdf"
+    },
+    {
+      "id": "miyajima-ropeway-fare",
+      "label": "宫岛缆车：往返票价",
+      "url": "https://miyajima-ropeway.info/fare"
+    },
+    {
+      "id": "kumano-early-discount",
+      "label": "熊野御坊南海巴士：早朝时段感应支付优惠",
+      "url": "https://kumanogobobus.nankai-nanki.jp/tickets/%E6%97%A9%E6%9C%9D%E6%99%82%E9%96%93%E5%B8%AF%E5%89%B2%E5%BC%95/"
+    },
+    {
+      "id": "hiroshima-meipuru-bus",
+      "label": "广岛めいぷる～ぷ：JR观光巴士路线与Pass使用",
+      "url": "https://www.chugoku-jrbus.co.jp/teikan/meipurupu/"
     }
   ],
   "practicalNotes": [
@@ -1512,15 +1495,15 @@ export default {
     "17号约13.3公里、累计爬升约1,010米，官方6–8小时；加盖章、拍照、休息需要更久。18号发心门至本宫约7.5公里、累计爬升约190米，官方2–3小时，含休息按3小时以上安排。两天共约20.8公里。",
     "18号快速不停“近露王子”，到美术馆前站候车；不接受预约、满员可能无法上车。错过或满员用另列公交备选，不临时改成长距离近露至本宫徒步。",
     "11月按旅馆温泉安排；大型河川露天浴场“仙人风吕”通常12月才开放。",
-    "19号主方案川汤→新宫→那智站→那智山，安排两次公交换乘。那智山到瀑布下行仍有台阶；随身背包游览，不假设那智站必有可用寄存柜。",
+    "19号主方案06:54川汤→速玉大社前→那智站→那智山；参拜速玉后在那智站换车，不徒步大门坂。那智山到瀑布下行仍有台阶；随身背包游览，不假设那智站必有可用寄存柜。",
     "19号14:23到胜浦、15:21黑潮发车，留58分钟；下山14:34–14:58只留23分钟，15:09下一班会错过列车。黑潮17:06到纪伊田边、17:08继续开，留在车上。",
-    "JR指定席一般在乘车日前1个月、日本10:00开放。持Pass预约与单独购票二选一，避免重复付款；19号Kuroshio 30全车指定席。",
+    "已选11/13–19的7日JR西日本全地区Pass，购买尚未确认。指定席一般在乘车日前1个月、日本10:00开放；四段长途普通车指定席包含在Pass内，买Pass后划座。20号奈良和21号HARUKA在有效期外，需另付。",
     "JR普通电车、奈良公交与广岛路面电车准备ICOCA／Suica，特殊服务以现场标识为准。",
-    "17号明光95支持交通IC或现金；18号龙神不支持Suica／ICOCA，本宫线自2026/9/19起支持感应信用卡，也可现金。",
-    "19号熊野御坊南海支持感应信用卡及Apple Pay／Google Pay，不支持交通IC；全程另备现金与1,000日元小额纸币。",
+    "17号明光95可刷Suica／ICOCA或现金；18号龙神可用感应银行卡或现金，不收Suica／ICOCA。17–19号全部单次付费，不购买当地巴士通票；18号快速使用专门票价2,000日元。",
+    "19号熊野御坊南海可用感应银行卡、Apple Pay／Google Pay或现金，不收Suica／ICOCA。06:54早班优惠须两人各用自己的卡或手机、上下车使用同一支付方式；优惠在结算后调整，现金按原价1,440日元。另备现金与1,000日元小额纸币。",
     "各站提前10–20分钟到，旺季快速可更早排队；上车告知司机目的地，按运营商规则刷卡或取整理券。普通／季节巴士不预约。",
     "东大寺大佛殿11月08:00–17:00，目前现场购票、只收现金；春日大社一般参拜07:00–17:00、特别参拜09:00–16:00。普通个人现场购票即可，特殊展览另看规则。",
-    "如关心Dual Pilgrim，发心门至本宫步行加熊野三山参拜是熊野部分的一种合格方式；默认版不去速玉，不能按这一条件视为完成。正式资格、徽章与证书另需圣地亚哥条件，单来日本不会自动获得。"
+    "发心门至本宫步行、熊野三山参拜并盖齐官方10章，是熊野部分的一种合格方式；19号已安排速玉与那智，但盖章和资格尚未完成。正式Dual Pilgrim资格、徽章与证书另需每人自己的Camino条件与证明。现行返程直达大阪，不安排现场登记。"
   ],
   "places": [
     {
@@ -2332,22 +2315,6 @@ export default {
       }
     },
     {
-      "id": "shingu-station",
-      "name": "JR新宫站",
-      "localName": {
-        "text": "新宮駅",
-        "language": "ja"
-      },
-      "lat": 33.7250784,
-      "lng": 135.9940846,
-      "kind": "station",
-      "coordinateSource": {
-        "label": "OpenStreetMap：JR新宫站",
-        "url": "https://www.openstreetmap.org/node/4355134041",
-        "checkedOn": "2026-10-19"
-      }
-    },
-    {
       "id": "nachi-station",
       "name": "JR那智站",
       "localName": {
@@ -2522,39 +2489,6 @@ export default {
         "url": "https://www.openstreetmap.org/way/211578006",
         "checkedOn": "2026-10-19"
       }
-    },
-    {
-      "id": "daimonzaka-bus-stop",
-      "name": "大门坂巴士站",
-      "localName": {
-        "text": "大門坂",
-        "language": "ja"
-      },
-      "lat": 33.6706886,
-      "lng": 135.9013138,
-      "kind": "bus-stop",
-      "coordinateSource": {
-        "label": "OpenStreetMap：Daimonzaka巴士站",
-        "url": "https://www.openstreetmap.org/node/8316893332",
-        "checkedOn": "2026-10-19"
-      }
-    },
-    {
-      "id": "daimonzaka",
-      "name": "大门坂古道",
-      "localName": {
-        "text": "大門坂",
-        "language": "ja"
-      },
-      "lat": 33.670609,
-      "lng": 135.8965048,
-      "kind": "checkpoint",
-      "coordinateSource": {
-        "label": "OpenStreetMap：大門坂古道石阶",
-        "url": "https://www.openstreetmap.org/way/124998079",
-        "checkedOn": "2026-10-19"
-      },
-      "coordinateNote": "古道石阶的位置参考，标记不是步行入口；地图连线仅示停靠顺序。"
     },
     {
       "id": "nara-station",
@@ -2752,9 +2686,10 @@ export default {
           "id": "haruka-to-osaka",
           "time": "19:16–20:01",
           "title": "主选HARUKA 50：关西机场 → 大阪",
-          "description": "参考班次，不代表已出票。晚一点备选HARUKA 52为19:46–20:31；排队更久则改后续班次，不压缩入境时间赶车。",
+          "description": "7日Pass于11/13启用后包含此段；计划班次不代表已买Pass或划座。根据实际入境时间选车：主选19:16，后备HARUKA 52为19:46–20:31；排队更久则改后续班次，不压缩入境时间赶车。",
           "sourceIds": [
-            "haruka-timetable"
+            "haruka-timetable",
+            "jrwest-all-area"
           ]
         },
         {
@@ -2780,11 +2715,13 @@ export default {
       ],
       "notes": [
         "14号寄存大箱至19号，跨5晚必须酒店明确同意。",
-        "两人机场会合后一起前往大阪；机票已确认，HARUKA仍为计划班次。"
+        "两人机场会合后一起前往大阪；机票已确认，HARUKA仍为计划班次。",
+        "11/13启用7日JR西日本全地区Pass，19号为最后有效日；机场进大阪的HARUKA包含。"
       ],
       "sourceIds": [
         "haruka-timetable",
-        "respire-access"
+        "respire-access",
+        "jrwest-all-area"
       ],
       "dining": [
         {
@@ -2877,7 +2814,7 @@ export default {
         {
           "time": "08:30前后",
           "title": "JR京都线：大阪 → 新大阪",
-          "description": "乘往京都／新大阪方向的普通、快速或新快速，约4分钟。"
+          "description": "乘往京都／新大阪方向的普通、快速或新快速，约4分钟。 7日Pass包含。"
         },
         {
           "id": "shin-osaka-transfer",
@@ -2889,9 +2826,11 @@ export default {
           "id": "nozomi-to-hiroshima",
           "time": "09:02–10:27",
           "title": "Nozomi／のぞみ5：新大阪 → 广岛",
-          "description": "计划班次，普通车指定席建议提前订；参考页查询日期为2026-10-12。",
+          "description": "7日Pass包含普通车指定席，需买Pass后提前划座，尚未预约。计划班次；参考页查询日期为2026-10-12。",
           "sourceIds": [
-            "nozomi-5-reference"
+            "nozomi-5-reference",
+            "jrwest-all-area",
+            "jrwest-reservations"
           ]
         },
         {
@@ -2912,7 +2851,10 @@ export default {
           "id": "tram-to-dome",
           "time": "12:15前后",
           "title": "路面电车 → 原爆ドーム前",
-          "description": "从广岛站南侧2楼路面电车站乘2号线（宫岛口／西广岛方向）或6号线（江波方向），乘车约15–25分钟，另留候车时间。"
+          "description": "从广岛站南侧2楼路面电车站乘2号线（宫岛口／西广岛方向）或6号线（江波方向），乘车约15–25分钟，另留候车时间。 电车成人240日元／次另付。路线合适时，也可凭Pass从广岛站新干线口乘めいぷる～ぷ观光巴士；保留当前时间安排。",
+          "sourceIds": [
+            "hiroshima-meipuru-bus"
+          ]
         },
         {
           "id": "peace-park-walk",
@@ -2950,7 +2892,9 @@ export default {
         "nozomi-5-reference",
         "peace-museum",
         "granvia-south-gate-access",
-        "granvia-south-gate-facilities"
+        "granvia-south-gate-facilities",
+        "jrwest-all-area",
+        "hiroshima-meipuru-bus"
       ],
       "dining": [
         {
@@ -3146,7 +3090,7 @@ export default {
           "id": "hiroshima-to-miyajimaguchi",
           "time": "07:23–07:51",
           "title": "JR山阳本线：广岛 → 宫岛口",
-          "description": "岩国方向，约28分钟。备选07:33–08:01；赶不上08:10船就乘08:25。"
+          "description": "岩国方向，约28分钟。备选07:33–08:01；赶不上08:10船就乘08:25。 JR往返包含在7日Pass内。"
         },
         {
           "id": "walk-to-ferry",
@@ -3161,9 +3105,10 @@ export default {
           "id": "ferry-to-miyajima",
           "time": "08:10–约08:20",
           "title": "JR西日本宫岛渡轮：宫岛口 → 宫岛",
-          "description": "后备发船08:25。持适用JR Pass选JR西日本渡轮，访问税100日元另付。",
+          "description": "后备发船08:25。JR西日本渡轮船费包含在7日Pass内，宫岛访问税另付100日元／人，按本次登岛一次计；去程选JR西日本渡轮。",
           "sourceIds": [
-            "miyajima-ferry"
+            "miyajima-ferry",
+            "jrwest-all-area"
           ]
         },
         {
@@ -3176,10 +3121,11 @@ export default {
           "id": "ropeway-up",
           "time": "09:00",
           "title": "预约宫岛缆车上行",
-          "description": "红叶谷→榧谷→獅子岩两段，纯乘车约10＋4分钟，另计换乘排队。09:00余位未核实；往返现行成人2,000日元另付。",
+          "description": "红叶谷→榧谷→獅子岩两段，纯乘车约10＋4分钟，另计换乘排队。09:00余位未核实；往返现行成人2,000日元另付。 两人先预约上行时段，预约后仍需买往返票；时段与车票均未落实。",
           "sourceIds": [
             "miyajima-ropeway",
-            "miyajima-ropeway-booking"
+            "miyajima-ropeway-booking",
+            "miyajima-ropeway-fare"
           ]
         },
         {
@@ -3231,7 +3177,7 @@ export default {
           "id": "ferry-return",
           "time": "17:10–17:20",
           "title": "渡轮：宫岛 → 宫岛口",
-          "description": "后备17:25–17:35，随后配合后备JR班次。",
+          "description": "后备17:25–17:35，随后配合后备JR班次。 回程仍选JR西日本渡轮，船费包含；不重复计本次登岛访问税。",
           "sourceIds": [
             "miyajima-ferry"
           ]
@@ -3240,17 +3186,18 @@ export default {
           "id": "jr-return-to-hiroshima",
           "time": "17:33–18:03",
           "title": "JR宫岛口 → 广岛",
-          "description": "步行回JR站；后备17:49–18:20。"
+          "description": "步行回JR站；后备17:49–18:20。 JR回程包含在Pass内。"
         },
         {
           "id": "return-to-south-gate",
           "time": "抵达广岛后",
-          "title": "晚餐、回South Gate酒店"
+          "title": "晚餐、回South Gate酒店",
+          "description": "若最终选择かき船かなわ「瀬戸」晚餐，可按晚餐方案安排广岛站→餐厅→酒店出租车，按实际车费另付；餐厅仍为未订候选，不计入已确认安排。"
         }
       ],
       "notes": [
-        "11/15是缆车必须事前WEB预约的特定日；争取09:00附近，不代表仍有余位或已经预约。不能沿用旧页“11月08:00开门”。",
-        "JR西日本渡轮访问税100日元、缆车往返成人现价2,000日元均另付。",
+        "11/15缆车必须事前预约，两人优先09:00附近；预约时段后仍需购买车票，余位与购买均待落实。",
+        "JR往返与JR西日本渡轮船费包含；本次登岛访问税100日元／人、缆车往返2,000日元／人另付。",
         "15号与14号同住已订的Hotel Granvia Hiroshima South Gate，早餐自行安排。"
       ],
       "sourceIds": [
@@ -3258,7 +3205,9 @@ export default {
         "miyajima-ropeway-booking",
         "miyajima-tide",
         "daisho-in-firewalking",
-        "miyajima-ferry"
+        "miyajima-ferry",
+        "jrwest-all-area",
+        "miyajima-ropeway-fare"
       ],
       "dining": [
         {
@@ -3538,9 +3487,11 @@ export default {
           "id": "nozomi-to-shin-osaka",
           "time": "09:43–11:04",
           "title": "Nozomi／のぞみ14：广岛 → 新大阪",
-          "description": "计划班次，不代表已出票。",
+          "description": "7日Pass包含普通车指定席，需提前划座；计划班次不代表已经预约或出票。",
           "sourceIds": [
-            "nozomi-14-reference"
+            "nozomi-14-reference",
+            "jrwest-all-area",
+            "jrwest-reservations"
           ]
         },
         {
@@ -3553,9 +3504,11 @@ export default {
           "id": "kuroshio-to-tanabe",
           "time": "12:13–14:29",
           "title": "Kuroshio 11／特急くろしお11：新大阪 → 纪伊田边",
-          "description": "计划班次；参考页查询日期为2026-09-12。14:29到和歌山县JR紀伊田辺／Kii-Tanabe。",
+          "description": "计划班次；参考页查询日期为2026-09-12。14:29到和歌山县JR紀伊田辺／Kii-Tanabe。 普通车指定席包含在7日Pass内，需提前划座，尚未预约。",
           "sourceIds": [
-            "kuroshio-11-reference"
+            "kuroshio-11-reference",
+            "jrwest-all-area",
+            "jrwest-reservations"
           ]
         },
         {
@@ -3597,7 +3550,8 @@ export default {
         "nozomi-14-reference",
         "kuroshio-11-reference",
         "kumano-bus-overview",
-        "granvia-south-gate-access"
+        "granvia-south-gate-access",
+        "jrwest-all-area"
       ],
       "dining": [
         {
@@ -3737,7 +3691,7 @@ export default {
           "id": "bus-to-takijiri",
           "time": "06:38–07:16",
           "title": "明光巴士95系統“栗栖川行”：纪伊田边 → 泷尻",
-          "description": "Takijiri／滝尻，支持交通IC或现金。备选龙神熊野古道快速06:55–07:27，首到首得，不预约。",
+          "description": "Takijiri／滝尻，主选明光95单买970日元／人，可刷Suica／ICOCA或现金。备选龙神熊野古道快速06:55–07:27，首到首得、不预约；备选票价另按实际线路核对。",
           "sourceIds": [
             "tanabe-hongu-bus",
             "kumano-fast-bus",
@@ -3779,7 +3733,8 @@ export default {
       "notes": [
         "约13.3公里、累计爬升约1,010米，官方步行6–8小时；加盖章、拍照、休息要留更久，不按城市13公里估算。",
         "不等泷尻古道馆08:30开门；地图与章册16号已领取。",
-        "SEN RETREAT CHIKATSUYU已订11/17–18；17日下午到店、18号去车站的步行／接送仍需确认。"
+        "SEN RETREAT CHIKATSUYU已订11/17–18；17日下午到店、18号去车站的步行／接送仍需确认。",
+        "熊野巴士按单次付费，不购买当地巴士通票；JR Pass不包含明光巴士。"
       ],
       "sourceIds": [
         "tanabe-hongu-bus",
@@ -4029,9 +3984,11 @@ export default {
           "id": "fast-bus-to-hosshinmon",
           "time": "07:51–08:54",
           "title": "龙神熊野古道快速：美术馆前 → 发心门王子",
-          "description": "直达発心門王子／Hosshinmon-oji；不停近露王子站。2026/9/19–12/10每天运营，不接受预约，满员可能无法上车。",
+          "description": "直达発心門王子／Hosshinmon-oji；不停近露王子站。2026/9/19–12/10每天运营，不接受预约，满员可能无法上车。 使用快速专门票价，单买2,000日元／人；可用感应银行卡或现金，不收Suica／ICOCA。",
           "sourceIds": [
-            "kumano-fast-bus"
+            "kumano-fast-bus",
+            "kumano-fast-bus-fare",
+            "kumano-bus-payment"
           ]
         },
         {
@@ -4069,9 +4026,10 @@ export default {
         {
           "time": "15:05–15:16",
           "title": "龙神80系統“紀伊田辺駅行”：本宫 → 川汤",
-          "description": "15:05发车；藤屋前／ふじや前15:13、龟屋前／かめや前15:14、川汤温泉15:16，按所订旅馆位置下车。玩久些可改16:40发车：藤屋16:48、龟屋16:49、川汤16:51。",
+          "description": "15:05发车；藤屋前／ふじや前15:13、龟屋前／かめや前15:14、川汤温泉15:16，按所订旅馆位置下车。玩久些可改16:40发车：藤屋16:48、龟屋16:49、川汤16:51。 此段单买310日元／人，JR Pass不包含；龙神可用感应银行卡或现金。",
           "sourceIds": [
-            "hongu-kawayu-bus"
+            "hongu-kawayu-bus",
+            "kumano-bus-payment"
           ]
         },
         {
@@ -4143,7 +4101,8 @@ export default {
       "notes": [
         "快速不停近露王子，必须到美术馆前站。",
         "SEN RETREAT CHIKATSUYU早餐和到站路线、川湯まつや准确下车站仍待确认；巴士站点以旅馆答复为准。",
-        "川湯まつや已订；11月按旅馆温泉，仙人风吕通常12月开放。"
+        "川湯まつや已订；11月按旅馆温泉，仙人风吕通常12月开放。",
+        "快速2,000日元与本宫→川汤310日元分别付费，不购买当地巴士通票。"
       ],
       "sourceIds": [
         "kumano-fast-bus",
@@ -4151,7 +4110,8 @@ export default {
         "hongu-kawayu-bus",
         "kawayu-senninburo",
         "dual-pilgrim",
-        "kumano-bus-payment"
+        "kumano-bus-payment",
+        "kumano-fast-bus-fare"
       ],
       "stamps": {
         "title": "日本条件③：第1–6章",
@@ -4423,64 +4383,75 @@ export default {
     {
       "date": "2026-11-19",
       "sightIds": [
+        "hayatama-taisha",
         "nachi-shrines-falls"
       ],
       "destinationId": "nachi",
       "overnightId": "osaka",
       "type": "excursion",
-      "title": "川汤 → 新宫 → 那智 → 纪伊胜浦 → 大阪",
-      "description": "默认较舒适版：08:39从川汤出发，经新宫与那智站两次换车到那智山，游那智核心后到纪伊胜浦乘Kuroshio 30，19:16回大阪。",
+      "title": "川汤 → 速玉大社 → 那智 → 纪伊胜浦 → 大阪",
+      "description": "06:54从川汤出发，参拜速玉后经那智站乘车到那智山，不徒步大门坂；那智核心游览后，乘Kuroshio 30于19:16回大阪。",
       "ideas": [
-        "川汤经新宫、那智站换巴士到那智山终点。",
-        "那智大社、青岸渡寺、飞泷神社与瀑布。",
+        "06:54早班到速玉大社前，参拜并计划盖第7章。",
+        "经那智站乘车到那智山，参拜那智大社、青岸渡寺、飞泷神社与瀑布。",
         "13:59下山车接15:21黑潮，回大阪取大箱入住。"
       ],
       "schedule": [
         {
           "id": "kawayu-checkout",
-          "time": "07:15–08:00",
-          "title": "早餐、退房"
+          "time": "06:54发车前",
+          "title": "早餐、提前退房并归还钥匙",
+          "description": "须提前与川湯まつや确认07:00前退房和归还钥匙的方式；实际在06:54发车前完成，准备无需微波的早餐。"
         },
         {
-          "time": "08:20前后",
-          "title": "川汤温泉站候车",
-          "description": "旅馆若靠藤屋／龟屋，需按实际上车站重核发车分钟。"
+          "id": "kawayu-bus-queue",
+          "time": "提前候车",
+          "title": "川汤准确上车站候车",
+          "description": "按旅馆答复确认对应站点与发车分钟，提前到站；不假设川汤温泉、藤屋前或龟屋前是同一分钟。"
         },
         {
-          "time": "08:39–09:37",
-          "title": "熊野御坊南海54系統：川汤温泉 → 新宫站",
-          "description": "新宮駅行，计划班次。支持感应信用卡及Apple Pay／Google Pay，不支持交通IC。",
+          "id": "early-hayatama-bus",
+          "time": "06:54–07:48",
+          "title": "54系統：川汤 → 速玉大社前",
           "sourceIds": [
             "kawayu-shingu-bus",
-            "kumano-bus-payment"
-          ]
+            "kumano-bus-payment",
+            "kumano-early-discount"
+          ],
+          "description": "普通票价1,440日元／人；06:54班按当季感应支付早班优惠为720日元／人。两人各用自己的卡或手机，上下车使用同一支付方式；优惠在结算后调整，现金按原价。准确上车站与发车分钟仍需旅馆确认。"
         },
         {
-          "id": "shingu-transfer",
-          "time": "09:37–10:00",
-          "title": "新宫站换车、厕所",
-          "description": "留23分钟换乘。"
-        },
-        {
-          "time": "10:00–10:39",
-          "title": "熊野御坊南海15系統：新宫站 → 那智站",
-          "description": "往胜浦方向；周四按平日10:39到达，不用周末10:30。",
+          "id": "hayatama-visit",
+          "time": "07:48到达后",
+          "title": "参拜熊野速玉大社、盖第7章",
           "sourceIds": [
-            "shingu-nachi-bus"
+            "dual-pilgrim-stamp-list"
           ]
+        },
+        {
+          "id": "hayatama-to-nachi",
+          "time": "09:04–09:28",
+          "title": "11系統：速玉大社前 → 那智站",
+          "sourceIds": [
+            "shingu-nachi-bus",
+            "kumano-bus-payment"
+          ],
+          "description": "单买540日元／人；可用感应银行卡、Apple Pay／Google Pay或现金，不收Suica／ICOCA。"
         },
         {
           "id": "nachi-transfer",
-          "time": "10:39–11:12",
-          "title": "那智站换乘那智山线"
+          "time": "09:28–09:57",
+          "title": "那智站换乘那智山线",
+          "description": "留29分钟换乘；不依赖站内寄存柜。"
         },
         {
           "id": "bus-to-nachisan",
-          "time": "11:12–11:31",
-          "title": "31系統“那智山行”：那智站 → 那智山",
-          "description": "经过大门坂11:23、那智瀑布前11:28；主方案坐到终点11:31。",
+          "time": "09:57发车",
+          "title": "31系統“那智山行”：那智站 → 那智山终点",
+          "description": "单买510日元／人，坐到那智山终点，不在大门坂下车。终点准确到达分钟待复核；较原计划提前抵达的时间作为参拜前缓冲，保留11:31起的那智核心游览时段。",
           "sourceIds": [
-            "nachi-katsuura-bus"
+            "nachi-katsuura-bus",
+            "kumano-bus-payment"
           ]
         },
         {
@@ -4509,10 +4480,12 @@ export default {
         {
           "time": "13:59–14:23",
           "title": "32系統“勝浦駅行”：瀑布前 → 纪伊胜浦",
-          "description": "下山后备14:34–14:58，只留23分钟到列车；15:09下一班会错过15:21列车。",
+          "description": "下山后备14:34–14:58，只留23分钟到列车；15:09下一班会错过15:21列车。 单买630日元／人，JR Pass不包含。",
           "sourceIds": [
-            "nachi-katsuura-bus"
-          ]
+            "nachi-katsuura-bus",
+            "kumano-bus-payment"
+          ],
+          "id": "falls-to-katsuura-bus"
         },
         {
           "id": "katsuura-train-preparation",
@@ -4524,9 +4497,11 @@ export default {
           "id": "kuroshio-to-osaka",
           "time": "15:21–19:16",
           "title": "Kuroshio 30／特急くろしお30：纪伊胜浦 → 大阪",
-          "description": "全车指定席，运转日明确含2026/11/19；计划班次不代表已出票。17:06到纪伊田边、17:08继续开，留在车上，不下车换乘或取物。",
+          "description": "全车指定席，运转日明确含2026/11/19；计划班次不代表已出票。17:06到纪伊田边、17:08继续开，留在车上，不下车换乘或取物。 11/19是7日Pass最后有效日，普通车指定席包含，仍须买Pass后提前划座；无须另买黑潮票。",
           "sourceIds": [
-            "kuroshio-30-reference"
+            "kuroshio-30-reference",
+            "jrwest-all-area",
+            "jrwest-reservations"
           ]
         },
         {
@@ -4543,156 +4518,13 @@ export default {
           "title": "晚餐、休息"
         }
       ],
-      "alternatives": [
-        {
-          "id": "hayatama-daimonzaka",
-          "sightIds": [
-            "hayatama-taisha"
-          ],
-          "title": "可选加强版：速玉大社，大门坂可选",
-          "description": "06:54早出发补熊野速玉大社参拜和第7章；大门坂步行按体力选择，和08:39默认版分开安排。",
-          "schedule": [
-            {
-              "id": "early-hayatama-bus",
-              "time": "06:54–07:48",
-              "title": "54系統：川汤 → 速玉大社前",
-              "sourceIds": [
-                "kawayu-shingu-bus"
-              ]
-            },
-            {
-              "id": "hayatama-visit",
-              "time": "07:48到达后",
-              "title": "参拜熊野速玉大社、盖第7章",
-              "sourceIds": [
-                "dual-pilgrim-stamp-list"
-              ]
-            },
-            {
-              "id": "hayatama-to-nachi",
-              "time": "09:04–09:28",
-              "title": "11系統：速玉大社前 → 那智站",
-              "sourceIds": [
-                "shingu-nachi-bus"
-              ]
-            },
-            {
-              "id": "early-nachisan-bus",
-              "time": "09:57–10:08",
-              "title": "31系統：那智站出发，大门坂可选下车",
-              "sourceIds": [
-                "nachi-katsuura-bus"
-              ],
-              "description": "09:57发车；走大门坂则10:08下车，不走则继续乘车到那智山。"
-            },
-            {
-              "id": "optional-daimonzaka-walk",
-              "time": "10:10–11:10",
-              "title": "可选：大门坂步行上山",
-              "description": "仅选择10:08下车时安排；不走这段不影响日本条件③。",
-              "optional": true
-            },
-            {
-              "id": "early-nachi-sights",
-              "time": "11:10以后",
-              "title": "那智大社、青岸渡寺与瀑布",
-              "description": "步行版按11:10以后参拜；不走大门坂可在乘车抵达后开始。盖第8–10章，保留13:59下山车与15:21黑潮，按脚程调整。",
-              "sourceIds": [
-                "dual-pilgrim-stamp-list"
-              ]
-            },
-            {
-              "id": "early-katsuura-bus",
-              "time": "13:59–14:23",
-              "title": "32系統：瀑布前 → 纪伊胜浦",
-              "sourceIds": [
-                "nachi-katsuura-bus"
-              ]
-            },
-            {
-              "id": "early-kuroshio-to-osaka",
-              "time": "15:21–19:16",
-              "title": "Kuroshio 30：纪伊胜浦 → 大阪",
-              "description": "全车指定席，仍需落实车票。",
-              "sourceIds": [
-                "kuroshio-30-reference"
-              ]
-            }
-          ],
-          "notes": [
-            "需川汤旅馆提前备早餐与退房；06:54早班与08:39默认行程二选一。",
-            "大门坂步行可选，不是日本条件③的必选段；那智山台阶仍较多。",
-            "以18号发心门至本宫步行、三山参拜并盖齐10章为前提，此版可补上第7章速玉。正式Dual资格仍需每人自己的Camino证明。",
-            "此版仍乘Kuroshio 30直达大阪19:16；田边现场登记与晚回大阪另列独立返程备选。"
-          ],
-          "sourceIds": [
-            "kawayu-shingu-bus",
-            "shingu-nachi-bus",
-            "nachi-katsuura-bus",
-            "kuroshio-30-reference",
-            "dual-pilgrim",
-            "dual-pilgrim-jp",
-            "dual-pilgrim-stamp-list"
-          ]
-        },
-        {
-          "id": "dual-pilgrim-registration-return",
-          "title": "条件式登记回程：田边停留后晚回大阪",
-          "description": "仅替换19号返程：本人须已有Camino完成证明，并按早班路线完成日本条件③、盖齐官方10章，且决定本次现场登记。",
-          "schedule": [
-            {
-              "id": "katsuura-to-tanabe",
-              "time": "15:21–17:06",
-              "title": "Kuroshio 30：纪伊胜浦 → 纪伊田边",
-              "description": "此备选在田边下车办理登记；指定席按实际分段重核。默认直达大阪行程仍独立保留。",
-              "sourceIds": [
-                "kuroshio-30-reference"
-              ]
-            },
-            {
-              "id": "conditional-tanabe-registration",
-              "time": "17:06到站后，18:00前",
-              "title": "Tanabe Tourist Information Center本人登记",
-              "description": "每人带熊野10章手账和自己的Camino完成证明或照片／电子版。中心09:00–18:00；预留步行、排队与两人办理时间，资格由工作人员现场核验。",
-              "sourceIds": [
-                "dual-pilgrim",
-                "dual-pilgrim-jp",
-                "kumano-information-centers"
-              ]
-            },
-            {
-              "id": "late-kuroshio-to-osaka",
-              "time": "19:50–22:02",
-              "title": "Kuroshio 36：纪伊田边 → 大阪",
-              "description": "平日运行的计划参考，11/19为星期四；出发前重核当日运转与指定席。晚回大阪后到RESPIRE取大箱并入住，提前告知酒店晚到。",
-              "sourceIds": [
-                "kuroshio-36-reference",
-                "respire-access"
-              ]
-            }
-          ],
-          "notes": [
-            "尚未确认任何旅客已具Camino资格；不符合条件或不想现场登记时，保留Kuroshio 30直达大阪19:16。",
-            "仅本人到场办理，徽章与证书不邮寄。纪伊胜浦游客中心可发免费手账和办理县方项目，但不是正式Dual登记点。",
-            "Kuroshio 32备选：田边17:32 → 大阪19:46，26分钟包括步行、两人办理与候车，偏紧且不能保证赶上；不作为此返程的主方案。",
-            "分段车票、Pass指定席与早特优惠需重新核价并预订；参考时刻不代表已出票。"
-          ],
-          "sourceIds": [
-            "kuroshio-30-reference",
-            "kuroshio-32-reference",
-            "kuroshio-36-reference",
-            "dual-pilgrim",
-            "dual-pilgrim-jp",
-            "kumano-information-centers"
-          ]
-        }
-      ],
       "notes": [
-        "本宫至那智没有一辆普通公交直达；主方案走新宫、那智站两次换乘。",
-        "11:31–13:59约2.5小时只排那智核心；整段大门坂另见可选加强版。",
-        "必须保证大箱在大阪；不能利用纪伊田边17:06–17:08的2分钟停车回酒店取箱。",
+        "已采用06:54川汤→速玉大社前→那智站→那智山方案；不徒步大门坂。09:57从那智站发车后的终点到达分钟需复核，提前抵达留作缓冲。",
+        "那智核心保留11:31起的现有游览时间、13:59下山巴士和15:21黑潮；那智山与瀑布之间仍有台阶。",
+        "提前确认旅馆退房、钥匙归还和准确上车站；两人各自用自己的卡或手机，上下车保持同一支付方式，早班优惠在结算后调整，现金不享优惠。",
+        "必须保证大箱在大阪；不能利用纪伊田边17:06–17:08的2分钟停车回酒店取箱或办理登记。",
         "这天背随身包游览，不假设那智站一定有可用寄存柜。",
-        "默认版不去速玉，不能按“发心门至本宫步行＋熊野三山参拜”条件视为完成；正式双朝圣资格仍另需圣地亚哥条件。"
+        "计划参拜速玉、那智并盖第7–10章；日本条件③仍以前一天实际完成发心门至本宫步行、盖齐官方10章为前提，正式Dual资格另需每人自己的Camino证明。"
       ],
       "sourceIds": [
         "kawayu-shingu-bus",
@@ -4700,17 +4532,21 @@ export default {
         "nachi-katsuura-bus",
         "kuroshio-30-reference",
         "kumano-bus-payment",
-        "dual-pilgrim"
+        "kumano-early-discount",
+        "jrwest-all-area",
+        "jrwest-reservations",
+        "dual-pilgrim",
+        "dual-pilgrim-stamp-list"
       ],
       "stamps": {
         "title": "日本条件③：第7–10章",
-        "description": "默认版计划第8–10章；第7章须选择06:54速玉早班备选。",
+        "description": "06:54早班先参拜速玉，之后参拜那智，计划盖第7–10章。",
         "stops": [
           {
             "number": 7,
             "name": "熊野速玉大社",
             "englishName": "Kumano Hayatama Taisha",
-            "note": "仅06:54早出发备选可补；08:39默认版不去。"
+            "note": "已纳入当天主行程，07:48到达后参拜并计划盖章。"
           },
           {
             "number": 8,
@@ -4729,8 +4565,8 @@ export default {
           }
         ],
         "notes": [
-          "以18号完成发心门至本宫步行为前提，19号参拜三山并盖齐官方10章才满足日本条件③；正式Dual Pilgrim仍需每人自己的Camino完成证明。",
-          "大门坂可按体力选择，不是条件③的必走段；那智山台阶仍较多。"
+          "以18号实际完成发心门至本宫步行及本宫参拜为前提，19号再参拜速玉与那智、盖齐官方10章才满足日本条件③；正式Dual Pilgrim仍需每人自己的Camino完成证明。",
+          "本次不走大门坂，这段不是日本条件③的必走段；那智山台阶仍较多。"
         ],
         "sourceIds": [
           "dual-pilgrim",
@@ -4742,7 +4578,7 @@ export default {
         {
           "meal": "breakfast",
           "notes": [
-            "吃自备食品；若选择现有早班备选，准备无需微波的早餐。"
+            "06:54早班前吃自备食品，准备无需微波的早餐；不依赖07:00才开放的设施。"
           ],
           "choices": []
         },
@@ -4768,7 +4604,7 @@ export default {
         {
           "meal": "dinner",
           "notes": [
-            "默认回程后按营业和队伍情况考虑；若采用现有田边登记晚归备选，改车上便当或附近仍营业的简餐。"
+            "19:16回大阪、取箱入住后，按营业和队伍情况考虑晚餐；保留附近简餐备选。"
           ],
           "choices": [
             {
@@ -4834,7 +4670,7 @@ export default {
                 "scheduleId": "falls-bus-queue"
               }
             ],
-            "note": "默认坐车到那智山终点；不加入速玉大社或大门坂步行。"
+            "note": "那智站09:57发车，乘车到那智山终点；不徒步大门坂。速玉参拜在全程交通视图中展示。"
           },
           {
             "id": "transport",
@@ -4844,19 +4680,28 @@ export default {
               {
                 "placeId": "kawayu-matsuya",
                 "scheduleId": "kawayu-checkout",
-                "note": "实际候车站与发车分钟按旅馆位置复核；未标定川汤站杆。"
+                "note": "06:54发车前退房；实际上车站与发车分钟待旅馆确认，未标定川汤站杆。"
               },
               {
-                "placeId": "shingu-station",
-                "scheduleId": "shingu-transfer"
+                "placeId": "hayatama-bus-stop",
+                "scheduleId": "early-hayatama-bus"
+              },
+              {
+                "placeId": "kumano-hayatama-taisha",
+                "scheduleId": "hayatama-visit"
+              },
+              {
+                "placeId": "hayatama-bus-stop",
+                "scheduleId": "hayatama-to-nachi"
               },
               {
                 "placeId": "nachi-station",
-                "scheduleId": "nachi-transfer"
+                "scheduleId": "hayatama-to-nachi"
               },
               {
                 "placeId": "nachisan-bus-stop",
-                "scheduleId": "bus-to-nachisan"
+                "scheduleId": "bus-to-nachisan",
+                "note": "09:57从那智站发车，终点到达分钟待复核。"
               },
               {
                 "placeId": "kumano-nachi-taisha",
@@ -4901,200 +4746,7 @@ export default {
                 "scheduleId": "umekita-respire-return"
               }
             ],
-            "note": "主线08:39经新宫至那智，15:21黑潮直达大阪；纪伊田边留在车上，不下车或取物。"
-          },
-          {
-            "id": "hayatama-early",
-            "label": "速玉早班（不走大门坂）",
-            "scope": "alternative",
-            "alternativeId": "hayatama-daimonzaka",
-            "stops": [
-              {
-                "placeId": "kawayu-matsuya",
-                "scheduleId": "early-hayatama-bus",
-                "note": "06:54早出发备选；实际上车站与发车分钟仍按旅馆确认。"
-              },
-              {
-                "placeId": "hayatama-bus-stop",
-                "scheduleId": "early-hayatama-bus"
-              },
-              {
-                "placeId": "kumano-hayatama-taisha",
-                "scheduleId": "hayatama-visit"
-              },
-              {
-                "placeId": "hayatama-bus-stop",
-                "scheduleId": "hayatama-to-nachi"
-              },
-              {
-                "placeId": "nachi-station",
-                "scheduleId": "hayatama-to-nachi"
-              },
-              {
-                "placeId": "nachisan-bus-stop",
-                "scheduleId": "early-nachisan-bus"
-              },
-              {
-                "placeId": "kumano-nachi-taisha",
-                "scheduleId": "early-nachi-sights"
-              },
-              {
-                "placeId": "seiganto-ji",
-                "scheduleId": "early-nachi-sights"
-              },
-              {
-                "placeId": "seiganto-pagoda",
-                "scheduleId": "early-nachi-sights"
-              },
-              {
-                "placeId": "hirou-jinja",
-                "scheduleId": "early-nachi-sights"
-              },
-              {
-                "placeId": "nachi-falls",
-                "scheduleId": "early-nachi-sights",
-                "connect": false,
-                "note": "从飞泷神社及观瀑区域看瀑布；标记为瀑布位置，不是可走入的停靠点。"
-              },
-              {
-                "placeId": "nachi-falls-bus-stop",
-                "scheduleId": "early-katsuura-bus"
-              },
-              {
-                "placeId": "kii-katsuura-station",
-                "scheduleId": "early-katsuura-bus"
-              },
-              {
-                "placeId": "osaka-station",
-                "scheduleId": "early-kuroshio-to-osaka"
-              },
-              {
-                "placeId": "umekita-gate",
-                "scheduleId": "early-kuroshio-to-osaka"
-              },
-              {
-                "placeId": "respire-osaka",
-                "scheduleId": "early-kuroshio-to-osaka"
-              }
-            ],
-            "note": "仅选择06:54早班时去速玉；不走大门坂则从那智站继续坐到那智山，仍保留13:59下山车与15:21黑潮。"
-          },
-          {
-            "id": "hayatama-daimonzaka-walk",
-            "label": "速玉＋大门坂（可选）",
-            "scope": "alternative",
-            "alternativeId": "hayatama-daimonzaka",
-            "stops": [
-              {
-                "placeId": "kawayu-matsuya",
-                "scheduleId": "early-hayatama-bus",
-                "note": "06:54早出发备选；实际上车站与发车分钟仍按旅馆确认。"
-              },
-              {
-                "placeId": "hayatama-bus-stop",
-                "scheduleId": "early-hayatama-bus"
-              },
-              {
-                "placeId": "kumano-hayatama-taisha",
-                "scheduleId": "hayatama-visit"
-              },
-              {
-                "placeId": "hayatama-bus-stop",
-                "scheduleId": "hayatama-to-nachi"
-              },
-              {
-                "placeId": "nachi-station",
-                "scheduleId": "hayatama-to-nachi"
-              },
-              {
-                "placeId": "daimonzaka-bus-stop",
-                "scheduleId": "early-nachisan-bus"
-              },
-              {
-                "placeId": "daimonzaka",
-                "scheduleId": "optional-daimonzaka-walk"
-              },
-              {
-                "placeId": "kumano-nachi-taisha",
-                "scheduleId": "early-nachi-sights"
-              },
-              {
-                "placeId": "seiganto-ji",
-                "scheduleId": "early-nachi-sights"
-              },
-              {
-                "placeId": "seiganto-pagoda",
-                "scheduleId": "early-nachi-sights"
-              },
-              {
-                "placeId": "hirou-jinja",
-                "scheduleId": "early-nachi-sights"
-              },
-              {
-                "placeId": "nachi-falls",
-                "scheduleId": "early-nachi-sights",
-                "connect": false,
-                "note": "从飞泷神社及观瀑区域看瀑布；标记为瀑布位置，不是可走入的停靠点。"
-              },
-              {
-                "placeId": "nachi-falls-bus-stop",
-                "scheduleId": "early-katsuura-bus"
-              },
-              {
-                "placeId": "kii-katsuura-station",
-                "scheduleId": "early-katsuura-bus"
-              },
-              {
-                "placeId": "osaka-station",
-                "scheduleId": "early-kuroshio-to-osaka"
-              },
-              {
-                "placeId": "umekita-gate",
-                "scheduleId": "early-kuroshio-to-osaka"
-              },
-              {
-                "placeId": "respire-osaka",
-                "scheduleId": "early-kuroshio-to-osaka"
-              }
-            ],
-            "note": "仅选择速玉早班并在10:08大门坂下车时安排步行；大门坂不是日本条件③必走段，参拜时间按脚程调整。"
-          },
-          {
-            "id": "dual-pilgrim-registration-return",
-            "label": "条件式田边登记回程",
-            "scope": "alternative",
-            "alternativeId": "dual-pilgrim-registration-return",
-            "stops": [
-              {
-                "placeId": "kii-katsuura-station",
-                "scheduleId": "katsuura-to-tanabe"
-              },
-              {
-                "placeId": "kii-tanabe-station",
-                "scheduleId": "katsuura-to-tanabe"
-              },
-              {
-                "placeId": "tanabe-tourist-information",
-                "scheduleId": "conditional-tanabe-registration"
-              },
-              {
-                "placeId": "kii-tanabe-station",
-                "scheduleId": "late-kuroshio-to-osaka"
-              },
-              {
-                "placeId": "osaka-station",
-                "scheduleId": "late-kuroshio-to-osaka"
-              },
-              {
-                "placeId": "umekita-gate",
-                "scheduleId": "late-kuroshio-to-osaka"
-              },
-              {
-                "placeId": "respire-osaka",
-                "scheduleId": "late-kuroshio-to-osaka"
-              }
-            ],
-            "note": "仅满足各人的Camino证明与日本条件、选择本人登记时使用；此图只显示登记回程，默认直达大阪仍保留。"
+            "note": "主线06:54经速玉参拜、那智站换车至那智山，15:21黑潮直达大阪；不走大门坂，纪伊田边留在车上，不下车取物或登记。"
           }
         ]
       }
@@ -5126,13 +4778,13 @@ export default {
           "id": "yamatoji-to-nara",
           "time": "09:42–10:33",
           "title": "大和路快速：大阪 → JR奈良",
-          "description": "计划班次，直达不换乘。"
+          "description": "计划班次，直达不换乘。 7日Pass已于11/19结束，当天JR往返约1,680日元／人另买。"
         },
         {
           "id": "nara-city-bus",
           "time": "10:40前后",
           "title": "市内循环公交 → 东大寺外围",
-          "description": "到“東大寺大仏殿・春日大社前”，下车后步行入寺；候车与步行预留20–30分钟，累了可打车。"
+          "description": "到“東大寺大仏殿・春日大社前”，下车后步行入寺；候车与步行预留20–30分钟，累了可打车。 奈良市内巴士单次另付，其余以步行为主，不预先购买当地交通通票。"
         },
         {
           "id": "todaiji-visit",
@@ -5182,7 +4834,7 @@ export default {
           "id": "jr-return-to-osaka",
           "time": "17:10–18:10",
           "title": "JR区间快速：奈良 → 大阪",
-          "description": "回程参考，直达约60分钟；晚一些可乘后续直达班次。"
+          "description": "回程参考，直达约60分钟；晚一些可乘后续直达班次。 Pass已过期，回程与去程按单次买票。"
         },
         {
           "id": "umeda-evening",
@@ -5193,7 +4845,8 @@ export default {
       "notes": [
         "东大寺大佛殿现场购票、只收现金；春日大社特别参拜16:00结束。",
         "兴福寺五重塔修缮、东金堂受工程影响，选择国宝馆或中金堂一重点。",
-        "住宿为Hotel Hankyu RESPIRE Osaka，11/19–21第二段已订。"
+        "住宿为Hotel Hankyu RESPIRE Osaka，11/19–21第二段已订。",
+        "20号JR奈良往返预算约1,680日元／人；市内巴士另付，未计入交通基本预算。"
       ],
       "sourceIds": [
         "todaiji",
@@ -5431,9 +5084,11 @@ export default {
           "id": "haruka-to-kix",
           "time": "08:50–09:34",
           "title": "主选HARUKA 11：大阪 → 关西机场",
-          "description": "大阪地下21站台为现行安排，现场再看；计划班次不代表已出票。后备HARUKA 13为09:19–10:04，到T1出发层约10:15，主方案不主动依赖后备。",
+          "description": "大阪地下21站台为现行安排，现场再看；计划班次不代表已出票。后备HARUKA 13为09:19–10:04，到T1出发层约10:15，主方案不主动依赖后备。 已超出7日Pass有效期，须另买优惠单程票并划座：10/31前购买1,800日元／人，11/1起购买1,900日元／人；购买与指定席均未确认。",
           "sourceIds": [
-            "haruka-timetable"
+            "haruka-timetable",
+            "haruka-oneway",
+            "jrwest-reservations"
           ]
         },
         {
@@ -5450,11 +5105,13 @@ export default {
       ],
       "notes": [
         "当天不安排景点。",
-        "主选08:50 HARUKA 11，09:19 HARUKA 13仅作后备；机场列车与站台出发前复核。"
+        "主选08:50 HARUKA 11，09:19 HARUKA 13仅作后备；机场列车与站台出发前复核。",
+        "21号HARUKA优惠按购票日期定价，10/31为较低票价截止日；另购票，不计入已选Pass。"
       ],
       "sourceIds": [
         "haruka-timetable",
-        "respire-access"
+        "respire-access",
+        "haruka-oneway"
       ],
       "dining": [
         {
@@ -5517,7 +5174,7 @@ export default {
         "points": [
           "推荐每人一本免费的Dual Pilgrim Credential／共通巡礼手帐，未去过西班牙也可领取、盖章和留作纪念。",
           "和歌山县中边路押印帐另售100日元，需全线踏破并盖齐41章；免费共通手账不能替代县方申请。田边站旁中心不销售这本县方册，也不办理该县方证明。",
-          "本次两段徒步合计20.8公里；即使加速玉和大门坂，也不满足县方41章完全踏破要求。"
+          "本次两段徒步合计20.8公里，加上速玉参拜也不满足县方41章完全踏破要求。"
         ],
         "sourceIds": [
           "dual-pilgrim",
@@ -5542,7 +5199,7 @@ export default {
         "title": "日本条件③与个人资格",
         "points": [
           "条件③：发心门王子至本宫大社步行官方约7公里、本次路线约7.5公里，再参拜速玉与那智，并盖齐官方10章；三山之间可乘巴士。",
-          "08:39默认版漏掉速玉。要完成此日本条件，可选06:54早班补第7章；大门坂非必走，17号额外纪念章不能替代速玉。",
+          "19号已安排06:54早班到速玉，计划盖第7章后参拜那智、盖第8–10章；17号额外纪念章不能替代速玉。",
           "正式Dual Pilgrim须每人同时完成熊野与Camino条件。西班牙要求至少最后100公里步行／骑马，或最后200公里骑自行车；两边顺序不限，可相隔多年。",
           "本宫手账完成章不等于正式资格或纸质证书；只完成日本部分不会由Dual项目颁发单边完成证书。"
         ],
@@ -5553,18 +5210,16 @@ export default {
         ]
       },
       {
-        "title": "正式登记与返程",
+        "title": "正式登记地点",
         "points": [
           "日本正式登记点：田边站旁Tanabe Tourist Information Center（09:00–18:00）与熊野本宫馆（17:00关闭）。本人带熊野盖章手账、Camino证明或照片／电子版到场；徽章与证书不邮寄。",
           "纪伊胜浦游客中心可发免费手账和办理县方41章项目，但不在正式Dual登记点名单中。18号尚未完成19号速玉与那智，不能按条件③提前登记。",
-          "只有已具Camino证明并盖齐10章、决定本次领取者，才考虑独立的田边登记返程备选；分段车票、划位与价格须重核。否则保留Kuroshio 30直达大阪19:16。"
+          "现行Kuroshio 30直达大阪19:16，不安排田边现场登记。若希望本次领取，须先核对每人的Camino证明、熊野条件与官方10章，再另行调整行程；目前不确认任何人已具资格。"
         ],
         "sourceIds": [
           "dual-pilgrim",
           "dual-pilgrim-jp",
-          "kumano-information-centers",
-          "kuroshio-32-reference",
-          "kuroshio-36-reference"
+          "kumano-information-centers"
         ]
       },
       {
@@ -5893,5 +5548,384 @@ export default {
         "dining-harijyu-booking"
       ]
     }
-  ]
+  ],
+  "selectedTicketOptionId": "all-area-pass",
+  "transport": {
+    "currency": "JPY",
+    "legs": [
+      {
+        "id": "arrival-haruka",
+        "date": "2026-11-13",
+        "route": "关西机场 → 大阪站",
+        "service": "HARUKA机场特急",
+        "coverage": "pass",
+        "time": "主选19:16；后备19:46",
+        "fareNote": "11/13启用Pass后包含；根据实际入境时间选车，尚未买Pass或划座。",
+        "sourceIds": [
+          "jrwest-all-area",
+          "haruka-timetable"
+        ]
+      },
+      {
+        "id": "osaka-shin-osaka-jr",
+        "date": "2026-11-14",
+        "route": "大阪 → 新大阪",
+        "service": "JR京都线普通／快速",
+        "coverage": "pass",
+        "sourceIds": [
+          "jrwest-all-area"
+        ]
+      },
+      {
+        "id": "nozomi-5",
+        "date": "2026-11-14",
+        "route": "新大阪 → 广岛",
+        "service": "山阳新干线 Nozomi 5",
+        "coverage": "pass",
+        "time": "09:02–10:27",
+        "reservationRequired": true,
+        "fareNote": "普通车指定席包含，买Pass后预约；尚未划座。",
+        "sourceIds": [
+          "jrwest-all-area",
+          "jrwest-reservations",
+          "nozomi-5-reference"
+        ]
+      },
+      {
+        "id": "hiroshima-city",
+        "date": "2026-11-14",
+        "route": "广岛站 ↔ 和平公园／市中心",
+        "service": "路面电车，或JRめいぷる～ぷ观光巴士",
+        "coverage": "mixed",
+        "fare": 240,
+        "fareNote": "电车240日元／次另付；JR观光巴士可凭Pass乘坐，从广岛站新干线口出发。市内乘坐次数未定，不计入基本预算。",
+        "sourceIds": [
+          "hiroshima-meipuru-bus"
+        ]
+      },
+      {
+        "id": "miyajimaguchi-jr-return",
+        "date": "2026-11-15",
+        "route": "广岛 ↔ 宫岛口",
+        "service": "JR山阳本线往返",
+        "coverage": "pass",
+        "sourceIds": [
+          "jrwest-all-area"
+        ]
+      },
+      {
+        "id": "miyajima-ferry-visitor-tax",
+        "date": "2026-11-15",
+        "route": "宫岛口 ↔ 宫岛",
+        "service": "JR西日本宫岛渡轮往返",
+        "coverage": "mixed",
+        "fare": 100,
+        "fareNote": "往返船费包含；宫岛访问税另付100日元／人，按本次登岛一次计，不按往返重复收计。",
+        "sourceIds": [
+          "jrwest-all-area",
+          "miyajima-ferry"
+        ]
+      },
+      {
+        "id": "miyajima-ropeway-return",
+        "date": "2026-11-15",
+        "route": "红叶谷 ↔ 榧谷 ↔ 狮子岩",
+        "service": "宫岛缆车往返",
+        "coverage": "additional",
+        "fare": 2000,
+        "reservationRequired": true,
+        "fareNote": "两人优先预约09:00附近上行时段；预约后仍需买往返票，时段与车票尚未落实。",
+        "sourceIds": [
+          "miyajima-ropeway-booking",
+          "miyajima-ropeway-fare"
+        ]
+      },
+      {
+        "id": "hiroshima-dinner-taxi",
+        "date": "2026-11-15",
+        "route": "广岛站 → 牡蛎船餐厅 → 酒店（若选择该晚餐）",
+        "service": "出租车",
+        "coverage": "additional",
+        "fareNote": "仅在最终选择かき船かなわ「瀬戸」晚餐时按该交通方案安排；餐厅仍未订、未选定。按实际车费另付，未计入基本预算。",
+        "sourceIds": [
+          "dining-kanawa-seto-menu",
+          "dining-kanawa-seto-booking"
+        ]
+      },
+      {
+        "id": "nozomi-14",
+        "date": "2026-11-16",
+        "route": "广岛 → 新大阪",
+        "service": "山阳新干线 Nozomi 14",
+        "coverage": "pass",
+        "time": "09:43–11:04",
+        "reservationRequired": true,
+        "fareNote": "普通车指定席包含，买Pass后预约；尚未划座。",
+        "sourceIds": [
+          "jrwest-all-area",
+          "jrwest-reservations",
+          "nozomi-14-reference"
+        ]
+      },
+      {
+        "id": "kuroshio-11",
+        "date": "2026-11-16",
+        "route": "新大阪 → 纪伊田边",
+        "service": "黑潮特急 Kuroshio 11",
+        "coverage": "pass",
+        "time": "12:13–14:29",
+        "reservationRequired": true,
+        "fareNote": "普通车指定席包含，买Pass后预约；尚未划座。",
+        "sourceIds": [
+          "jrwest-all-area",
+          "jrwest-reservations",
+          "kuroshio-11-reference"
+        ]
+      },
+      {
+        "id": "meiko-tanabe-takijiri",
+        "date": "2026-11-17",
+        "route": "纪伊田边 → 泷尻",
+        "service": "明光巴士95系統",
+        "coverage": "additional",
+        "fare": 970,
+        "fareNote": "单次付费；可刷Suica／ICOCA或现金，无座位预约。",
+        "sourceIds": [
+          "tanabe-hongu-bus",
+          "kumano-bus-payment"
+        ]
+      },
+      {
+        "id": "ryujin-fast-hosshinmon",
+        "date": "2026-11-18",
+        "route": "中边路美术馆前 → 发心门王子",
+        "service": "龙神熊野古道快速巴士",
+        "coverage": "additional",
+        "fare": 2000,
+        "fareNote": "快速专门票价；感应银行卡或现金，不收Suica／ICOCA。到站排队，无座位预约。",
+        "sourceIds": [
+          "kumano-fast-bus",
+          "kumano-fast-bus-fare",
+          "kumano-bus-payment"
+        ]
+      },
+      {
+        "id": "ryujin-hongu-kawayu",
+        "date": "2026-11-18",
+        "route": "本宫大社前 → 川汤温泉",
+        "service": "龙神巴士80系統",
+        "coverage": "additional",
+        "fare": 310,
+        "fareNote": "单次付费；感应银行卡或现金，不收Suica／ICOCA。准确下车站待旅馆确认。",
+        "sourceIds": [
+          "hongu-kawayu-bus",
+          "kumano-bus-payment"
+        ]
+      },
+      {
+        "id": "early-kawayu-hayatama",
+        "date": "2026-11-19",
+        "route": "川汤温泉 → 速玉大社前",
+        "service": "熊野御坊南海巴士54系統",
+        "coverage": "additional",
+        "fare": 720,
+        "regularFare": 1440,
+        "time": "06:54–07:48",
+        "fareNote": "720为当季早班感应支付优惠；各人用自己的卡或手机，上下车保持同一支付方式，结算后调整。现金按原价1,440。准确上车站与分钟待旅馆确认。",
+        "sourceIds": [
+          "kawayu-shingu-bus",
+          "kumano-bus-payment",
+          "kumano-early-discount"
+        ]
+      },
+      {
+        "id": "hayatama-nachi-bus",
+        "date": "2026-11-19",
+        "route": "速玉大社前 → 那智站",
+        "service": "巴士11系統",
+        "coverage": "additional",
+        "fare": 540,
+        "time": "09:04–09:28",
+        "fareNote": "单次付费；感应银行卡、Apple Pay／Google Pay或现金，不收Suica／ICOCA，无座位预约。",
+        "sourceIds": [
+          "shingu-nachi-bus",
+          "kumano-bus-payment"
+        ]
+      },
+      {
+        "id": "nachi-nachisan-bus",
+        "date": "2026-11-19",
+        "route": "那智站 → 那智山终点",
+        "service": "巴士31系統",
+        "coverage": "additional",
+        "fare": 510,
+        "time": "09:57发车；终点到达分钟待复核",
+        "fareNote": "坐到那智山终点，不走大门坂；无座位预约。",
+        "sourceIds": [
+          "nachi-katsuura-bus",
+          "kumano-bus-payment"
+        ]
+      },
+      {
+        "id": "nachi-falls-katsuura-bus",
+        "date": "2026-11-19",
+        "route": "那智瀑布前 → 纪伊胜浦站",
+        "service": "巴士32系統",
+        "coverage": "additional",
+        "fare": 630,
+        "time": "13:59–14:23",
+        "fareNote": "单次付费，无座位预约；保留15:21列车换乘余量。",
+        "sourceIds": [
+          "nachi-katsuura-bus",
+          "kumano-bus-payment"
+        ]
+      },
+      {
+        "id": "kuroshio-30",
+        "date": "2026-11-19",
+        "route": "纪伊胜浦 → 大阪",
+        "service": "黑潮特急 Kuroshio 30",
+        "coverage": "pass",
+        "time": "15:21–19:16",
+        "reservationRequired": true,
+        "fareNote": "Pass最后有效日，普通车指定席包含；买Pass后提前划座，尚未预约。直达大阪，不在田边下车。",
+        "sourceIds": [
+          "jrwest-all-area",
+          "jrwest-reservations",
+          "kuroshio-30-reference"
+        ]
+      },
+      {
+        "id": "nara-jr-return",
+        "date": "2026-11-20",
+        "route": "大阪 ↔ JR奈良站",
+        "service": "大和路快速／区间快速往返",
+        "coverage": "additional",
+        "fare": 1680,
+        "fareNote": "Pass已过期；单次买票，往返约1,680日元／人，为估算。"
+      },
+      {
+        "id": "nara-city-bus",
+        "date": "2026-11-20",
+        "route": "JR奈良站 → 东大寺一带",
+        "service": "奈良交通市内巴士",
+        "coverage": "additional",
+        "fareNote": "按单次付费，其余以步行为主；乘坐次数与实际金额未定，不预先买当地交通通票，未计入基本预算。"
+      },
+      {
+        "id": "departure-haruka",
+        "date": "2026-11-21",
+        "route": "大阪站 → 关西机场",
+        "service": "HARUKA机场特急11号",
+        "coverage": "additional",
+        "fare": 1800,
+        "regularFare": 1900,
+        "time": "08:50–09:34",
+        "reservationRequired": true,
+        "fareNote": "Pass已过期，另买优惠单程票：10/31前购买1,800日元／人，11/1起购买1,900日元／人；价格按购票日期，车票与指定席尚未确认。",
+        "sourceIds": [
+          "haruka-oneway",
+          "haruka-timetable",
+          "jrwest-reservations"
+        ]
+      }
+    ],
+    "budgetItems": [
+      {
+        "id": "rail-pass",
+        "label": "7日全地区Pass",
+        "ticketOptionId": "all-area-pass"
+      },
+      {
+        "id": "nara-jr",
+        "label": "11/20奈良JR往返",
+        "legIds": [
+          "nara-jr-return"
+        ]
+      },
+      {
+        "id": "airport-haruka",
+        "label": "11/21 HARUKA",
+        "legIds": [
+          "departure-haruka"
+        ]
+      },
+      {
+        "id": "kumano-buses",
+        "label": "熊野巴士合计",
+        "legIds": [
+          "meiko-tanabe-takijiri",
+          "ryujin-fast-hosshinmon",
+          "ryujin-hongu-kawayu",
+          "early-kawayu-hayatama",
+          "hayatama-nachi-bus",
+          "nachi-nachisan-bus",
+          "nachi-falls-katsuura-bus"
+        ]
+      },
+      {
+        "id": "miyajima-ropeway",
+        "label": "宫岛缆车往返",
+        "legIds": [
+          "miyajima-ropeway-return"
+        ]
+      },
+      {
+        "id": "miyajima-tax",
+        "label": "宫岛访问税",
+        "legIds": [
+          "miyajima-ferry-visitor-tax"
+        ]
+      }
+    ],
+    "budgetNotes": [
+      "以10/31前购买11/21 HARUKA（1,800日元／人）、11/19符合06:54早班感应支付优惠（720日元／人）计算；11/1起购买HARUKA为1,900，早班现金或不适用优惠为1,440。",
+      "熊野巴士按17–19号当前主路线逐段计费，优惠后5,680日元／人；不购买当地巴士通票。",
+      "另加广岛／奈良市内交通与实际出租车费；景点门票和餐费未计入本交通预算。奈良JR往返为估算，未知费用不按零计算。",
+      "这是当前路线的条件预算；选择Pass不代表已购票、划座或付款。"
+    ],
+    "paymentNotes": [
+      {
+        "title": "11/17 明光巴士",
+        "detail": "单次付费，可刷Suica／ICOCA或付现金。",
+        "sourceIds": [
+          "kumano-bus-payment"
+        ]
+      },
+      {
+        "title": "11/18 龙神巴士",
+        "detail": "可用感应银行卡或现金，不收Suica／ICOCA；快速使用2,000日元专门票价。",
+        "sourceIds": [
+          "kumano-bus-payment",
+          "kumano-fast-bus-fare"
+        ]
+      },
+      {
+        "title": "11/19 熊野御坊南海巴士",
+        "detail": "可用感应银行卡、Apple Pay／Google Pay或现金，不收Suica／ICOCA。06:54早班优惠：两人分别用自己的卡或手机，上下车使用同一支付方式，优惠在结算后调整；现金按原价。",
+        "sourceIds": [
+          "kumano-bus-payment",
+          "kumano-early-discount"
+        ]
+      },
+      {
+        "title": "候车与提前退房",
+        "detail": "这些熊野巴士不预订座位，到站排队。提前与川湯まつや确认07:00前退房、钥匙归还和准确上车站，实际须在06:54发车前办妥并提前候车。",
+        "sourceIds": [
+          "kawayu-shingu-bus",
+          "kumano-bus-payment"
+        ]
+      }
+    ],
+    "sourceIds": [
+      "jrwest-all-area",
+      "jrwest-reservations",
+      "haruka-oneway",
+      "kumano-fast-bus-fare",
+      "miyajima-ropeway-fare",
+      "kumano-bus-payment",
+      "kumano-early-discount",
+      "hiroshima-meipuru-bus"
+    ]
+  }
 } satisfies Trip;

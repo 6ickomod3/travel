@@ -70,6 +70,13 @@ src/data/
   itemizes extra tickets already counted in `estimatedTotal`; `estimateNote`
   provides a concise condition in the comparison. Only an explicit choice
   records `selectedTicketOptionId`, which does not establish purchase.
+  Compare multiple current strategies; a sole selected strategy shows its
+  per-person and traveler prices without superseded comparisons.
+  Optional `transport` keeps dated coverage, additional fares, payment notes
+  and a referenced budget in the same trip. Follow the
+  [transport data contract](#transport-fares-and-budgets) to derive totals
+  without duplicating pass prices or fare amounts. Preparations displays its
+  journey/payment list; Costs displays transport separately from lodging.
   Pending checklist items follow Daily itinerary on trip pages. Use `kind: "todo"`
   for choosing, booking, buying, or preparing, and `kind: "check"` for
   missing details and confirmations. An omitted kind defaults to `todo`.
@@ -167,6 +174,40 @@ src/data/
 
 The archived text and history are not emitted as website pages. They remain
 publicly readable in the GitHub repository.
+
+## Transport fares and budgets
+
+Optional `Trip.transport` records one ISO `currency`, dated `legs`,
+`budgetItems`, `budgetNotes`, optional `paymentNotes` and `sourceIds`.
+Each leg has a stable `id`, trip `date`, `route`, `service` and `coverage`
+of `pass`, `additional` or `mixed`. Optional `time` and
+`reservationRequired: true` describe the supplied plan; they do not confirm
+a reservation. A leg's `sourceIds` references the trip's official-source catalog.
+
+`fare` is a known additional amount per adult in the plan's currency. Omit
+unknown fares. A mixed leg's `fareNote` explains which part is covered and
+which is extra, or which service choice has the stated fare. A supplied
+alternative price belongs in `regularFare`, with payment or purchase-date
+conditions in `fareNote`. A discount remains conditional until the traveler
+meets its terms; a supplied lower-price cutoff is not a seat-sale deadline.
+Keep operational guidance and source references in `paymentNotes` records
+with `title`, `detail` and optional `sourceIds`.
+
+Each budget item has `id` and `label`, plus either `ticketOptionId` or `legIds`.
+Use the pass's per-person price or sum the referenced additional fares; do not
+store copied numeric amounts or grand totals on budget rows. Calculate traveler
+totals from `travelers`. Validate every reference, the matching currency,
+known referenced fares and overlap between entries. A covered journey has no
+additional fare to count, and an extra included in another record must not
+appear twice. When the referenced pass has an older comparison estimate,
+do not add that estimate or its already included extras to the new budget.
+
+`budgetNotes` states the calculation's assumptions and excluded or unknown
+expenses. Keep the transport estimate distinct from accommodation booking
+amounts and estimated taxes, including the collapsed Costs summary. Neither
+selection nor a calculated budget records purchase, payment or a complete trip
+cost. Preserve each fare's supplied provenance; the presence of an official link
+does not claim independent page-body verification.
 
 ## Daily-map data
 

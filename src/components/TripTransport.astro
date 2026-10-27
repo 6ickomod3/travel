@@ -1,0 +1,120 @@
+---
+import Icon from './Icon.astro';
+import TripReferences from './TripReferences.astro';
+import type { TripSource, TripTransportPlan } from '../data/types';
+import { formatDate } from '../lib/trips';
+
+interface Props {
+  plan: TripTransportPlan;
+  sources?: TripSource[];
+  locale?: 'zh-CN' | 'en';
+}
+const { plan, sources = [], locale = 'en' } = Astro.props;
+const isZh = locale === 'zh-CN';
+const dateLocale = isZh ? 'zh-CN' : 'en-US';
+const text = (zh: string, en: string) => isZh ? zh : en;
+const money = (value: number) => new Intl.NumberFormat(dateLocale, { style: 'currency', currency: plan.currency }).format(value);
+const dates = [...new Set(plan.legs.map(leg => leg.date))].sort();
+const coverage = {
+  pass: text('Pass包含', 'Included in pass'),
+  additional: text('另付', 'Additional fare'),
+  mixed: text('部分包含', 'Partly included'),
+};
+const referenceIds = [...new Set([
+  ...(plan.sourceIds ?? []),
+  ...plan.legs.flatMap(leg => leg.sourceIds ?? []),
+  ...(plan.paymentNotes ?? []).flatMap(note => note.sourceIds ?? []),
+])];
+const references = referenceIds.flatMap(id => { const source = sources.find(source => source.id === id); return source ? [source] : []; });
+---
+<section class="trip-transport" id="transport" aria-labelledby="transport-title">
+  <div class="transport-heading">
+    <div><h3 id="transport-title">{text('全程交通清单', 'Transport by day')}</h3><p>{text('金额为成人每人，', 'Adult fares per person, ')}{plan.currency}{text('。班次与预约结果仍需确认。', '. Departures and reservations still need confirmation.')}</p></div>
+    <a href="#cost-transport-budget">{text('交通预算', 'Transport budget')} <Icon name="arrow-down" size={14} /></a>
+  </div>
+  <div class="transport-days">
+    {dates.map(date => <article class="transport-day" data-transport-date={date}>
+      <header><a href={`#day-${date}`}><time datetime={date}>{formatDate(date, { month: 'short', day: 'numeric', weekday: 'short' }, dateLocale)}</time><Icon name="arrow-up-right" size={13} /></a></header>
+      <ol class="transport-legs">
+        {plan.legs.filter(leg => leg.date === date).map(leg => <li id={`transport-leg-${leg.id}`} data-transport-leg={leg.id} data-transport-coverage={leg.coverage}>
+          <h4 class="transport-route">{leg.route}</h4>
+          <div class="transport-service"><p>{leg.service}</p>{leg.time && <span class="transport-time">{leg.time}</span>}{leg.reservationRequired && <span class="transport-reservation">{text('需提前预约', 'Reserve in advance')}</span>}</div>
+          <div class="transport-fare"><span class:list={['transport-coverage', `transport-coverage-${leg.coverage}`]}>{coverage[leg.coverage]}</span>{leg.fare !== undefined && <strong data-transport-fare={leg.fare}>{money(leg.fare)}</strong>}{leg.regularFare !== undefined && <small>{text('未满足优惠条件：', 'Without the discount: ')}{money(leg.regularFare)}</small>}</div>
+          {leg.fareNote && <p class="transport-fare-note">{leg.fareNote}</p>}
+        </li>)}
+      </ol>
+    </article>)}
+  </div>
+  {(plan.paymentNotes?.length ?? 0) > 0 && <div class="transport-payments" aria-labelledby="transport-payment-title">
+    <h3 id="transport-payment-title">{text('巴士与市内交通', 'Buses and local transport')}</h3>
+    <div class="transport-payment-grid">{plan.paymentNotes!.map(note => <article><h4>{note.title}</h4><p>{note.detail}</p></article>)}</div>
+  </div>}
+  <TripReferences sources={references} locale={locale} />
+</section>
+
+<style>
+  .trip-transport { min-width: 0; margin: 0 0 32px; scroll-margin-top: 30px; }
+  .transport-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
+  .transport-heading h3, .transport-payments > h3 { margin: 0; font-size: 18px; font-weight: 600; }
+  .transport-heading p { margin: 8px 0 0; color: var(--ink-soft); font-size: 12px; }
+  .transport-heading > a { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; color: var(--accent-deep); font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
+  .transport-days { display: grid; gap: 14px; }
+  .transport-day { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; }
+  .transport-day > header { padding: 11px 19px; border-bottom: 1px solid var(--line); background: var(--paper-deep); }
+  .transport-day > header a { display: inline-flex; align-items: center; gap: 9px; color: var(--accent-deep); font-size: 12px; font-weight: 500; }
+  .transport-legs { list-style: none; margin: 0; padding: 0; }
+  .transport-legs > li { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(180px, .8fr); align-items: start; gap: 8px 20px; padding: 17px 19px; scroll-margin-top: 30px; }
+  .transport-legs > li + li { border-top: 1px solid var(--line); }
+  .transport-route { min-width: 0; margin: 0; font-size: 13px; font-weight: 500; line-height: 1.8; overflow-wrap: anywhere; }
+  .transport-service { min-width: 0; }
+  .transport-service p { margin: 0; font-size: 12px; line-height: 1.8; }
+  .transport-time { display: block; margin-top: 3px; color: var(--ink-soft); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .transport-reservation { display: inline-block; margin-top: 5px; color: var(--pending); font-size: 11px; }
+  .transport-fare { display: flex; align-items: center; flex-wrap: wrap; gap: 5px 10px; min-width: 0; }
+  .transport-coverage { display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: 11px; line-height: 1.8; }
+  .transport-coverage-pass { color: var(--confirmed); background: var(--confirmed-soft, #3657430b); }
+  .transport-coverage-additional, .transport-coverage-mixed { color: var(--ink-soft); background: var(--paper-deep); }
+  .transport-fare strong { font-size: 14px; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .transport-fare small { flex-basis: 100%; color: var(--ink-soft); font-size: 10px; line-height: 1.8; }
+  .transport-fare-note { grid-column: 2 / -1; margin: 0; color: var(--ink-soft); font-size: 11px; line-height: 1.9; }
+  .transport-payments { margin-top: 28px; }
+  .transport-payment-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }
+  .transport-payment-grid article { min-width: 0; padding: 19px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper-deep); }
+  .transport-payment-grid h4 { margin: 0 0 8px; font-size: 13px; font-weight: 500; }
+  .transport-payment-grid p { margin: 0; color: var(--ink-soft); font-size: 12px; line-height: 1.9; }
+  @media (max-width: 700px) {
+    .transport-legs > li { grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 17px; }
+    .transport-route { font-size: 14px; }
+    .transport-service p { font-size: 13px; }
+    .transport-time { font-size: 12px; }
+    .transport-reservation { margin: 4px 0; font-size: 12px; }
+    .transport-fare { margin-top: 3px; }
+    .transport-coverage { font-size: 12px; }
+    .transport-fare small { flex-basis: auto; font-size: 11px; }
+    .transport-fare-note { grid-column: 1; font-size: 12px; }
+    .transport-day > header { padding: 6px 17px; }
+    .transport-day > header a, .transport-heading > a { min-height: 44px; }
+    .transport-payment-grid { grid-template-columns: minmax(0, 1fr); }
+    .transport-payment-grid p { font-size: 13px; }
+  }
+  @media print {
+    .trip-transport { margin-bottom: 20px; }
+    .transport-heading h3, .transport-payments > h3 { font-size: 14px; }
+    .transport-heading > a, .transport-day > header svg { display: none; }
+    .transport-heading p { font-size: 10px; }
+    .transport-days { gap: 10px; }
+    .transport-day { overflow: visible; background: white; }
+    .transport-day > header { padding: 8px 12px; background: white; break-after: avoid; }
+    .transport-day > header a { min-height: 0; font-size: 10px; }
+    .transport-legs > li { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(140px, .8fr); gap: 5px 12px; padding: 10px 12px; break-inside: avoid; }
+    .transport-route, .transport-service p { font-size: 10px; }
+    .transport-time, .transport-reservation, .transport-coverage, .transport-fare-note { font-size: 9px; }
+    .transport-fare-note { grid-column: 2 / -1; }
+    .transport-fare strong { font-size: 11px; }
+    .transport-fare small { flex-basis: 100%; font-size: 8px; }
+    .transport-payment-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .transport-payment-grid article { padding: 12px; background: white; break-inside: avoid; }
+    .transport-payment-grid h4 { font-size: 11px; }
+    .transport-payment-grid p { font-size: 10px; }
+  }
+</style>

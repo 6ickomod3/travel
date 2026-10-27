@@ -332,6 +332,43 @@ export interface TripBookingWindow {
   sourceIds?: string[];
 }
 
+export interface TripTransportLeg {
+  id: string;
+  date: string;
+  route: string;
+  service: string;
+  /** Coverage describes the fare, never purchase or reservation confirmation. */
+  coverage: "pass" | "additional" | "mixed";
+  /** Known additional fare per adult in the plan's currency; omit unknown fares. */
+  fare?: number;
+  /** Supplied price when the stated discount conditions are not met. */
+  regularFare?: number;
+  /** Explain price conditions, return fares, fees, or a choice of services. */
+  fareNote?: string;
+  /** A planning reference, not a confirmed departure or purchased ticket. */
+  time?: string;
+  reservationRequired?: true;
+  sourceIds?: string[];
+}
+
+export type TripTransportBudgetItem = {
+  id: string;
+  label: string;
+} & (
+  | { ticketOptionId: string; legIds?: never }
+  | { legIds: string[]; ticketOptionId?: never }
+);
+
+export interface TripTransportPlan {
+  currency: string;
+  legs: TripTransportLeg[];
+  /** Reuse pass prices and leg fares; do not store duplicate totals. */
+  budgetItems: TripTransportBudgetItem[];
+  budgetNotes: string[];
+  paymentNotes?: Array<{ title: string; detail: string; sourceIds?: string[] }>;
+  sourceIds?: string[];
+}
+
 export interface Trip {
   slug: string;
   title: string;
@@ -366,6 +403,8 @@ export interface Trip {
   ticketOptions?: TripTicketOption[];
   /** Explicitly recorded choice of one option; never implies purchase or payment. */
   selectedTicketOptionId?: string;
+  /** Per-adult transport fares, coverage, payment guidance and derived budget. */
+  transport?: TripTransportPlan;
   bookingWindows?: TripBookingWindow[];
   checklist?: TripChecklistItem[];
   sources?: TripSource[];

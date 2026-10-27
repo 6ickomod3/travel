@@ -96,6 +96,16 @@ visible-day loading, native labels, stop lists, external links and print fallbac
 
 Pending checklist items follow Daily itinerary, grouped into To do actions and To check confirmations through their optional `kind` field. Each group sorts by optional `timing`: immediate actions, referenced reservation openings or calendar dates, then undated items. Related travel dates are labeled separately from deadlines. Optional `priority: "high"` and `priorityReason` identify important dependencies. Ticket comparisons, reservation-opening times, and practical reminders remain in Preparations.
 
+An explicit `selectedTicketOptionId` records a ticket strategy, not a booking or
+payment. Compare multiple current options or show the single selected strategy.
+Optional trip-owned `transport` records dated coverage and known additional
+per-adult fares in one currency, with discount and payment conditions; omit
+unknown amounts. Its budget rows reference pass prices or journey fares so
+per-person and traveler totals are derived without duplication. Preparations
+shows journeys and payment guidance; Costs keeps the transport estimate separate
+from accommodation, with assumptions and exclusions clear. See the
+[transport fare and budget contract](docs/content-workflow.md#transport-fares-and-budgets).
+
 Add optional `cost` records to accommodation `checkIns` for booking totals and estimated extra charges. The same values appear on accommodation cards and in Costs before Official sources, totaled by currency; unknown prices stay unpriced and booking amounts do not imply payment.
 
 Optional `diningOptions` stores reusable restaurant details and public booking

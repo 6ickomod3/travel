@@ -24,11 +24,18 @@
 - Chikatsuyu's November 17–18 lodging is SEN RETREAT CHIKATSUYU, and Kawayu's
   November 18–19 lodging is 川湯まつや. The user confirmed these names in chat;
   meals, transfers, and exact bus stops still need confirmation.
-- November 19 uses the comfortable route via Shingu, Nachi, and Kii-Katsuura,
-  returning to Osaka on Kuroshio 30. The earlier Hayatama route is a separate
-  optional alternative, with Daimonzaka walking optional within that route.
-- Rail-pass selection, train reservations, museum tickets, and ropeway
-  reservations have not been confirmed. Keep price comparisons conditional.
+- November 19 uses the 06:54 Kawayu departure, then Hayatama Taisha, Nachi,
+  and Kii-Katsuura, returning directly to Osaka on Kuroshio 30 at 19:16.
+  The accepted route does not include Daimonzaka walking or the Tanabe
+  registration return. Exact Kawayu boarding and early-checkout details
+  remain unresolved.
+- The user selected the JR West All Area seven-day pass for November 13–19,
+  at JPY 26,000 per person and JPY 52,000 for two. The Kansai five-day pass
+  will not be purchased. Selection does not confirm purchase, reserved
+  seats, museum tickets, or ropeway reservations.
+- November 20 Nara JR travel, November 21 HARUKA, Kumano buses, Miyajima
+  ropeway, the Miyajima visitor tax, and uncovered city or taxi journeys
+  remain additional costs. Kumano buses use single fares without a bus pass.
 - Keep outstanding actions and missing confirmations in separate To do and
   To check lists, reached directly from the hero. The current section order
   is Route, Daily itinerary, To do and confirmations, Dining reservations,
@@ -38,17 +45,23 @@
   separate. All eight accommodation nights now have quoted prices: JPY
   294,987 in booking amounts plus JPY 3,200 tax gives JPY 298,187 in the
   current accommodation budget, excluding transport, meals and attractions.
+- The current transport estimate is JPY 37,260 per person and JPY 74,520 for
+  two, assuming November 21 HARUKA is bought by October 31 for JPY 1,800
+  and the November 19 contactless early-bus discount applies. HARUKA becomes
+  JPY 1,900 when bought from November 1. The estimate excludes uncovered
+  city transport, taxis, meals and attraction admissions. It is separate
+  from accommodation costs and does not record payment.
 - Stamp stops are plans, not recorded collections or confirmed individual
   pilgrim qualifications. Keep the accepted two-day hiking total of 20.8 km.
 - Formal Dual Pilgrim registration requires each traveler's qualifying Camino
-  proof and completed Kumano conditions. The optional Tanabe registration
-  return changes only November 19's return journey; the default Kuroshio 30
-  arrival in Osaka at 19:16 remains unchanged.
+  proof and completed Kumano conditions. Preserve the eligibility and
+  collection guidance; formal registration travel is outside the currently
+  accepted November 19 route.
 - Important planned sights have concise factual introductions in their daily
   sections. Keep all trip photos together in the manual top gallery, with
   direct image links from sight cards and visible image attribution. These
   additions do not change visits: the real Mount Misen summit remains
-  conditional, and Hayatama appears only in the early optional alternative.
+  conditional, and Hayatama now belongs to November 19's accepted early route.
 
 ## Source index
 
@@ -834,6 +847,97 @@ and licenses.
   fallback remained readable. No page errors or missing local assets were
   found. Reports and screenshots remain outside the repository.
 
+### 2026-10-26-01-transport-update
+
+- Archived: October 26, 2026, using the user's America/Los_Angeles date.
+- Origin: the user's Chinese transport update in this chat, with fare,
+  coverage, payment, advance-purchase and budget tables.
+- File: [inputs/2026-10-26-01-transport-update.txt](inputs/2026-10-26-01-transport-update.txt).
+  The complete publishable message is preserved verbatim, without metadata
+  or an added newline (8,331 UTF-8 bytes; SHA-256
+  `a295cf21395eb0d55f81c40c6358827592054c602c2007445b0c23bca2d382f8`).
+- Selected strategy: two JR West All Area seven-day passes, activated
+  November 13 and valid through November 19 inclusive, at JPY 26,000 per
+  adult. This explicitly supersedes the pending pass-choice comparison and
+  the Kansai five-day strategy. No pass purchase, payment or train seat
+  confirmation was supplied.
+- Route supersession: November 19 now accepts the 06:54 Kawayu–Hayatama
+  departure, onward buses to Nachi Station and Nachisan, and the Kuroshio 30
+  direct return from Kii-Katsuura at 15:21 to Osaka at 19:16. The former
+  08:39 comfortable route, optional early-route branch, Daimonzaka hike and
+  conditional Tanabe registration return leave the current plan. Earlier
+  source entries and archives retain their historical wording.
+- Coverage: the pass includes the planned major JR trains, ordinary reserved
+  seats and JR Miyajima ferry during November 13–19. Nara JR travel on
+  November 20, HARUKA on November 21, Kumano buses, ropeway and visitor tax
+  are additional. Hiroshima's JR sightseeing bus is covered when its route
+  fits; the tram remains an additional JPY 240 per ride. No local bus pass
+  is selected.
+- Advance actions: buy both passes and reserve the specified ordinary train
+  seats; buy the separately priced November 21 HARUKA 11 ticket; reserve
+  a November 15 ropeway slot near 09:00 and buy its ticket separately.
+  The HARUKA October 31 cutoff is a supplied lower-price purchase condition,
+  not a claimed sales or seat-reservation deadline. Existing timetable
+  references remain planning information rather than booking confirmations.
+- Bus amounts: the seven Kumano fares total JPY 5,680 per adult and JPY
+  11,360 for two under the early-bus discount. The November 18 rapid bus
+  uses its separate JPY 2,000 fare. The November 19 first bus is JPY 720
+  under the supplied contactless discount, compared with JPY 1,440 cash or
+  regular fare. Buses are boarded from their stops without seat reservations.
+- Payment: Meiko accepts Suica/ICOCA or cash; Ryujin accepts contactless
+  bank cards or cash but not Suica/ICOCA; Kumano Gobo Nankai accepts
+  contactless bank cards, Apple Pay/Google Pay or cash but not Suica/ICOCA.
+  For the early-bus discount, each traveler uses their own card or device
+  and the same payment method when boarding and alighting; the adjustment
+  happens at settlement. Cash does not receive the supplied half-price fare.
+- Budget: pass JPY 26,000 + Nara return approximately JPY 1,680 + HARUKA
+  JPY 1,800 + Kumano buses JPY 5,680 + ropeway return JPY 2,000 + one
+  Miyajima visit tax JPY 100 = approximately JPY 37,260 per adult and JPY
+  74,520 for two. The estimate assumes HARUKA purchase by October 31 and
+  the qualifying early-bus discount. Uncovered Hiroshima/Nara city rides,
+  taxis, meals and attraction admissions are outside this estimate.
+- Shared representation: the current plan owns transport legs with coverage,
+  known additional per-adult fares, conditional regular fares and payment
+  notes. Budget rows reference the selected pass or fare-bearing legs;
+  helpers calculate their sums and the traveler total rather than storing
+  duplicate budget amounts. Preparations holds the route/payment list;
+  Costs keeps transport separate from accommodation with visible scope
+  in the collapsed summary. Unknown fares remain absent.
+- Retained: the other accepted daily timing, all flight and lodging booking
+  states, hotel prices and estimated taxes, meal candidates, exact poem
+  originals, planned stamp semantics and the 20.8 km hiking total. Camino
+  proof and Dual Pilgrim eligibility remain unresolved; the route change
+  does not establish collected stamps, completed eligibility or registration.
+- Provenance: the official links in the submission are user-provided
+  references. Its claim of fare-table checking is preserved as submitted
+  provenance; no new independent operator-page-body verification is claimed
+  by the website. Prior timetable references remain planning references.
+- Verification: content validation, type checking and the final production
+  build passed with zero diagnostics across 59 files and four generated
+  pages. Independent arithmetic checks confirmed the six referenced budget
+  rows, the JPY 5,680 bus subtotal and JPY 37,260 per-person transport total.
+  Conditional two-person totals also resolve to JPY 74,720 for later HARUKA
+  purchase, JPY 75,960 for the regular early-bus fare, or JPY 76,160 for both.
+  All three flights, complete lodging records, seven poem objects, hiking
+  records and meal choices remain unchanged. The other eight dates keep
+  their accepted timetable IDs, times, titles and map definitions. All 71
+  map places, 17 views and 179 stop references resolve, with 94 main and
+  five remaining alternative timetable rows.
+- Local production browser verification at 1280px, 390px and 320px passed
+  for the selected pass and pending purchases, chronological reminders,
+  all 21 transport legs, price conditions, separate accommodation and
+  transport totals, budget fragment links and revised day-map/timetable
+  links. Costs, Accommodation and Sources retain their default disclosures;
+  print state restoration and no-JavaScript transport/cost reading passed.
+  A focused check of the final two-column budget table confirmed all six
+  fares fit each viewport without sideways scrolling. No page errors or
+  missing local resources were found. External browser requests were blocked
+  before dispatch; screenshots and reports remain outside the repository.
+- Open: confirm the actual Kawayu boarding stop and its early departure,
+  checkout and key-return arrangements in time for 06:54, and the selected
+  tickets and reservations. The new input does not supply new intermediate
+  Nachisan arrival times; old Daimonzaka timings must not be relabeled.
+
 ## Open information
 
 - For SEN RETREAT CHIKATSUYU and 川湯まつや, meals, early breakfast or packed
@@ -842,12 +946,17 @@ and licenses.
   original until authorized for publication.
 - Osaka's hotel must explicitly accept luggage storage between the November
   14 checkout and November 19 return. Do not assume storage for five nights.
-- Pass choice, purchased train tickets, museum tickets, and ropeway booking
-  have not been provided.
+- Purchase of the selected seven-day pass and separately priced November 21
+  HARUKA, reserved train seats, museum tickets, and ropeway slot/ticket
+  booking have not been confirmed. The HARUKA lower-price purchase window
+  ends October 31 under the supplied fare conditions.
+- Confirm with 川湯まつや the checkout and key-return method before 07:00,
+  allowing enough time for the accepted 06:54 bus at the actual boarding
+  stop. Its exact pole and departure remain to be confirmed.
 - Each traveler's prior Camino completion and supporting proof are unknown.
-  The choice of the early Hayatama route and conditional Tanabe registration
-  return remains pending; no stamps or formal qualifications are recorded
-  as already completed.
+  No stamps, formal qualifications or registration are recorded as completed.
+  The early Hayatama route is now accepted; a Tanabe registration journey
+  is outside the current plan.
 - Restaurant choices and reservations remain pending. In addition to booking
   candidates, confirm irregular opening days and two-person Izasa seating;
   retain prepared-food fallbacks where meal stops must fit existing transfers.
@@ -928,3 +1037,10 @@ when a source explicitly resolves or changes a decision.
   trip-owned sourced place coordinates and reusable daily map views, and
   recorded their phone, fallback and print behavior in the English design
   context while preserving the accepted itinerary.
+- October 26, 2026: archived the transport update, recorded the explicit
+  seven-day JR West All Area choice for November 13–19, and replaced the
+  former November 19 branches with the accepted early Hayatama–Nachi route
+  and direct Kuroshio 30 return. Added structured coverage, additional fares,
+  payment conditions and a separate computed transport budget, with purchase
+  and early-checkout reminders. Preserved unchanged bookings, accommodation
+  costs, poems, other accepted timing and pilgrim-eligibility uncertainty.

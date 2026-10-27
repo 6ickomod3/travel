@@ -395,6 +395,59 @@ for (const folder of folders) {
     }
     checkSources(option.sourceIds, `${folder}/${option.id}`);
   }
+  if (trip.transport !== undefined) {
+    const plan = trip.transport;
+    assert.match(plan.currency, /^[A-Z]{3}$/, `${folder}: use an ISO transport currency`);
+    const legIds = uniqueIds(plan.legs, `${folder} transport legs`);
+    uniqueIds(plan.budgetItems, `${folder} transport budget items`);
+    for (const leg of plan.legs) {
+      const label = `${folder}/${leg.id} transport`;
+      const date = calendarDate(leg.date, `${label} date`);
+      assert.ok(date >= start && date <= end, `${label}: date is outside the trip`);
+      for (const field of ['route', 'service']) assert.ok(typeof leg[field] === 'string' && leg[field].trim(), `${label}: add ${field}`);
+      assert.ok(['pass', 'additional', 'mixed'].includes(leg.coverage), `${label}: invalid coverage`);
+      if (leg.coverage === 'pass') assert.equal(leg.fare, undefined, `${label}: included fares must not be added again`);
+      if (leg.fare !== undefined) assert.ok(Number.isFinite(leg.fare) && leg.fare >= 0, `${label}: invalid additional fare`);
+      if (leg.regularFare !== undefined) {
+        assert.ok(leg.fare !== undefined && Number.isFinite(leg.regularFare) && leg.regularFare >= leg.fare, `${label}: invalid regular fare`);
+        assert.ok(typeof leg.fareNote === 'string' && leg.fareNote.trim(), `${label}: explain discount conditions`);
+      }
+      if (leg.coverage === 'mixed') assert.ok(typeof leg.fareNote === 'string' && leg.fareNote.trim(), `${label}: explain mixed coverage`);
+      if (leg.time !== undefined) assert.ok(typeof leg.time === 'string' && leg.time.trim(), `${label}: add reference time text`);
+      assert.ok(leg.reservationRequired === undefined || leg.reservationRequired === true, `${label}: reservation requirement must be true or omitted`);
+      checkSources(leg.sourceIds, label);
+    }
+    const countedLegs = new Set();
+    const countedOptions = new Set();
+    for (const item of plan.budgetItems) {
+      const label = `${folder}/${item.id} transport budget`;
+      assert.ok(typeof item.label === 'string' && item.label.trim(), `${label}: add a label`);
+      const hasOption = item.ticketOptionId !== undefined;
+      const hasLegs = item.legIds !== undefined;
+      assert.notEqual(hasOption, hasLegs, `${label}: reference either a ticket option or leg fares`);
+      if (hasOption) {
+        const option = (trip.ticketOptions ?? []).find(option => option.id === item.ticketOptionId);
+        assert.ok(option && option.currency === plan.currency, `${label}: unknown option or currency mismatch`);
+        assert.ok(!countedOptions.has(item.ticketOptionId), `${label}: ticket option counted twice`);
+        countedOptions.add(item.ticketOptionId);
+      } else {
+        assert.ok(Array.isArray(item.legIds) && item.legIds.length > 0, `${label}: reference priced legs`);
+        for (const id of item.legIds) {
+          assert.ok(legIds.has(id), `${label}: unknown leg ${id}`);
+          const leg = plan.legs.find(leg => leg.id === id);
+          assert.ok(leg.fare !== undefined && leg.coverage !== 'pass', `${label}: leg must have an additional fare`);
+          assert.ok(!countedLegs.has(id), `${label}: leg fare counted twice`);
+          countedLegs.add(id);
+        }
+      }
+    }
+    assert.ok(Array.isArray(plan.budgetNotes) && plan.budgetNotes.every(note => typeof note === 'string' && note.trim()), `${folder}: add transport budget conditions and scope`);
+    for (const note of plan.paymentNotes ?? []) {
+      assert.ok(typeof note.title === 'string' && note.title.trim() && typeof note.detail === 'string' && note.detail.trim(), `${folder}: add payment guidance`);
+      checkSources(note.sourceIds, `${folder} transport payment`);
+    }
+    checkSources(plan.sourceIds, `${folder} transport`);
+  }
   for (const window of trip.bookingWindows ?? []) {
     const travelDate = calendarDate(window.travelDate, `${folder}/${window.id} travel date`);
     assert.ok(travelDate >= start && travelDate <= end, `${folder}/${window.id}: booking travel date is outside the trip`);

@@ -76,7 +76,7 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
     </section>)}
   </div>
   {(hasTicketOptions || hasBookingWindows) && <div class="checklist-planning-links">
-    {hasTicketOptions && <a href="#ticket-options-title">{text('票券方案', 'Compare ticket options')} <Icon name="arrow-down" size={14} /></a>}
+    {hasTicketOptions && <a href="#ticket-options-title">{text('交通票券', 'Transport tickets')} <Icon name="arrow-down" size={14} /></a>}
     {hasBookingWindows && <a href="#booking-windows-title">{text('预约开放时间', 'Reservation opening times')} <Icon name="arrow-down" size={14} /></a>}
   </div>}
 </section>
