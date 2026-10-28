@@ -124,6 +124,9 @@ Keep the implementation contracts below aligned with that guide.
   separate from included fees. Booking amounts are not evidence of payment.
   Each estimated extra can have a `kind` and an explicit `quantity` calculation.
   Its total must agree with the supplied per-person/per-night estimate.
+  Optional `paymentStatus` is `paid`, `pay-on-arrival` or `unknown`, recorded
+  independently of booking. Unknown payment is not evidence of either payment
+  or an unpaid balance; do not treat it as zero.
 - `ticketOptions` store per-person prices, ISO currencies, and conditional
   estimates. `bookingWindows` use absolute opening timestamps and seller
   IANA timezones; display the seller's local time alongside Los Angeles time.
@@ -134,6 +137,8 @@ Keep the implementation contracts below aligned with that guide.
   Compare options only when multiple current strategies remain. A single
   explicitly selected strategy shows its per-person and traveler prices
   without retaining superseded alternatives or calling the choice a booking.
+  Only an explicit purchase confirmation sets `purchaseStatus: "purchased"`;
+  its independent `paymentStatus` uses the same recorded payment semantics.
 - Optional `transport` owns a single ISO currency, dated `legs`, referenced
   `budgetItems`, `budgetNotes`, payment guidance and official-source IDs.
   Leg coverage is `pass`, `additional` or `mixed`; `fare` is the known
@@ -149,6 +154,21 @@ Keep the implementation contracts below aligned with that guide.
   clear in the collapsed summary. Keep assumptions and exclusions with the
   budget. It is an estimate, not evidence of purchase, payment or a complete
   trip budget.
+  A leg's `reservationStatus: "booked"` and `reservationNote` record an explicit
+  seat confirmation separately from coverage and payment. Temporary reservation
+  messages remain checks until completion is established; verify an existing
+  attempt before prompting a duplicate booking.
+- Optional `budget` stores one ISO currency, party-total `allowances`, a supplied
+  `suggestedReserve` range and scope notes. Derive its spending range from
+  existing stay costs/taxes, referenced transport amounts, dated booked-meal
+  costs and these allowances; never store copied subtotals or grand totals.
+  Allowances use `minimum`, optional `maximum`, and optional date/meal-option
+  references for unbooked choices. Count a pass once in the overall transport
+  budget; allowances exclude pass prices and meals already included elsewhere.
+  Distinguish the spending estimate from the suggested preparation reserve
+  and list exclusions.
+  Show explicitly recorded paid amounts with their known scope; an incomplete
+  payment record cannot establish remaining unpaid spending by subtraction.
 - Keep `TripDay.alternatives` as separate labeled schedules. Never interleave
   an optional or fallback route into the main day's itinerary or map route.
   Printing opens both daily and alternative details, then restores their state.
@@ -164,6 +184,10 @@ Keep the implementation contracts below aligned with that guide.
   daily panels and dining reminders use these records. Keep options marked
   `requiresItineraryChange` visible but outside current-route reservation
   prompts. Dining references remain collapsed and are included in printing.
+  A dated choice's optional `cost` is the entire party's recorded order amount,
+  with its ISO currency, independent payment status and public cost notes.
+  Reuse it in daily dining and Costs; menu estimates for unbooked choices belong
+  in budget allowances. Do not count meals included in lodging again.
 - Optional `TripDay.poem` stores a requested epigraph's exact original,
   language-tagged interpretation, author, primary work, excerpt flag,
   bibliography, context and local literary references. Display it after
@@ -214,6 +238,9 @@ Keep the implementation contracts below aligned with that guide.
   details explicitly authorized for publication and be labeled as an excerpt
   in its file and history. Removing email links alone does not establish permission
   to publish the remaining booking document.
+  Private material can occur in daily or dining sections as well as booking
+  appendices. Review every selected passage; preserve identities, exact seat
+  records, private codes and order/document links only in ignored storage.
 
 ## Verification and publication
 

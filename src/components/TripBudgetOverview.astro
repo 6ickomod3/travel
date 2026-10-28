@@ -1,0 +1,93 @@
+---
+import Icon from './Icon.astro';
+import type { TripBudget } from '../data/types';
+import { getTripBudget, paymentStatusLabel } from '../lib/trip-costs';
+import { diningSectionId } from '../lib/trip-dining';
+
+interface Props {
+  plan: TripBudget;
+  summary: NonNullable<ReturnType<typeof getTripBudget>>;
+  locale?: 'zh-CN' | 'en';
+}
+const { plan, summary, locale = 'en' } = Astro.props;
+const text = (zh: string, en: string) => locale === 'zh-CN' ? zh : en;
+const money = (value: number) => new Intl.NumberFormat(locale === 'zh-CN' ? 'zh-CN' : 'en-US', { style: 'currency', currency: plan.currency }).format(value);
+const allowanceRange = (minimum: number, maximum = minimum) => minimum === maximum ? money(minimum) : `${money(minimum)} – ${money(maximum)}`;
+const diningOrders = summary.diningBookings.filter(booking => booking.choice.cost?.currency === plan.currency);
+---
+<section class="trip-budget" id="cost-trip-budget" aria-labelledby="trip-budget-title" data-trip-budget>
+  <h3 id="trip-budget-title">{text('行程总预算', 'Trip budget')} · {summary.partySize}{text('人', ' travelers')}</h3>
+  <p class="budget-basis">{text('订单金额、现场交通与未订项目预留；付款状态按各项记录。', 'Recorded orders, additional transport and allowances for unbooked plans. Payment status follows each record.')}</p>
+  <div class="budget-headline-grid">
+    <dl class="budget-headline"><dt>{text('当前预算', 'Current estimate')} <span>{plan.currency}</span></dt><dd class="budget-range"><span data-trip-budget-minimum>{money(summary.minimum)}</span><span aria-hidden="true">–</span><span data-trip-budget-maximum>{money(summary.maximum)}</span></dd></dl>
+    {plan.suggestedReserve && <dl class="budget-headline budget-reserve"><dt>{text('建议准备', 'Suggested reserve')} <span>{plan.currency}</span></dt><dd class="budget-range"><span>{money(plan.suggestedReserve.minimum)}</span><span aria-hidden="true">–</span><span>{money(plan.suggestedReserve.maximum)}</span></dd></dl>}
+  </div>
+  <div class="budget-groups">
+    <section class="budget-group" aria-labelledby="budget-orders-title">
+      <h4 id="budget-orders-title">{text('已订项目与住宿税预留', 'Booked items and estimated accommodation charges')}</h4>
+      <dl class="budget-lines">
+        <div><dt><a href="#cost-accommodation-title">{text('住宿订单', 'Accommodation orders')}</a></dt><dd>{money(summary.accommodationOrders)}</dd></div>
+        {summary.accommodationExtras > 0 && <div><dt>{text('预计另付住宿税', 'Estimated extra accommodation charges')}</dt><dd>{money(summary.accommodationExtras)}</dd></div>}
+        {summary.ticketOrders > 0 && <div><dt><a href="#ticket-options-title">{text('已购交通票券', 'Purchased transport tickets')}</a></dt><dd>{money(summary.ticketOrders)}</dd></div>}
+        {diningOrders.map(booking => <div><dt><a href={`#${booking.anchorId}`}>{booking.option.name}</a><small>{paymentStatusLabel(booking.choice.cost!.paymentStatus, locale)}</small></dt><dd>{money(booking.choice.cost!.amount)}</dd></div>)}
+        <div class="budget-subtotal"><dt>{text('订单与住宿税预算小计', 'Orders and estimated accommodation extras')}</dt><dd data-trip-budget-orders>{money(summary.ordersAndExtras)}</dd></div>
+      </dl>
+    </section>
+    {summary.additionalTransportRows.length > 0 && <section class="budget-group" aria-labelledby="budget-transport-title">
+      <h4 id="budget-transport-title">{text('另付交通', 'Additional transport')}</h4>
+      <dl class="budget-lines">
+        {summary.additionalTransportRows.map(row => <div><dt><a href="#cost-transport-budget">{row.label}</a></dt><dd>{money(row.amount)}</dd></div>)}
+        <div class="budget-subtotal"><dt>{text('另付交通小计', 'Additional transport subtotal')}</dt><dd data-trip-budget-additional-transport>{money(summary.additionalTransport)}</dd></div>
+      </dl>
+    </section>}
+  </div>
+  <p class="budget-base"><span>{text('订单、住宿税及另付交通', 'Orders, accommodation extras and additional transport')}</span><strong data-trip-budget-base>{money(summary.base)}</strong></p>
+  {plan.allowances.length > 0 && <section class="budget-allowances" aria-labelledby="budget-allowances-title">
+    <h4 id="budget-allowances-title">{text('未订餐饮与其他预留', 'Unbooked meals and other allowances')}</h4>
+    <dl class="budget-lines">
+      {plan.allowances.map(item => <div data-budget-allowance={item.id}>
+        <dt>{item.date ? <a href={`#${diningSectionId(item.date)}`}>{item.label}</a> : item.label}{item.note && <small>{item.note}</small>}</dt>
+        <dd>{allowanceRange(item.minimum, item.maximum)}</dd>
+      </div>)}
+      <div class="budget-subtotal"><dt>{text('预留小计', 'Allowance subtotal')}</dt><dd data-trip-budget-allowances>{allowanceRange(summary.allowanceMinimum, summary.allowanceMaximum)}</dd></div>
+    </dl>
+  </section>}
+  {summary.knownPaid !== undefined && <p class="budget-paid"><Icon name="check" size={16} /><span>{text('目前有明确付款记录', 'Explicit payment records so far')} <strong data-trip-budget-known-paid>{money(summary.knownPaid)}</strong>{text('；其他订单仍需核对付款状态。', '; other order payments still need checking.')}</span></p>}
+  <ul class="budget-notes">{plan.notes.map(note => <li>{note}</li>)}</ul>
+</section>
+
+<style>
+  .trip-budget { min-width: 0; margin-bottom: 34px; padding-bottom: 30px; border-bottom: 1px solid var(--line); scroll-margin-top: 30px; }
+  .trip-budget > h3 { margin: 0 0 10px; font-size: 20px; font-weight: 600; }
+  .budget-basis, .budget-notes { color: var(--ink-soft); font-size: 12px; line-height: 1.9; }
+  .budget-basis { margin: 0 0 20px; }
+  .budget-headline-grid, .budget-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .budget-headline { min-width: 0; margin: 0; padding: 22px; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; }
+  .budget-headline dt { display: flex; align-items: baseline; gap: 12px; color: var(--ink-soft); font-size: 12px; }
+  .budget-headline dt > span { margin-left: auto; font-size: 10px; }
+  .budget-range { display: flex; align-items: baseline; flex-wrap: wrap; gap: 5px 8px; margin: 12px 0 0; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.45; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .budget-range > span { white-space: nowrap; }
+  .budget-reserve { border-color: var(--confirmed-line); background: var(--confirmed-soft); }
+  .budget-groups { margin-top: 26px; }
+  .budget-group { min-width: 0; }
+  .budget-group h4, .budget-allowances h4 { margin: 0 0 10px; font-size: 14px; font-weight: 600; }
+  .budget-lines { margin: 0; font-size: 12px; }
+  .budget-lines > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 10px 14px; padding: 12px 0; }
+  .budget-lines > div + div { border-top: 1px solid var(--line); }
+  .budget-lines dt { min-width: 0; line-height: 1.8; overflow-wrap: anywhere; }
+  .budget-lines dt a { text-decoration: underline; text-underline-offset: 3px; }
+  .budget-lines dt small { display: block; margin-top: 4px; color: var(--ink-soft); font-size: 11px; line-height: 1.8; }
+  .budget-lines dd { margin: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .budget-subtotal { font-weight: 600; }
+  .budget-base { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin: 20px 0 0; padding: 15px 18px; border-radius: 5px; background: var(--paper-deep); font-size: 13px; }
+  .budget-base strong { font-size: 18px; font-variant-numeric: tabular-nums; }
+  .budget-allowances { margin-top: 24px; }
+  .budget-paid { display: flex; align-items: flex-start; gap: 8px; margin: 22px 0 0; color: var(--confirmed); font-size: 12px; line-height: 1.9; }
+  .budget-paid > svg { flex-shrink: 0; margin-top: 4px; }
+  .budget-paid strong { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .budget-notes { margin: 16px 0 0; padding-left: 18px; }
+  .budget-notes li + li { margin-top: 6px; }
+  @media (max-width: 800px) { .budget-headline-grid, .budget-groups { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 600px) { .budget-headline { padding: 18px; } .budget-basis, .budget-lines, .budget-notes, .budget-paid { font-size: 13px; } .budget-lines dt small { font-size: 12px; } .budget-allowances .budget-lines > div { grid-template-columns: minmax(0, 1fr); gap: 5px; } }
+  @media print { .trip-budget { margin-bottom: 20px; padding-bottom: 18px; } .trip-budget > h3 { font-size: 15px; } .budget-headline-grid, .budget-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } .budget-headline { padding: 12px; background: white; break-inside: avoid; } .budget-range { font-size: 18px; } .budget-lines, .budget-basis, .budget-notes, .budget-paid { font-size: 10px; } .budget-lines dt small { font-size: 9px; } .budget-group h4, .budget-allowances h4 { font-size: 11px; } .budget-lines > div { padding: 8px 0; break-inside: avoid; } .budget-base { background: white; border: 1px solid var(--line); font-size: 10px; } .budget-base strong { font-size: 14px; } .budget-allowances .budget-lines > div { grid-template-columns: minmax(0, 1fr) auto; } }
+</style>

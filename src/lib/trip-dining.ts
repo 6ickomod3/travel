@@ -1,4 +1,4 @@
-import type { TripDay, TripDiningOption, TripMeal } from '../data/types';
+import type { TripDay, TripDiningChoice, TripDiningOption, TripMeal } from '../data/types';
 
 export interface DiningUsage {
   date: string;
@@ -14,8 +14,30 @@ export interface DiningReservationReminder {
   firstDate: string;
 }
 
+export interface DiningBooking {
+  date: string;
+  meal: TripMeal;
+  option: TripDiningOption;
+  choice: TripDiningChoice;
+  anchorId: string;
+}
+
 export const diningSectionId = (date: string) => `dining-${date}`;
 export const diningChoiceId = (date: string, meal: TripMeal, optionId: string) => `dining-${date}-${meal}-${optionId}`;
+
+/** Confirmed meals retain their dated order and payment details outside pending reminders. */
+export function getDiningBookings(
+  days: readonly Pick<TripDay, 'date' | 'dining'>[],
+  options: readonly TripDiningOption[],
+): DiningBooking[] {
+  const optionsById = new Map(options.map(option => [option.id, option]));
+  return days.flatMap(day => (day.dining ?? []).flatMap(meal => meal.choices.flatMap(choice => {
+    const option = optionsById.get(choice.optionId);
+    return choice.reservationStatus === 'booked' && !choice.requiresItineraryChange && option
+      ? [{ date: day.date, meal: meal.meal, option, choice, anchorId: diningChoiceId(day.date, meal.meal, option.id) }]
+      : [];
+  }))).sort((a, b) => a.date.localeCompare(b.date));
+}
 
 export function diningMealLabel(meal: TripMeal, locale: 'zh-CN' | 'en' = 'en'): string {
   const labels: Record<TripMeal, [string, string]> = {

@@ -2,9 +2,12 @@
 import Icon from './Icon.astro';
 import TripReferences from './TripReferences.astro';
 import TripSection from './TripSection.astro';
-import type { TripStay, TripSource, TripStayCost, TripTicketOption, TripTransportPlan } from '../data/trips';
+import TripBudgetOverview from './TripBudgetOverview.astro';
+import type { TripStay, TripSource, TripStayCost, TripTicketOption, TripTransportPlan, TripBudget, TripDay, TripDiningOption } from '../data/trips';
 import { durationDays, formatDate } from '../lib/trips';
 import { getTransportBudget } from '../lib/trip-transport';
+import { getTripBudget, paymentStatusLabel } from '../lib/trip-costs';
+import { getDiningBookings } from '../lib/trip-dining';
 
 interface Props {
   stays: TripStay[];
@@ -14,8 +17,11 @@ interface Props {
   hasPreparations?: boolean;
   transport?: TripTransportPlan;
   ticketOptions?: TripTicketOption[];
+  budget?: TripBudget;
+  days?: TripDay[];
+  diningOptions?: TripDiningOption[];
 }
-const { stays, sources = [], travelers, locale = 'en', hasPreparations = false, transport, ticketOptions = [] } = Astro.props;
+const { stays, sources = [], travelers, locale = 'en', hasPreparations = false, transport, ticketOptions = [], budget, days = [], diningOptions = [] } = Astro.props;
 const isZh = locale === 'zh-CN';
 const dateLocale = isZh ? 'zh-CN' : 'en-US';
 const text = (zh: string, en: string) => isZh ? zh : en;
@@ -54,11 +60,17 @@ const referenceIds = [...new Set(pricedRows.flatMap(row => row.cost.sourceIds ??
 const references = referenceIds.flatMap(id => { const source = sources.find(item => item.id === id); return source ? [source] : []; });
 const partySize = travelers !== undefined && Number.isInteger(travelers) && travelers > 0 ? travelers : undefined;
 const transportBudget = getTransportBudget(transport, ticketOptions);
+const wholeBudget = getTripBudget({ stays, travelers, transport, ticketOptions, budget, days, diningOptions });
+const diningBookings = getDiningBookings(days, diningOptions).filter(booking => booking.choice.cost);
 const transportReferenceIds = [...new Set([...(transport?.sourceIds ?? []), ...(transportBudget?.rows.flatMap(row => row.sourceIds) ?? [])])];
 const transportReferences = transportReferenceIds.flatMap(id => { const source = sources.find(item => item.id === id); return source ? [source] : []; });
 ---
 <TripSection id="costs" title={text('费用', 'Costs')} open={false} class="trip-costs-section" locale={locale}>
   <Fragment slot="summary">
+    {wholeBudget ? <span class="cost-section-whole" data-trip-budget-summary>
+      {wholeBudget.partySize}{text('人行程预算', ' travelers, trip estimate')} <span class="cost-section-amount">{money(wholeBudget.minimum, wholeBudget.currency)} – {money(wholeBudget.maximum, wholeBudget.currency)}</span> <span class="cost-section-code">{wholeBudget.currency}</span>
+      {budget?.suggestedReserve && <span class="cost-section-metric">{text('建议准备', 'Suggested reserve')} <span class="cost-section-amount">{money(budget.suggestedReserve.minimum, wholeBudget.currency)} – {money(budget.suggestedReserve.maximum, wholeBudget.currency)}</span></span>}
+    </span> : <>
     {summaries.map(summary => <span class="cost-section-currency" data-cost-summary-currency={summary.currency}>
       <span class="cost-section-metric">{text('已知住宿订单合计', 'Known accommodation booking total')} <span class="cost-section-amount" data-cost-summary-total="bookings">{money(summary.bookingTotal, summary.currency)}</span> <span class="cost-section-code">{summary.currency}</span></span>
       {summary.hasAdditional ? <>
@@ -72,7 +84,10 @@ const transportReferences = transportReferenceIds.flatMap(id => { const source =
       {text('交通估算', 'Transport estimate')}{partySize !== undefined && partySize > 1 ? <>（{partySize}{text('人', ' travelers')}） <span class="cost-section-amount" data-transport-summary="party">{money(transportBudget.total * partySize, transportBudget.currency)}</span></> : <>／{text('人', 'person')} <span class="cost-section-amount" data-transport-summary="person">{money(transportBudget.total, transportBudget.currency)}</span></>}
       <span class="cost-section-code">{transportBudget.currency}</span>
     </span>}
+    </>}
   </Fragment>
+  {budget && wholeBudget && <TripBudgetOverview plan={budget} summary={wholeBudget} locale={locale} />}
+  {pricedRows.length > 0 && <h3 class="cost-subheading" id="cost-accommodation-title">{text('住宿明细', 'Accommodation details')}</h3>}
   <p class="cost-recorded">{text('住宿', 'Accommodation')} · {pricedRows.length} {text('笔订单', pricedRows.length === 1 ? 'booking' : 'bookings')} · {pricedNights} {text('晚已提供金额', 'nights priced')}{pendingNights > 0 && <> · {pendingNights} {text('晚价格待补', 'nights awaiting prices')}</>}</p>
   <p class="cost-basis">{text('以下为每笔住宿订单总价，不是每人价，也不代表已付款。', 'These are totals for each accommodation booking, not per-person prices or confirmed payments.')}{travelers !== undefined && travelers > 0 && <> {travelers} {text('人同行。', travelers === 1 ? 'traveler.' : 'travelers.')}</>}</p>
   {summaries.map(summary => <div class="cost-currency-summary" data-cost-currency={summary.currency}>
@@ -93,16 +108,24 @@ const transportReferences = transportReferenceIds.flatMap(id => { const source =
       <tbody>{rows.map(row => <tr id={row.id} data-cost-row={row.id} class:list={{ 'cost-row-pending': !row.segment.cost }}>
         <td class="cost-date"><time datetime={row.segment.checkIn}>{date(row.segment.checkIn)}</time><span aria-hidden="true"> → </span><time datetime={row.segment.checkOut}>{date(row.segment.checkOut)}</time><small>{row.nights} {text('晚', row.nights === 1 ? 'night' : 'nights')}</small></td>
         <th scope="row" class="cost-stay"><a href={`#stay-${row.stay.id}`}>{row.stay.name}</a>{row.details.length > 0 && <ul>{row.details.map(note => <li>{note}</li>)}</ul>}</th>
-        <td class="cost-amount" data-booking-amount={row.segment.cost?.amount}>{row.segment.cost ? <>{money(row.segment.cost.amount, row.segment.cost.currency)}<small>{row.segment.cost.currency}</small></> : <><span>{text('待补', 'To be added')}</span><small>{text('未计入合计', 'Excluded from totals')}</small></>}</td>
+        <td class="cost-amount" data-booking-amount={row.segment.cost?.amount}>{row.segment.cost ? <>{money(row.segment.cost.amount, row.segment.cost.currency)}<small>{row.segment.cost.currency}</small><small class:list={{ 'cost-payment-paid': row.segment.cost.paymentStatus === 'paid' }} data-cost-payment={row.segment.cost.paymentStatus ?? 'unknown'}>{paymentStatusLabel(row.segment.cost.paymentStatus, locale)}</small></> : <><span>{text('待补', 'To be added')}</span><small>{text('未计入合计', 'Excluded from totals')}</small></>}</td>
         <td class="cost-additional">{(row.segment.cost?.estimatedAdditional?.length ?? 0) > 0 ? row.segment.cost!.estimatedAdditional!.map(extra => <div data-additional-amount={extra.amount}><span>{money(extra.amount, row.segment.cost!.currency)}</span><small>{extra.label}</small>{taxEquation(extra, row.segment.cost!.currency) && <small class="cost-tax-equation" data-cost-tax-equation>{taxEquation(extra, row.segment.cost!.currency)}</small>}</div>) : <span aria-label={text('未提供额外费用记录', 'No additional cost recorded')}>—</span>}</td>
       </tr>)}</tbody>
     </table>
   </div>
   <p class="cost-scope">{pendingNights > 0 && <>{pendingNights} {text('晚住宿价格待补；', 'accommodation nights are unpriced. ')}</>}{text('以上是已知住宿部分预算。交通、未含餐食、景点等费用另计。', 'This is a partial accommodation budget. Transport, meals not included, and activities are separate.')}{summaries.length > 1 && <> {text('不同币种分别合计，未换汇合并。', 'Currencies are totaled separately, without conversion.')}</>}</p>
   <TripReferences sources={references} locale={locale} />
+  {diningBookings.length > 0 && <section class="dining-costs" id="cost-dining-bookings" aria-labelledby="dining-costs-title">
+    <h3 id="dining-costs-title">{text('已订用餐', 'Booked meals')}</h3>
+    <p class="cost-basis">{text('以下为本次同行人数的整笔用餐订单。', 'These are meal order totals for the traveling party.')}</p>
+    <ol class="dining-cost-list">{diningBookings.map(booking => <li>
+      <div><time datetime={booking.date}>{date(booking.date)}</time><h4><a href={`#${booking.anchorId}`}>{booking.option.name}</a></h4>{booking.choice.cost!.notes?.length && <ul>{booking.choice.cost!.notes.map(note => <li>{note}</li>)}</ul>}</div>
+      <div class="dining-cost-amount"><strong>{money(booking.choice.cost!.amount, booking.choice.cost!.currency)}</strong><span data-dining-payment={booking.choice.cost!.paymentStatus ?? 'unknown'}>{paymentStatusLabel(booking.choice.cost!.paymentStatus, locale)}</span></div>
+    </li>)}</ol>
+  </section>}
   {transport && transportBudget && transportBudget.rows.length > 0 && <section class="transport-budget" id="cost-transport-budget" aria-labelledby="transport-budget-title">
     <h3 id="transport-budget-title">{text('交通预算', 'Transport budget')}</h3>
-    <p class="cost-basis">{text('按成人每人票价估算，购票与预约状态见待办与确认。', 'Estimates use adult fares per person. See the checklist for purchase and reservation status.')}</p>
+    <p class="cost-basis">{text('按成人每人票价估算；交通票券及指定席状态见行前准备。', 'Estimates use adult fares per person. Ticket purchases and seat confirmations are in Preparations.')}{wholeBudget && <> {text('已购Pass已计入上方订单，行程总预算中的另付交通为', 'Purchased passes are included in the orders above. Additional transport in the trip total is ')} {money(wholeBudget.additionalTransport, wholeBudget.currency)}{text('。', '.')}</>}</p>
     <div class:list={['cost-summary-grid', 'transport-summary-grid', { 'cost-summary-grid-single': partySize === undefined || partySize === 1 }]}>
       <dl class="cost-metric"><dt>{text('交通估算／人', 'Transport estimate / person')} <span>{transportBudget.currency}</span></dt><dd data-transport-total="person">{money(transportBudget.total, transportBudget.currency)}</dd></dl>
       {partySize !== undefined && partySize > 1 && <dl class="cost-metric cost-metric-budget"><dt>{partySize}{text('人交通估算', ' travelers, transport estimate')} <span>{transportBudget.currency}</span></dt><dd data-transport-total="party">{money(transportBudget.total * partySize, transportBudget.currency)}</dd></dl>}
@@ -128,8 +151,11 @@ const transportReferences = transportReferenceIds.flatMap(id => { const source =
   .cost-section-amount { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .cost-section-code { font-size: 10px; }
   .cost-section-transport { display: inline-flex; flex-wrap: wrap; gap: 5px; }
+  .cost-section-whole { display: inline-flex; flex-wrap: wrap; gap: 5px 12px; }
+  .cost-section-whole .cost-section-amount { white-space: normal; }
   .cost-section-pending { color: var(--ink-soft); }
   .cost-recorded { margin: 0 0 14px; color: var(--ink-soft); font-size: 13px; line-height: 1.9; }
+  .cost-subheading { margin: 0 0 14px; font-size: 18px; font-weight: 600; scroll-margin-top: 30px; }
   .cost-basis { margin: 0 0 24px; color: var(--ink-soft); font-size: 13px; line-height: 1.9; }
   .cost-currency-summary + .cost-currency-summary { margin-top: 25px; }
   .cost-summary-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
@@ -159,6 +185,19 @@ const transportReferences = transportReferenceIds.flatMap(id => { const source =
   .cost-row-pending { background: var(--paper-deep); }
   .cost-row-pending .cost-amount > span { color: var(--accent-deep); }
   .cost-scope { margin-top: 18px; font-size: 12px; line-height: 1.9; color: var(--ink-soft); }
+  .cost-amount .cost-payment-paid { color: var(--confirmed); }
+  .dining-costs { margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 30px; }
+  .dining-costs > h3 { margin: 0 0 12px; font-size: 18px; font-weight: 600; }
+  .dining-cost-list { margin: 0; padding: 0; list-style: none; }
+  .dining-cost-list > li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; padding: 17px 0; }
+  .dining-cost-list > li + li { border-top: 1px solid var(--line); }
+  .dining-cost-list time { color: var(--ink-soft); font-size: 11px; }
+  .dining-cost-list h4 { margin: 4px 0 0; font-size: 13px; font-weight: 500; }
+  .dining-cost-list h4 a { text-decoration: underline; text-underline-offset: 3px; }
+  .dining-cost-list ul { margin: 8px 0 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.9; }
+  .dining-cost-amount { text-align: right; font-size: 14px; font-variant-numeric: tabular-nums; }
+  .dining-cost-amount strong { font-weight: 500; white-space: nowrap; }
+  .dining-cost-amount span { display: block; margin-top: 6px; color: var(--ink-soft); font-size: 11px; }
   .cost-planning-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; color: var(--accent-deep); font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
   .transport-budget { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--line); scroll-margin-top: 30px; }
   .transport-budget > h3 { margin: 0 0 12px; font-size: 18px; font-weight: 600; }

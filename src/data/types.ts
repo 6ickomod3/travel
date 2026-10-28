@@ -138,6 +138,17 @@ export interface TripStampGuide {
 
 export type TripMeal = "breakfast" | "lunch" | "dinner" | "snack";
 
+/** Payment is independent of a recorded booking or ticket purchase. */
+export type TripPaymentStatus = "paid" | "pay-on-arrival" | "unknown";
+
+export interface TripDiningCost {
+  /** ISO currency and the entire dated meal order for the traveling party. */
+  currency: string;
+  amount: number;
+  paymentStatus?: TripPaymentStatus;
+  notes?: string[];
+}
+
 export interface TripDiningOption {
   id: string;
   name: string;
@@ -162,6 +173,8 @@ export interface TripDiningChoice {
   requiresItineraryChange?: true;
   /** Record only an explicit confirmation for this date and meal. */
   reservationStatus?: "booked";
+  /** A supplied order total, distinct from a candidate menu estimate. */
+  cost?: TripDiningCost;
 }
 
 export interface TripDayMeal {
@@ -231,6 +244,7 @@ export interface TripStayCost {
   /** ISO currency code and total for this booking segment, not per-person spending. */
   currency: string;
   amount: number;
+  paymentStatus?: TripPaymentStatus;
   /** Estimated charges excluded from amount; never repeat fees already included. */
   estimatedAdditional?: Array<{
     label: string;
@@ -311,6 +325,9 @@ export interface TripTicketOption {
   /** ISO currency code; prices and conditional estimates are per person. */
   currency: string;
   price: number;
+  /** Selection alone never establishes either of these statuses. */
+  purchaseStatus?: "purchased";
+  paymentStatus?: TripPaymentStatus;
   estimatedTotal?: number;
   /** Extra tickets already counted in estimatedTotal, in this option's currency. */
   addOnTickets?: Array<{ label: string; price: number }>;
@@ -348,6 +365,9 @@ export interface TripTransportLeg {
   /** A planning reference, not a confirmed departure or purchased ticket. */
   time?: string;
   reservationRequired?: true;
+  /** A recorded seat confirmation, independent of pass coverage or payment. */
+  reservationStatus?: "booked";
+  reservationNote?: string;
   sourceIds?: string[];
 }
 
@@ -367,6 +387,27 @@ export interface TripTransportPlan {
   budgetNotes: string[];
   paymentNotes?: Array<{ title: string; detail: string; sourceIds?: string[] }>;
   sourceIds?: string[];
+}
+
+export interface TripBudgetAllowance {
+  id: string;
+  label: string;
+  /** Party-total estimates in the owning budget's currency. */
+  minimum: number;
+  maximum?: number;
+  note?: string;
+  /** Optional link to an unbooked daily meal choice; no new reservation. */
+  date?: string;
+  optionId?: string;
+}
+
+export interface TripBudget {
+  currency: string;
+  /** Extras excluded from recorded lodging, transport and booked meal amounts. */
+  allowances: TripBudgetAllowance[];
+  /** A supplied preparation range, separate from the computed spending estimate. */
+  suggestedReserve?: { minimum: number; maximum: number };
+  notes: string[];
 }
 
 export interface Trip {
@@ -405,6 +446,8 @@ export interface Trip {
   selectedTicketOptionId?: string;
   /** Per-adult transport fares, coverage, payment guidance and derived budget. */
   transport?: TripTransportPlan;
+  /** Opt-in broader budget: reuse priced records and add scoped allowances. */
+  budget?: TripBudget;
   bookingWindows?: TripBookingWindow[];
   checklist?: TripChecklistItem[];
   sources?: TripSource[];

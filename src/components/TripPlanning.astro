@@ -1,7 +1,9 @@
 ---
 import TripReferences from './TripReferences.astro';
+import BookingBadge from './BookingBadge.astro';
 import type { TripBookingWindow, TripSource, TripTicketOption } from '../data/trips';
 import { formatDate, formatDateRange } from '../lib/trips';
+import { paymentStatusLabel } from '../lib/trip-costs';
 
 interface Props {
   ticketOptions?: TripTicketOption[];
@@ -37,7 +39,11 @@ const bookingSources = [...new Set(bookingWindows.flatMap(window => window.sourc
   {ticketOptions.length > 0 && <div class="ticket-options" aria-labelledby="ticket-options-title">
     <div class="planning-details-heading">
       <h3 id="ticket-options-title">{text('交通票券', 'Transport tickets')}</h3>
-      {selectedOption ? <p class="ticket-choice-note" data-ticket-choice={selectedOption.id}><span class="ticket-selected-label">{text('已选方案', 'Selected option')}</span><strong>{selectedOption.title}</strong><span>{text('购票与指定席状态见待办与确认。', 'See the checklist for purchase and seat reservations.')}</span></p> : <p class="ticket-choice-note"><span class="ticket-pending-label">{text('待定', 'Pending')}</span>{ticketOptions.length > 1 ? text('以下方案选一套。', 'Choose one of these options.') : text('方案待确认。', 'The option awaits confirmation.')}</p>}
+      {selectedOption ? <p class="ticket-choice-note" data-ticket-choice={selectedOption.id} data-ticket-purchase={selectedOption.purchaseStatus}>
+        {selectedOption.purchaseStatus === 'purchased' ? <BookingBadge status="booked" locale={locale} label={text('已购票', 'Purchased')} /> : <span class="ticket-selected-label">{text('已选方案', 'Selected option')}</span>}
+        <strong>{selectedOption.title}</strong>
+        {selectedOption.purchaseStatus === 'purchased' ? <span class:list={{ 'ticket-payment-paid': selectedOption.paymentStatus === 'paid' }} data-ticket-payment={selectedOption.paymentStatus ?? 'unknown'}>{paymentStatusLabel(selectedOption.paymentStatus, locale)}</span> : <span>{text('购票与指定席状态见待办与确认。', 'See the checklist for purchase and seat reservations.')}</span>}
+      </p> : <p class="ticket-choice-note"><span class="ticket-pending-label">{text('待定', 'Pending')}</span>{ticketOptions.length > 1 ? text('以下方案选一套。', 'Choose one of these options.') : text('方案待确认。', 'The option awaits confirmation.')}</p>}
       {!singleOption && <p>{text('组合估算已计入所列另购车票，其他费用另计。', 'Package estimates include the listed additional tickets. Other costs are separate.')}</p>}
     </div>
     {singleOption ? <div class="ticket-single" data-ticket-single={singleOption.id}>
@@ -91,6 +97,7 @@ const bookingSources = [...new Set(bookingWindows.flatMap(window => window.sourc
   .planning-details-heading p { margin-top: 8px; color: var(--ink-soft); font-size: 12px; }
   .ticket-choice-note { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; }
   .ticket-choice-note strong { color: var(--ink); font-weight: 500; }
+  .ticket-choice-note .ticket-payment-paid { color: var(--confirmed); font-weight: 500; }
   .ticket-selected-label { padding: 2px 8px; border-radius: 3px; color: var(--confirmed); background: var(--confirmed-soft, #3657430c); font-size: 11px; font-weight: 500; }
   .ticket-pending-label { padding: 2px 8px; border-radius: 3px; color: var(--pending, #9a5c20); background: var(--pending-soft, #fff4e5); font-size: 11px; font-weight: 500; }
   .ticket-single { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; padding: 22px; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; }

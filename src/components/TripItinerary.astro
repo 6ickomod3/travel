@@ -20,7 +20,7 @@ import { tripCollection, type Trip, type TripDestination, type TripStay } from '
 import { durationDays, formatDateRange, formatDate } from '../lib/trips';
 import { withBase } from '../lib/urls';
 import { getImageCredit, getLicensedImageCredit } from '../lib/image-credits';
-import { getDiningReservationReminders } from '../lib/trip-dining';
+import { getDiningBookings, getDiningReservationReminders } from '../lib/trip-dining';
 
 interface Props { trip: Trip; }
 const { trip } = Astro.props;
@@ -45,12 +45,13 @@ const route = (trip.mapRoute?.length ? trip.mapRoute : trip.destinations.map(sto
   .filter((stop): stop is TripDestination => Boolean(stop));
 const stays = trip.stays ?? [];
 const hasStayBrands = stays.some(stay => stay.brandId);
-const hasCosts = stays.some(stay => stay.checkIns.some(segment => segment.cost)) || Boolean(trip.transport?.budgetItems.length);
+const hasCosts = stays.some(stay => stay.checkIns.some(segment => segment.cost)) || Boolean(trip.transport?.budgetItems.length) || Boolean(trip.budget) || trip.days.some(day => day.dining?.some(meal => meal.choices.some(choice => choice.cost)));
 const flights = trip.flights ?? [];
 const ticketOptions = trip.ticketOptions ?? [];
 const bookingWindows = trip.bookingWindows ?? [];
 const checklist = trip.checklist ?? [];
 const diningReminders = getDiningReservationReminders(trip.days, trip.diningOptions ?? []);
+const diningBookings = getDiningBookings(trip.days, trip.diningOptions ?? []);
 const practicalNotes = trip.practicalNotes ?? [];
 const sources = trip.sources ?? [];
 const gallery = trip.gallery ?? [];
@@ -123,7 +124,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
           <a href="#route">{text('旅行路线', 'Route')}</a>
           <a href="#itinerary">{text('每日行程', 'Daily itinerary')}</a>
           {checklist.length > 0 && <a href="#checklist">{text('待办与确认', 'To do and confirmations')}</a>}
-          {diningReminders.length > 0 && <a href="#dining-reservations">{text('用餐预约', 'Dining reservations')}</a>}
+          {(diningReminders.length > 0 || diningBookings.length > 0) && <a href="#dining-reservations">{text('用餐预约', 'Dining reservations')}</a>}
           {hasPreparations && <a href="#preparations">{text('行前准备', 'Preparations')}</a>}
           {stays.length > 0 && <a href="#stays">{text('住宿安排', 'Accommodation')}</a>}
           {flights.length > 0 && <a href="#flights">{text('航班信息', 'Flights')}</a>}
@@ -168,7 +169,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     <TripDailyItinerary trip={trip} />
 
     {checklist.length > 0 && <TripChecklist items={checklist} sources={sources} locale={locale} flights={flights} stays={stays} bookingWindows={bookingWindows} hasTicketOptions={ticketOptions.length > 0} hasBookingWindows={bookingWindows.length > 0} />}
-    <TripDiningReservations reminders={diningReminders} sources={sources} locale={locale} />
+    <TripDiningReservations reminders={diningReminders} bookings={diningBookings} sources={sources} locale={locale} />
 
     {hasPreparations && <section class="trip-preparations-section container" id="preparations" aria-labelledby="preparations-title">
       <div class="section-heading"><div><h2 id="preparations-title">{text('行前准备', 'Preparations')}</h2></div><p class="section-intro">{text('预订、行李寄存、餐食与换乘。', 'Bookings, luggage, meals, and connections.')}<br />{text('参考班次不代表已购票。', 'Reference departures are not ticket confirmations.')}</p></div>
@@ -204,7 +205,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     </TripSection>}
 
     {flights.length > 0 && <TripFlights flights={flights} sources={sources} locale={locale} />}
-    {hasCosts && <TripCosts stays={stays} sources={sources} travelers={trip.travelers} locale={locale} hasPreparations={hasPreparations} transport={trip.transport} ticketOptions={ticketOptions} />}
+    {hasCosts && <TripCosts stays={stays} sources={sources} travelers={trip.travelers} locale={locale} hasPreparations={hasPreparations} transport={trip.transport} ticketOptions={ticketOptions} budget={trip.budget} days={trip.days} diningOptions={trip.diningOptions} />}
     {sources.length > 0 && <TripSection id="sources" title={text('官方资料', 'Official sources')} class="trip-sources-section" locale={locale}>
       <span slot="summary">{sources.length} {text('条资料', sources.length === 1 ? 'source' : 'sources')}</span>
       <p class="sources-intro">{text('景点、交通与古道的官方资料。', 'Official information for sights, transport, and trails.')}</p>

@@ -33,6 +33,15 @@ function clockTime(value, label) {
   assert.match(value, /^(?:[01]\d|2[0-3]):[0-5]\d$/, `${label}: use a valid HH:MM local time`);
 }
 
+function paymentStatus(value, label) {
+  assert.ok(value === undefined || ['paid', 'pay-on-arrival', 'unknown'].includes(value), `${label}: invalid payment status`);
+}
+
+function costRange(minimum, maximum, label) {
+  assert.ok(Number.isFinite(minimum) && minimum >= 0, `${label}: invalid minimum estimate`);
+  assert.ok(maximum === undefined || (Number.isFinite(maximum) && maximum >= minimum), `${label}: maximum must be at least the minimum`);
+}
+
 function checkLocalName(localName, label) {
   if (localName === undefined) return;
   assert.ok(localName && typeof localName === 'object' && !Array.isArray(localName), `${label}: use a local-name object`);
@@ -276,6 +285,13 @@ for (const folder of folders) {
         choices.add(choice.optionId);
         assert.ok(choice.reservationStatus === undefined || choice.reservationStatus === 'booked', `${folder}/${date}: only explicit dining bookings use a status`);
         assert.ok(choice.requiresItineraryChange === undefined || choice.requiresItineraryChange === true, `${folder}/${date}: route-change flag must be explicit`);
+        if (choice.cost) {
+          const label = `${folder}/${date}/${choice.optionId} dining cost`;
+          assert.equal(choice.reservationStatus, 'booked', `${label}: an order amount needs an explicit meal booking`);
+          assert.match(choice.cost.currency, /^[A-Z]{3}$/, `${label}: use an ISO currency`);
+          assert.ok(Number.isFinite(choice.cost.amount) && choice.cost.amount >= 0, `${label}: invalid party order amount`);
+          paymentStatus(choice.cost.paymentStatus, label);
+        }
       }
     }
     if (day.stamps) {
@@ -333,6 +349,7 @@ for (const folder of folders) {
       if (period.cost) {
         assert.match(period.cost.currency, /^[A-Z]{3}$/, `${folder}/${stay.id}/${checkIn}: use an ISO cost currency`);
         assert.ok(Number.isFinite(period.cost.amount) && period.cost.amount >= 0, `${folder}/${stay.id}/${checkIn}: invalid booking amount`);
+        paymentStatus(period.cost.paymentStatus, `${folder}/${stay.id}/${checkIn}`);
         for (const extra of period.cost.estimatedAdditional ?? []) {
           assert.ok(typeof extra.label === 'string' && extra.label.trim(), `${folder}/${stay.id}/${checkIn}: label the additional charge`);
           assert.ok(Number.isFinite(extra.amount) && extra.amount >= 0, `${folder}/${stay.id}/${checkIn}: invalid additional charge`);
@@ -384,6 +401,9 @@ for (const folder of folders) {
     const validThrough = calendarDate(option.validThrough, `${folder}/${option.id} validity end`);
     assert.ok(validThrough >= validFrom, `${folder}/${option.id}: ticket validity ends before it starts`);
     assert.match(option.currency, /^[A-Z]{3}$/, `${folder}/${option.id}: use an ISO currency code`);
+    assert.ok(option.purchaseStatus === undefined || option.purchaseStatus === 'purchased', `${folder}/${option.id}: only explicit purchases use a status`);
+    paymentStatus(option.paymentStatus, `${folder}/${option.id}`);
+    if (option.paymentStatus === 'paid') assert.equal(option.purchaseStatus, 'purchased', `${folder}/${option.id}: paid tickets need a recorded purchase`);
     for (const amount of [option.price, ...(option.estimatedTotal === undefined ? [] : [option.estimatedTotal])]) assert.ok(Number.isFinite(amount) && amount >= 0, `${folder}/${option.id}: invalid ticket price`);
     for (const ticket of option.addOnTickets ?? []) {
       assert.ok(typeof ticket.label === 'string' && ticket.label.trim(), `${folder}/${option.id}: label each add-on ticket`);
@@ -415,6 +435,8 @@ for (const folder of folders) {
       if (leg.coverage === 'mixed') assert.ok(typeof leg.fareNote === 'string' && leg.fareNote.trim(), `${label}: explain mixed coverage`);
       if (leg.time !== undefined) assert.ok(typeof leg.time === 'string' && leg.time.trim(), `${label}: add reference time text`);
       assert.ok(leg.reservationRequired === undefined || leg.reservationRequired === true, `${label}: reservation requirement must be true or omitted`);
+      assert.ok(leg.reservationStatus === undefined || leg.reservationStatus === 'booked', `${label}: only explicit seat bookings use a status`);
+      if (leg.reservationNote !== undefined) assert.ok(typeof leg.reservationNote === 'string' && leg.reservationNote.trim(), `${label}: add reservation detail`);
       checkSources(leg.sourceIds, label);
     }
     const countedLegs = new Set();
@@ -447,6 +469,41 @@ for (const folder of folders) {
       checkSources(note.sourceIds, `${folder} transport payment`);
     }
     checkSources(plan.sourceIds, `${folder} transport`);
+  }
+  if (trip.budget !== undefined) {
+    const plan = trip.budget;
+    assert.match(plan.currency, /^[A-Z]{3}$/, `${folder}: use an ISO trip-budget currency`);
+    assert.ok(Number.isInteger(trip.travelers) && trip.travelers > 0, `${folder}: a party budget needs the traveler count`);
+    uniqueIds(plan.allowances, `${folder} budget allowances`);
+    const mealReferences = new Set();
+    for (const item of plan.allowances) {
+      const label = `${folder}/${item.id} budget allowance`;
+      assert.ok(typeof item.label === 'string' && item.label.trim(), `${label}: add a label`);
+      costRange(item.minimum, item.maximum, label);
+      if (item.date !== undefined) {
+        const date = calendarDate(item.date, `${label} date`);
+        assert.ok(date >= start && date <= end, `${label}: date is outside the trip`);
+        assert.ok(trip.days.some(day => day.date === date && day.dining?.length), `${label}: date must have meal guidance`);
+      }
+      if (item.optionId !== undefined) {
+        assert.ok(item.date && diningOptions.has(item.optionId), `${label}: reference a dated meal option`);
+        const choices = trip.days.find(day => day.date === item.date)?.dining?.flatMap(meal => meal.choices) ?? [];
+        const choice = choices.find(choice => choice.optionId === item.optionId);
+        assert.ok(choice && choice.reservationStatus !== 'booked' && !choice.requiresItineraryChange, `${label}: allowance must reference an unbooked current-route meal`);
+        const reference = `${item.date}/${item.optionId}`;
+        assert.ok(!mealReferences.has(reference), `${label}: meal allowance counted twice`);
+        mealReferences.add(reference);
+      }
+    }
+    if (plan.suggestedReserve !== undefined) costRange(plan.suggestedReserve.minimum, plan.suggestedReserve.maximum, `${folder} suggested reserve`);
+    assert.ok(Array.isArray(plan.notes) && plan.notes.length > 0 && plan.notes.every(note => typeof note === 'string' && note.trim()), `${folder}: explain trip-budget scope and conditions`);
+    if (trip.transport) assert.equal(trip.transport.currency, plan.currency, `${folder}: transport and trip budget currencies must match`);
+    for (const stay of trip.stays ?? []) for (const segment of stay.checkIns) {
+      if (segment.cost) assert.equal(segment.cost.currency, plan.currency, `${folder}/${stay.id}: keep trip-budget currencies separate`);
+    }
+    for (const day of trip.days) for (const meal of day.dining ?? []) for (const choice of meal.choices) {
+      if (choice.cost) assert.equal(choice.cost.currency, plan.currency, `${folder}/${day.date}/${choice.optionId}: keep trip-budget currencies separate`);
+    }
   }
   for (const window of trip.bookingWindows ?? []) {
     const travelDate = calendarDate(window.travelDate, `${folder}/${window.id} travel date`);

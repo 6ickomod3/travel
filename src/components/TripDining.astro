@@ -4,6 +4,7 @@ import BookingBadge from './BookingBadge.astro';
 import TripReferences from './TripReferences.astro';
 import type { TripDayMeal, TripDiningOption, TripSource } from '../data/types';
 import { diningChoiceId, diningMealLabel, diningPhoneHref, diningPolicyLabel, diningSectionId } from '../lib/trip-dining';
+import { paymentStatusLabel } from '../lib/trip-costs';
 
 interface Props {
   date: string;
@@ -46,15 +47,16 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
           ? text('调整路线后预约', 'Reserve after changing the route')
           : text('选定后预约', 'Reserve after choosing');
         const checkLabel = text('查看店铺信息', 'View restaurant information');
-        return <li class="dining-choice" id={id} aria-labelledby={`${id}-title`} data-dining-choice={option.id} data-dining-status={booked ? 'booked' : 'candidate'} data-dining-route-change={choice.requiresItineraryChange ? 'true' : undefined}>
+        return <li class:list={['dining-choice', { 'dining-choice-booked': booked }]} id={id} aria-labelledby={`${id}-title`} data-dining-choice={option.id} data-dining-status={booked ? 'booked' : 'candidate'} data-dining-route-change={choice.requiresItineraryChange ? 'true' : undefined}>
           <div class="dining-choice-heading"><h5 id={`${id}-title`}>{option.name}</h5>{option.area && <p class="dining-area"><Icon name="pin" size={12} />{option.area}</p>}</div>
           <div class="dining-badges">
             {booked ? <BookingBadge status="booked" locale={locale} /> : <span class="dining-candidate">{text('备选', 'Candidate')}</span>}
-            {reservation && <span class:list={['dining-policy', `dining-policy-${reservation.policy}`]}>{diningPolicyLabel(reservation.policy, locale)}</span>}
+            {!booked && reservation && <span class:list={['dining-policy', `dining-policy-${reservation.policy}`]}>{diningPolicyLabel(reservation.policy, locale)}</span>}
             {choice.requiresItineraryChange && <span class="dining-route-change"><Icon name="alert" size={12} />{text('需调整路线', 'Route change needed')}</span>}
           </div>
           {option.description && <p class="dining-description">{option.description}</p>}
           {choice.note && <p class="dining-context"><strong>{text('此选项：', 'For this option: ')}</strong>{choice.note}</p>}
+          {choice.cost && <div class="dining-order-cost"><span>{text('本次用餐订单', 'Meal order total')}</span><strong data-dining-order-amount={choice.cost.amount}>{new Intl.NumberFormat(isZh ? 'zh-CN' : 'en-US', { style: 'currency', currency: choice.cost.currency }).format(choice.cost.amount)}</strong><span data-dining-order-payment={choice.cost.paymentStatus ?? 'unknown'}>{paymentStatusLabel(choice.cost.paymentStatus, locale)}</span></div>}
           {Boolean(option.notes?.length) && <ul class="dining-option-notes">{option.notes!.map(note => <li>{note}</li>)}</ul>}
           {reservation?.note && <p class="dining-reservation-note">{reservation.note}</p>}
           {!booked && reservation && reservation.policy !== 'none' && (reservation.url || reservation.phone) && <div class="dining-actions">
@@ -83,6 +85,9 @@ const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
   .dining-meal-notes li + li, .dining-option-notes li + li { margin-top: 5px; }
   .dining-choice-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; min-width: 0; margin: 12px 0 0; padding: 0; list-style: none; }
   .dining-choice { min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper); scroll-margin-top: calc(var(--daily-nav-height, 128px) + 32px); }
+  .dining-choice-booked { border-color: var(--confirmed-line); }
+  .dining-order-cost { display: flex; align-items: baseline; flex-wrap: wrap; gap: 5px 12px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 11px; line-height: 1.9; }
+  .dining-order-cost strong { color: var(--ink); font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; }
   .dining-choice h5 { margin: 0; font-family: var(--sans); font-size: 14px; font-weight: 600; line-height: 1.8; overflow-wrap: anywhere; }
   .dining-area { display: flex; align-items: flex-start; gap: 5px; margin-top: 4px; color: var(--ink-soft); font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
   .dining-area > svg { margin-top: 4px; }

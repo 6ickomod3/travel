@@ -106,6 +106,15 @@ shows journeys and payment guidance; Costs keeps the transport estimate separate
 from accommodation, with assumptions and exclusions clear. See the
 [transport fare and budget contract](docs/content-workflow.md#transport-fares-and-budgets).
 
+Record purchases, seat bookings and payment separately when confirmed. Optional
+`paymentStatus` distinguishes paid, pay on arrival and unknown; unknown does not
+mean unpaid. Dated dining `cost` records cover the entire party's meal order.
+Optional `budget` allowances add unbooked meal and other estimates to existing
+lodging, transport and booked-meal amounts without copying totals or repeating
+included costs. Show the calculated spending range and suggested reserve with
+their exclusions; an incomplete paid record cannot establish a remaining balance.
+See [payment and spending budgets](docs/content-workflow.md#payment-and-spending-budgets).
+
 Add optional `cost` records to accommodation `checkIns` for booking totals and estimated extra charges. The same values appear on accommodation cards and in Costs before Official sources, totaled by currency; unknown prices stay unpriced and booking amounts do not imply payment.
 
 Optional `diningOptions` stores reusable restaurant details and public booking

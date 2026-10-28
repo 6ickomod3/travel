@@ -72,6 +72,8 @@ src/data/
   records `selectedTicketOptionId`, which does not establish purchase.
   Compare multiple current strategies; a sole selected strategy shows its
   per-person and traveler prices without superseded comparisons.
+  An explicit `purchaseStatus: "purchased"` and independent `paymentStatus`
+  may record later evidence; selection never supplies these automatically.
   Optional `transport` keeps dated coverage, additional fares, payment notes
   and a referenced budget in the same trip. Follow the
   [transport data contract](#transport-fares-and-budgets) to derive totals
@@ -95,6 +97,8 @@ src/data/
   The accommodation cards and Costs section use the same record.
   Missing prices remain absent and are excluded from partial totals. Sum
   currencies separately and never infer payment from a confirmed booking.
+  Optional `paymentStatus` records `paid`, `pay-on-arrival` or `unknown`.
+  Omission remains unknown; it does not establish an unpaid amount.
   Estimated extras can use `kind: "accommodation-tax"` and a supplied
   `quantity` with `perPersonPerNight`, `people`, and `nights`. Preserve the
   submitted rate and calculation; keep already included fees out of extras.
@@ -108,6 +112,9 @@ src/data/
   these records. Keep a route-dependent alternative visible with
   `requiresItineraryChange`, but exclude it from current-route reservation
   reminders. Record dining confirmation only for the explicit date and meal.
+  A confirmed choice may have `cost` with an ISO currency, whole-party order
+  `amount`, independent `paymentStatus` and public `notes`. Daily dining and
+  Costs reuse this record; keep unbooked menu estimates in budget allowances.
   Optional daily `stamps` holds ordered collection stops, official numbers,
   and any route conditions. `stampGuide` holds shared collection and
   eligibility instructions. Planned stamps do not establish collection or
@@ -183,6 +190,10 @@ Each leg has a stable `id`, trip `date`, `route`, `service` and `coverage`
 of `pass`, `additional` or `mixed`. Optional `time` and
 `reservationRequired: true` describe the supplied plan; they do not confirm
 a reservation. A leg's `sourceIds` references the trip's official-source catalog.
+Only explicit seat confirmation records `reservationStatus: "booked"` and a
+public `reservationNote`. Coverage and pass purchase do not supply that status.
+Temporary reservation receipts remain unresolved until completion is established;
+confirm the existing attempt before prompting another booking.
 
 `fare` is a known additional amount per adult in the plan's currency. Omit
 unknown fares. A mixed leg's `fareNote` explains which part is covered and
@@ -208,6 +219,35 @@ amounts and estimated taxes, including the collapsed Costs summary. Neither
 selection nor a calculated budget records purchase, payment or a complete trip
 cost. Preserve each fare's supplied provenance; the presence of an official link
 does not claim independent page-body verification.
+
+## Payment and spending budgets
+
+Booking, purchase and payment are separate facts. Optional `paymentStatus` on
+stay costs, ticket options and dated dining costs uses `paid`, `pay-on-arrival`
+or `unknown`. Set it only from explicit evidence. Ticket `purchaseStatus` and
+meal/seat `reservationStatus` do not imply payment. Keep private receipts, exact
+seat records and private management links in ignored storage.
+
+Optional `Trip.budget` has an ISO `currency`, party-total `allowances`, optional
+`suggestedReserve` and `notes` defining its scope. Each allowance has `id`,
+`label`, `minimum`, optional `maximum` and `note`. A missing maximum means a
+fixed estimate. Optional `date` and `optionId` associate an allowance with an
+unbooked daily meal choice; they do not confirm a booking. Check these references
+and ensure ranges are ordered and amounts are not included elsewhere.
+
+Calculate the scoped spending range from existing accommodation costs and extras,
+the referenced transport budget, dated booked-meal order amounts and allowances.
+Do not store copied subtotals or grand totals. Pass prices are per person; meal
+order amounts and allowances already cover the traveling party. Keep alternative
+airport tickets, included hotel meals, booked meals and other overlapping
+expenses out of duplicate totals. State omitted flights, shopping or other
+categories when the supplied estimate excludes them.
+
+`suggestedReserve: { minimum, maximum }` is a supplied preparation range,
+separate from calculated spending. Known paid amounts sum only records explicitly
+marked paid and must show that limited scope. Unknown payment neither equals
+zero nor proves an order remains unpaid; subtracting an incomplete known-paid
+sum from a budget must not be presented as a remaining unpaid balance.
 
 ## Daily-map data
 
@@ -249,6 +289,8 @@ for visible-day initialization, phone controls, fallback lists and printing.
 2. Save the original submission first and add its source entry to the history.
    Record an original receipt date only when known; otherwise use the archive
    date and describe the origin honestly.
+   Distinguish the archive date from an author-supplied review date and from
+   independent operator verification.
 3. Compare it with the current `trip.ts`. Extract dates, activities, transport,
    accommodation, booking states, practical notes, and reference links.
 4. Apply clear additions and explicit corrections. A new submission only
@@ -261,6 +303,9 @@ for visible-day initialization, phone controls, fallback lists and printing.
    Keep confirmed flights separate from planned ground transport, and keep
    complete optional/fallback routes in a day's `alternatives` rather than
    mixing their departures into the main schedule.
+   Apply an explicit latest-summary supersession ahead of older untouched
+   prose in the same file. Record that conflict rather than restoring an
+   already superseded route or booking state from a stale paragraph.
 6. Keep destination, map-place, mapped schedule, stay, checklist, and
    official-source IDs stable. Repeated IDs in `mapRoute` represent return
    journeys and are intentional. Submitted text provenance belongs in the

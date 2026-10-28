@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import TripReferences from './TripReferences.astro';
+import BookingBadge from './BookingBadge.astro';
 import type { TripSource, TripTransportPlan } from '../data/types';
 import { formatDate } from '../lib/trips';
 
@@ -29,16 +30,16 @@ const references = referenceIds.flatMap(id => { const source = sources.find(sour
 ---
 <section class="trip-transport" id="transport" aria-labelledby="transport-title">
   <div class="transport-heading">
-    <div><h3 id="transport-title">{text('全程交通清单', 'Transport by day')}</h3><p>{text('金额为成人每人，', 'Adult fares per person, ')}{plan.currency}{text('。班次与预约结果仍需确认。', '. Departures and reservations still need confirmation.')}</p></div>
+    <div><h3 id="transport-title">{text('全程交通清单', 'Transport by day')}</h3><p>{text('金额为成人每人，', 'Adult fares per person, ')}{plan.currency}{text('；指定席确认状态见各段。', '. Seat confirmation status is shown for each journey.')}</p></div>
     <a href="#cost-transport-budget">{text('交通预算', 'Transport budget')} <Icon name="arrow-down" size={14} /></a>
   </div>
   <div class="transport-days">
     {dates.map(date => <article class="transport-day" data-transport-date={date}>
       <header><a href={`#day-${date}`}><time datetime={date}>{formatDate(date, { month: 'short', day: 'numeric', weekday: 'short' }, dateLocale)}</time><Icon name="arrow-up-right" size={13} /></a></header>
       <ol class="transport-legs">
-        {plan.legs.filter(leg => leg.date === date).map(leg => <li id={`transport-leg-${leg.id}`} data-transport-leg={leg.id} data-transport-coverage={leg.coverage}>
+        {plan.legs.filter(leg => leg.date === date).map(leg => <li id={`transport-leg-${leg.id}`} data-transport-leg={leg.id} data-transport-coverage={leg.coverage} data-transport-reservation={leg.reservationStatus}>
           <h4 class="transport-route">{leg.route}</h4>
-          <div class="transport-service"><p>{leg.service}</p>{leg.time && <span class="transport-time">{leg.time}</span>}{leg.reservationRequired && <span class="transport-reservation">{text('需提前预约', 'Reserve in advance')}</span>}</div>
+          <div class="transport-service"><p>{leg.service}</p>{leg.time && <span class="transport-time">{leg.time}</span>}{leg.reservationStatus === 'booked' ? <BookingBadge status="booked" locale={locale} label={text('指定席已订', 'Seats booked')} /> : leg.reservationRequired && <span class="transport-reservation">{text('需提前预约', 'Reserve in advance')}</span>}{leg.reservationNote && <p class="transport-reservation-note">{leg.reservationNote}</p>}</div>
           <div class="transport-fare"><span class:list={['transport-coverage', `transport-coverage-${leg.coverage}`]}>{coverage[leg.coverage]}</span>{leg.fare !== undefined && <strong data-transport-fare={leg.fare}>{money(leg.fare)}</strong>}{leg.regularFare !== undefined && <small>{text('未满足优惠条件：', 'Without the discount: ')}{money(leg.regularFare)}</small>}</div>
           {leg.fareNote && <p class="transport-fare-note">{leg.fareNote}</p>}
         </li>)}
@@ -70,6 +71,8 @@ const references = referenceIds.flatMap(id => { const source = sources.find(sour
   .transport-service p { margin: 0; font-size: 12px; line-height: 1.8; }
   .transport-time { display: block; margin-top: 3px; color: var(--ink-soft); font-size: 11px; font-variant-numeric: tabular-nums; }
   .transport-reservation { display: inline-block; margin-top: 5px; color: var(--pending); font-size: 11px; }
+  .transport-service :global(.booking-badge) { margin-top: 6px; }
+  .transport-service .transport-reservation-note { margin-top: 5px; color: var(--ink-soft); font-size: 11px; line-height: 1.8; }
   .transport-fare { display: flex; align-items: center; flex-wrap: wrap; gap: 5px 10px; min-width: 0; }
   .transport-coverage { display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: 11px; line-height: 1.8; }
   .transport-coverage-pass { color: var(--confirmed); background: var(--confirmed-soft, #3657430b); }

@@ -511,7 +511,7 @@ export default {
       "description": "大阪往返：东大寺、二月堂、春日大社、奈良公园与兴福寺，奈良町按时间短逛。"
     }
   ],
-  "routeNote": "机票与全部8晚住宿按确认记录标为已订。已选11/13–19的7日JR西日本全地区Pass，购买和指定席仍待落实。19号06:54出发参拜速玉、那智，再经纪伊胜浦回大阪，不徒步大门坂。地图标记是目的地的大致位置。",
+  "routeNote": "机票、全部8晚住宿、四段JR指定席及两顿广岛晚餐已确认。7日JR西日本全地区Pass已购买、已付款，11/13–19有效；13号HARUKA到机场取票后再划座，其他未订交通按计划安排。19号06:54出发参拜速玉、那智，经纪伊胜浦直达大阪，不徒步大门坂。地图标记为目的地概略位置。",
   "walkingSummary": {
     "distanceKm": 20.8,
     "days": 2
@@ -617,11 +617,14 @@ export default {
               }
             ],
             "notes": [
-              "住宿税按两人每晚各400日元估算，以酒店结算为准。"
+              "住宿税按两人每晚各400日元估算，以酒店结算为准。",
+              "房型：24–29层Standard Twin双床；不含餐。",
+              "在线付款安排的实际扣款状态待核对。"
             ],
             "sourceIds": [
               "osaka-accommodation-tax"
-            ]
+            ],
+            "paymentStatus": "unknown"
           }
         },
         {
@@ -644,11 +647,14 @@ export default {
             ],
             "notes": [
               "11/19：36,080日元；11/20：37,840日元。",
-              "住宿税按两人每晚各400日元估算，以酒店结算为准。"
+              "住宿税按两人每晚各400日元估算，以酒店结算为准。",
+              "房型：30层以上High floor Standard Twin双床；不含餐。",
+              "在线付款安排的实际扣款状态待核对。"
             ],
             "sourceIds": [
               "osaka-accommodation-tax"
-            ]
+            ],
+            "paymentStatus": "unknown"
           }
         }
       ],
@@ -657,7 +663,9 @@ export default {
         "11/13–14一晚、11/19–21两晚，两段入住均已订；酒店前台在9楼。",
         "大阪站梅北地下口出闸后官网步行约6分钟；含出站与电梯预留15–25分钟。",
         "14号退房至19号再次入住跨5晚，大箱寄存必须得到酒店明确同意。",
-        "19号随Kuroshio 30回大阪后领取大箱；不回纪伊田边酒店取物。"
+        "19号随Kuroshio 30回大阪后领取大箱；不回纪伊田边酒店取物。",
+        "首段与第二段楼层房型不同，不假设保留同一间房。",
+        "13号按20:50–21:30到店规划；19号19:16到大阪站后，预计19:45–20:00到店，需更新酒店到店预报。"
       ]
     },
     {
@@ -686,8 +694,10 @@ export default {
             ],
             "notes": [
               "两晚各58,900日元；到店付款，不代表已经支付。",
-              "订单不含早餐，住宿税800日元另付。"
-            ]
+              "订单不含早餐，住宿税800日元另付。",
+              "房型：Superior Corner Twin高级转角双床，两位成人。"
+            ],
+            "paymentStatus": "pay-on-arrival"
           }
         }
       ],
@@ -695,7 +705,7 @@ export default {
       "notes": [
         "11/14入住、11/16退房，两晚已订；日文名ホテルグランヴィア広島サウスゲート，位于南侧minamoa，不是北侧旧Granvia。",
         "从minamoa二楼西入口附近的酒店专用入口，乘电梯到7楼前台。入住14:00起，退房11:00前。",
-        "14号10:40–11:15先寄存小包；支持入住前、退房后寄存。晚餐后返回办理入住，15号宫岛游览后仍住同一家。",
+        "14号10:40–11:15先寄存小包；支持入住前、退房后寄存。18:30稲穂晚餐后约21:00返回办理入住，需更新到店预报；15号宫岛及かなわ晚餐后仍住同一家。",
         "不含早餐，15号早班出发与16号退房前自行安排；房费及另付住宿税到店支付。"
       ]
     },
@@ -712,26 +722,29 @@ export default {
             "currency": "JPY",
             "amount": 14800,
             "includes": [
-              "已列明税费"
+              "已列明税费",
+              "早餐"
             ],
             "notes": [
-              "以订单总额为准，分项四舍五入差额不另加。"
-            ]
+              "以订单总额为准，分项四舍五入差额不另加。",
+              "Queen大床禁烟房，不是双床；到店付款14,800日元。"
+            ],
+            "paymentStatus": "pay-on-arrival"
           }
         }
       ],
       "status": "booked",
       "notes": [
-        "11/16入住、11/17退房，已订；从纪伊田边站步行约5分钟。",
+        "11/16入住、11/17退房，Queen大床禁烟房已订，不是两张单人床；从纪伊田边站步行约5分钟。",
         "16号14:40前后先到酒店，如未到入住时间，先寄包。",
-        "早餐06:30开始，17号主选巴士06:38发车；提前买好17号早餐、徒步午餐、饮水与能量补给。"
+        "订单含早餐，但06:30才开始，17号06:38巴士无法从容吃完再赶车；16号提前买好早餐、徒步午餐、饮水与补给。"
       ]
     },
     {
       "id": "kumano-kodo",
       "name": "SEN RETREAT CHIKATSUYU",
       "brandId": "sen-retreat",
-      "location": "近露",
+      "location": "近露 · 和歌山県田辺市中辺路町近露1806",
       "checkIns": [
         {
           "checkIn": "2026-11-17",
@@ -740,23 +753,31 @@ export default {
             "currency": "JPY",
             "amount": 44115,
             "includes": [
-              "消费税"
+              "消费税",
+              "晚餐",
+              "早餐"
+            ],
+            "paymentStatus": "unknown",
+            "notes": [
+              "带露台四人间，实际入住两位成人；餐食形式及具体菜单待确认。",
+              "自动扣款安排不代表扣款已完成，付款状态待核对。"
             ]
           }
         }
       ],
       "status": "booked",
       "notes": [
-        "11/17入住、11/18退房，已订。",
-        "确认17日下午从古道到旅馆的步行或接送，以及18号去美术馆前巴士站的路线。",
-        "核对餐食是否包含、18号能否早供早餐或便当，以及晚餐最晚到店时间。"
+        "11/17入住、11/18退房，带露台四人间、两位成人，已含早晚餐。",
+        "近露王子到SEN官网列步行约10分钟，不需接送；自助入住说明提前保存。",
+        "确认本订单餐食是食材自炊还是便当套餐、具体菜单及虾过敏处理；18号早餐需能早取或打包，配合07:10–07:15离店。",
+        "SEN到美术馆前按近露地图估算约500–600米、步行10–15分钟；17号先确认走法与站牌。地图仍为近露区域参考，具体建筑坐标未核定。"
       ]
     },
     {
       "id": "kawayu",
-      "name": "川湯まつや",
+      "name": "山水館 川湯まつや",
       "brandId": "kawayu-matsuya",
-      "location": "川汤温泉",
+      "location": "川汤温泉 · 和歌山県田辺市本宮町川湯29",
       "checkIns": [
         {
           "checkIn": "2026-11-18",
@@ -766,16 +787,22 @@ export default {
             "amount": 10032,
             "includes": [
               "其他费用300日元（已计入订单总额）"
+            ],
+            "paymentStatus": "unknown",
+            "notes": [
+              "双床可吸烟房，不含餐；若希望改禁烟房，需确认可订情况及差价，尚未换房。",
+              "自动扣款安排的实际付款状态待核对。"
             ]
           }
         }
       ],
       "status": "booked",
       "notes": [
-        "11/18入住、11/19退房，已订。",
-        "按旅馆位置决定18号在藤屋前、龟屋前或川汤温泉下车，以及19号上车站与准确发车分钟。",
-        "核对餐食是否包含、早餐与晚餐最晚到达时间；选19号加强版需提前备早餐和退房。",
-        "11月按旅馆温泉安排；大型河川露天浴场“仙人风吕”通常12月才开放。"
+        "11/18入住、11/19退房，双床可吸烟房已订，不含早晚餐。",
+        "18号按川汤温泉站15:16下车、步行约1–2分钟到店；约15:20自助办理入住。",
+        "需准备18号晚餐及19号无需微波的早餐，附近没有便利店；06:30离店前退房和钥匙处理尚未得到确认。",
+        "4楼微波炉／休息室07:00–22:00；使用本馆浴池，不使用姐妹馆川湯みどりや的大浴场、露天风吕或大厅。",
+        "11月按旅馆温泉安排；河川露天浴场“仙人风吕”通常12月才开放。"
       ]
     }
   ],
@@ -787,10 +814,10 @@ export default {
       "validThrough": "2026-11-19",
       "currency": "JPY",
       "price": 26000,
-      "description": "已选定7日券，11/13启用、11/19最后一天；成人26,000日元／人，两人各买一张。购买、指定席预约和付款仍待落实。",
+      "description": "两位成人的7日全地区Pass已购买、已付款，11/13启用、11/19最后一天，关西机场站领取。四段长途普通车指定席已确认，两人连座、禁烟；13号HARUKA入境后再划座。",
       "includes": [
         "11/13关西机场到大阪的HARUKA；11/14大阪到新大阪的JR列车。",
-        "11/14 Nozomi 5、11/16 Nozomi 14与Kuroshio 11、11/19 Kuroshio 30，普通车指定席包含，仍需提前划座。",
+        "11/14 Nozomi 5、11/16 Nozomi 14与Kuroshio 11、11/19 Kuroshio 30，普通车禁烟指定席已确认，两人连座，费用包含。",
         "11/15广岛与宫岛口之间的JR往返、JR西日本宫岛渡轮船费。",
         "广岛めいぷる～ぷJR观光巴士，路线合适时可凭Pass乘坐。"
       ],
@@ -801,48 +828,19 @@ export default {
       ],
       "notes": [
         "适用于持外国护照、以Temporary Visitor短期滞在入境的旅客；资格按官方规则核对。",
-        "11/13–19连续7天使用；选择方案不代表已经买票、划座或付款。",
+        "11/13–19连续7天使用，Pass已付；取票带两人护照、付款实体信用卡及预约信息。13号HARUKA仍需到达后划座。",
         "17–19号熊野巴士按单次付费，无需购买当地巴士通票。"
       ],
       "sourceIds": [
         "jrwest-all-area",
         "jrwest-reservations",
         "hiroshima-meipuru-bus"
-      ]
+      ],
+      "purchaseStatus": "purchased",
+      "paymentStatus": "paid"
     }
   ],
   "bookingWindows": [
-    {
-      "id": "jr-nov-14",
-      "label": "11/14 Nozomi 5指定席",
-      "travelDate": "2026-11-14",
-      "opensAt": "2026-10-14T10:00:00+09:00",
-      "timeZone": "Asia/Tokyo",
-      "sourceIds": [
-        "nozomi-5-reference"
-      ]
-    },
-    {
-      "id": "jr-nov-16",
-      "label": "11/16 Nozomi 14＋Kuroshio 11指定席",
-      "travelDate": "2026-11-16",
-      "opensAt": "2026-10-16T10:00:00+09:00",
-      "timeZone": "Asia/Tokyo",
-      "sourceIds": [
-        "nozomi-14-reference",
-        "kuroshio-11-reference"
-      ]
-    },
-    {
-      "id": "jr-nov-19",
-      "label": "11/19 Kuroshio 30指定席",
-      "travelDate": "2026-11-19",
-      "opensAt": "2026-10-19T10:00:00+09:00",
-      "timeZone": "Asia/Tokyo",
-      "sourceIds": [
-        "kuroshio-30-reference"
-      ]
-    },
     {
       "id": "jr-nov-21",
       "label": "11/21 HARUKA 11指定席",
@@ -889,57 +887,18 @@ export default {
     },
     {
       "id": "miyajima-ropeway",
-      "kind": "todo",
-      "timing": {
-        "kind": "trip-date",
-        "date": "2026-11-15"
-      },
-      "priority": "high",
-      "priorityReason": "必须事前预约",
-      "title": "预约11/15缆车时段并购买往返票",
-      "detail": "两人优先预约09:00附近上行时段；预约时段后仍需另买成人往返票2,000日元／人。余位、时段预约和车票购买均尚未确认。",
-      "sourceIds": [
-        "miyajima-ropeway",
-        "miyajima-ropeway-booking",
-        "miyajima-ropeway-fare"
-      ]
-    },
-    {
-      "id": "rail-ticket-choice",
-      "kind": "todo",
+      "kind": "check",
       "timing": {
         "kind": "asap"
       },
       "priority": "high",
-      "priorityReason": "影响后续指定席预约",
-      "title": "购买两张7日JR西日本全地区Pass",
-      "detail": "已选定11/13启用、11/19结束的7日全地区券，成人26,000日元／人，两人52,000日元；各买一张。购买与付款尚未确认，买好后预约Pass内指定席。",
+      "priorityReason": "仅有临时凭证，正式预约尚待核对",
+      "title": "核对11/15缆车正式预约与车票",
+      "detail": "临时凭证为09:15–09:30、两人；核对当时是否在10分钟内完成正式预约，不能只凭临时邮件标已订。核对前不要重复预订，按最终凭证安排上行；确认后仍需另买往返票2,000日元／人。缩短山上散步，保留11:30下山及午后行程。",
       "sourceIds": [
-        "jrwest-all-area",
-        "jrwest-reservations"
-      ]
-    },
-    {
-      "id": "long-distance-trains",
-      "kind": "todo",
-      "timing": {
-        "kind": "reservation-opens",
-        "bookingWindowIds": [
-          "jr-nov-14",
-          "jr-nov-16",
-          "jr-nov-19"
-        ]
-      },
-      "priority": "high",
-      "priorityReason": "长途车票尚未确认",
-      "title": "预约Pass内四段长途列车指定席",
-      "detail": "买Pass后预约普通车指定席：11/14 Nozomi 5（09:02–10:27），11/16 Nozomi 14（09:43–11:04）与Kuroshio 11（12:13–14:29），11/19 Kuroshio 30（15:21–19:16）。均包含在Pass内，预约和取票尚未确认；21号HARUKA另购票。",
-      "sourceIds": [
-        "jrwest-reservations",
-        "nozomi-5-reference",
-        "nozomi-14-reference",
-        "kuroshio-11-reference",
-        "kuroshio-30-reference"
+        "miyajima-ropeway",
+        "miyajima-ropeway-booking",
+        "miyajima-ropeway-fare"
       ]
     },
     {
@@ -952,7 +911,7 @@ export default {
       "priority": "high",
       "priorityReason": "10/31前购买可用较低票价",
       "title": "10/31前购买11/21 HARUKA优惠票并划座",
-      "detail": "另买大阪→关西机场单程优惠票，两人主选HARUKA 11（08:50–09:34）。按购票日期定价：10/31前1,800日元／人，11/1起1,900日元／人；10/31是较低票价的截止日，并非停售或指定席截止日。车票与指定席尚未确认。",
+      "detail": "21号机场交通未购买，主计划HARUKA 11（08:50–09:34），优惠票按购票日期：10/31前1,800日元／人，11/1起1,900；10/31是较低票价截止日，并非停售或指定席截止日。阪急三番街机场巴士为另列替代，不与HARUKA重复购买或计费。13号已付Pass内HARUKA无需另买票。",
       "sourceIds": [
         "haruka-oneway",
         "haruka-timetable",
@@ -979,18 +938,14 @@ export default {
         "kind": "trip-date",
         "date": "2026-11-17"
       },
-      "title": "确认近露接驳与餐食",
-      "detail": "SEN RETREAT CHIKATSUYU（11/17–18已订）：确认17号到店步行／接送、18号早饭／便当、去美术馆前站路线及晚餐最晚到达时间。"
-    },
-    {
-      "id": "kawayu-ryokan",
-      "kind": "check",
-      "timing": {
-        "kind": "trip-date",
-        "date": "2026-11-18"
-      },
-      "title": "确认川汤站点与餐食",
-      "detail": "川湯まつや（11/18–19已订）：确认18号准确下车站、早餐／便当与晚餐安排。19号06:54早班的提前退房、钥匙归还和准确上车站另列重要确认。"
+      "title": "确认SEN已含餐形式、过敏处理与早取早餐",
+      "detail": "已含早晚餐；核对是食材自炊还是便当套餐、具体菜单与虾过敏处理，确认18号早餐能否07:00前取用／打包。若茶屋07:00才开始，先协商早取或打包，并另备干粮。",
+      "priority": "high",
+      "priorityReason": "早取早餐需配合07:10–07:15离店",
+      "sourceIds": [
+        "dining-sen-chikatsuyu-food",
+        "sen-chikatsuyu-stay"
+      ]
     },
     {
       "id": "kawayu-early-checkout",
@@ -1001,8 +956,8 @@ export default {
       },
       "priority": "high",
       "priorityReason": "06:54早班依赖旅馆提前退房安排",
-      "title": "确认川汤06:54早班前退房、归还钥匙与上车站",
-      "detail": "提前与川湯まつや确认07:00前办理退房、归还钥匙的方式，实际须在06:54发车前完成并提前到站。确认旅馆对应的准确站点与发车分钟；准备无需微波的早餐。两人各自使用自己的卡或手机，上下车使用同一支付方式，以适用早班结算后半价优惠。",
+      "title": "确认川汤06:30前退房与钥匙处理",
+      "detail": "19号05:45–06:20吃自备早餐并退房，计划06:30离店、06:54川汤温泉站乘车。须提前得到07:00前退房和钥匙处理的明确答复；尚未获确认，不假设自助入住就能自由早退。准备无需微波的早餐，提前确认候车站牌方向。",
       "sourceIds": [
         "kawayu-shingu-bus",
         "kumano-bus-payment",
@@ -1019,9 +974,111 @@ export default {
       "priority": "high",
       "priorityReason": "五晚寄存需酒店同意",
       "title": "确认大阪酒店跨5晚寄存",
-      "detail": "RESPIRE两段入住已订；仍需酒店明确同意11/14退房至11/19返回期间寄存大箱。",
+      "detail": "RESPIRE两段入住已订；仍需酒店明确同意11/14退房至11/19返回期间寄存大箱。 两段房型楼层不同，不假设保留同一房间；19号到店预报另按19:45–20:00更新。",
       "sourceIds": [
         "respire-access"
+      ]
+    },
+    {
+      "id": "pass-collection",
+      "kind": "todo",
+      "timing": {
+        "kind": "trip-date",
+        "date": "2026-11-13"
+      },
+      "title": "关西机场领取已付Pass并划当天HARUKA指定席",
+      "detail": "带两人护照、付款实体信用卡及预约信息，在关西机场站领取已付7日Pass和已订列车信息。两人完成入境会合后按实际进度划HARUKA席位，不另买13号机场票。",
+      "sourceIds": [
+        "jrwest-all-area",
+        "jrwest-reservations"
+      ]
+    },
+    {
+      "id": "restaurant-allergy",
+      "kind": "check",
+      "timing": {
+        "kind": "asap"
+      },
+      "priority": "high",
+      "priorityReason": "两顿已订晚餐尚无明确过敏处理回复",
+      "title": "向稲穂和かなわ确认虾过敏处理",
+      "detail": "两顿晚餐均已订；仍需准确告知虾过敏并取得能否调整食材、配菜、汤底及共用制作的答复。稲穂所列备注为空，かなわ也未显示明确处理回复，不能把已订位当作已确认过敏安排。",
+      "sourceIds": [
+        "dining-inaho",
+        "dining-kanawa-seto-booking"
+      ]
+    },
+    {
+      "id": "hotel-arrival-times",
+      "kind": "todo",
+      "timing": {
+        "kind": "trip-date",
+        "date": "2026-11-13"
+      },
+      "title": "更新酒店预计到店时间",
+      "detail": "大阪首段按13号20:50–21:30规划；South Gate按14号18:30稲穂晚餐后约21:00；大阪第二段按19号19:45–20:00到店。分别在订单或联系酒店时更新，时间随实际交通调整。",
+      "sourceIds": [
+        "respire-access",
+        "granvia-south-gate-access"
+      ]
+    },
+    {
+      "id": "hotel-payments",
+      "kind": "check",
+      "timing": {
+        "kind": "asap"
+      },
+      "title": "核对大阪、SEN及川汤付款状态",
+      "detail": "大阪两段在线付款、SEN与川汤自动扣款的实际账单或后续收据仍待核对，不把未知状态当成未付或零付款。广岛与Comfort按到店付款准备；当前明确已付的是JR Pass52,000日元。"
+    },
+    {
+      "id": "comfort-room-type",
+      "kind": "check",
+      "timing": {
+        "kind": "trip-date",
+        "date": "2026-11-16"
+      },
+      "title": "确认Comfort Queen大床符合两人需求",
+      "detail": "现已订的是Queen大床禁烟房，不是双床。若希望分床，需确认双床可订情况与价差；不视为已经换房。"
+    },
+    {
+      "id": "kawayu-smoking-room",
+      "kind": "check",
+      "timing": {
+        "kind": "trip-date",
+        "date": "2026-11-18"
+      },
+      "title": "确认川汤可吸烟房是否需要调整",
+      "detail": "现已订双床可吸烟房；若介意烟味，询问能否换禁烟房及差价，未确认前按原房型准备。"
+    },
+    {
+      "id": "sen-check-in-info",
+      "kind": "todo",
+      "timing": {
+        "kind": "trip-date",
+        "date": "2026-11-17"
+      },
+      "title": "保存SEN自助入住说明",
+      "detail": "预计11/10收到自助入住信息，提前完成需要的住客资料并保存操作指引；实际收到时间与入住流程需核对。私密信息留在个人订单资料中。",
+      "sourceIds": [
+        "sen-chikatsuyu-stay"
+      ]
+    },
+    {
+      "id": "kawayu-food-procurement",
+      "kind": "todo",
+      "timing": {
+        "kind": "trip-date",
+        "date": "2026-11-18"
+      },
+      "priority": "high",
+      "priorityReason": "川汤不供餐，附近没有便利店",
+      "title": "落实川汤晚餐与19号早班早餐采购",
+      "detail": "确认本宫18号实际开门的午餐及食品采购店、便当库存；离开本宫前带好晚餐和无需微波的19号早餐。珍重庵本宫店和しもじ周三休，耐放食品可16号先备，不依赖抵达川汤后再买齐。",
+      "sourceIds": [
+        "dining-hongu-directory",
+        "dining-chinchoan-hongu",
+        "kawayu-matsuya-policy"
       ]
     }
   ],
@@ -1322,16 +1379,6 @@ export default {
       "url": "https://www.minamoa-ekie.jp/shop/?id=30"
     },
     {
-      "id": "dining-hitoshi-booking",
-      "label": "鮨処ひと志：TableCheck菜单与订位",
-      "url": "https://www.tablecheck.com/ja/shops/sushi-hitoshi/reserve"
-    },
-    {
-      "id": "dining-hitoshi-site",
-      "label": "鮨処ひと志：官网",
-      "url": "https://sushi-hitoshi.com/sp/"
-    },
-    {
       "id": "dining-mametanuki-site",
       "label": "まめたぬき：官网",
       "url": "https://www.miyajima-mametanuki.com/"
@@ -1360,16 +1407,6 @@ export default {
       "id": "dining-kanawa-seto-booking",
       "label": "かき船かなわ：TableCheck订位",
       "url": "https://www.tablecheck.com/ja/shops/kakifune-kanawa/reserve"
-    },
-    {
-      "id": "dining-suishin-ekie-menu",
-      "label": "酔心ekie広島店：菜单与套餐预约规则",
-      "url": "https://www.suishin.or.jp/ekie/cuisine"
-    },
-    {
-      "id": "dining-suishin-ekie-shop",
-      "label": "酔心ekie広島店：门店信息",
-      "url": "https://www.suishin.or.jp/ekie/"
     },
     {
       "id": "dining-551-butaman",
@@ -1485,25 +1522,61 @@ export default {
       "id": "hiroshima-meipuru-bus",
       "label": "广岛めいぷる～ぷ：JR观光巴士路线与Pass使用",
       "url": "https://www.chugoku-jrbus.co.jp/teikan/meipurupu/"
+    },
+    {
+      "id": "dining-inaho",
+      "label": "鮨 稲穂：门店、套餐与预约入口",
+      "url": "https://restaurant.ikyu.com/123143/"
+    },
+    {
+      "id": "sen-chikatsuyu-stay",
+      "label": "SEN RETREAT CHIKATSUYU：地址、房型与自助入住",
+      "url": "https://sen-retreat.com/stay/chikatsuyu/"
+    },
+    {
+      "id": "sen-chikatsuyu-walk",
+      "label": "SEN：近露王子至旅馆步行",
+      "url": "https://sen-retreat.com/walk-kumanokodo/"
+    },
+    {
+      "id": "chikatsuyu-map",
+      "label": "田边市熊野旅游局：近露区域地图",
+      "url": "https://www2.tb-kumano.jp/pdf/nakahechi-map.pdf"
+    },
+    {
+      "id": "kawayu-matsuya-policy",
+      "label": "川湯まつや：供餐、姐妹馆与浴池说明",
+      "url": "https://urashimaresortsandspa.jp/wakayama-kawayumatsuya/plan/kumano-kodo-walk/"
+    },
+    {
+      "id": "kawayu-matsuya-facilities",
+      "label": "川湯まつや：设施与自助入住",
+      "url": "https://urashimaresortsandspa.jp/wakayama-kawayumatsuya/facilities/"
+    },
+    {
+      "id": "kawayu-matsuya-access",
+      "label": "JTB：川湯まつや交通与川汤温泉站",
+      "url": "https://www.jtb.co.jp/kokunai-hotel/htl/6522005/access/"
     }
   ],
   "practicalNotes": [
-    "日本境内时间均为日本当地时间；航班起飞／抵达分别使用当地时间。列车、巴士按更新版计划班次安排，不代表已出票；步行、入境和游览时间为预留估计，出发前复核临时调整。",
-    "11/13抵达与11/21返程不安排景点。机票与全部8晚住宿按确认记录标为已订；已订不代表已支付。",
+    "日本境内时间均为日本当地时间；航班起飞／抵达分别用当地时间。14号Nozomi 5、16号Nozomi 14与Kuroshio 11、19号Kuroshio 30指定席已确认；其余列车为计划，熊野巴士现场排队。步行、入境与游览时间为预留估计，出发前复核临时调整。",
+    "11/13抵达与11/21返程不安排景点。机票、全部8晚住宿及两顿广岛晚餐已确认；JR Pass已付，其他付款状态按各订单记录，未知不等于未付。",
     "14号退房至19号再次入住，向大阪酒店确认跨5晚大箱寄存；离开大阪后只带5晚衣物、徒步装备、雨具与洗漱用品。19号不回田边酒店取物。",
     "16号在新大阪直接换乘去纪伊田边，不需先去大阪站追同一班黑潮；地图与章册当天领取，17号不等泷尻古道馆08:30开门。",
     "17号约13.3公里、累计爬升约1,010米，官方6–8小时；加盖章、拍照、休息需要更久。18号发心门至本宫约7.5公里、累计爬升约190米，官方2–3小时，含休息按3小时以上安排。两天共约20.8公里。",
     "18号快速不停“近露王子”，到美术馆前站候车；不接受预约、满员可能无法上车。错过或满员用另列公交备选，不临时改成长距离近露至本宫徒步。",
-    "11月按旅馆温泉安排；大型河川露天浴场“仙人风吕”通常12月才开放。",
+    "SEN已含早晚餐，具体形式、过敏安排与早取早餐需确认。川湯まつや不供餐，提前备好18号晚餐与19号无需微波的早餐；只使用本馆温泉，11月不依赖通常12月开放的仙人风吕。",
     "19号主方案06:54川汤→速玉大社前→那智站→那智山；参拜速玉后在那智站换车，不徒步大门坂。那智山到瀑布下行仍有台阶；随身背包游览，不假设那智站必有可用寄存柜。",
     "19号14:23到胜浦、15:21黑潮发车，留58分钟；下山14:34–14:58只留23分钟，15:09下一班会错过列车。黑潮17:06到纪伊田边、17:08继续开，留在车上。",
-    "已选11/13–19的7日JR西日本全地区Pass，购买尚未确认。指定席一般在乘车日前1个月、日本10:00开放；四段长途普通车指定席包含在Pass内，买Pass后划座。20号奈良和21号HARUKA在有效期外，需另付。",
+    "11/13–19的7日JR西日本全地区Pass已购买、已付；四段长途普通车禁烟指定席已确认、两人连座。13号HARUKA在关西机场取票后按实际入境进度划座；20号奈良和21号机场交通在有效期外，需另付。",
     "JR普通电车、奈良公交与广岛路面电车准备ICOCA／Suica，特殊服务以现场标识为准。",
     "17号明光95可刷Suica／ICOCA或现金；18号龙神可用感应银行卡或现金，不收Suica／ICOCA。17–19号全部单次付费，不购买当地巴士通票；18号快速使用专门票价2,000日元。",
     "19号熊野御坊南海可用感应银行卡、Apple Pay／Google Pay或现金，不收Suica／ICOCA。06:54早班优惠须两人各用自己的卡或手机、上下车使用同一支付方式；优惠在结算后调整，现金按原价1,440日元。另备现金与1,000日元小额纸币。",
     "各站提前10–20分钟到，旺季快速可更早排队；上车告知司机目的地，按运营商规则刷卡或取整理券。普通／季节巴士不预约。",
     "东大寺大佛殿11月08:00–17:00，目前现场购票、只收现金；春日大社一般参拜07:00–17:00、特别参拜09:00–16:00。普通个人现场购票即可，特殊展览另看规则。",
-    "发心门至本宫步行、熊野三山参拜并盖齐官方10章，是熊野部分的一种合格方式；19号已安排速玉与那智，但盖章和资格尚未完成。正式Dual Pilgrim资格、徽章与证书另需每人自己的Camino条件与证明。现行返程直达大阪，不安排现场登记。"
+    "发心门至本宫步行、熊野三山参拜并盖齐官方10章，是熊野部分的一种合格方式；19号已安排速玉与那智，但盖章和资格尚未完成。正式Dual Pilgrim资格、徽章与证书另需每人自己的Camino条件与证明。现行返程直达大阪，不安排现场登记。",
+    "饮食需求为虾过敏：已订餐厅与SEN均需提前取得食材、汤底及共用制作的处理回复；现场候选也要确认，不能把未点虾视为已处理。"
   ],
   "places": [
     {
@@ -2136,7 +2209,7 @@ export default {
         "url": "https://www.openstreetmap.org/node/8744220706",
         "checkedOn": "2026-10-19"
       },
-      "coordinateNote": "仅为近露聚落位置参考，非SEN RETREAT CHIKATSUYU具体位置；末段步行／接送及去巴士站的路线仍待确认。"
+      "coordinateNote": "仅为近露聚落位置参考，非SEN具体建筑坐标；地址已提供，近露王子至SEN约10分钟、到美术馆前约10–15分钟的步行安排见当日内容，实际站牌与走法先现场确认。"
     },
     {
       "id": "nakahechi-museum-bus-stop",
@@ -2678,15 +2751,15 @@ export default {
         },
         {
           "id": "arrivals-meetup",
-          "time": "18:45–19:15预计",
+          "time": "18:45–19:30预计",
           "title": "完成入境后会合",
-          "description": "实际取决于排队；会合后从T1到2楼连廊步行至关西机场站，预留取票与找站台时间。"
+          "description": "实际取决于排队；会合后从T1经2楼连廊步行至关西机场站，预留领取已付Pass、划HARUKA指定席与找站台的时间。"
         },
         {
           "id": "haruka-to-osaka",
-          "time": "19:16–20:01",
-          "title": "主选HARUKA 50：关西机场 → 大阪",
-          "description": "7日Pass于11/13启用后包含此段；计划班次不代表已买Pass或划座。根据实际入境时间选车：主选19:16，后备HARUKA 52为19:46–20:31；排队更久则改后续班次，不压缩入境时间赶车。",
+          "time": "19:46–20:31",
+          "title": "优先HARUKA 52：关西机场 → 大阪",
+          "description": "已付7日Pass包含，到机场领取后按实际进度划座，不另买票。更宽裕可选HARUKA 54（20:16–21:01）；特别顺利才选HARUKA 50（19:16–20:01）。不压缩入境时间赶19:16，排队久则改后续班次。",
           "sourceIds": [
             "haruka-timetable",
             "jrwest-all-area"
@@ -2694,7 +2767,7 @@ export default {
         },
         {
           "id": "umekita-to-hotel",
-          "time": "20:01到达后",
+          "time": "20:31到达后",
           "title": "梅北地下口 → 酒店",
           "description": "走“うめきた地下口／Umekita Underground Gate”去Yodobashi Umeda Tower／LINKS UMEDA。官网出闸后步行约6分钟，含出站与电梯预留15–25分钟；前台在9楼。",
           "sourceIds": [
@@ -2703,9 +2776,9 @@ export default {
         },
         {
           "id": "respire-check-in",
-          "time": "20:20–21:00左右",
+          "time": "20:50–21:30左右",
           "title": "Hotel Hankyu RESPIRE Osaka办理入住",
-          "description": "首段11/13–14已订，入住时间按实际机场列车调整。"
+          "description": "首段11/13–14已订，按此范围更新预计到店时间，特别顺利可更早；实际入住随机场进度调整。"
         },
         {
           "time": "入住后",
@@ -2715,7 +2788,7 @@ export default {
       ],
       "notes": [
         "14号寄存大箱至19号，跨5晚必须酒店明确同意。",
-        "两人机场会合后一起前往大阪；机票已确认，HARUKA仍为计划班次。",
+        "两人机场会合后一起前往大阪；Pass已付，HARUKA仍需到达后按实际班次划座。",
         "11/13启用7日JR西日本全地区Pass，19号为最后有效日；机场进大阪的HARUKA包含。"
       ],
       "sourceIds": [
@@ -2778,7 +2851,7 @@ export default {
                 "scheduleId": "respire-check-in"
               }
             ],
-            "note": "按实际入境时间选择机场列车；HARUKA仍为参考班次。"
+            "note": "优先19:46 HARUKA 52，20:16班更宽裕，19:16仅特别顺利时选；Pass已付，机场取票后再划座。"
           }
         ]
       }
@@ -2826,7 +2899,7 @@ export default {
           "id": "nozomi-to-hiroshima",
           "time": "09:02–10:27",
           "title": "Nozomi／のぞみ5：新大阪 → 广岛",
-          "description": "7日Pass包含普通车指定席，需买Pass后提前划座，尚未预约。计划班次；参考页查询日期为2026-10-12。",
+          "description": "普通车禁烟指定席已确认，两位成人连座，费用包含在已付7日Pass内。参考时刻页查询日期为2026-10-12，出发前复核临时调整。",
           "sourceIds": [
             "nozomi-5-reference",
             "jrwest-all-area",
@@ -2878,10 +2951,19 @@ export default {
           "description": "按体力延长或删减，不追加更多核心景点。"
         },
         {
+          "id": "inaho-dinner",
+          "time": "18:30–20:30左右",
+          "title": "已订鮨 稲穂：禁烟吧台两位",
+          "description": "おまかせコース～極み～，两人应付32,600日元，含税与服务费，到店付款。时长按约2小时估算；虾过敏处理尚待明确回复。",
+          "sourceIds": [
+            "dining-inaho"
+          ]
+        },
+        {
           "id": "south-gate-check-in",
-          "time": "18:00左右",
-          "title": "晚餐后回South Gate酒店办理入住",
-          "description": "路面电车或出租车回广岛站南侧minamoa，到酒店7楼前台办理入住；到店时间按晚餐与散步调整。"
+          "time": "21:00左右",
+          "title": "稲穂晚餐后回South Gate办理入住",
+          "description": "餐后返回广岛站南侧minamoa，到酒店7楼前台；预计约21:00到店，需更新预报，具体交通和到店时间按用餐进度调整。"
         }
       ],
       "notes": [
@@ -2894,7 +2976,8 @@ export default {
         "granvia-south-gate-access",
         "granvia-south-gate-facilities",
         "jrwest-all-area",
-        "hiroshima-meipuru-bus"
+        "hiroshima-meipuru-bus",
+        "dining-inaho"
       ],
       "dining": [
         {
@@ -2918,12 +3001,22 @@ export default {
         {
           "meal": "dinner",
           "notes": [
-            "吧台为候选席位，先查询两人的可预约情况。"
+            "18:30禁烟吧台两位已正式确认，按约两小时用餐；餐后约21:00到South Gate。过敏处理需补告知并取得回复，不再并行预约原寿司候选。"
           ],
           "choices": [
             {
-              "optionId": "sushi-hitoshi",
-              "note": "两档菜单可比较；选择更多配菜的套餐前，核对用餐长度是否适合现有行程。"
+              "optionId": "sushi-inaho",
+              "reservationStatus": "booked",
+              "note": "11/14 18:30，禁烟吧台两位，おまかせコース～極み～；正式预约已确认。",
+              "cost": {
+                "currency": "JPY",
+                "amount": 32600,
+                "paymentStatus": "pay-on-arrival",
+                "notes": [
+                  "两位成人整笔金额，含税与服务费；33,000减即时积分400。",
+                  "到店付款，不代表已付；酒水及额外加菜另计。"
+                ]
+              }
             }
           ]
         }
@@ -2994,7 +3087,8 @@ export default {
                 "placeId": "granvia-south-gate",
                 "scheduleId": "south-gate-check-in"
               }
-            ]
+            ],
+            "note": "稲穂晚餐地址见用餐信息，未标定餐厅坐标；餐后约21:00回South Gate。"
           },
           {
             "id": "transport",
@@ -3057,7 +3151,7 @@ export default {
                 "scheduleId": "south-gate-check-in"
               }
             ],
-            "note": "大阪酒店的大箱寄存需先取得酒店确认；列车仍为计划参考。"
+            "note": "大阪大箱寄存仍需酒店明确确认；Nozomi 5指定席已订。稲穂晚餐地址见用餐信息，未标定餐厅坐标；餐后约21:00回South Gate。"
           }
         ]
       }
@@ -3075,7 +3169,7 @@ export default {
       "title": "宫岛：缆车、严岛神社与大圣院火渡",
       "description": "保持上午缆车、中午严岛神社和水中鸟居、下午大圣院火渡的顺序；山顶追加按体力与排队调整，傍晚回广岛。",
       "ideas": [
-        "预约09:00附近缆车，上行后看獅子岩与弥山一带。",
+        "缆车按最终凭证时段上行；目前临时凭证09:15–09:30、正式状态待核对，缩短山上散步。",
         "中午严岛神社、水中鸟居，潮时有几分钟差异。",
         "下午大圣院火渡，傍晚渡轮与JR回广岛。"
       ],
@@ -3119,9 +3213,9 @@ export default {
         },
         {
           "id": "ropeway-up",
-          "time": "09:00",
-          "title": "预约宫岛缆车上行",
-          "description": "红叶谷→榧谷→獅子岩两段，纯乘车约10＋4分钟，另计换乘排队。09:00余位未核实；往返现行成人2,000日元另付。 两人先预约上行时段，预约后仍需买往返票；时段与车票均未落实。",
+          "time": "09:15–09:30（临时凭证）",
+          "title": "宫岛缆车上行：正式时段待核对",
+          "description": "仅见两人临时预约凭证，需核对当时是否完成正式确认；核对前不重复预订，按最终凭证安排。红叶谷→榧谷→獅子岩两段，纯乘车约10＋4分钟，另计排队；仍需另买成人往返票2,000日元／人。",
           "sourceIds": [
             "miyajima-ropeway",
             "miyajima-ropeway-booking",
@@ -3130,9 +3224,9 @@ export default {
         },
         {
           "id": "shishiiwa-misen-walk",
-          "time": "09:30–11:00",
+          "time": "抵达山上后–11:00前",
           "title": "獅子岩展望、弥山一带散步",
-          "description": "真正弥山山顶按体力与排队追加；山上缆车站至山顶往返另约1小时。"
+          "description": "缆车时段较原目标稍晚，缩短山上散步，保留11:30下到山脚。真正弥山山顶仍只在体力、排队与时间允许时追加，往返另约1小时。"
         },
         {
           "id": "ropeway-down",
@@ -3189,14 +3283,24 @@ export default {
           "description": "步行回JR站；后备17:49–18:20。 JR回程包含在Pass内。"
         },
         {
+          "id": "kanawa-dinner",
+          "time": "19:00",
+          "title": "已订かき船かなわ「瀬戸」：两人牡蛎全餐",
+          "description": "广岛站18:03到达（后备18:20）后直接出租车前往元安川边，连候车估计20–30分钟，不先回酒店。かきづくしコース两人19,800日元，额外酒水及追加另计；付款状态未知，虾过敏处理仍待回复。",
+          "sourceIds": [
+            "dining-kanawa-seto-menu",
+            "dining-kanawa-seto-booking"
+          ]
+        },
+        {
           "id": "return-to-south-gate",
-          "time": "抵达广岛后",
-          "title": "晚餐、回South Gate酒店",
-          "description": "若最终选择かき船かなわ「瀬戸」晚餐，可按晚餐方案安排广岛站→餐厅→酒店出租车，按实际车费另付；餐厅仍为未订候选，不计入已确认安排。"
+          "time": "晚餐后",
+          "title": "返回South Gate酒店",
+          "description": "已确认かなわ19:00晚餐后回同一家酒店，出租车实际车费另付；不换酒店。"
         }
       ],
       "notes": [
-        "11/15缆车必须事前预约，两人优先09:00附近；预约时段后仍需购买车票，余位与购买均待落实。",
+        "缆车临时凭证为09:15–09:30、两人，正式预约待核对；不能只凭临时邮件标已订，也不重复预订。按最终凭证安排、缩短山上散步，保留11:30下山与午后行程。",
         "JR往返与JR西日本渡轮船费包含；本次登岛访问税100日元／人、缆车往返2,000日元／人另付。",
         "15号与14号同住已订的Hotel Granvia Hiroshima South Gate，早餐自行安排。"
       ],
@@ -3242,16 +3346,22 @@ export default {
         {
           "meal": "dinner",
           "notes": [
-            "两家二选一，只预约最终选择的那家；先核对营业和交通是否适合现有行程。"
+            "19:00かなわ瀬戸两人预约已确认，不再做二选一订位；广岛站下车后直接打车，不先回酒店。虾过敏处理和付款状态仍待核对，靠窗等具体席位未保证。"
           ],
           "choices": [
             {
               "optionId": "kakifune-kanawa-seto",
-              "note": "若选择船上瀬戸店，先核对宫岛回程、餐厅交通与既有安排是否兼容，再决定订位。"
-            },
-            {
-              "optionId": "suishin-ekie-hiroshima",
-              "note": "车站附近的候选；所列套餐需至少提前3天预约，只有最终选择此店时才安排。"
+              "reservationStatus": "booked",
+              "note": "11/15 19:00，瀬戸类别，两人かきづくしコース已确认；具体座位偏好未保证。",
+              "cost": {
+                "currency": "JPY",
+                "amount": 19800,
+                "paymentStatus": "unknown",
+                "notes": [
+                  "两位成人整笔套餐金额；9,900日元／人，额外酒水及追加另计。",
+                  "预约确认不代表付款完成，实际付款状态待核对。"
+                ]
+              }
             }
           ]
         }
@@ -3436,7 +3546,8 @@ export default {
                 "placeId": "granvia-south-gate",
                 "scheduleId": "return-to-south-gate"
               }
-            ]
+            ],
+            "note": "宫岛回程仍按原班次；广岛站下车后直接出租车去已订19:00かなわ，餐厅坐标未标定，餐后回South Gate。"
           },
           {
             "id": "misen-summit",
@@ -3487,7 +3598,7 @@ export default {
           "id": "nozomi-to-shin-osaka",
           "time": "09:43–11:04",
           "title": "Nozomi／のぞみ14：广岛 → 新大阪",
-          "description": "7日Pass包含普通车指定席，需提前划座；计划班次不代表已经预约或出票。",
+          "description": "普通车禁烟指定席已确认，两位成人连座，费用包含在已付7日Pass内；出发前复核当日运行信息。",
           "sourceIds": [
             "nozomi-14-reference",
             "jrwest-all-area",
@@ -3504,7 +3615,7 @@ export default {
           "id": "kuroshio-to-tanabe",
           "time": "12:13–14:29",
           "title": "Kuroshio 11／特急くろしお11：新大阪 → 纪伊田边",
-          "description": "计划班次；参考页查询日期为2026-09-12。14:29到和歌山县JR紀伊田辺／Kii-Tanabe。 普通车指定席包含在7日Pass内，需提前划座，尚未预约。",
+          "description": "普通车禁烟指定席已确认，两位成人连座，费用包含在已付7日Pass内；出发前复核当日运行信息。 14:29到和歌山县JR紀伊田辺／Kii-Tanabe。",
           "sourceIds": [
             "kuroshio-11-reference",
             "jrwest-all-area",
@@ -3530,15 +3641,25 @@ export default {
           ]
         },
         {
-          "time": "16:00–18:00",
-          "title": "超市／便利店备粮、晚餐",
-          "description": "买17号早餐、午餐、能量补给与饮水。"
+          "time": "16:00–17:30",
+          "title": "超市／便利店备早餐、徒步午餐与补给",
+          "description": "买17号早餐、午餐、能量补给与饮水，也可先备18号晚餐和19号早餐的耐放食品。"
+        },
+        {
+          "id": "ginchiro-dinner",
+          "time": "18:00–19:15左右",
+          "title": "晚餐候选：銀ちろ本店或附近简餐",
+          "description": "銀ちろ尚未订，先确认周一营业再考虑订两位18:00席。普通点菜每人3,000–5,000预算，鱼锅需另行预订；19:30前回酒店。",
+          "sourceIds": [
+            "dining-ginchiro-site",
+            "dining-ginchiro-tourism"
+          ]
         },
         {
           "id": "comfort-evening-rest",
-          "time": "晚上",
+          "time": "19:30前回酒店后",
           "title": "整理背包、早点休息",
-          "description": "酒店早餐06:30开始，次日06:38车不能从容吃早餐，提前买好。"
+          "description": "含早餐，但06:30才开始，次日06:38巴士不能从容吃完再赶车；提前准备早餐，整理背包、早点休息。"
         }
       ],
       "notes": [
@@ -3588,7 +3709,7 @@ export default {
           "choices": [
             {
               "optionId": "ginchiro-tanabe",
-              "note": "先确认11/16营业；普通点菜与需预订鱼锅分开处理。"
+              "note": "目标18:00–19:15左右，未订；先确认周一营业。普通点菜预算与需预订鱼锅分开，虾过敏提前说明。"
             }
           ]
         }
@@ -3663,7 +3784,7 @@ export default {
       "overnightId": "kumano-kodo",
       "type": "hike",
       "title": "泷尻 → 高原 → 近露",
-      "description": "主选06:38明光95到泷尻，07:35开始约13.3公里山路，经高原、王子遗迹和牛马童子至近露，前往SEN RETREAT CHIKATSUYU；按全天山路安排，末段步行／接送待确认。",
+      "description": "主选06:38明光95到泷尻，07:35开始约13.3公里山路，经高原、王子遗迹和牛马童子至近露；近露王子到SEN官网列步行约10分钟，按全天山路安排。",
       "ideas": [
         "明光95主选，龙神06:55快速作备选。",
         "泷尻盖章后经高原、十丈王子、大坂本王子与牛马童子。",
@@ -3722,25 +3843,32 @@ export default {
           "id": "walk-to-chikatsuyu",
           "time": "12:30–15:00／16:00",
           "title": "大坂本王子、牛马童子 → 近露",
-          "description": "到近露王子后前往SEN RETREAT CHIKATSUYU；末段步行／接送待确认。"
+          "description": "到近露王子后，按SEN官网列步行约10分钟到旅馆，不需接送；自助入住流程提前保存，先确认翌日站牌与走法。",
+          "sourceIds": [
+            "sen-chikatsuyu-walk",
+            "sen-chikatsuyu-stay"
+          ]
         },
         {
           "time": "傍晚",
           "title": "晚餐、洗澡，准备18号早班车",
-          "description": "向SEN RETREAT CHIKATSUYU确认早餐时间与去美术馆前站的路线。"
+          "description": "晚餐已包含，确认本订单是食材自炊还是便当套餐及虾过敏处理；确认18号早餐早取／打包，配合07:10–07:15离店。"
         }
       ],
       "notes": [
         "约13.3公里、累计爬升约1,010米，官方步行6–8小时；加盖章、拍照、休息要留更久，不按城市13公里估算。",
         "不等泷尻古道馆08:30开门；地图与章册16号已领取。",
-        "SEN RETREAT CHIKATSUYU已订11/17–18；17日下午到店、18号去车站的步行／接送仍需确认。",
+        "SEN已含早晚餐；近露王子到店官网列步行约10分钟。去美术馆前按地图估算10–15分钟，17号先确认路线与站牌；餐食形式及早取仍待确认。",
         "熊野巴士按单次付费，不购买当地巴士通票；JR Pass不包含明光巴士。"
       ],
       "sourceIds": [
         "tanabe-hongu-bus",
         "kumano-fast-bus",
         "takijiri-chikatsuyu",
-        "kumano-bus-payment"
+        "kumano-bus-payment",
+        "sen-chikatsuyu-stay",
+        "sen-chikatsuyu-walk",
+        "chikatsuyu-map"
       ],
       "stamps": {
         "title": "沿途额外纪念章",
@@ -3793,7 +3921,7 @@ export default {
         {
           "meal": "breakfast",
           "notes": [
-            "吃前日准备的食品，配合现有早班车安排。"
+            "Comfort虽含早餐，但06:30才开始，不能从容吃完再赶06:38巴士；吃16号准备好的食品。"
           ],
           "choices": []
         },
@@ -3807,7 +3935,7 @@ export default {
         {
           "meal": "dinner",
           "notes": [
-            "与SEN确认晚餐形式、实际菜单及用餐准备；早餐早取或打包方式也需沟通。"
+            "SEN订单已含晚餐，不另订外食或重复计算餐费。确认食材自炊／便当形式、实际菜单与虾过敏处理；翌日早餐早取或打包方式仍需沟通。"
           ],
           "choices": [],
           "sourceIds": [
@@ -3878,10 +4006,10 @@ export default {
                 "placeId": "chikatsuyu-area",
                 "scheduleId": "walk-to-chikatsuyu",
                 "connect": false,
-                "note": "近露住宿区域参考；SEN RETREAT CHIKATSUYU具体位置与末段接驳尚未标定。"
+                "note": "近露住宿区域参考，SEN具体建筑坐标未核定；地址已提供，步行路线见当日安排，不能将区域点当作酒店入口。"
               }
             ],
-            "note": "八处沿途纪念章按步行顺序显示；近露王子后的SEN RETREAT CHIKATSUYU末段步行／接送待确认。"
+            "note": "沿途八处纪念章按步行顺序显示；近露王子至SEN官网列步行约10分钟，地图仍仅标近露住宿区域，不假设精确酒店入口。"
           },
           {
             "id": "transport",
@@ -3938,7 +4066,7 @@ export default {
                 "placeId": "chikatsuyu-area",
                 "scheduleId": "walk-to-chikatsuyu",
                 "connect": false,
-                "note": "近露住宿区域参考；SEN RETREAT CHIKATSUYU具体位置与末段接驳尚未标定。"
+                "note": "近露住宿区域参考，SEN具体建筑坐标未核定；地址已提供，步行路线见当日安排，不能将区域点当作酒店入口。"
               }
             ]
           }
@@ -3970,15 +4098,24 @@ export default {
       "schedule": [
         {
           "id": "sen-checkout",
-          "time": "06:30–07:10",
+          "time": "06:15–07:00",
           "title": "早餐、退房",
-          "description": "与SEN RETREAT CHIKATSUYU确认早餐时间。"
+          "description": "SEN订单已含早餐，形式及早取／打包待确认；不依赖07:00以后才开始的现场用餐，另备食品。收拾并自助退房。"
+        },
+        {
+          "id": "sen-to-museum-stop",
+          "time": "07:10–07:15",
+          "title": "离开SEN，步行去美术馆前站",
+          "description": "依据近露地图估算约500–600米、10–15分钟，约07:25–07:30到站；实际走法和站牌17号到店后先确认。",
+          "sourceIds": [
+            "chikatsuyu-map"
+          ]
         },
         {
           "id": "museum-bus-queue",
           "time": "07:30",
           "title": "美术馆前站候车",
-          "description": "站名“なかへち美術館前／Nakahechi Bijutsukan-mae”；SEN RETREAT CHIKATSUYU至车站路线与出门时间待确认。"
+          "description": "站名“なかへち美術館前／Nakahechi Bijutsukan-mae”；按上述步行预留07:30到站候车，不在近露王子站等快速。"
         },
         {
           "id": "fast-bus-to-hosshinmon",
@@ -4026,17 +4163,22 @@ export default {
         {
           "time": "15:05–15:16",
           "title": "龙神80系統“紀伊田辺駅行”：本宫 → 川汤",
-          "description": "15:05发车；藤屋前／ふじや前15:13、龟屋前／かめや前15:14、川汤温泉15:16，按所订旅馆位置下车。玩久些可改16:40发车：藤屋16:48、龟屋16:49、川汤16:51。 此段单买310日元／人，JR Pass不包含；龙神可用感应银行卡或现金。",
+          "description": "15:05本宫大社前发车，川汤温泉站15:16下车，再步行约1–2分钟到まつや；单买310日元／人，感应银行卡或现金。玩久些可改16:40发车、川汤温泉16:51下车，不改变早班车主方案。",
           "sourceIds": [
             "hongu-kawayu-bus",
-            "kumano-bus-payment"
+            "kumano-bus-payment",
+            "kawayu-matsuya-access"
           ]
         },
         {
           "id": "kawayu-check-in",
-          "time": "入住后",
-          "title": "川湯まつや入住、泡汤、晚餐",
-          "description": "已订11/18–19；11月按旅馆温泉安排。"
+          "time": "15:20左右",
+          "title": "川湯まつや自助入住、泡汤、自备晚餐",
+          "description": "可吸烟双床房已订，不供早晚餐；带好晚餐和19号无需微波的早餐。仅使用本馆浴池，不使用姐妹馆みどりや浴场或大厅；4楼微波炉／休息室07:00–22:00。",
+          "sourceIds": [
+            "kawayu-matsuya-policy",
+            "kawayu-matsuya-facilities"
+          ]
         }
       ],
       "alternatives": [
@@ -4100,8 +4242,8 @@ export default {
       ],
       "notes": [
         "快速不停近露王子，必须到美术馆前站。",
-        "SEN RETREAT CHIKATSUYU早餐和到站路线、川湯まつや准确下车站仍待确认；巴士站点以旅馆答复为准。",
-        "川湯まつや已订；11月按旅馆温泉，仙人风吕通常12月开放。",
+        "SEN早餐已包含，但形式与早取／打包仍待确认；川汤按川汤温泉站下车、步行约1–2分钟到店，地图未标定站杆。",
+        "川湯まつや已订、可吸烟双床、不供餐；仅使用本馆温泉。采购晚餐与早班早餐，11月不依赖仙人风吕。",
         "快速2,000日元与本宫→川汤310日元分别付费，不购买当地巴士通票。"
       ],
       "sourceIds": [
@@ -4111,7 +4253,11 @@ export default {
         "kawayu-senninburo",
         "dual-pilgrim",
         "kumano-bus-payment",
-        "kumano-fast-bus-fare"
+        "kumano-fast-bus-fare",
+        "chikatsuyu-map",
+        "kawayu-matsuya-policy",
+        "kawayu-matsuya-facilities",
+        "kawayu-matsuya-access"
       ],
       "stamps": {
         "title": "日本条件③：第1–6章",
@@ -4165,7 +4311,7 @@ export default {
         {
           "meal": "breakfast",
           "notes": [
-            "与SEN确认早餐形式及能否早取或打包，另备少量备用食品。"
+            "SEN已含早餐，在06:15–07:00空档吃已确认能早取／打包的食品或备用早餐；具体方式仍待答复，保留07:10–07:15离店。"
           ],
           "choices": [],
           "sourceIds": [
@@ -4187,7 +4333,7 @@ export default {
         {
           "meal": "dinner",
           "notes": [
-            "提前准备便当或耐放食品，同时备好次日早餐。",
+            "川湯まつや不供餐，吃提前准备的便当或耐放食品，同时备好19号无需微波的早餐。",
             "来源列4F微波炉07:00–22:00；是否方便使用可到店确认。",
             "川汤附近没有便利店；本宫具体采购店、营业和库存仍需确认，耐放食品可在16号先备。"
           ],
@@ -4263,7 +4409,7 @@ export default {
                 "placeId": "chikatsuyu-area",
                 "scheduleId": "sen-checkout",
                 "connect": false,
-                "note": "近露住宿区域参考；SEN RETREAT CHIKATSUYU具体位置与末段接驳尚未标定。"
+                "note": "近露住宿区域参考，SEN具体建筑坐标未核定；地址已提供，步行路线见当日安排，不能将区域点当作酒店入口。"
               },
               {
                 "placeId": "nakahechi-museum-bus-stop",
@@ -4308,10 +4454,10 @@ export default {
               {
                 "placeId": "kawayu-matsuya",
                 "scheduleId": "kawayu-check-in",
-                "note": "川汤下车站仍需按旅馆确认；不预设藤屋前、龟屋前或川汤温泉中的哪一站。"
+                "note": "按川汤温泉站下车步行约1–2分钟到酒店；地图未标定站杆，19号06:30离店前的退房和钥匙处理仍待确认。"
               }
             ],
-            "note": "主线乘07:51快速直达发心门；川汤实际下车站与酒店末段步行待确认。"
+            "note": "主线乘07:51快速直达发心门；下午川汤温泉15:16下车、步行约1–2分钟到まつや，地图为酒店位置，未标定站杆。"
           },
           {
             "id": "missed-fast-bus",
@@ -4323,7 +4469,7 @@ export default {
                 "placeId": "chikatsuyu-area",
                 "scheduleId": "museum-to-hongu",
                 "connect": false,
-                "note": "近露住宿区域参考；SEN RETREAT CHIKATSUYU具体位置与末段接驳尚未标定。"
+                "note": "近露住宿区域参考，SEN具体建筑坐标未核定；地址已提供，步行路线见当日安排，不能将区域点当作酒店入口。"
               },
               {
                 "placeId": "nakahechi-museum-bus-stop",
@@ -4372,7 +4518,7 @@ export default {
               {
                 "placeId": "kawayu-matsuya",
                 "scheduleId": "fallback-kawayu-bus",
-                "note": "川汤下车站仍需按旅馆确认；不预设藤屋前、龟屋前或川汤温泉中的哪一站。"
+                "note": "按川汤温泉站下车步行约1–2分钟到酒店；地图未标定站杆，19号06:30离店前的退房和钥匙处理仍待确认。"
               }
             ],
             "note": "仅快速满员或错过时使用；经本宫转车后徒步，保留16:40回川汤的候车余量。"
@@ -4399,15 +4545,15 @@ export default {
       "schedule": [
         {
           "id": "kawayu-checkout",
-          "time": "06:54发车前",
+          "time": "05:45–06:20",
           "title": "早餐、提前退房并归还钥匙",
-          "description": "须提前与川湯まつや确认07:00前退房和归还钥匙的方式；实际在06:54发车前完成，准备无需微波的早餐。"
+          "description": "吃无需微波的自备早餐并退房；06:30左右离店。必须提前与まつや确认07:00前退房和钥匙处理，目前尚未得到明确答复。"
         },
         {
           "id": "kawayu-bus-queue",
-          "time": "提前候车",
-          "title": "川汤准确上车站候车",
-          "description": "按旅馆答复确认对应站点与发车分钟，提前到站；不假设川汤温泉、藤屋前或龟屋前是同一分钟。"
+          "time": "06:30左右离店",
+          "title": "川汤温泉站候车",
+          "description": "步行至川汤温泉站，提前候车；先确认正确方向站牌，不等07:00才开始的设施。"
         },
         {
           "id": "early-hayatama-bus",
@@ -4418,15 +4564,16 @@ export default {
             "kumano-bus-payment",
             "kumano-early-discount"
           ],
-          "description": "普通票价1,440日元／人；06:54班按当季感应支付早班优惠为720日元／人。两人各用自己的卡或手机，上下车使用同一支付方式；优惠在结算后调整，现金按原价。准确上车站与发车分钟仍需旅馆确认。"
+          "description": "普通1,440日元／人；按当季感应支付早班优惠为720。两人各用自己的卡或手机，上下车同一支付方式，结算后调整；现金按原价。提前退房仍须旅馆确认。"
         },
         {
           "id": "hayatama-visit",
-          "time": "07:48到达后",
+          "time": "07:50–08:40",
           "title": "参拜熊野速玉大社、盖第7章",
           "sourceIds": [
             "dual-pilgrim-stamp-list"
-          ]
+          ],
+          "description": "参拜并计划盖第7章；自助路线章与收费御朱印不同，不等待御朱印柜台才继续行程。"
         },
         {
           "id": "hayatama-to-nachi",
@@ -4446,9 +4593,9 @@ export default {
         },
         {
           "id": "bus-to-nachisan",
-          "time": "09:57发车",
+          "time": "09:57–10:16",
           "title": "31系統“那智山行”：那智站 → 那智山终点",
-          "description": "单买510日元／人，坐到那智山终点，不在大门坂下车。终点准确到达分钟待复核；较原计划提前抵达的时间作为参拜前缓冲，保留11:31起的那智核心游览时段。",
+          "description": "单买510日元／人，坐到那智山终点，不在大门坂下车；10:16到达后按体力进入参拜与盖章，不追加大门坂徒步。",
           "sourceIds": [
             "nachi-katsuura-bus",
             "kumano-bus-payment"
@@ -4456,8 +4603,9 @@ export default {
         },
         {
           "id": "nachi-taisha-visit",
-          "time": "11:31–12:15",
-          "title": "熊野那智大社"
+          "time": "10:20–12:15",
+          "title": "熊野那智大社、青岸渡寺与三重塔",
+          "description": "参拜、散步与盖章；12:15–13:00继续在青岸渡寺、三重塔一带看瀑布远景，并按现场营业和排队穿插简餐。"
         },
         {
           "id": "seigantoji-pagoda-visit",
@@ -4497,7 +4645,7 @@ export default {
           "id": "kuroshio-to-osaka",
           "time": "15:21–19:16",
           "title": "Kuroshio 30／特急くろしお30：纪伊胜浦 → 大阪",
-          "description": "全车指定席，运转日明确含2026/11/19；计划班次不代表已出票。17:06到纪伊田边、17:08继续开，留在车上，不下车换乘或取物。 11/19是7日Pass最后有效日，普通车指定席包含，仍须买Pass后提前划座；无须另买黑潮票。",
+          "description": "普通车禁烟指定席已确认，两位成人连座，费用包含在已付Pass内，11/19为最后有效日。运转日含2026/11/19；17:06到纪伊田边、17:08继续开，留在车上，不下车取物或登记。",
           "sourceIds": [
             "kuroshio-30-reference",
             "jrwest-all-area",
@@ -4508,20 +4656,21 @@ export default {
           "id": "umekita-respire-return",
           "time": "19:16",
           "title": "大阪地下24站台下车，返回RESPIRE",
-          "description": "走梅北地下口，取大箱并办理11/19–21第二段已订入住。",
+          "description": "走梅北地下口，取大箱并办理11/19–21第二段已订入住；预计约19:45–20:00到店，需更新酒店预报。",
           "sourceIds": [
             "respire-access"
           ]
         },
         {
-          "time": "20:00左右",
-          "title": "晚餐、休息"
+          "time": "20:15之后",
+          "title": "晚餐、休息",
+          "description": "たこ梅北店仍未订且不接受预约，现场看队伍；若长队改附近简餐，最多90分钟用餐，不再拖晚。"
         }
       ],
       "notes": [
-        "已采用06:54川汤→速玉大社前→那智站→那智山方案；不徒步大门坂。09:57从那智站发车后的终点到达分钟需复核，提前抵达留作缓冲。",
-        "那智核心保留11:31起的现有游览时间、13:59下山巴士和15:21黑潮；那智山与瀑布之间仍有台阶。",
-        "提前确认旅馆退房、钥匙归还和准确上车站；两人各自用自己的卡或手机，上下车保持同一支付方式，早班优惠在结算后调整，现金不享优惠。",
+        "已采用06:54川汤→速玉大社前→那智站→那智山方案；09:57–10:16坐到那智山终点，不徒步大门坂。",
+        "参拜窗口按10:20–12:15，12:15–13:00仍看寺塔与瀑布远景、穿插午餐；保留13:59下山巴士和已订15:21黑潮，那智山与瀑布之间仍有台阶。",
+        "06:30离店前的退房与钥匙处理尚未确认；两人各用自己的卡或手机、上下车保持同一支付方式，早班优惠在结算后调整，现金不享优惠。",
         "必须保证大箱在大阪；不能利用纪伊田边17:06–17:08的2分钟停车回酒店取箱或办理登记。",
         "这天背随身包游览，不假设那智站一定有可用寄存柜。",
         "计划参拜速玉、那智并盖第7–10章；日本条件③仍以前一天实际完成发心门至本宫步行、盖齐官方10章为前提，正式Dual资格另需每人自己的Camino证明。"
@@ -4546,7 +4695,7 @@ export default {
             "number": 7,
             "name": "熊野速玉大社",
             "englishName": "Kumano Hayatama Taisha",
-            "note": "已纳入当天主行程，07:48到达后参拜并计划盖章。"
+            "note": "已纳入当天主行程，07:50–08:40参拜并计划盖章；不等待收费御朱印柜台。"
           },
           {
             "number": 8,
@@ -4604,7 +4753,7 @@ export default {
         {
           "meal": "dinner",
           "notes": [
-            "19:16回大阪、取箱入住后，按营业和队伍情况考虑晚餐；保留附近简餐备选。"
+            "19:16回大阪、约19:45–20:00到店取箱入住后，20:15之后考虑たこ梅北店；现场排队，队伍长改附近简餐。"
           ],
           "choices": [
             {
@@ -4670,7 +4819,7 @@ export default {
                 "scheduleId": "falls-bus-queue"
               }
             ],
-            "note": "那智站09:57发车，乘车到那智山终点；不徒步大门坂。速玉参拜在全程交通视图中展示。"
+            "note": "09:57–10:16乘车到那智山终点，10:20起参拜、盖章，不徒步大门坂。速玉参拜在全程交通视图展示。"
           },
           {
             "id": "transport",
@@ -4680,7 +4829,7 @@ export default {
               {
                 "placeId": "kawayu-matsuya",
                 "scheduleId": "kawayu-checkout",
-                "note": "06:54发车前退房；实际上车站与发车分钟待旅馆确认，未标定川汤站杆。"
+                "note": "按川汤温泉站下车步行约1–2分钟到酒店；地图未标定站杆，19号06:30离店前的退房和钥匙处理仍待确认。"
               },
               {
                 "placeId": "hayatama-bus-stop",
@@ -4701,7 +4850,7 @@ export default {
               {
                 "placeId": "nachisan-bus-stop",
                 "scheduleId": "bus-to-nachisan",
-                "note": "09:57从那智站发车，终点到达分钟待复核。"
+                "note": "09:57从那智站发车，按更新计划10:16到那智山终点。"
               },
               {
                 "placeId": "kumano-nachi-taisha",
@@ -4746,7 +4895,7 @@ export default {
                 "scheduleId": "umekita-respire-return"
               }
             ],
-            "note": "主线06:54经速玉参拜、那智站换车至那智山，15:21黑潮直达大阪；不走大门坂，纪伊田边留在车上，不下车取物或登记。"
+            "note": "主线06:54经速玉参拜、那智站换车至那智山；四段JR指定席中本日15:21黑潮已订，直达大阪，不在田边下车或登记。"
           }
         ]
       }
@@ -4778,7 +4927,7 @@ export default {
           "id": "yamatoji-to-nara",
           "time": "09:42–10:33",
           "title": "大和路快速：大阪 → JR奈良",
-          "description": "计划班次，直达不换乘。 7日Pass已于11/19结束，当天JR往返约1,680日元／人另买。"
+          "description": "计划班次，直达不换乘；Pass已过期，普通JR可用交通卡进出站，约840日元／人／单程，按当日扣款，不用提前买票。"
         },
         {
           "id": "nara-city-bus",
@@ -4834,12 +4983,13 @@ export default {
           "id": "jr-return-to-osaka",
           "time": "17:10–18:10",
           "title": "JR区间快速：奈良 → 大阪",
-          "description": "回程参考，直达约60分钟；晚一些可乘后续直达班次。 Pass已过期，回程与去程按单次买票。"
+          "description": "直达约60分钟；晚一些可乘后续直达班次。Pass已过期，交通卡乘坐，JR往返预算約1,680日元／人，以当日扣款为准。"
         },
         {
           "id": "umeda-evening",
           "time": "18:30后",
-          "title": "梅田晚餐、整理行李"
+          "title": "梅田晚餐、整理行李",
+          "description": "酒店短休后，19:15–21:00モリタ屋ルクアイーレ店为晚餐候选，尚未订；按特選两人20,900预算，饭后整理行李。"
         }
       ],
       "notes": [
@@ -4890,7 +5040,7 @@ export default {
           "choices": [
             {
               "optionId": "moritaya-lucua",
-              "note": "菜单档位与可预约席位可比较，未确定套餐。"
+              "note": "目标19:15–21:00，两位，特選10,450日元／人作预算；尚未订位或确定最终套餐，需核对平台费用、取消条件与虾过敏配菜。"
             },
             {
               "optionId": "harijyu-dotonbori",
@@ -5106,7 +5256,8 @@ export default {
       "notes": [
         "当天不安排景点。",
         "主选08:50 HARUKA 11，09:19 HARUKA 13仅作后备；机场列车与站台出发前复核。",
-        "21号HARUKA优惠按购票日期定价，10/31为较低票价截止日；另购票，不计入已选Pass。"
+        "21号HARUKA优惠按购票日期定价，10/31为较低票价截止日；另购票，不计入已选Pass。",
+        "阪急三番街08:30–09:30机场巴士另列为参考替代，单程1,800日元／人、现场排队；酒店门口下客站不能当去机场上客站。"
       ],
       "sourceIds": [
         "haruka-timetable",
@@ -5162,7 +5313,25 @@ export default {
             "note": "HARUKA仍为参考班次；带齐全部行李并留足进站、连廊与电梯时间。"
           }
         ]
-      }
+      },
+      "alternatives": [
+        {
+          "id": "airport-bus",
+          "title": "机场交通替代：阪急三番街机场巴士",
+          "description": "当前仍以08:50 HARUKA 11为主；只有确定改用巴士时才替换机场段，不与HARUKA同时购票或计费。",
+          "schedule": [
+            {
+              "id": "sanbangai-airport-bus",
+              "time": "08:30–09:30参考",
+              "title": "阪急三番街 → 关西机场",
+              "description": "单程1,800日元／人，现场排队、不预约；实际班次和上车站先复核，酒店门口的下客站不是去机场上客站。提前确认阪急三番街的正确上车站台。"
+            }
+          ],
+          "notes": [
+            "此为参考班次，未购买，也不改变13:10航班。选择前确认从酒店到正确上车站的步行、候车及机场到T1的时间，当前基本预算仍按HARUKA优惠票。"
+          ]
+        }
+      ]
     }
   ],
   "stampGuide": {
@@ -5260,7 +5429,8 @@ export default {
       "notes": [
         "距RESPIRE步行约5–10分钟。",
         "参考消费约800日元／人，为估算。",
-        "来源列营业10:00–22:00；可外带。排队较长或赶不上营业时改附近简餐。"
+        "来源列营业10:00–22:00；可外带。排队较长或赶不上营业时改附近简餐。",
+        "虾过敏先确认面糊、干料及共用制作；たこせん薄脆也需核对配料。"
       ],
       "reservation": {
         "policy": "none",
@@ -5278,7 +5448,8 @@ export default {
       "notes": [
         "在车站北侧，与South Gate酒店在两侧，预留站内步行。",
         "11:00开始营业。来源的收店时间有差异，午餐仍需以当日店铺信息为准。",
-        "周六不能保证即到即入；若预计等位明显超过20分钟，改较快午餐。"
+        "周六不能保证即到即入；若预计等位明显超过20分钟，改较快午餐。",
+        "虾过敏：Special、Royal Special及全加料款明确有虾；即使选肉玉そば，仍需确认粉浆、汤汁、酱料与共用铁板处理，不能把不加虾当作已确认。"
       ],
       "reservation": {
         "policy": "none",
@@ -5291,25 +5462,24 @@ export default {
       ]
     },
     {
-      "id": "sushi-hitoshi",
-      "name": "鮨処ひと志",
-      "area": "广岛 · 中区小町7-26",
-      "description": "板前寿司，可选カウンター席。鱼种包括九州、濑户内、北陆等产地的当季鱼。",
+      "id": "sushi-inaho",
+      "name": "鮨 稲穂",
+      "area": "广岛 · 中区胡町5-7，ウィンザービル2F",
+      "description": "板前寿司，所选おまかせコース～極み～包括先付、椀物、烧物、寿司与留碗，具体鱼种及贯数以当日为准。",
       "notes": [
-        "「鮨」16,500日元／人：13贯握寿司、1道料理与汤；两人33,000日元。",
-        "「おまかせ」30,800日元／人：13贯、7道料理与汤；两人61,600日元。酒水等另计。",
-        "更多配菜的套餐需要更久用餐时间，选择前核对现有行程空档。",
-        "与和平公园／本通相距步行约15–25分钟；交通和现有安排的兼容性需确认。"
+        "两位成人禁烟吧台；接和平公园、本通及胡町／八丁堀一带动线，餐后回South Gate。",
+        "所选套餐每人16,500日元，两人33,000；即时积分抵扣400，确认应付32,600，含税与服务费，到店付款。",
+        "按18:30–20:30左右用餐预留，时长为估计；预计约21:00到酒店。",
+        "虾过敏处理尚未得到店家明确回复，需补告知并确认相关食材、配菜、汤底及共用制作。"
       ],
       "reservation": {
-        "policy": "recommended",
-        "note": "优先查询两位吧台。TableCheck席位类别选カウンター席 1~7名様，人数2；通常提前1个月放位，实时余位未确认。取消费从2天前起，具体以所选订单规则为准。预约时说明饮食要求。",
-        "url": "https://www.tablecheck.com/ja/shops/sushi-hitoshi/reserve",
-        "phone": "082-247-1787"
+        "policy": "required",
+        "note": "本次预约已确认。成立后修改或取消须直接联系餐厅；所列当日取消／变更为100%费用。迟到也需联系店家，不套用旧候选餐厅规则。",
+        "url": "https://restaurant.ikyu.com/123143/",
+        "phone": "082-545-5458"
       },
       "sourceIds": [
-        "dining-hitoshi-booking",
-        "dining-hitoshi-site"
+        "dining-inaho"
       ]
     },
     {
@@ -5321,7 +5491,7 @@ export default {
         "来源列午市11:00–15:00。",
         "仅候位很短、能在既定午餐空档内用完餐时入座，否则改便当或简餐。",
         "宫岛口うえの在对岸，本次午饭不为它额外往返渡轮。",
-        "若晚餐选择牡蛎料理，午餐分量按胃口调整。"
+        "19:00牡蛎船晚餐已确认，午餐分量按胃口调整，不额外升级大份套餐。"
       ],
       "reservation": {
         "policy": "none",
@@ -5356,43 +5526,20 @@ export default {
       "description": "停泊在河边的船上餐厅，提供广岛牡蛎料理；用餐不是游船航程。",
       "notes": [
         "地址：広島市中区大手町1丁目地先。",
-        "かきづくしコース9,900日元／人，含土手味噌锅、牡蛎饭等；生牡蛎为自选追加。",
-        "かき魚コース8,250日元／人；広島三昧コース11,000日元／人。",
-        "来源列晚间17:00起、20:00最后点餐。",
-        "预约类别选瀬戸；和久楼层、车站ekie店均是不同选择。"
+        "所选かきづくしコース9,900日元／人，含牡蛎土手味噌锅、牡蛎饭等；两人19,800，酒水和额外追加另计。",
+        "预约类别为瀬戸；具体靠窗席等偏好未获保证，和久楼层与车站ekie店不同。",
+        "19:00入席；广岛站下车后直接出租车前往元安川边，连候车估计20–30分钟，迟到联系餐厅。",
+        "虾过敏的食材、汤底与共用制作处理尚未得到明确回复，需提前确认。"
       ],
       "reservation": {
         "policy": "recommended",
-        "note": "建议提前1–2周查询；前一天或当天线上预约需直接询问餐厅。当前没有订位。预约时说明饮食要求。",
+        "note": "本次11/15 19:00两人预约已确认，无需再重复订位。当天取消可能收费用，所列确认未写比例；如需修改或取消，联系餐厅并核对实际订单条款。",
         "url": "https://www.tablecheck.com/ja/shops/kakifune-kanawa/reserve",
         "phone": "082-241-7416"
       },
       "sourceIds": [
         "dining-kanawa-seto-menu",
         "dining-kanawa-seto-booking"
-      ]
-    },
-    {
-      "id": "suishin-ekie-hiroshima",
-      "name": "酔心 ekie広島店",
-      "area": "广岛 · 车站北侧ekie DINING 1F",
-      "description": "广岛牡蛎、穴子、釜饭等地方菜，适合宫岛返回后在车站附近用餐。",
-      "notes": [
-        "地址：広島市南区松原町1-2 ekie 1F；从South Gate一侧预留10–15分钟站内移动。",
-        "牡蠣・穴子コース7,000日元／人；宮島コース7,500日元／人。",
-        "部分御膳在预订席不能点，预订前确认所选套餐。",
-        "来源列11:00–21:30营业、20:30最后点餐。",
-        "かなわekie店的周末预约时段与此店不同，不能套用船上瀬戸店规则。"
-      ],
-      "reservation": {
-        "policy": "required",
-        "note": "上述套餐至少提前3天预约；若选11/15，按来源要求最迟11/12完成。只在最终选择此店时预约，不与船上かなわ重复订。",
-        "url": "https://www.suishin.or.jp/ekie/cuisine",
-        "phone": "082-567-5519"
-      },
-      "sourceIds": [
-        "dining-suishin-ekie-menu",
-        "dining-suishin-ekie-shop"
       ]
     },
     {
@@ -5426,7 +5573,7 @@ export default {
       ],
       "reservation": {
         "policy": "recommended",
-        "note": "先确认11/16营业，再建议订两位席。クエ、うつぼ等鱼锅需提前预订，并核对供货、人数、计价单位与总价。预约时说明饮食要求。",
+        "note": "先确认11/16营业，再建议订两位席。クエ、うつぼ等鱼锅需提前预订，并核对供货、人数、计价单位与总价。预约时说明饮食要求。 虾过敏也需提前说明并取得回复。",
         "url": "https://ginchiro.jp/",
         "phone": "0739-22-3960"
       },
@@ -5488,7 +5635,8 @@ export default {
         "另有名产寿司拼盘1,700日元、附天妇罗套餐1,950日元。",
         "来源列1F 10:00–17:00；2F 11:00–17:00、最后点餐16:00。",
         "来源的11月休店名单为10、16、24、30日，未列20日；仍需留意临时调整。",
-        "从二月堂步行约15–20分钟也算在现有午餐空档内；排队或出餐来不及时改1F现成外带。"
+        "从二月堂步行约15–20分钟也算在现有午餐空档内；排队或出餐来不及时改1F现成外带。",
+        "虾过敏：蒸寿司、部分御膳和天妇罗可能含虾；即使选4种鱼套餐，仍需请店家确认汤底、配菜与共用制作。"
       ],
       "reservation": {
         "policy": "check",
@@ -5510,13 +5658,13 @@ export default {
       "notes": [
         "从RESPIRE连步行、电梯预留10–15分钟。",
         "来源含税晚餐菜单：竹7,700、松8,800、特選10,450、極み13,200日元／人。",
-        "各档主要牛肉150g，可另加肉；特選档两人20,900日元，未选定套餐。",
+        "各档主要牛肉150g，可另加肉；以特選档两人20,900日元作预算，具体套餐与预约尚未确认。",
         "来源列不另收服务费／座位费，酒水与追加另计；平台费用另核对。",
         "来源列11:00–23:00营业，最后入店／点餐22:00。"
       ],
       "reservation": {
         "policy": "recommended",
-        "note": "官网WEB预约入口链接AutoReserve，也可电话。建议提前1–2周查询，周五更宜提前。当前未订。预约时说明饮食要求。",
+        "note": "官网WEB预约入口链接AutoReserve，也可电话。建议提前1–2周查询，周五更宜提前。当前未订。预约时说明饮食要求。 目标11/20 19:15两人，核对虾过敏相关配菜、平台费用及取消规则。",
         "url": "https://moritaya-kyoto.co.jp/restaurant/lucua/",
         "phone": "06-6341-1029"
       },
@@ -5559,8 +5707,8 @@ export default {
         "route": "关西机场 → 大阪站",
         "service": "HARUKA机场特急",
         "coverage": "pass",
-        "time": "主选19:16；后备19:46",
-        "fareNote": "11/13启用Pass后包含；根据实际入境时间选车，尚未买Pass或划座。",
+        "time": "优先19:46–20:31；宽裕20:16–21:01；顺利时19:16–20:01",
+        "fareNote": "已付Pass包含，入境会合、在关西机场站领取Pass后按实际进度划座，不另买票。",
         "sourceIds": [
           "jrwest-all-area",
           "haruka-timetable"
@@ -5584,12 +5732,14 @@ export default {
         "coverage": "pass",
         "time": "09:02–10:27",
         "reservationRequired": true,
-        "fareNote": "普通车指定席包含，买Pass后预约；尚未划座。",
+        "fareNote": "指定席已确认，费用包含在已付7日Pass内。",
         "sourceIds": [
           "jrwest-all-area",
           "jrwest-reservations",
           "nozomi-5-reference"
-        ]
+        ],
+        "reservationStatus": "booked",
+        "reservationNote": "两位成人，普通车禁烟指定席，两人连座。"
       },
       {
         "id": "hiroshima-city",
@@ -5634,19 +5784,20 @@ export default {
         "coverage": "additional",
         "fare": 2000,
         "reservationRequired": true,
-        "fareNote": "两人优先预约09:00附近上行时段；预约后仍需买往返票，时段与车票尚未落实。",
+        "fareNote": "仅见两人的临时预约，需核对当时是否完成正式确认；核对前不重复预订。按最终凭证安排上行，仍需另买往返票；山上散步缩短，保留11:30下山目标。",
         "sourceIds": [
           "miyajima-ropeway-booking",
           "miyajima-ropeway-fare"
-        ]
+        ],
+        "time": "临时凭证09:15–09:30；正式时段待核对"
       },
       {
         "id": "hiroshima-dinner-taxi",
         "date": "2026-11-15",
-        "route": "广岛站 → 牡蛎船餐厅 → 酒店（若选择该晚餐）",
+        "route": "广岛站 → かき船かなわ「瀬戸」 → 酒店",
         "service": "出租车",
         "coverage": "additional",
-        "fareNote": "仅在最终选择かき船かなわ「瀬戸」晚餐时按该交通方案安排；餐厅仍未订、未选定。按实际车费另付，未计入基本预算。",
+        "fareNote": "19:00かなわ晚餐已确认；宫岛回程18:03到广岛站（后备18:20），直接打车到餐厅，连候车估计20–30分钟，不先回酒店。餐后回South Gate，实际车费另付。",
         "sourceIds": [
           "dining-kanawa-seto-menu",
           "dining-kanawa-seto-booking"
@@ -5660,12 +5811,14 @@ export default {
         "coverage": "pass",
         "time": "09:43–11:04",
         "reservationRequired": true,
-        "fareNote": "普通车指定席包含，买Pass后预约；尚未划座。",
+        "fareNote": "指定席已确认，费用包含在已付7日Pass内。",
         "sourceIds": [
           "jrwest-all-area",
           "jrwest-reservations",
           "nozomi-14-reference"
-        ]
+        ],
+        "reservationStatus": "booked",
+        "reservationNote": "两位成人，普通车禁烟指定席，两人连座。"
       },
       {
         "id": "kuroshio-11",
@@ -5675,12 +5828,14 @@ export default {
         "coverage": "pass",
         "time": "12:13–14:29",
         "reservationRequired": true,
-        "fareNote": "普通车指定席包含，买Pass后预约；尚未划座。",
+        "fareNote": "指定席已确认，费用包含在已付7日Pass内。",
         "sourceIds": [
           "jrwest-all-area",
           "jrwest-reservations",
           "kuroshio-11-reference"
-        ]
+        ],
+        "reservationStatus": "booked",
+        "reservationNote": "两位成人，普通车禁烟指定席，两人连座。"
       },
       {
         "id": "meiko-tanabe-takijiri",
@@ -5716,10 +5871,11 @@ export default {
         "service": "龙神巴士80系統",
         "coverage": "additional",
         "fare": 310,
-        "fareNote": "单次付费；感应银行卡或现金，不收Suica／ICOCA。准确下车站待旅馆确认。",
+        "fareNote": "单次付费；感应银行卡或现金，不收Suica／ICOCA。按川汤温泉站15:16下车，步行约1–2分钟到まつや。",
         "sourceIds": [
           "hongu-kawayu-bus",
-          "kumano-bus-payment"
+          "kumano-bus-payment",
+          "kawayu-matsuya-access"
         ]
       },
       {
@@ -5731,7 +5887,7 @@ export default {
         "fare": 720,
         "regularFare": 1440,
         "time": "06:54–07:48",
-        "fareNote": "720为当季早班感应支付优惠；各人用自己的卡或手机，上下车保持同一支付方式，结算后调整。现金按原价1,440。准确上车站与分钟待旅馆确认。",
+        "fareNote": "720为当季早班感应支付优惠；各人用自己的卡或手机，上下车保持同一支付方式，结算后调整。现金按原价1,440。计划06:30离店、川汤温泉站提前候车，提前退房与钥匙处理待确认。",
         "sourceIds": [
           "kawayu-shingu-bus",
           "kumano-bus-payment",
@@ -5759,7 +5915,7 @@ export default {
         "service": "巴士31系統",
         "coverage": "additional",
         "fare": 510,
-        "time": "09:57发车；终点到达分钟待复核",
+        "time": "09:57–10:16",
         "fareNote": "坐到那智山终点，不走大门坂；无座位预约。",
         "sourceIds": [
           "nachi-katsuura-bus",
@@ -5788,12 +5944,14 @@ export default {
         "coverage": "pass",
         "time": "15:21–19:16",
         "reservationRequired": true,
-        "fareNote": "Pass最后有效日，普通车指定席包含；买Pass后提前划座，尚未预约。直达大阪，不在田边下车。",
+        "fareNote": "指定席已确认，费用包含在已付7日Pass内。 11/19为Pass最后有效日，直达大阪，不在田边下车。",
         "sourceIds": [
           "jrwest-all-area",
           "jrwest-reservations",
           "kuroshio-30-reference"
-        ]
+        ],
+        "reservationStatus": "booked",
+        "reservationNote": "两位成人，普通车禁烟指定席，两人连座。"
       },
       {
         "id": "nara-jr-return",
@@ -5802,7 +5960,7 @@ export default {
         "service": "大和路快速／区间快速往返",
         "coverage": "additional",
         "fare": 1680,
-        "fareNote": "Pass已过期；单次买票，往返约1,680日元／人，为估算。"
+        "fareNote": "Pass已过期；普通JR可用交通卡进出站，不用提前购票，约840日元／人／单程，往返约1,680，以当日扣款为准。"
       },
       {
         "id": "nara-city-bus",
@@ -5822,7 +5980,7 @@ export default {
         "regularFare": 1900,
         "time": "08:50–09:34",
         "reservationRequired": true,
-        "fareNote": "Pass已过期，另买优惠单程票：10/31前购买1,800日元／人，11/1起购买1,900日元／人；价格按购票日期，车票与指定席尚未确认。",
+        "fareNote": "Pass已过期，另买优惠单程票：10/31前购买1,800日元／人，11/1起购买1,900日元／人；价格按购票日期，车票与指定席尚未确认。 阪急三番街机场巴士为另外的替代选择，不与HARUKA重复计费，当前主预算仍按HARUKA。",
         "sourceIds": [
           "haruka-oneway",
           "haruka-timetable",
@@ -5882,7 +6040,7 @@ export default {
       "以10/31前购买11/21 HARUKA（1,800日元／人）、11/19符合06:54早班感应支付优惠（720日元／人）计算；11/1起购买HARUKA为1,900，早班现金或不适用优惠为1,440。",
       "熊野巴士按17–19号当前主路线逐段计费，优惠后5,680日元／人；不购买当地巴士通票。",
       "另加广岛／奈良市内交通与实际出租车费；景点门票和餐费未计入本交通预算。奈良JR往返为估算，未知费用不按零计算。",
-      "这是当前路线的条件预算；选择Pass不代表已购票、划座或付款。"
+      "Pass已购买、已付，四段长途指定席已确认；其他交通仍为待现场支付或待购票的条件预算，未知付款状态不等于未付。"
     ],
     "paymentNotes": [
       {
@@ -5910,7 +6068,7 @@ export default {
       },
       {
         "title": "候车与提前退房",
-        "detail": "这些熊野巴士不预订座位，到站排队。提前与川湯まつや确认07:00前退房、钥匙归还和准确上车站，实际须在06:54发车前办妥并提前候车。",
+        "detail": "熊野巴士不预订座位，到站排队。19号计划06:30离开川湯まつや去川汤温泉站候车；须先取得06:30前退房、归还钥匙的确认，准备无需微波的早餐。",
         "sourceIds": [
           "kawayu-shingu-bus",
           "kumano-bus-payment"
@@ -5926,6 +6084,61 @@ export default {
       "kumano-bus-payment",
       "kumano-early-discount",
       "hiroshima-meipuru-bus"
+    ]
+  },
+  "budget": {
+    "currency": "JPY",
+    "allowances": [
+      {
+        "id": "ginchiro-dinner",
+        "label": "11/16銀ちろ晚餐",
+        "minimum": 6000,
+        "maximum": 10000,
+        "date": "2026-11-16",
+        "optionId": "ginchiro-tanabe",
+        "note": "两人普通点菜预算；尚未订，营业、菜品与最终金额待确认。"
+      },
+      {
+        "id": "takoume-dinner",
+        "label": "11/19たこ梅晚餐",
+        "minimum": 8000,
+        "maximum": 12000,
+        "date": "2026-11-19",
+        "optionId": "takoume-kita",
+        "note": "两人点菜预算；不接受预约，排队不合适改附近简餐。"
+      },
+      {
+        "id": "moritaya-dinner",
+        "label": "11/20モリタ屋特選寿喜烧",
+        "minimum": 20900,
+        "date": "2026-11-20",
+        "optionId": "moritaya-lucua",
+        "note": "以两人特選10,450日元／人作预算，未订位、未确认最终套餐；额外酒水与追加另计。"
+      },
+      {
+        "id": "other-food",
+        "label": "其他餐饮与零食",
+        "minimum": 25000,
+        "maximum": 40000,
+        "note": "两人其他早餐、午餐、13／18号简餐及零食；不重复计SEN已含早晚餐、两顿已订晚餐或上方三顿候选晚餐。"
+      },
+      {
+        "id": "admissions-city-travel",
+        "label": "景点门票与市内交通",
+        "minimum": 10000,
+        "maximum": 20000,
+        "note": "两人博物馆、神社寺院门票，广岛／奈良市内电车、公交及实际出租车；不重复计已列交通预算中的Pass、熊野巴士、奈良JR、HARUKA、缆车和登岛税。"
+      }
+    ],
+    "suggestedReserve": {
+      "minimum": 500000,
+      "maximum": 530000
+    },
+    "notes": [
+      "金额为两人日本境内预算，机票价格未提供；不含机票、购物、额外酒水及重大改线。",
+      "确定订单金额不等于已付：当前明确已付JR Pass52,000日元；其他订单付款状态仍待核对，未知不当作未付或零。",
+      "交通仍以10/31前买HARUKA、19号早班符合感应支付半价为条件；优惠未适用或改线时按实际支出调整。",
+      "SEN已含早晚餐，不重复计餐费；未订候选按预算预留，最终菜单、是否订到及现场选择会改变金额。"
     ]
   }
 } satisfies Trip;

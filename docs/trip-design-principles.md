@@ -44,7 +44,7 @@ Preparations → Accommodation → Flights → Costs → Official sources.
 | --- | --- | --- |
 | Accommodation | Closed | Date range and night count |
 | Flights | Open | Flight count |
-| Costs | Closed | Known accommodation totals, recorded extras and transport estimates, labeled separately by scope and currency |
+| Costs | Closed | Recorded amounts, estimates and any supplied spending range, labeled by scope and currency |
 | Official sources | Closed | Reference count |
 
 Use native, keyboard-accessible disclosures and stable fragment links. Research
@@ -101,6 +101,13 @@ Pending confirmations use amber. Booking progress counts recorded flights and
 accommodation nights. Flight times remain airport-local, with marketing and
 operating carriers clear.
 
+Record ticket purchases, seat reservations and payment independently. A purchased
+pass does not confirm every train seat, and a booking does not establish payment.
+Use paid, pay on arrival or unknown only as supported by the submission. Temporary
+reservation messages remain pending checks; verify an existing attempt before
+prompting a duplicate booking. Confirmed dining or seat badges describe those
+specific bookings, while unresolved arrangements stay visible separately.
+
 Keep a hero link to pending items. Separate To do actions from To check
 confirmations. Sort immediate actions first, actual reservation openings or
 relevant dates next, and undated items last, retaining stable ties. Important
@@ -122,6 +129,9 @@ Reuse recorded accommodation amounts for cards and Costs. Separate currencies,
 booking totals, estimated extras and unknown prices; booking amounts do not imply
 payment. Label accommodation tax explicitly when it is the only recorded extra.
 Show supplied tax scope, rates and per-person/per-night calculations clearly.
+Recorded dining order amounts belong to their specific date and meal and cover
+the traveling party. Reuse them in Costs; keep unbooked menu estimates separate,
+and avoid charging again for meals already included with accommodation.
 
 When supplied, keep dated transport coverage, extra fares and payment guidance
 in Preparations. Compute a distinct transport budget in Costs from the selected
@@ -131,6 +141,14 @@ taxis or other unknown costs. Omit unknown amounts and avoid counting covered
 journeys or included fees twice. The collapsed Costs summary keeps accommodation
 and transport scopes separate; neither estimate establishes payment or a complete
 trip cost.
+
+When the user supplies a broader spending estimate, derive its range from the
+existing lodging, transport and booked-meal records plus explicit allowances for
+unbooked meals, admissions or other extras. Keep allowances as party amounts,
+with their ranges and exclusions clear; do not copy grand totals into the plan.
+Show any suggested preparation reserve separately from calculated spending.
+Label the scope of recorded paid amounts. Unknown payment statuses neither count
+as zero nor establish that the difference from a budget is an unpaid balance.
 
 ## 6. Visuals and local names
 

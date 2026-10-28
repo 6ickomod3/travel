@@ -8,7 +8,10 @@
   midday high-tide torii viewing, afternoon Daishoin fire-walking ceremony.
   The summit is optional when time, queues, and energy allow.
 - November 13 and 21 are arrival/departure days without sightseeing.
-- Listed train departures are planning references, not evidence of tickets.
+- Reserved seats for both travelers are booked on four train journeys: November 14 Nozomi 5, November 16
+  Nozomi 14 and Kuroshio 11, and November 19 Kuroshio 30. Both travelers have
+  adjacent ordinary non-smoking reserved seats. Other listed departures
+  remain planning references unless individually confirmed.
 - Stable destinations cover Osaka, Hiroshima, Miyajima, Kii-Tanabe,
   Kumano Kodo, Kawayu Onsen, Shingu, Nachi, Kii-Katsuura, and Nara.
 - The three flight legs and both Osaka hotel stays are user-confirmed.
@@ -21,18 +24,44 @@
   submitted payment arrangement is pay at the hotel, not evidence of payment.
 - South Gate uses the purple property logo supplied by the user from its
   official English page, stored unchanged in the shared brand asset library.
-- Chikatsuyu's November 17–18 lodging is SEN RETREAT CHIKATSUYU, and Kawayu's
-  November 18–19 lodging is 川湯まつや. The user confirmed these names in chat;
-  meals, transfers, and exact bus stops still need confirmation.
+- Chikatsuyu's November 17–18 lodging is SEN RETREAT CHIKATSUYU, with dinner
+  and breakfast included for two adults in the terrace four-person room.
+  Meal format, allergy handling and early breakfast pickup remain unresolved.
+- Comfort Hotel Kii Tanabe is a non-smoking Queen room with breakfast;
+  breakfast begins at 06:30, so prepare food before the next day's 06:38 bus.
+  A switch to twin beds has not been confirmed.
+- Kawayu's November 18–19 lodging is 山水館 川湯まつや, a smoking twin room
+  without meals. Prepare the November 18 dinner and a breakfast needing no
+  microwave before the November 19 early departure. Use the property's own
+  baths; sister-property facilities are not included. A non-smoking room
+  change has not been confirmed.
 - November 19 uses the 06:54 Kawayu departure, then Hayatama Taisha, Nachi,
   and Kii-Katsuura, returning directly to Osaka on Kuroshio 30 at 19:16.
   The accepted route does not include Daimonzaka walking or the Tanabe
-  registration return. Exact Kawayu boarding and early-checkout details
-  remain unresolved.
-- The user selected the JR West All Area seven-day pass for November 13–19,
-  at JPY 26,000 per person and JPY 52,000 for two. The Kansai five-day pass
-  will not be purchased. Selection does not confirm purchase, reserved
-  seats, museum tickets, or ropeway reservations.
+  registration return. Prepare breakfast and checkout during 05:45–06:20,
+  leave around 06:30, and confirm the early key-return and actual bus-stop
+  arrangements. Hayatama is 07:50–08:40; the Nachisan bus is 09:57–10:16,
+  with one shared shrine/temple/tower window at 10:20–12:15.
+- The JR West All Area seven-day pass for November 13–19 is purchased and
+  explicitly paid: JPY 26,000 per person and JPY 52,000 for two. Collect it
+  at Kansai Airport with the required travel/payment documents. No Kansai
+  five-day pass is planned. Pass coverage does not confirm other reservations.
+- November 13 HARUKA is covered by the paid pass and will be reserved after
+  both travelers complete arrival procedures. The main reference is 19:46,
+  with 20:16 as backup and 19:16 only if comfortably early. November 21
+  HARUKA remains the unpurchased main airport plan; the separately labeled
+  Hankyu Sanbangai bus is an alternative, not a second ticket to buy.
+- The Miyajima ropeway has only a temporary November 15 09:15–09:30 receipt
+  for two. Verify formal completion before booking again, and do not mark
+  it booked. Keep 11:30 descent and the accepted midday/afternoon order.
+- November 14 Inaho is booked for two at 18:30, with JPY 32,600 due on
+  arrival after a JPY 400 points reduction, including tax and service.
+  November 15 Kanawa Seto is booked for two at 19:00 for JPY 19,800, with
+  payment unknown and extras separate. Confirm shrimp-allergy handling for
+  both. No additional Suishin dinner reservation is needed.
+- Update hotel arrival estimates: Osaka November 13 at 20:50–21:30,
+  South Gate November 14 around 21:00 after dinner, and Osaka November 19
+  at 19:45–20:00. Times are estimates rather than guaranteed arrivals.
 - November 20 Nara JR travel, November 21 HARUKA, Kumano buses, Miyajima
   ropeway, the Miyajima visitor tax, and uncovered city or taxi journeys
   remain additional costs. Kumano buses use single fares without a bus pass.
@@ -50,7 +79,16 @@
   and the November 19 contactless early-bus discount applies. HARUKA becomes
   JPY 1,900 when bought from November 1. The estimate excludes uncovered
   city transport, taxis, meals and attraction admissions. It is separate
-  from accommodation costs and does not record payment.
+  from accommodation costs; payment is recorded only for explicitly paid
+  items. The broader Japan estimate counts this transport amount once.
+- The broader two-person Japan budget derives JPY 402,587 in recorded
+  orders plus estimated accommodation taxes, JPY 22,520 in additional
+  transport, and JPY 69,900–102,900 in unbooked food/admission/city-travel
+  allowances. This yields JPY 495,007–528,007; the source rounds it to
+  JPY 495,000–528,000 and suggests preparing JPY 500,000–530,000. Flights,
+  shopping, extra drinks and major route changes are excluded. Known paid
+  records cover JPY 52,000 for the pass; incomplete payment information
+  cannot establish a remaining unpaid balance by subtraction.
 - Stamp stops are plans, not recorded collections or confirmed individual
   pilgrim qualifications. Keep the accepted two-day hiking total of 20.8 km.
 - Formal Dual Pilgrim registration requires each traveler's qualifying Camino
@@ -938,28 +976,184 @@ and licenses.
   tickets and reservations. The new input does not supply new intermediate
   Nachisan arrival times; old Daimonzaka timings must not be relabeled.
 
+### 2026-10-27-01-updated-itinerary
+
+- Archived: October 27, 2026, using the user's America/Los_Angeles date.
+- Origin: the user's updated workspace itinerary and request to update the
+  website. Its latest summary and chapter 12 state an October 28 Japan
+  review date; this is author-supplied wording, distinct from the archive
+  date and from independent operator verification.
+- Private original: retained unchanged (75,466 UTF-8 bytes) in ignored
+  `.local/trips/japan-2026/inputs/2026-10-27-01-updated-itinerary.original.txt`.
+  SHA-256:
+  `de195b2b8d10a1e0d0dc3d5407137b728e90898606fe10a51394737c6b31cf0c`.
+  The editable source is also ignored; neither is a public booking document.
+- Publication authorization: after reviewing the local preview and selected
+  excerpt, the user explicitly approved publishing the listed itinerary,
+  lodging/room, cost/payment, train/dining reservation and shrimp-allergy
+  information to the existing GitHub Pages site and public repository.
+  The excluded private documents, identities, seat values and codes remain
+  private.
+- Public excerpt: [inputs/2026-10-27-01-updated-itinerary.md](inputs/2026-10-27-01-updated-itinerary.md)
+  (15,476 UTF-8 bytes; SHA-256
+  `3a4015aaf847ade276df503b84024dde4f2d6d4959f44266808797c3c47beb04`).
+  This is a clearly labeled selection of planning passages and exact clauses,
+  not the full source with links removed. It excludes chapter 9, traveler
+  identities, exact carriage/seat values, private codes and private email,
+  order or document links throughout the source. Unchanged poems and stale
+  route fragments are outside the selection.
+- Superseding status: the seven-day JR West All Area pass is now purchased
+  and explicitly paid at JPY 52,000 for two. Four ordinary non-smoking train
+  reservations are confirmed with adjacent seats: Nozomi 5 on November 14,
+  Nozomi 14 and Kuroshio 11 on November 16, and Kuroshio 30 on November 19.
+  Pass purchase and these four seat bookings resolve their prior tasks;
+  they do not confirm other trains or activities. Public notes omit the
+  exact private carriage and seat identifiers.
+- Airport changes: November 13 HARUKA now primarily references 19:46–20:31,
+  with 20:16–21:01 backup and 19:16–20:01 only if arrival is comfortably
+  early. Reserve after immigration, meeting and pass collection; no separate
+  arrival ticket is required. November 21 keeps HARUKA 11 at 08:50–09:34,
+  still unpurchased. A separate Hankyu Sanbangai airport-bus alternative
+  references 08:30–09:30 and JPY 1,800 per person, with its correct boarding
+  location to confirm. Only one airport option enters the budget.
+- Dining changes: Inaho on November 14 is confirmed for two at 18:30 at the
+  non-smoking counter, for JPY 32,600 after a JPY 400 points reduction,
+  including tax and service, due on arrival. Kanawa Seto on November 15 is
+  confirmed for two at 19:00 at JPY 19,800, with payment unknown and extra
+  drinks/additions separate. No window seat is asserted. Shrimp-allergy
+  arrangements remain pending for both; booking is not evidence of an
+  allergy-handling reply. The prior Suishin choice is no longer an active
+  booking candidate.
+- Accepted timing: November 14 dinner leads to South Gate check-in around
+  21:00; November 15 proceeds directly by taxi from Hiroshima Station to
+  the booked 19:00 Kanawa dinner. November 18 reaches Kawayu Onsen by the
+  listed 15:16 bus, then the lodging around 15:20. November 19 prepares
+  breakfast and checkout at 05:45–06:20 and leaves around 06:30 for the
+  accepted 06:54 bus. Hayatama is 07:50–08:40, the Nachisan bus is
+  09:57–10:16, and 10:20–12:15 is one shared shrine/temple/tower window,
+  not invented separate visiting times. The 15:21–19:16 direct Kuroshio 30
+  return remains unchanged. No Daimonzaka or Tanabe registration route is
+  restored from older untouched source prose.
+- Lodging and food: Comfort is a non-smoking Queen room including breakfast,
+  which starts too late for an unhurried meal before the 06:38 departure.
+  SEN includes dinner and breakfast; cooking versus boxed-meal format,
+  allergy handling and early pickup remain unconfirmed. Keep these meals
+  out of additional dining costs. Kawayu is a smoking twin without meals;
+  prepare dinner and a breakfast needing no microwave. Its morning checkout
+  and key return must be arranged before the 06:30 departure. Preserve the
+  supplied own-bath and food-preparation restrictions as lodging guidance.
+- Arrival/access follow-up: Osaka November 13 is estimated at 20:50–21:30,
+  South Gate November 14 around 21:00, and Osaka November 19 at
+  19:45–20:00. Update these estimates with the properties. Cross-five-night
+  luggage storage remains conditional on Osaka's explicit acceptance.
+  SEN self-check-in instructions are expected around November 10; private
+  access information stays outside the public plan. Last-mile descriptions
+  do not establish newly verified building or bus-pole coordinates.
+- Ropeway: only a temporary November 15 09:15–09:30 message for two is
+  documented. Verify that the formal confirmation was completed within the
+  indicated window before attempting a duplicate booking. No completed
+  reservation or paid ticket is inferred; shorten mountain walking while
+  preserving 11:30 descent, midday torii and afternoon fire-walking order.
+- Budget A: unchanged lodging orders JPY 294,987 plus estimated additional
+  taxes JPY 3,200, paid pass JPY 52,000 and the two booked dinners
+  JPY 52,400 give JPY 402,587 in recorded amounts and tax estimates. This
+  is not a paid total. Budget B: additional transport excluding the pass
+  is JPY 22,520 under the existing lower-price HARUKA and early-bus
+  discount conditions, giving a combined base of JPY 425,107.
+- Budget C: unbooked dinner allowances are JPY 6,000–10,000 for Ginchiro,
+  JPY 8,000–12,000 for Takoume and JPY 20,900 for Moritaya; other food is
+  JPY 25,000–40,000, and admissions/city rides/taxis JPY 10,000–20,000.
+  These total JPY 69,900–102,900 for two without repeating SEN's included
+  meals, booked dinners or transport already counted. The computed Japan
+  range is JPY 495,007–528,007; the source's rounded JPY 495,000–528,000
+  and suggested JPY 500,000–530,000 preparation range are distinct. Flights,
+  shopping, extra drinks and major route changes are excluded.
+- Payment: only the pass's JPY 52,000 is explicitly recorded paid. Hiroshima
+  and Comfort are pay on arrival; Osaka's online-payment arrangement and
+  SEN/Kawayu's automatic-charge arrangements require receipt/bank checks.
+  Kanawa's payment is unknown. Unknown does not mean zero or prove unpaid;
+  no remainder is calculated by subtracting this incomplete known-paid scope
+  from the spending budget.
+- Shared representation: independent purchase, reserved-seat and payment
+  statuses belong to their corresponding records. Dated dining costs are
+  whole-party orders; trip-owned allowances are whole-party estimates with
+  optional unbooked meal links. Helpers derive recorded amounts, additional
+  transport and the broader spending range from existing records, without
+  copied grand totals or duplicate pass/meal charges. The supplied reserve
+  and calculation exclusions remain separate from the spending estimate.
+- Retained: all three flight records and hotel dates/amounts, all seven poem
+  objects, the accepted 20.8 km hiking records, existing destination/place
+  IDs and all 71 coordinate values. Native labels and maps retain their
+  sources; revised timing text does not constitute new coordinate research.
+  Planned stamps and the Hayatama/Nachi route do not establish completed
+  collections, Camino eligibility or formal Dual Pilgrim registration.
+  The plan contains 95 official references, 98 main and six alternative
+  timetable rows, plus 16 outstanding checklist items (seven actions and
+  nine confirmations). Remaining dining candidates retain their separate
+  conditional reservation reminders.
+- Provenance: review dates, booking and lodging details are user-supplied
+  source facts. Official links and prior timetable references support the
+  plan's references; no new independent operator-page-body verification or
+  external reservation action is claimed.
+- Private preview verification: the production build passed with zero
+  diagnostics across 61 Astro files and four pages. Sixteen focused UI
+  groups at 1280px, 390px and 320px checked confirmed versus pending
+  statuses, cost scopes and arithmetic, map/timetable anchors,
+  no-JavaScript reading and print-state restoration. The final private
+  build passed again after the airport-bus wording refinement. Privacy and
+  snapshot checks confirmed the excerpt hash, unchanged private original
+  and absence of private patterns in the excerpt and built HTML. Earlier
+  source-index and change-history entries remain unchanged. This records
+  local preview verification, not publication or deployment.
+- Final project verification: the approved excerpt was archived before the
+  reviewed canonical plan and history were applied to the original project.
+  The required production build passed there with zero diagnostics across
+  61 Astro files and four pages. All 60 generated site files are identical
+  to the browser-tested private preview, including its final copy refinement.
+
 ## Open information
 
-- For SEN RETREAT CHIKATSUYU and 川湯まつや, meals, early breakfast or packed
-  lunch arrangements, last-mile walking or transfers, and exact bus stops
-  still need confirmation. Other lodging details remain in the private
-  original until authorized for publication.
-- Osaka's hotel must explicitly accept luggage storage between the November
-  14 checkout and November 19 return. Do not assume storage for five nights.
-- Purchase of the selected seven-day pass and separately priced November 21
-  HARUKA, reserved train seats, museum tickets, and ropeway slot/ticket
-  booking have not been confirmed. The HARUKA lower-price purchase window
-  ends October 31 under the supplied fare conditions.
-- Confirm with 川湯まつや the checkout and key-return method before 07:00,
-  allowing enough time for the accepted 06:54 bus at the actual boarding
-  stop. Its exact pole and departure remain to be confirmed.
-- Each traveler's prior Camino completion and supporting proof are unknown.
-  No stamps, formal qualifications or registration are recorded as completed.
-  The early Hayatama route is now accepted; a Tanabe registration journey
-  is outside the current plan.
-- Restaurant choices and reservations remain pending. In addition to booking
-  candidates, confirm irregular opening days and two-person Izasa seating;
-  retain prepared-food fallbacks where meal stops must fit existing transfers.
+- SEN's dinner and breakfast are included. Confirm cooking versus boxed-meal
+  format, actual menu, shrimp-allergy handling and breakfast ready before
+  07:00 or packed for the November 18 07:10–07:15 departure. Preserve backup
+  food and verify the walking route/actual museum-front bus pole on arrival.
+- 川湯まつや's normal checkout timing begins at 07:00. Obtain an explicit
+  early-checkout and key-return arrangement by the November 19 06:30
+  departure for the 06:54 bus. Confirm its actual boarding pole/direction;
+  self-check-in does not establish unrestricted early checkout.
+- Prepare November 18 dinner and a November 19 breakfast needing no microwave.
+  Confirm Wednesday food-shopping/opening options in Hongu before travel;
+  nearby Kawayu shopping cannot be assumed. The lodging's microwave opens
+  at 07:00, after the planned departure.
+- Osaka must explicitly accept luggage storage from the November 14 checkout
+  to the November 19 return. Update the three recorded hotel arrival
+  estimates and save SEN's expected self-check-in instructions privately.
+- The pass is paid and the four named train seats are booked. Remaining
+  actions are Kansai Airport collection and the same-day November 13 HARUKA
+  seat reservation after both travelers arrive. The November 21 airport
+  ticket is still unpurchased; choose the main HARUKA or its separate bus
+  alternative without duplicate tickets or charges. The HARUKA lower-price
+  condition ends October 31; it is not a seat-sale deadline.
+- Verify formal completion of the November 15 09:15–09:30 ropeway reservation
+  attempt before booking again. The temporary message does not confirm the
+  reservation; the ropeway ticket remains a separate purchase. Purchase
+  of the November 14 museum WEB ticket also remains unconfirmed.
+- Check actual payment records for Osaka's two online-payment stays and
+  SEN/Kawayu's automatic-charge arrangements. Hiroshima and Comfort are pay
+  on arrival; Inaho is pay on arrival and Kanawa's payment is unknown. The
+  explicitly paid JPY 52,000 pass does not establish other orders' balances.
+- Confirm the Comfort non-smoking Queen room meets both travelers' needs;
+  a twin-room change is unconfirmed. Decide whether Kawayu's smoking twin
+  needs a non-smoking change and check availability/price before assuming it.
+- Inaho and Kanawa are booked, but shrimp-allergy handling remains unresolved
+  for both. Ginchiro and Moritaya remain unbooked choices; confirm the
+  former's Monday opening and the latter's booking/menu conditions. Nachi
+  Chinchoan's irregular opening and Izasa two-person seating remain checks;
+  retain quick food fallbacks where transfers limit meal time.
+- Each traveler's prior Camino completion and supporting proof remain unknown.
+  No stamps, formal qualifications or registration are recorded completed.
+  The early Hayatama route is accepted, with direct Osaka return; Tanabe
+  registration travel is outside the current plan.
 
 Use `trip.ts` for current itinerary and checklist details. Update this record
 when a source explicitly resolves or changes a decision.
@@ -1044,3 +1238,10 @@ when a source explicitly resolves or changes a decision.
   payment conditions and a separate computed transport budget, with purchase
   and early-checkout reminders. Preserved unchanged bookings, accommodation
   costs, poems, other accepted timing and pilgrim-eligibility uncertainty.
+- October 27, 2026: preserved the updated original privately and prepared
+  the selected public planning excerpt; recorded the paid pass, four train
+  seats and two booked dinners, corrected room/meal/payment notes, and
+  applied the explicit arrival and early-route timing updates. Added a
+  reference-derived Japan spending range and independent payment statuses,
+  resolved completed purchase/reservation tasks, and retained 16 outstanding
+  actions/confirmations, included-meal accounting and pilgrim uncertainty.
