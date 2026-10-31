@@ -1,0 +1,244 @@
+---
+import Icon from './Icon.astro';
+import LocalPlaceName from './LocalPlaceName.astro';
+import TripReferences from './TripReferences.astro';
+import type { TripDay, TripGuideFacility, TripGuideFigure, TripSource } from '../data/types';
+import { getImageCredit } from '../lib/image-credits';
+import { scheduleEntryId } from '../lib/trip-maps';
+import { withBase } from '../lib/urls';
+
+interface Props {
+  day: TripDay;
+  sources: TripSource[];
+  locale?: 'zh-CN' | 'en';
+}
+
+const { day, sources, locale = 'en' } = Astro.props;
+const guide = day.guide;
+const isZh = locale === 'zh-CN';
+const text = (zh: string, en: string) => isZh ? zh : en;
+const number = (value: number) => new Intl.NumberFormat(isZh ? 'zh-CN' : 'en-US', { maximumFractionDigits: 1 }).format(value);
+const id = `day-${day.date}-guide`;
+const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(sourceId => {
+  const source = sources.find(item => item.id === sourceId);
+  return source ? [source] : [];
+});
+const guideSources = sourcesFor(guide?.sourceIds);
+const primarySource = guideSources[0];
+const figureCredit = (figure: TripGuideFigure) => guide ? `${guide.publisher} · ${guide.edition} · ${text('指南第', 'Guide pages ')}${figure.printedPages}${isZh ? '页' : ''}` : '';
+const profileSummary = [
+  day.hike?.ascentM !== undefined ? text(`爬升约${number(day.hike.ascentM)}米`, `About ${number(day.hike.ascentM)} m ascent`) : undefined,
+  day.hike?.descentM !== undefined ? text(`下降约${number(day.hike.descentM)}米`, `About ${number(day.hike.descentM)} m descent`) : undefined,
+].filter(Boolean).join(' · ');
+const facilityLabels: Record<TripGuideFacility, string> = {
+  water: text('饮水点', 'Water'), toilet: text('洗手间', 'Toilet'), rest: text('休息点', 'Rest'),
+  food: text('餐食', 'Food'), stamp: text('盖章', 'Stamp'), view: text('眺望', 'View'),
+  bus: text('巴士', 'Bus'), stay: text('住宿', 'Stay'),
+};
+const facilityPaths: Record<TripGuideFacility, string> = {
+  water: 'M12 3S5 11 5 15a7 7 0 0 0 14 0c0-4-7-12-7-12ZM9 16a3 3 0 0 0 3 3',
+  toilet: 'M7 5a2 2 0 1 0 0 .01M17 5a2 2 0 1 0 0 .01M5 10h4v6H5ZM15 10h4l1 6h-6ZM6 16v5M8 16v5M16 16v5M18 16v5',
+  rest: 'M4 11h16v5H4ZM6 7h12v4M6 16v5M18 16v5',
+  food: 'M5 3v6a3 3 0 0 0 6 0V3M8 3v18M19 3c-4 2-4 8 0 9V3ZM19 12v9',
+  stamp: 'M7 16v-3h10v3M10 13V6a2 2 0 0 1 4 0v7M5 16h14v5H5Z',
+  view: 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12ZM15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z',
+  bus: 'M6 3h12a2 2 0 0 1 2 2v13H4V5a2 2 0 0 1 2-2ZM4 11h16M8 5h8M7 15h.01M17 15h.01M6 18v3M18 18v3',
+  stay: 'M3 18V7M3 14h18v7M3 18h18M7 10h4v4H7ZM11 10h7a3 3 0 0 1 3 3v1',
+};
+---
+
+{guide && <section class="day-guide" id={id} data-trip-day-guide data-day-swipe-ignore lang={locale} aria-labelledby={`${id}-title`}>
+  <header class="guide-heading">
+    <p class="guide-eyebrow"><Icon name={guide.kind === 'hike' ? 'compass' : 'map'} size={16} />{text(guide.kind === 'hike' ? '古道路线与沿途提示' : '官方区域参考', guide.kind === 'hike' ? 'Trail and checkpoints' : 'Official area guide')}</p>
+    <h3 id={`${id}-title`}>{guide.title}</h3>
+    <p class="guide-edition">{primarySource ? <a href={primarySource.url} target="_blank" rel="noopener noreferrer">{guide.publisher}<Icon name="external" size={11} /></a> : <span>{guide.publisher}</span>}<span aria-hidden="true"> · </span><span>{guide.edition}</span></p>
+  </header>
+
+  <div class="guide-map-figures" data-guide-figure-switch={day.date} data-guide-figure-default={guide.figures[0]?.id}>
+  {guide.figures.length > 1 && <div class="guide-figure-controls" data-guide-figure-controls role="group" aria-label={text('选择路线或区域地图', 'Choose a route or area map')} hidden>
+    {guide.figures.map((figure, index) => <button type="button" data-guide-figure-select={figure.id} aria-controls={`${id}-figure-${figure.id}`} aria-pressed={index === 0} aria-label={text(`地图${index + 1}/${guide.figures.length}：${figure.title}`, `Map ${index + 1} of ${guide.figures.length}: ${figure.title}`)} disabled><span aria-hidden="true">{index + 1}</span>{figure.title}</button>)}
+  </div>}
+  <div class:list={['guide-figures', { 'guide-figures-paired': guide.figures.length > 1 }]}>
+    {guide.figures.map((figure, index) => {
+      const credit = getImageCredit(figure.image);
+      return <figure class="guide-figure" id={`${id}-figure-${figure.id}`} data-guide-figure={figure.id}>
+        <div class="guide-figure-heading">{guide.figures.length > 1 && <span class="guide-segment-number">{String(index + 1).padStart(2, '0')}</span>}<h4>{figure.title}</h4></div>
+        <a class="guide-image-link" href={withBase(figure.image)} target="_blank" rel="noopener noreferrer" data-guide-open data-guide-title={figure.title} data-guide-alt={figure.alt} data-guide-caption={figureCredit(figure)} aria-label={text(`放大官方地图：${figure.title}`, `Enlarge official map: ${figure.title}`)}>
+          <img src={withBase(figure.image)} alt={figure.alt} width={credit?.width} height={credit?.height} loading="eager" fetchpriority="low" decoding="async" />
+          <span class="guide-enlarge"><Icon name="plus" size={14} />{text('放大官方地图', 'Enlarge official map')}</span>
+        </a>
+        <figcaption><span class="guide-page-credit">{figureCredit(figure)}</span>{figure.caption && <span class="guide-figure-note">{figure.caption}</span>}</figcaption>
+      </figure>;
+    })}
+  </div>
+  </div>
+
+  {guide.kind === 'hike' && day.hike && <dl class="guide-hike-facts" aria-label={text('当天徒步概况', 'Walking summary')}>
+    <div><dt>{text('徒步距离', 'Distance')}</dt><dd>{text('约', 'About ')}{number(day.hike.distanceKm)}<span>{text('公里', 'km')}</span></dd></div>
+    {day.hike.ascentM !== undefined && <div><dt>{text('累计爬升', 'Total ascent')}</dt><dd>{text('约', 'About ')}{number(day.hike.ascentM)}<span>{text('米', 'm')}</span></dd></div>}
+    {day.hike.descentM !== undefined && <div><dt>{text('累计下降', 'Total descent')}</dt><dd>{text('约', 'About ')}{number(day.hike.descentM)}<span>{text('米', 'm')}</span></dd></div>}
+    <div class="guide-duration-fact"><dt>{text('官方参考用时', 'Official walking estimate')}</dt><dd class="guide-duration">{day.hike.duration}</dd></div>
+  </dl>}
+
+  {Boolean(guide.reminders?.length) && <details class="day-guide-details guide-reminders" id={`${id}-reminders`} data-guide-details>
+    <summary><span class="guide-disclosure-title"><Icon name="list" size={15} />{text('出发前看一眼', 'Before setting out')}<span class="guide-detail-count">{guide.reminders!.length}{text('条提醒', ' reminders')}</span></span><Icon name="chevron-down" size={15} /></summary>
+    <div><ul>{guide.reminders!.map(reminder => <li>{reminder}</li>)}</ul></div>
+  </details>}
+
+  {guide.profile && <details class="day-guide-details guide-profile-details" id={`${id}-profile`} data-guide-details>
+    <summary><span class="guide-disclosure-copy"><span class="guide-disclosure-title"><Icon name="compass" size={15} />{text('地形与海拔剖面', 'Terrain and elevation')}</span><small>{profileSummary || guide.profile.title}</small></span><Icon name="chevron-down" size={15} /></summary>
+    <figure class="guide-figure guide-profile" id={`${id}-figure-${guide.profile.id}`}>
+    <div class="guide-figure-heading"><Icon name="compass" size={16} /><h4>{guide.profile.title}</h4></div>
+    <a class="guide-image-link" href={withBase(guide.profile.image)} target="_blank" rel="noopener noreferrer" data-guide-open data-guide-title={guide.profile.title} data-guide-alt={guide.profile.alt} data-guide-caption={figureCredit(guide.profile)} aria-label={text(`放大地形图：${guide.profile.title}`, `Enlarge terrain profile: ${guide.profile.title}`)}>
+      <img src={withBase(guide.profile.image)} alt={guide.profile.alt} width={getImageCredit(guide.profile.image)?.width} height={getImageCredit(guide.profile.image)?.height} loading="eager" fetchpriority="low" decoding="async" />
+      <span class="guide-enlarge"><Icon name="plus" size={14} />{text('放大地形图', 'Enlarge profile')}</span>
+    </a>
+    <figcaption><span class="guide-page-credit">{figureCredit(guide.profile)}</span>{guide.profile.caption && <span class="guide-figure-note">{guide.profile.caption}</span>}</figcaption>
+  </figure></details>}
+
+  {guide.checkpoints.length > 0 && <details class="day-guide-details guide-checkpoints" id={`${id}-checkpoints`} data-guide-details aria-labelledby={`${id}-checkpoints-title`}>
+    <summary><span class="guide-disclosure-copy"><span class="guide-disclosure-title"><Icon name="pin" size={15} /><h4 id={`${id}-checkpoints-title`}>{text('沿途实用提示', 'Useful checkpoints')}</h4><span class="guide-detail-count">{guide.checkpoints.length}{text('处', ' stops')}</span></span><small>{text('设施按指南标示 · 展开地点详情', 'Guide facility symbols · Expand stop details')}</small></span><Icon name="chevron-down" size={15} /></summary>
+    <ol class="guide-checkpoint-list" role="list">
+      {guide.checkpoints.map(checkpoint => <li><details class="guide-checkpoint" id={`${id}-checkpoint-${checkpoint.id}`} data-guide-details>
+        <summary><h5>{checkpoint.name}</h5>{Boolean(checkpoint.facilities?.length) && <span class="guide-checkpoint-symbols"><span class="sr-only">{checkpoint.facilities!.map(facility => facilityLabels[facility]).join('、')}</span>{checkpoint.facilities!.map(facility => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={facilityPaths[facility]} /></svg>)}</span>}<Icon name="chevron-down" size={14} /></summary>
+        <div class="guide-checkpoint-content"><LocalPlaceName primaryName={checkpoint.name} localName={checkpoint.localName} />
+        <p>{checkpoint.description}</p>
+        {Boolean(checkpoint.facilities?.length) && <ul class="guide-facilities" aria-label={text('指南设施标记', 'Guide facility symbols')} role="list">{checkpoint.facilities!.map(facility => <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={facilityPaths[facility]} /></svg><span>{facilityLabels[facility]}</span></li>)}</ul>}
+        {checkpoint.scheduleId && <a class="guide-schedule-link" href={`#${scheduleEntryId(day.date, checkpoint.scheduleId)}`}>{text('查看这一段行程', 'View this schedule stage')}<Icon name="arrow-right" size={13} /></a>}
+        </div>
+      </details></li>)}
+    </ol>
+  </details>}
+
+  {Boolean(guide.notes?.length) && <details class="day-guide-details guide-route-notes" id={`${id}-notes`} data-guide-details><summary><span class="guide-disclosure-title">{text('读图与路线说明', 'Map and route notes')}<span class="guide-detail-count">{guide.notes!.length}{text('条', ' notes')}</span></span><Icon name="chevron-down" size={15} /></summary><div><ul class="guide-notes">{guide.notes!.map(note => <li>{note}</li>)}</ul></div></details>}
+  {Boolean(guide.details?.length) && <div class="guide-details-list">{guide.details!.map((section, index) => <details class="day-guide-details" id={`${id}-detail-${index + 1}`} data-guide-details>
+    <summary><span>{section.title}</span><Icon name="chevron-down" size={15} /></summary>
+    <div><ul>{section.points.map(point => <li>{point}</li>)}</ul><TripReferences sources={sourcesFor(section.sourceIds)} locale={locale} /></div>
+  </details>)}</div>}
+  {guide.legend && <details class="day-guide-details guide-legend" id={`${id}-legend`} data-guide-details>
+    <summary><span>{guide.legend.title}</span><Icon name="chevron-down" size={15} /></summary>
+    <figure class="guide-figure"><a class="guide-image-link" href={withBase(guide.legend.image)} target="_blank" rel="noopener noreferrer" data-guide-open data-guide-title={guide.legend.title} data-guide-alt={guide.legend.alt} data-guide-caption={figureCredit(guide.legend)}>
+      <img src={withBase(guide.legend.image)} alt={guide.legend.alt} width={getImageCredit(guide.legend.image)?.width} height={getImageCredit(guide.legend.image)?.height} loading="eager" fetchpriority="low" decoding="async" />
+      <span class="guide-enlarge"><Icon name="plus" size={14} />{text('放大图例', 'Enlarge legend')}</span>
+    </a><figcaption><span class="guide-page-credit">{figureCredit(guide.legend)}</span>{guide.legend.caption && <span class="guide-figure-note">{guide.legend.caption}</span>}</figcaption></figure>
+  </details>}
+  <TripReferences sources={guideSources} locale={locale} label={text('本页官方资料', 'Official guide sources')} />
+</section>}
+
+<style>
+  .day-guide { min-width: 0; }
+  .guide-heading { margin-bottom: 19px; }
+  .guide-eyebrow { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; color: var(--ink-soft); font-size: 11px; }
+  .guide-heading h3 { font-family: var(--sans); font-size: 19px; font-weight: 600; line-height: 1.65; overflow-wrap: anywhere; }
+  .guide-edition { margin-top: 8px; color: var(--ink-soft); font-size: 10px; line-height: 1.85; overflow-wrap: anywhere; }
+  .guide-edition a { display: inline-flex; align-items: center; gap: 5px; text-decoration: underline; text-underline-offset: 3px; }
+  .guide-hike-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 18px; margin: 18px 0 0; padding: 14px 0; border-block: 1px solid var(--line); }
+  .guide-hike-facts div { min-width: 0; }
+  .guide-hike-facts dt { margin-bottom: 5px; color: var(--ink-soft); font-size: 11px; }
+  .guide-hike-facts dd { margin: 0; font-size: 20px; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 1.55; }
+  .guide-hike-facts dd span { margin-left: 5px; font-size: 11px; font-weight: 400; }
+  .guide-duration-fact { display: grid; grid-column: 1 / -1; grid-template-columns: 82px minmax(0, 1fr); align-items: start; gap: 9px; padding-top: 10px; border-top: 1px solid var(--line); }
+  .guide-duration-fact dt { margin: 0; line-height: 1.8; }
+  .guide-hike-facts dd.guide-duration { font-size: 12px; font-weight: 400; line-height: 1.8; overflow-wrap: anywhere; }
+  .guide-reminders { padding-inline: 12px; border-left: 2px solid var(--confirmed); border-radius: 0 4px 4px 0; background: #36574308; }
+  .guide-reminders > div > ul, .guide-notes, .day-guide-details > div > ul { margin: 8px 0 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.95; overflow-wrap: anywhere; }
+  .guide-reminders > div > ul > li + li, .guide-notes > li + li, .day-guide-details > div > ul > li + li { margin-top: 6px; }
+  .guide-figures { display: grid; grid-template-columns: minmax(0, 1fr); gap: 19px; }
+  .guide-figures-paired { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .guide-figure-controls { display: flex; gap: 6px; overflow-x: auto; margin: 0 0 13px; padding: 2px 2px 6px; scrollbar-width: thin; }
+  .guide-figure-controls button { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 7px; min-height: 44px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 4px; background: #fbfaf5; color: var(--ink-soft); font-size: 11px; line-height: 1.8; white-space: nowrap; }
+  .guide-figure-controls button > span { color: var(--accent-deep); font-size: 10px; }
+  .guide-figure-controls button[aria-pressed='true'] { border-color: var(--confirmed); background: #3657430d; color: var(--ink); font-weight: 600; }
+  .guide-figure-controls button:disabled { opacity: 1; }
+  .guide-figure { min-width: 0; margin: 0; }
+  .guide-figure-heading { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 10px; }
+  .guide-figure-heading > svg { margin-top: 4px; color: var(--accent-deep); }
+  .guide-figure-heading h4 { font-family: var(--sans); font-size: 13px; font-weight: 600; line-height: 1.85; overflow-wrap: anywhere; }
+  .guide-segment-number { display: grid; place-items: center; flex: 0 0 24px; height: 24px; margin-top: 1px; border: 1px solid var(--line); border-radius: 50%; color: var(--accent-deep); font-size: 10px; }
+  .guide-image-link { position: relative; display: block; overflow: hidden; border: 1px solid var(--line); border-radius: 4px; background: white; }
+  .guide-image-link img { width: 100%; height: auto; }
+  .guide-enlarge { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 7px 12px; border-top: 1px solid var(--line); color: var(--ink); background: #f7f5efed; font-size: 11px; }
+  .guide-image-link:hover .guide-enlarge { color: var(--accent-deep); background: var(--paper-deep); }
+  .guide-figure figcaption { margin-top: 8px; color: var(--ink-soft); font-size: 10px; line-height: 1.85; overflow-wrap: anywhere; }
+  .guide-page-credit, .guide-figure-note { display: block; }
+  .guide-figure-note { margin-top: 4px; font-size: 11px; }
+  .guide-profile { padding-bottom: 13px; }
+  .guide-checkpoint-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 2px 0 13px; padding: 0; list-style: none; }
+  .guide-checkpoint-list > li { min-width: 0; }
+  .guide-checkpoint { min-width: 0; border: 1px solid var(--line); border-radius: 4px; background: #fbfaf5; scroll-margin-top: 160px; }
+  .guide-checkpoint > summary { display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 10px 12px; list-style: none; cursor: pointer; }
+  .guide-checkpoint > summary::-webkit-details-marker { display: none; }
+  .guide-checkpoint h5 { flex: 1; min-width: 0; margin: 0; font-size: 12px; font-weight: 500; line-height: 1.85; overflow-wrap: anywhere; }
+  .guide-checkpoint-symbols { display: inline-flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px; max-width: 42%; color: var(--ink-soft); }
+  .guide-checkpoint[open] > summary > svg { transform: rotate(180deg); }
+  .guide-checkpoint-content { padding: 0 12px 12px; }
+  .guide-checkpoint p { margin-top: 9px; color: var(--ink-soft); font-size: 12px; line-height: 1.95; overflow-wrap: anywhere; }
+  .guide-facilities { display: flex; flex-wrap: wrap; gap: 7px 12px; margin: 11px 0 0; padding: 0; list-style: none; }
+  .guide-facilities li { display: inline-flex; align-items: center; gap: 5px; color: var(--ink-soft); font-size: 10px; }
+  .guide-schedule-link { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin-top: 7px; color: var(--accent-deep); font-size: 11px; text-decoration: underline; text-underline-offset: 3px; }
+  .guide-notes { margin-top: 0; }
+  .guide-details-list { margin-top: 0; }
+  .day-guide-details { margin-top: 8px; border-top: 1px solid var(--line); font-size: 12px; }
+  .day-guide-details > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 10px 0; list-style: none; cursor: pointer; }
+  .day-guide-details > summary::-webkit-details-marker { display: none; }
+  .day-guide-details > summary span { overflow-wrap: anywhere; }
+  .guide-disclosure-title { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 7px; min-width: 0; font-weight: 500; }
+  .guide-disclosure-title h4 { margin: 0; font-family: var(--sans); font-size: 12px; font-weight: 500; line-height: 1.8; }
+  .guide-detail-count { flex-shrink: 0; color: var(--ink-soft); font-size: 10px; font-weight: 400; }
+  .guide-disclosure-copy { display: block; min-width: 0; }
+  .guide-disclosure-copy small { display: block; margin-top: 3px; color: var(--ink-soft); font-size: 10px; line-height: 1.8; }
+  .day-guide-details[open] > summary > svg { transform: rotate(180deg); }
+  .day-guide-details > div { padding-bottom: 12px; }
+  .guide-legend .guide-figure { padding-bottom: 12px; }
+  .guide-legend .guide-image-link { max-width: 650px; }
+  @media (max-width: 700px) {
+    .guide-figures-paired, .guide-checkpoint-list { grid-template-columns: minmax(0, 1fr); }
+    .guide-heading { margin-bottom: 10px; }
+    .guide-heading h3 { font-size: 16px; }
+    .guide-eyebrow, .guide-edition { display: none; }
+    .guide-figure-heading { margin-bottom: 8px; }
+    .guide-hike-facts { gap: 10px 8px; padding: 12px 0; margin-top: 14px; }
+    .guide-hike-facts dt { font-size: 10px; }
+    .guide-hike-facts dd { font-size: 16px; }
+    .guide-hike-facts dd span { margin-left: 2px; font-size: 10px; }
+    .guide-duration-fact { grid-template-columns: 66px minmax(0, 1fr); gap: 7px; }
+    .guide-figure figcaption { font-size: 11px; }
+    .guide-reminders { padding-inline: 9px; }
+    .guide-reminders ul, .guide-notes, .day-guide-details ul, .guide-checkpoint p { font-size: 13px; }
+    .guide-enlarge { min-height: 44px; }
+    .guide-facilities li { font-size: 11px; }
+    .guide-schedule-link { font-size: 12px; }
+    .guide-disclosure-copy small, .guide-detail-count { font-size: 11px; }
+  }
+  @media print {
+    .day-guide { background: white; }
+    .guide-heading { margin-bottom: 10px; }
+    .guide-heading h3 { font-size: 14px; }
+    .guide-eyebrow, .guide-edition, .guide-page-credit, .guide-figure-note { font-size: 8px; }
+    .guide-hike-facts { gap: 12px; padding: 10px 0; margin-bottom: 12px; }
+    .guide-hike-facts dt, .guide-hike-facts dd span { font-size: 9px; }
+    .guide-hike-facts dd { font-size: 16px; }
+    .guide-hike-facts dd.guide-duration { font-size: 11px; }
+    .guide-figures-paired { grid-template-columns: minmax(0, 1fr); }
+    .guide-figure-controls { display: none !important; }
+    .guide-figures [data-guide-figure], .guide-figures [data-guide-figure][hidden] { display: block !important; }
+    .guide-figure { break-inside: avoid; }
+    .guide-figure-heading h4 { font-size: 11px; }
+    .guide-image-link { border: 0; }
+    .guide-image-link img { max-height: 175mm; object-fit: contain; }
+    .guide-enlarge { display: none; }
+    .guide-reminders { background: white; padding-inline: 8px; }
+    .guide-disclosure-title h4, .guide-checkpoint h5 { font-size: 10px; }
+    .guide-reminders ul, .guide-notes, .day-guide-details ul, .guide-checkpoint p { font-size: 9px; }
+    .guide-checkpoint-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .guide-checkpoint { break-inside: avoid; background: white; }
+    .guide-checkpoint > summary { min-height: 0; padding: 7px; }
+    .guide-checkpoint > summary > svg { display: none; }
+    .guide-checkpoint-content { padding: 0 7px 8px; }
+    .guide-facilities li, .guide-schedule-link, .guide-disclosure-copy small, .guide-detail-count { font-size: 8px; }
+    .guide-schedule-link { min-height: 0; }
+    .day-guide details::details-content { content-visibility: visible; }
+    .day-guide-details > summary { min-height: 0; padding: 8px 0; font-size: 10px; }
+    .day-guide-details > summary > svg { display: none; }
+  }
+</style>

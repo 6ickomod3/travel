@@ -282,6 +282,66 @@ optional routes and unselected meal candidates distinct from accepted stops. Fol
 [daily-map presentation and interaction rules](trip-design-principles.md#daily-maps)
 for visible-day initialization, phone controls, fallback lists and printing.
 
+## Guidebook maps and practical guidance
+
+Optional `TripDay.guide` owns the relevant illustrated maps, an original terrain
+`profile`, an optional source `legend`, and a readable `checkpoints` list.
+Figures have stable IDs, trip-owned local image paths, source printed pages,
+titles, descriptions and captions. Each checkpoint can reference an existing
+main-schedule ID and explicitly sourced facilities. Unknown opening hours and
+water quality remain unspecified. A figure does not establish a new visit,
+precise trail geometry or navigation accuracy.
+
+Use `kind: "hike"` only with the day's recorded hike data. Keep distance and
+walking estimates distinct from timetable reservations; optional `descentM`
+records a sourced approximate descent. Preserve the guide's original cumulative
+distance axis when cropping terrain profiles rather than relabeling it as a new
+measurement. Label split route maps individually instead of joining unrelated
+orientations. Area guidance supports existing stop/transfer maps.
+
+Put the compact heading before the source map. Phones show one route or area
+figure selected manually through full-title choices; larger screens keep the
+figure grid. Retain each day's selection across viewport and day changes.
+Keep distance/ascent/descent compact and the complete walking estimate on its
+own row. Reminders, original profiles and checkpoints use native disclosures
+with useful summaries and list counts; credits stay visible and source
+references start closed.
+
+Fragment navigation must reveal the target guide panel synchronously before
+opening ancestor disclosures and scrolling. The trip controller calls the
+guide's `revealGuideTarget` hook for initial fragments, same-page links and
+browser Back/Forward. This hook must also select a hidden phone figure when
+that figure is the fragment target.
+
+Guide figures load eagerly with low fetch priority, including those in closed
+days or legends, so the first native print snapshot includes their images.
+Keep source image files compressed and verify that a fresh-page print contains
+the expected figures. Without JavaScript, show all figures. Printing also
+shows every figure and restores map selection, native disclosures and the
+image viewer afterward.
+
+Store figures in `public/images/trips/<slug>/guide/` and their provenance in the
+trip's image manifest. For a supplied PDF, use `kind: "map"` and
+`sourceKind: "user-supplied-pdf"`, recording `sourceFile`, `sourceSha256`,
+`providedOn`, `publisher`, `edition`, `printedPages`, dimensions and `changes`.
+Retain the full original in ignored private input storage. A public reference
+page is not proof of an independent download or a reuse license; record known
+terms honestly without inventing them. Local previews remain separate from
+publication authorization.
+
+`guide.reminders` holds brief route-specific advice behind its visible native
+disclosure summary. `guide.details` groups longer references in native
+disclosures. Optional trip `fieldGuide` groups shared equipment, food, water,
+wayfinding and local customs in Preparations.
+Guide sections use `title`, `points` and optional official `sourceIds`.
+General guidance is not an outstanding checklist action.
+
+`TripDay.confirmedNotes` holds explicit practical confirmations such as early
+meal availability or checkout arrangements. Remove resolved checklist wording
+and update its dependent daily/transport copy, preserving any unrelated
+uncertainty. Never infer an exact pickup method, menu, allergy agreement, seat
+reservation or payment from a narrower confirmation.
+
 ## Process a new submission
 
 1. Identify the trip from the message or attachment. If it is unclear, ask

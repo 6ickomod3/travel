@@ -9,5 +9,7 @@ dist/
 .local/
 # Local editable source containing private booking material.
 /日本行程_2026-11-13至21_更新版.txt
+# Supplied guide original; preserved in private trip storage.
+/Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf
 test-results/
 playwright-report/

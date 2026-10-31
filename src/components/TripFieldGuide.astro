@@ -1,0 +1,57 @@
+---
+import Icon from './Icon.astro';
+import TripReferences from './TripReferences.astro';
+import type { TripFieldGuide, TripSource } from '../data/types';
+
+interface Props {
+  guide: TripFieldGuide;
+  sources: TripSource[];
+  locale?: 'zh-CN' | 'en';
+}
+
+const { guide, sources, locale = 'en' } = Astro.props;
+const isZh = locale === 'zh-CN';
+const sourcesFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
+  const source = sources.find(item => item.id === id);
+  return source ? [source] : [];
+});
+---
+
+<section class="field-guide" id="field-guide" aria-labelledby="field-guide-title" data-trip-field-guide lang={locale}>
+  <header class="field-guide-heading"><Icon name="compass" size={20} /><div><p>{isZh ? '古道随身参考' : 'Trail reference'}</p><h3 id="field-guide-title">{guide.title}</h3></div></header>
+  <div class="field-guide-sections">
+    {guide.sections.map((section, index) => <section class="field-guide-section" aria-labelledby={`field-guide-section-${index + 1}`}>
+      <h4 id={`field-guide-section-${index + 1}`}>{section.title}</h4>
+      <ul>{section.points.slice(0, 3).map(point => <li>{point}</li>)}</ul>
+      {section.points.length > 3 && <details class="field-guide-details" data-guide-details>
+        <summary><span>{isZh ? '补充说明' : 'More details'}</span><Icon name="chevron-down" size={14} /></summary>
+        <ul>{section.points.slice(3).map(point => <li>{point}</li>)}</ul>
+      </details>}
+      <TripReferences sources={sourcesFor(section.sourceIds)} locale={locale} />
+    </section>)}
+  </div>
+  <TripReferences sources={sourcesFor(guide.sourceIds)} locale={locale} label={isZh ? '官方指南来源' : 'Official guide sources'} />
+</section>
+
+<script>
+  import '../scripts/trip-guides';
+</script>
+
+<style>
+  .field-guide { min-width: 0; margin-bottom: 24px; padding: 25px; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf5; }
+  .field-guide-heading { display: flex; align-items: flex-start; gap: 11px; }
+  .field-guide-heading > svg { margin-top: 4px; color: var(--accent-deep); }
+  .field-guide-heading p { margin-bottom: 5px; color: var(--ink-soft); font-size: 10px; }
+  .field-guide-heading h3 { font-family: var(--sans); font-size: 18px; font-weight: 600; line-height: 1.65; }
+  .field-guide-sections { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 23px 30px; margin-top: 22px; }
+  .field-guide-section { min-width: 0; padding-top: 16px; border-top: 1px solid var(--line); }
+  .field-guide-section h4 { font-family: var(--sans); font-size: 14px; font-weight: 600; line-height: 1.8; }
+  .field-guide-section ul { margin: 9px 0 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.95; overflow-wrap: anywhere; }
+  .field-guide-section li + li { margin-top: 7px; }
+  .field-guide-details { margin-top: 7px; }
+  .field-guide-details summary { display: flex; align-items: center; gap: 8px; min-height: 38px; color: var(--ink-soft); font-size: 11px; cursor: pointer; list-style: none; }
+  .field-guide-details summary::-webkit-details-marker { display: none; }
+  .field-guide-details[open] summary > svg { transform: rotate(180deg); }
+  @media (max-width: 700px) { .field-guide { padding: 19px; } .field-guide-sections { grid-template-columns: minmax(0, 1fr); gap: 20px; } .field-guide-section ul { font-size: 13px; } .field-guide-details summary { min-height: 44px; font-size: 12px; } }
+  @media print { .field-guide { padding: 15px; background: white; } .field-guide-heading h3 { font-size: 14px; } .field-guide-heading p, .field-guide-details summary { font-size: 9px; } .field-guide-sections { gap: 15px 22px; margin-top: 15px; } .field-guide-section { padding-top: 10px; } .field-guide-section h4 { font-size: 11px; } .field-guide-section ul { font-size: 10px; } .field-guide-section li { break-inside: avoid; } .field-guide-details::details-content { content-visibility: visible; } .field-guide-details summary { min-height: 0; } .field-guide-details summary > svg { display: none; } }
+</style>

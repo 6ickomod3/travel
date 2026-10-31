@@ -93,6 +93,33 @@ Keep the implementation contracts below aligned with that guide.
   runtime geocoding. Follow the design guide's placement, phone interaction and
   fallback rules: initialize only open, visible days, exclude map wrappers from
   day swipes, and preserve printable stop lists and external-map links.
+- Optional `TripDay.guide` adds trip-owned guidebook maps, original terrain
+  profiles, a source legend and practical checkpoints. Keep figures separate
+  from geographic tracks and gallery photos. Reuse existing schedule IDs for
+  checkpoint links; illustrations do not add visits or establish GPS geometry.
+  Walking guides may be the initial map view, with geographic stops and transfers
+  alongside; area guides support the existing geographic view. Preserve source
+  labels, scales and cumulative-distance axes. Keep attribution visible,
+  provide full-image links and an accessible zoom viewer, and exclude its
+  gestures from day swipes. Load guide figures eagerly with low fetch priority
+  for complete first-print snapshots.
+- Guide layouts put a compact heading before the source map. On phones,
+  show one manually selected figure with full-title choices; retain a grid on
+  larger screens and each day's figure choice across viewport and day changes.
+  Keep distance/ascent/descent compact and the full walking estimate on its
+  own row. Reminders, profiles and checkpoints use native disclosures with
+  useful summaries and list counts. Fragment links reveal the target guide
+  panel before opening ancestor disclosures and scrolling. No-JavaScript
+  reading and printing show all figures; printing restores map selection,
+  disclosures and viewer state.
+- Store guide assets under `public/images/trips/<slug>/guide/`. A supplied PDF
+  keeps its full original in ignored storage; image provenance records the
+  publisher, edition, printed pages, source filename, receipt date, original
+  SHA-256 and extraction changes. Do not invent a download URL or reuse license.
+  Optional `fieldGuide` groups shared practical guidance in Preparations.
+- `TripDay.confirmedNotes` records explicit practical confirmations in green,
+  independently of seat bookings and payment. Remove the corresponding pending
+  wording only within the confirmed scope; other details stay unresolved.
 - `TripSection.astro` supplies native collapsible sections with stable IDs,
   visible summary text and accessible headings. Accommodation, Flights,
   Costs and the official-source catalog share this presentation. Section,

@@ -10,6 +10,7 @@ import TripChecklist from './TripChecklist.astro';
 import TripCosts from './TripCosts.astro';
 import TripSection from './TripSection.astro';
 import TripStampGuide from './TripStampGuide.astro';
+import TripFieldGuide from './TripFieldGuide.astro';
 import TripGallery from './TripGallery.astro';
 import TripDailyItinerary from './TripDailyItinerary.astro';
 import TripDiningReservations from './TripDiningReservations.astro';
@@ -67,7 +68,7 @@ const stayDateRange = stayStartDate && stayEndDate
   ? formatDateRange({ startDate: stayStartDate, endDate: stayEndDate }, dateLocale)
   : undefined;
 const stayStatus = (stay: TripStay) => stay.status === 'booked' ? text('已订', 'Booked') : text('待确认', 'Awaiting confirmation');
-const hasPreparations = practicalNotes.length > 0 || ticketOptions.length > 0 || bookingWindows.length > 0 || Boolean(trip.stampGuide) || Boolean(trip.transport);
+const hasPreparations = practicalNotes.length > 0 || ticketOptions.length > 0 || bookingWindows.length > 0 || Boolean(trip.stampGuide) || Boolean(trip.transport) || Boolean(trip.fieldGuide);
 const photoCredit = trip.coverCredit.replace(/^(?:Photo:|图片来源：|图片：)\s*/i, '');
 const heroImage = getImageCredit(trip.cover);
 const heroCredit = getLicensedImageCredit(trip.cover);
@@ -176,6 +177,7 @@ const heroCredit = getLicensedImageCredit(trip.cover);
       {(ticketOptions.length > 0 || bookingWindows.length > 0) && <TripPlanning ticketOptions={ticketOptions} bookingWindows={bookingWindows} sources={sources} locale={locale} travelers={trip.travelers} selectedTicketOptionId={trip.selectedTicketOptionId} />}
       {trip.transport && <TripTransport plan={trip.transport} sources={sources} locale={locale} />}
       {trip.stampGuide && <TripStampGuide guide={trip.stampGuide} sources={sources} locale={locale} />}
+      {trip.fieldGuide && <TripFieldGuide guide={trip.fieldGuide} sources={sources} locale={locale} />}
       {practicalNotes.length > 0 && <aside class="practical-panel"><div class="preparation-panel-heading"><Icon name="compass" size={20} /><h3>{text('行李、餐食与换乘', 'Luggage, meals, and connections')}</h3></div><ul class="practical-list">{practicalNotes.map(note => <li>{note}</li>)}</ul></aside>}
     </section>}
 

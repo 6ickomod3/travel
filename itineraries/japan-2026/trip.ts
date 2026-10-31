@@ -769,7 +769,7 @@ export default {
       "notes": [
         "11/17入住、11/18退房，带露台四人间、两位成人，已含早晚餐。",
         "近露王子到SEN官网列步行约10分钟，不需接送；自助入住说明提前保存。",
-        "确认本订单餐食是食材自炊还是便当套餐、具体菜单及虾过敏处理；18号早餐需能早取或打包，配合07:10–07:15离店。",
+        "18号早餐提前领取或打包已确认，配合07:10–07:15离店；本订单是食材自炊还是便当套餐、具体菜单及虾过敏处理仍需确认。",
         "SEN到美术馆前按近露地图估算约500–600米、步行10–15分钟；17号先确认走法与站牌。地图仍为近露区域参考，具体建筑坐标未核定。"
       ]
     },
@@ -800,7 +800,7 @@ export default {
       "notes": [
         "11/18入住、11/19退房，双床可吸烟房已订，不含早晚餐。",
         "18号按川汤温泉站15:16下车、步行约1–2分钟到店；约15:20自助办理入住。",
-        "需准备18号晚餐及19号无需微波的早餐，附近没有便利店；06:30离店前退房和钥匙处理尚未得到确认。",
+        "需准备18号晚餐及19号无需微波的早餐，附近没有便利店；19号约06:30离店前的提前退房和归还钥匙安排已确认。",
         "4楼微波炉／休息室07:00–22:00；使用本馆浴池，不使用姐妹馆川湯みどりや的大浴场、露天风吕或大厅。",
         "11月按旅馆温泉安排；河川露天浴场“仙人风吕”通常12月才开放。"
       ]
@@ -938,30 +938,13 @@ export default {
         "kind": "trip-date",
         "date": "2026-11-17"
       },
-      "title": "确认SEN已含餐形式、过敏处理与早取早餐",
-      "detail": "已含早晚餐；核对是食材自炊还是便当套餐、具体菜单与虾过敏处理，确认18号早餐能否07:00前取用／打包。若茶屋07:00才开始，先协商早取或打包，并另备干粮。",
+      "title": "确认SEN已含餐形式、菜单与虾过敏处理",
+      "detail": "核对本订单是食材自炊还是便当套餐、具体菜单，以及虾过敏的食材、汤底与共用制作处理。18号早餐提前领取或打包已确认，按约定安排执行。",
       "priority": "high",
-      "priorityReason": "早取早餐需配合07:10–07:15离店",
+      "priorityReason": "餐食形式、菜单与虾过敏处理尚未明确",
       "sourceIds": [
         "dining-sen-chikatsuyu-food",
         "sen-chikatsuyu-stay"
-      ]
-    },
-    {
-      "id": "kawayu-early-checkout",
-      "kind": "check",
-      "timing": {
-        "kind": "trip-date",
-        "date": "2026-11-19"
-      },
-      "priority": "high",
-      "priorityReason": "06:54早班依赖旅馆提前退房安排",
-      "title": "确认川汤06:30前退房与钥匙处理",
-      "detail": "19号05:45–06:20吃自备早餐并退房，计划06:30离店、06:54川汤温泉站乘车。须提前得到07:00前退房和钥匙处理的明确答复；尚未获确认，不假设自助入住就能自由早退。准备无需微波的早餐，提前确认候车站牌方向。",
-      "sourceIds": [
-        "kawayu-shingu-bus",
-        "kumano-bus-payment",
-        "kumano-early-discount"
       ]
     },
     {
@@ -1540,7 +1523,7 @@ export default {
     },
     {
       "id": "chikatsuyu-map",
-      "label": "田边市熊野旅游局：近露区域地图",
+      "label": "田边市熊野旅游局：中边路官方路线图册",
       "url": "https://www2.tb-kumano.jp/pdf/nakahechi-map.pdf"
     },
     {
@@ -1566,7 +1549,7 @@ export default {
     "16号在新大阪直接换乘去纪伊田边，不需先去大阪站追同一班黑潮；地图与章册当天领取，17号不等泷尻古道馆08:30开门。",
     "17号约13.3公里、累计爬升约1,010米，官方6–8小时；加盖章、拍照、休息需要更久。18号发心门至本宫约7.5公里、累计爬升约190米，官方2–3小时，含休息按3小时以上安排。两天共约20.8公里。",
     "18号快速不停“近露王子”，到美术馆前站候车；不接受预约、满员可能无法上车。错过或满员用另列公交备选，不临时改成长距离近露至本宫徒步。",
-    "SEN已含早晚餐，具体形式、过敏安排与早取早餐需确认。川湯まつや不供餐，提前备好18号晚餐与19号无需微波的早餐；只使用本馆温泉，11月不依赖通常12月开放的仙人风吕。",
+    "SEN已含早晚餐，18号早餐提前领取或打包已确认，具体餐食形式、菜单与虾过敏安排仍需确认。川湯まつや不供餐，19号提前退房和归还钥匙已确认；备好18号晚餐与19号无需微波的早餐，只使用本馆温泉，11月不依赖通常12月开放的仙人风吕。",
     "19号主方案06:54川汤→速玉大社前→那智站→那智山；参拜速玉后在那智站换车，不徒步大门坂。那智山到瀑布下行仍有台阶；随身背包游览，不假设那智站必有可用寄存柜。",
     "19号14:23到胜浦、15:21黑潮发车，留58分钟；下山14:34–14:58只留23分钟，15:09下一班会错过列车。黑潮17:06到纪伊田边、17:08继续开，留在车上。",
     "11/13–19的7日JR西日本全地区Pass已购买、已付；四段长途普通车禁烟指定席已确认、两人连座。13号HARUKA在关西机场取票后按实际入境进度划座；20号奈良和21号机场交通在有效期外，需另付。",
@@ -3788,13 +3771,14 @@ export default {
       "ideas": [
         "明光95主选，龙神06:55快速作备选。",
         "泷尻盖章后经高原、十丈王子、大坂本王子与牛马童子。",
-        "近露王子盖章后到SEN RETREAT CHIKATSUYU，确认18号早饭和去美术馆站的路线。"
+        "近露王子盖章后到SEN RETREAT CHIKATSUYU，按已确认的早取／打包安排准备18号早餐，先确认去美术馆站的路线。"
       ],
       "hike": {
         "distanceKm": 13.3,
         "duration": "官方步行6–8小时；盖章、拍照和休息另留时间",
         "ascentM": 1010,
-        "route": "泷尻王子 → 高原熊野神社 → 十丈王子 → 大坂本王子 → 牛马童子 → 近露王子"
+        "route": "泷尻王子 → 高原熊野神社 → 十丈王子 → 大坂本王子 → 牛马童子 → 近露王子",
+        "descentM": 840
       },
       "schedule": [
         {
@@ -3852,13 +3836,13 @@ export default {
         {
           "time": "傍晚",
           "title": "晚餐、洗澡，准备18号早班车",
-          "description": "晚餐已包含，确认本订单是食材自炊还是便当套餐及虾过敏处理；确认18号早餐早取／打包，配合07:10–07:15离店。"
+          "description": "晚餐已包含，确认本订单是食材自炊还是便当套餐及虾过敏处理；18号早餐提前领取或打包已确认，配合07:10–07:15离店。"
         }
       ],
       "notes": [
         "约13.3公里、累计爬升约1,010米，官方步行6–8小时；加盖章、拍照、休息要留更久，不按城市13公里估算。",
         "不等泷尻古道馆08:30开门；地图与章册16号已领取。",
-        "SEN已含早晚餐；近露王子到店官网列步行约10分钟。去美术馆前按地图估算10–15分钟，17号先确认路线与站牌；餐食形式及早取仍待确认。",
+        "SEN已含早晚餐，18号早餐提前领取或打包已确认；餐食形式、具体菜单与虾过敏处理仍需确认。近露王子到店官网列步行约10分钟；去美术馆前按地图估算10–15分钟，17号先确认路线与站牌。",
         "熊野巴士按单次付费，不购买当地巴士通票；JR Pass不包含明光巴士。"
       ],
       "sourceIds": [
@@ -3935,7 +3919,7 @@ export default {
         {
           "meal": "dinner",
           "notes": [
-            "SEN订单已含晚餐，不另订外食或重复计算餐费。确认食材自炊／便当形式、实际菜单与虾过敏处理；翌日早餐早取或打包方式仍需沟通。"
+            "SEN订单已含晚餐，不另订外食或重复计算餐费。确认食材自炊／便当形式、实际菜单与虾过敏处理；翌日早餐提前领取或打包已确认，按约定安排取用。"
           ],
           "choices": [],
           "sourceIds": [
@@ -4071,6 +4055,186 @@ export default {
             ]
           }
         ]
+      },
+      "guide": {
+        "title": "泷尻至近露 · 山路与补给",
+        "kind": "hike",
+        "publisher": "田边市熊野旅游局",
+        "edition": "2026年5月印刷版",
+        "figures": [
+          {
+            "id": "nov17-takijiri-takahara",
+            "title": "泷尻 → 高原",
+            "image": "/images/trips/japan-2026/guide/takijiri-takahara.webp",
+            "alt": "官方泷尻至高原路线图，标出泷尻王子、不寝王子、高原熊野神社、路标和设施。",
+            "printedPages": "7",
+            "caption": "先读起步陡坡与高原方向；红点线表示未铺装古道，红实线表示已铺装路段。"
+          },
+          {
+            "id": "nov17-takahara-chikatsuyu",
+            "title": "高原 → 十丈王子 → 近露",
+            "image": "/images/trips/japan-2026/guide/takahara-chikatsuyu.webp",
+            "alt": "官方高原至近露路线图，标出大门王子、十丈王子、上多和茶屋遗址、大坂本王子、牛马童子与近露。",
+            "printedPages": "8–9",
+            "caption": "按当日走到近露的范围查看山林、路口和下坡，配合十丈王子之后的脚程安排。"
+          },
+          {
+            "id": "nov17-chikatsuyu-village",
+            "title": "近露聚落与次日候车方位",
+            "image": "/images/trips/japan-2026/guide/chikatsuyu-village.webp",
+            "alt": "近露聚落官方区域图，标出近露王子、中边路美术馆、周边巴士站与SEN住宿名称。",
+            "printedPages": "9",
+            "caption": "配合17号到店后核对去なかへち美術館前的走法；区域图供辨认方位，实际站牌与入口现场确认。"
+          }
+        ],
+        "profile": {
+          "id": "nov17-takijiri-chikatsuyu-profile",
+          "title": "泷尻至近露 · 原册海拔剖面",
+          "image": "/images/trips/japan-2026/guide/takijiri-chikatsuyu-profile.webp",
+          "alt": "中边路原册海拔剖面，标有泷尻、高原、十丈王子、大坂本王子与近露的全线累计公里数。",
+          "printedPages": "3",
+          "caption": "横轴保留原册全线累计公里数；当日从泷尻读到近露13.3公里处。累计爬升约1,010米、下降约840米，休息与盖章另留时间。"
+        },
+        "legend": {
+          "id": "nov17-legend",
+          "title": "原册图例",
+          "image": "/images/trips/japan-2026/guide/legend.webp",
+          "alt": "中边路图册图例，说明王子、厕所、饮水、休息、商店、印章、巴士站及不同路面符号。",
+          "printedPages": "6",
+          "caption": "图例保留原册英文与符号；蓝底数字为每500米的路标编号，设施开放与供水按现场情况核对。"
+        },
+        "checkpoints": [
+          {
+            "id": "nov17-takijiri-oji",
+            "name": "泷尻王子",
+            "description": "出发前如厕、整理装备并按原计划参拜盖章。山路起步陡，先放慢节奏；不等古道馆08:30开门，也不依赖早晨商店补给。",
+            "facilities": [
+              "toilet",
+              "stamp",
+              "bus"
+            ],
+            "scheduleId": "takijiri-oji-start",
+            "localName": {
+              "text": "滝尻王子",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov17-takahara-kumano-jinja",
+            "name": "高原熊野神社",
+            "description": "抵达高原神社与聚落后休息、看山景；原册在高原休息区标有厕所、饮水和观景设施，使用时核对现场开放情况。",
+            "facilities": [
+              "toilet",
+              "water",
+              "rest",
+              "stamp",
+              "view"
+            ],
+            "scheduleId": "walk-to-takahara",
+            "localName": {
+              "text": "高原熊野神社",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov17-jujo-oji",
+            "name": "十丈王子",
+            "description": "沿既定山路经大门王子到十丈王子一带，自带午餐并按脚程休息。茶屋与旧聚落多为遗址，餐食提前带好。",
+            "facilities": [
+              "stamp"
+            ],
+            "scheduleId": "jujo-walk-lunch",
+            "localName": {
+              "text": "十丈王子",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov17-osakamoto-oji",
+            "name": "大坂本王子",
+            "description": "越过途中高点后下行到大坂本王子，经林道路口接近311号公路；按现场路标继续，过公路时留意车辆。",
+            "facilities": [
+              "stamp"
+            ],
+            "scheduleId": "walk-to-chikatsuyu",
+            "localName": {
+              "text": "大坂本王子",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov17-nakahechi-michi-no-eki",
+            "name": "熊野古道中边路道之驿",
+            "localName": {
+              "text": "道の駅熊野古道中辺路",
+              "language": "ja"
+            },
+            "description": "原册在公路另一侧标有厕所、休息与食品设施，需要时按现场情况选择使用；营业与补给库存先核对，午餐和饮水仍提前带齐。",
+            "facilities": [
+              "toilet",
+              "rest",
+              "food"
+            ],
+            "scheduleId": "walk-to-chikatsuyu"
+          },
+          {
+            "id": "nov17-gyuba-doji",
+            "name": "牛马童子",
+            "description": "留意牛马童子石像与相邻古道遗迹，拍照和盖章后继续下行近露；湿石阶放慢脚步。",
+            "facilities": [
+              "stamp"
+            ],
+            "scheduleId": "walk-to-chikatsuyu",
+            "localName": {
+              "text": "牛馬童子",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov17-chikatsuyu-oji",
+            "name": "近露王子",
+            "description": "到近露王子结束本日古道段，按现有安排步行去SEN。聚落图可查厕所、商店与巴士站；先走清翌日去美术馆前的路线。",
+            "facilities": [
+              "toilet",
+              "stamp",
+              "food",
+              "bus",
+              "stay"
+            ],
+            "scheduleId": "walk-to-chikatsuyu",
+            "localName": {
+              "text": "近露王子",
+              "language": "ja"
+            }
+          }
+        ],
+        "reminders": [
+          "16号备好的午餐、饮水与能量补给随身带齐，出发前装满饮水。",
+          "起步陡上，之后仍有多次起伏和长下坡；湿石、苔藓与树根处放慢脚步。",
+          "盖章、拍照和午餐另留时间，争取在天黑前从山路到达近露。"
+        ],
+        "notes": [
+          "图页保留原册地形、路标和设施；沿途按实际路标确认方向。图上的设施符号不保证当时开门或可用。",
+          "地图和剖面对应原册章节，距离与累计爬升／下降均为近似值；下方时间表仍是当天安排。"
+        ],
+        "details": [
+          {
+            "title": "这段路怎么读",
+            "points": [
+              "泷尻是进入熊野山地的重要王子，先陡上到高原，再经过山中旧聚落、王子与茶屋遗址到近露。",
+              "高原可看北面的果无山脉；十丈以后继续攀升，原册在上多和茶屋遗址附近标出途中高点。",
+              "道之驿在跨公路路段的另一侧；休息、采购与如厕按现场情况选择，午餐和水先自备。"
+            ],
+            "sourceIds": [
+              "chikatsuyu-map",
+              "takijiri-chikatsuyu"
+            ]
+          }
+        ],
+        "sourceIds": [
+          "chikatsuyu-map",
+          "takijiri-chikatsuyu"
+        ]
       }
     },
     {
@@ -4093,14 +4257,15 @@ export default {
         "distanceKm": 7.5,
         "duration": "官方步行2–3小时；含休息按3小时以上规划",
         "ascentM": 190,
-        "route": "发心门王子 → 水吞王子 → 伏拝王子 → 三轩茶屋 → 祓殿王子 → 熊野本宫大社"
+        "route": "发心门王子 → 水吞王子 → 伏拝王子 → 三轩茶屋 → 祓殿王子 → 熊野本宫大社",
+        "descentM": 460
       },
       "schedule": [
         {
           "id": "sen-checkout",
           "time": "06:15–07:00",
           "title": "早餐、退房",
-          "description": "SEN订单已含早餐，形式及早取／打包待确认；不依赖07:00以后才开始的现场用餐，另备食品。收拾并自助退房。"
+          "description": "SEN订单已含早餐，提前领取或打包安排已确认；在既定空档用餐，按与旅馆约定的安排取用。带好备用干粮，收拾并自助退房。"
         },
         {
           "id": "sen-to-museum-stop",
@@ -4242,7 +4407,7 @@ export default {
       ],
       "notes": [
         "快速不停近露王子，必须到美术馆前站。",
-        "SEN早餐已包含，但形式与早取／打包仍待确认；川汤按川汤温泉站下车、步行约1–2分钟到店，地图未标定站杆。",
+        "SEN早餐提前领取或打包已确认，餐食形式、菜单与虾过敏处理仍需核对；川汤按川汤温泉站下车、步行约1–2分钟到店，地图未标定站杆。",
         "川湯まつや已订、可吸烟双床、不供餐；仅使用本馆温泉。采购晚餐与早班早餐，11月不依赖仙人风吕。",
         "快速2,000日元与本宫→川汤310日元分别付费，不购买当地巴士通票。"
       ],
@@ -4311,7 +4476,7 @@ export default {
         {
           "meal": "breakfast",
           "notes": [
-            "SEN已含早餐，在06:15–07:00空档吃已确认能早取／打包的食品或备用早餐；具体方式仍待答复，保留07:10–07:15离店。"
+            "SEN已含早餐，提前领取或打包已确认；在06:15–07:00空档按约定安排用餐，保留07:10–07:15离店，备用干粮随身带好。"
           ],
           "choices": [],
           "sourceIds": [
@@ -4454,7 +4619,7 @@ export default {
               {
                 "placeId": "kawayu-matsuya",
                 "scheduleId": "kawayu-check-in",
-                "note": "按川汤温泉站下车步行约1–2分钟到酒店；地图未标定站杆，19号06:30离店前的退房和钥匙处理仍待确认。"
+                "note": "按川汤温泉站下车步行约1–2分钟到酒店；19号约06:30离店前的提前退房和归还钥匙已确认。地图未标定站杆，仍需核对实际候车位置与方向。"
               }
             ],
             "note": "主线乘07:51快速直达发心门；下午川汤温泉15:16下车、步行约1–2分钟到まつや，地图为酒店位置，未标定站杆。"
@@ -4518,11 +4683,213 @@ export default {
               {
                 "placeId": "kawayu-matsuya",
                 "scheduleId": "fallback-kawayu-bus",
-                "note": "按川汤温泉站下车步行约1–2分钟到酒店；地图未标定站杆，19号06:30离店前的退房和钥匙处理仍待确认。"
+                "note": "按川汤温泉站下车步行约1–2分钟到酒店；19号约06:30离店前的提前退房和归还钥匙已确认。地图未标定站杆，仍需核对实际候车位置与方向。"
               }
             ],
             "note": "仅快速满员或错过时使用；经本宫转车后徒步，保留16:40回川汤的候车余量。"
           }
+        ]
+      },
+      "confirmedNotes": [
+        "SEN早餐提前领取或打包安排已确认，配合18号07:10–07:15离店。"
+      ],
+      "guide": {
+        "title": "发心门至本宫 · 林径、王子与川汤",
+        "kind": "hike",
+        "publisher": "田边市熊野旅游局",
+        "edition": "2026年5月印刷版",
+        "figures": [
+          {
+            "id": "nov18-hosshinmon-hongu",
+            "title": "发心门 → 本宫 → 大斋原",
+            "image": "/images/trips/japan-2026/guide/hosshinmon-hongu.webp",
+            "alt": "官方发心门至本宫区域路线图，标出水吞王子、伏拝王子、三轩茶屋、祓殿王子、本宫大社与大斋原。",
+            "printedPages": "12–13",
+            "caption": "按既定发心门起步线路，经王子与聚落到本宫；参拜后再按时间表前往大斋原。"
+          },
+          {
+            "id": "nov18-kawayu-area",
+            "title": "川汤温泉 · 下车与住宿方位",
+            "image": "/images/trips/japan-2026/guide/kawayu-area.webp",
+            "alt": "官方川汤温泉区域图，标出沿河公路、巴士站、温泉旅馆与设施名称。",
+            "printedPages": "14",
+            "caption": "用于辨认川汤温泉附近的沿河道路、巴士站与旅馆；按既定川汤温泉站下车安排，实际站牌和入口现场核对。"
+          }
+        ],
+        "profile": {
+          "id": "nov18-hosshinmon-hongu-profile",
+          "title": "发心门至本宫 · 原册海拔剖面",
+          "image": "/images/trips/japan-2026/guide/hosshinmon-hongu-profile.webp",
+          "alt": "官方发心门至本宫海拔剖面，保留全线累计公里数以及本宫和大斋原的位置。",
+          "printedPages": "12",
+          "caption": "横轴为全线累计公里数：发心门30.3、本宫37.1、大斋原37.8。当天古道约7.5公里，累计爬升约190米、下降约460米。"
+        },
+        "legend": {
+          "id": "nov18-legend",
+          "title": "原册图例",
+          "image": "/images/trips/japan-2026/guide/legend.webp",
+          "alt": "中边路图册图例，说明王子、厕所、饮水、休息、商店、印章、巴士站及不同路面符号。",
+          "printedPages": "6",
+          "caption": "图例保留原册英文与符号；蓝底数字为每500米的路标编号，设施开放与供水按现场情况核对。"
+        },
+        "checkpoints": [
+          {
+            "id": "nov18-hosshinmon-oji",
+            "name": "发心门王子",
+            "description": "快速到站后先整理背包、如厕，按计划参拜盖章再步行。发心门被称为通向本宫圣域的外缘入口。",
+            "facilities": [
+              "toilet",
+              "rest",
+              "stamp",
+              "bus"
+            ],
+            "scheduleId": "hosshinmon-hongu-walk",
+            "localName": {
+              "text": "発心門王子",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov18-mizunomi-oji",
+            "name": "水吞／水呑王子",
+            "description": "沿发心门聚落道路到水吞王子，之后进入林径。原册讲述这里的水源石碑与地藏，饮水仍用随身已准备的水。",
+            "facilities": [
+              "toilet",
+              "rest",
+              "stamp"
+            ],
+            "scheduleId": "hosshinmon-hongu-walk",
+            "localName": {
+              "text": "水呑王子",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov18-fushiogami-oji",
+            "name": "伏拝王子",
+            "description": "留意向本宫、大斋原方向的远景；这里适合按脚程休息、盖章。原册标有厕所与遮蔽休息设施，村民茶点的营业可能变化。",
+            "facilities": [
+              "toilet",
+              "rest",
+              "stamp",
+              "view"
+            ],
+            "scheduleId": "hosshinmon-hongu-walk",
+            "localName": {
+              "text": "伏拝王子",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov18-sangenjaya",
+            "name": "三轩茶屋遗迹",
+            "description": "这里是中边路与小边路的历史交会点，可留意旧石路标和关所复原建筑；原册标有厕所与遮蔽休息区。",
+            "facilities": [
+              "toilet",
+              "rest"
+            ],
+            "scheduleId": "hosshinmon-hongu-walk",
+            "localName": {
+              "text": "三軒茶屋跡",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov18-haraido-oji",
+            "name": "祓殿王子",
+            "description": "在进入本宫大社前按既定步行线路经过祓殿王子，留意计划中的第4章；继续依现场路标到社地。",
+            "facilities": [
+              "stamp"
+            ],
+            "scheduleId": "hosshinmon-hongu-walk",
+            "localName": {
+              "text": "祓殿王子",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov18-kumano-hongu-taisha",
+            "name": "熊野本宫大社",
+            "description": "参拜、盖计划中的本宫完成章后，下阶到公路一带；本宫馆、食品采购与候车按现有时间表安排。",
+            "facilities": [
+              "toilet",
+              "stamp",
+              "bus"
+            ],
+            "scheduleId": "hongu-visit",
+            "localName": {
+              "text": "熊野本宮大社",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov18-oyunohara",
+            "name": "大斋原旧社地",
+            "description": "大斋原是本宫旧社地，按既定下午参拜空档看大鸟居并寻找计划中的旧社地章，再返回本宫大社前候车。",
+            "facilities": [
+              "stamp",
+              "view"
+            ],
+            "scheduleId": "oyunohara-visit",
+            "localName": {
+              "text": "大斎原",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov18-kawayu-matsuya",
+            "name": "川湯まつや",
+            "description": "入住后使用本馆浴池、吃自备晚餐，准备19号无需微波的早餐。提前退房与归还钥匙安排已确认，仍核对早班实际候车位置。",
+            "facilities": [
+              "stay",
+              "bus"
+            ],
+            "scheduleId": "kawayu-check-in",
+            "localName": {
+              "text": "山水館 川湯まつや",
+              "language": "ja"
+            }
+          }
+        ],
+        "reminders": [
+          "07:51快速不停近露王子，按既定安排到なかへち美術館前候车。",
+          "林径、聚落道路与古石阶交替，饮水随身带好；现场茶点和食品采购先看营业。",
+          "离开本宫前备齐川汤晚餐与19号无需微波的早餐，保留去川汤巴士的候车余量。"
+        ],
+        "notes": [
+          "原册本宫区域还显示其他古道支线；当天按发心门至本宫、大斋原及川汤的既定路线走。",
+          "图页来自2026年5月印刷版，巴士车次、营业与实际候车方向按当前安排和现场情况核对。"
+        ],
+        "details": [
+          {
+            "title": "沿途小背景",
+            "points": [
+              "伏拝得名于昔日朝圣者初见本宫后伏地祈祷的故事，原册也介绍和泉式部在这里的传说。",
+              "三轩茶屋保留历史路口的名字；旧石路标可帮助理解中边路与通往高野山的小边路关系。",
+              "大斋原是1889年洪水后迁移前的本宫社地，参拜旧社地与在现本宫大社参拜分别安排。"
+            ],
+            "sourceIds": [
+              "chikatsuyu-map",
+              "hongu-taisha-introduction"
+            ]
+          },
+          {
+            "title": "川汤入浴与次日准备",
+            "points": [
+              "入浴前先洗净身体，洗身用水与浴池水分开；按本馆指引使用浴池。",
+              "川湯まつや本次不含餐，只使用本馆浴池；晚餐及19号早餐已按自备安排，11月不依赖仙人风吕。"
+            ],
+            "sourceIds": [
+              "chikatsuyu-map",
+              "kawayu-matsuya-policy",
+              "kawayu-matsuya-facilities"
+            ]
+          }
+        ],
+        "sourceIds": [
+          "chikatsuyu-map",
+          "hosshinmon-hongu",
+          "kawayu-matsuya-policy"
         ]
       }
     },
@@ -4547,7 +4914,7 @@ export default {
           "id": "kawayu-checkout",
           "time": "05:45–06:20",
           "title": "早餐、提前退房并归还钥匙",
-          "description": "吃无需微波的自备早餐并退房；06:30左右离店。必须提前与まつや确认07:00前退房和钥匙处理，目前尚未得到明确答复。"
+          "description": "吃无需微波的自备早餐，按已确认的旅馆安排提前退房、归还钥匙，06:30左右离店。"
         },
         {
           "id": "kawayu-bus-queue",
@@ -4564,7 +4931,7 @@ export default {
             "kumano-bus-payment",
             "kumano-early-discount"
           ],
-          "description": "普通1,440日元／人；按当季感应支付早班优惠为720。两人各用自己的卡或手机，上下车同一支付方式，结算后调整；现金按原价。提前退房仍须旅馆确认。"
+          "description": "普通1,440日元／人；按当季感应支付早班优惠为720。两人各用自己的卡或手机，上下车同一支付方式，结算后调整；现金按原价。旅馆提前退房和归还钥匙安排已确认。"
         },
         {
           "id": "hayatama-visit",
@@ -4670,7 +5037,7 @@ export default {
       "notes": [
         "已采用06:54川汤→速玉大社前→那智站→那智山方案；09:57–10:16坐到那智山终点，不徒步大门坂。",
         "参拜窗口按10:20–12:15，12:15–13:00仍看寺塔与瀑布远景、穿插午餐；保留13:59下山巴士和已订15:21黑潮，那智山与瀑布之间仍有台阶。",
-        "06:30离店前的退房与钥匙处理尚未确认；两人各用自己的卡或手机、上下车保持同一支付方式，早班优惠在结算后调整，现金不享优惠。",
+        "约06:30离店前的提前退房和归还钥匙已确认；仍需核对川汤温泉站的实际站牌与方向。两人各用自己的卡或手机、上下车保持同一支付方式，早班优惠在结算后调整，现金不享优惠。",
         "必须保证大箱在大阪；不能利用纪伊田边17:06–17:08的2分钟停车回酒店取箱或办理登记。",
         "这天背随身包游览，不假设那智站一定有可用寄存柜。",
         "计划参拜速玉、那智并盖第7–10章；日本条件③仍以前一天实际完成发心门至本宫步行、盖齐官方10章为前提，正式Dual资格另需每人自己的Camino证明。"
@@ -4829,7 +5196,7 @@ export default {
               {
                 "placeId": "kawayu-matsuya",
                 "scheduleId": "kawayu-checkout",
-                "note": "按川汤温泉站下车步行约1–2分钟到酒店；地图未标定站杆，19号06:30离店前的退房和钥匙处理仍待确认。"
+                "note": "按川汤温泉站下车步行约1–2分钟到酒店；19号约06:30离店前的提前退房和归还钥匙已确认。地图未标定站杆，仍需核对实际候车位置与方向。"
               },
               {
                 "placeId": "hayatama-bus-stop",
@@ -4897,6 +5264,193 @@ export default {
             ],
             "note": "主线06:54经速玉参拜、那智站换车至那智山；四段JR指定席中本日15:21黑潮已订，直达大阪，不在田边下车或登记。"
           }
+        ]
+      },
+      "confirmedNotes": [
+        "川湯まつや提前退房、归还钥匙的安排已确认，配合19号约06:30离店与06:54巴士。"
+      ],
+      "guide": {
+        "title": "速玉与那智 · 地区方位与参拜",
+        "kind": "area",
+        "publisher": "田边市熊野旅游局",
+        "edition": "2026年5月印刷版",
+        "figures": [
+          {
+            "id": "nov19-nachisan-area",
+            "title": "那智山社寺与瀑布",
+            "image": "/images/trips/japan-2026/guide/nachisan-area.webp",
+            "alt": "那智山官方区域图，标出那智山巴士终点、熊野那智大社、青岸渡寺、三重塔、飞泷神社与瀑布前巴士站。",
+            "printedPages": "19",
+            "caption": "按既定终点下车、社寺参拜、下行瀑布和候车顺序辨认方位；区域图也保留其他古道线路背景。"
+          },
+          {
+            "id": "nov19-shingu-town",
+            "title": "新宫与熊野速玉大社",
+            "image": "/images/trips/japan-2026/guide/shingu-town.webp",
+            "alt": "新宫官方市区图，标出熊野速玉大社、新宫站、相关巴士站、街道与市区设施。",
+            "printedPages": "20",
+            "caption": "用于速玉参拜及去那智方向的市区定位；当天参拜与换车仍按既定早班时间表。"
+          },
+          {
+            "id": "nov19-kawayu-area",
+            "title": "川汤出发方位",
+            "image": "/images/trips/japan-2026/guide/kawayu-area.webp",
+            "alt": "川汤温泉官方区域图，标有沿河公路、巴士站与温泉住宿。",
+            "printedPages": "14",
+            "caption": "配合已确认的提前退房和归还钥匙安排，前往川汤温泉站候车；实际站杆和方向先核对。"
+          }
+        ],
+        "checkpoints": [
+          {
+            "id": "nov19-kawayu-matsuya",
+            "name": "川湯まつや",
+            "description": "吃无需微波的自备早餐，按已确认的旅馆安排提前退房、归还钥匙，约06:30离店后前往正确方向的站牌候车。",
+            "facilities": [
+              "stay",
+              "bus"
+            ],
+            "scheduleId": "kawayu-checkout",
+            "localName": {
+              "text": "山水館 川湯まつや",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov19-kumano-hayatama-taisha",
+            "name": "熊野速玉大社",
+            "description": "在既定早间空档参拜速玉并计划盖第7章；路线自助章与收费御朱印分别办理，继续留好去那智方向的候车余量。",
+            "facilities": [
+              "stamp",
+              "bus"
+            ],
+            "scheduleId": "hayatama-visit",
+            "localName": {
+              "text": "熊野速玉大社",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov19-nachi-station",
+            "name": "JR那智站",
+            "description": "按既定换乘空档查看那智山线站牌，乘车到那智山终点；背随身包游览，不依赖寄存柜。",
+            "facilities": [
+              "bus"
+            ],
+            "scheduleId": "nachi-transfer",
+            "localName": {
+              "text": "那智駅",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov19-kumano-nachi-taisha",
+            "name": "熊野那智大社",
+            "description": "从那智山终点进入社寺区域，在已有参拜窗口游览那智大社、青岸渡寺与三重塔，按计划盖章并看瀑布远景。",
+            "facilities": [
+              "toilet",
+              "stamp",
+              "view"
+            ],
+            "scheduleId": "nachi-taisha-visit",
+            "localName": {
+              "text": "熊野那智大社",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov19-seiganto-pagoda",
+            "name": "青岸渡寺三重塔",
+            "description": "寺塔一带与瀑布远景同在既定游览窗口中，简单午餐穿插安排；若闭店或排队，吃随身食品并保留后续下行时间。",
+            "facilities": [
+              "view"
+            ],
+            "scheduleId": "seigantoji-pagoda-visit",
+            "localName": {
+              "text": "青岸渡寺 三重塔",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov19-hirou-jinja",
+            "name": "飞泷神社",
+            "description": "由山上社寺下行到飞泷神社及观瀑区域，石阶多，雨后慢走。计划盖第10章后返回瀑布前巴士站。",
+            "facilities": [
+              "toilet",
+              "stamp",
+              "view"
+            ],
+            "scheduleId": "hirou-falls-visit",
+            "localName": {
+              "text": "飛瀧神社",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov19-nachi-falls-bus-stop",
+            "name": "那智瀑布前巴士站",
+            "description": "核对那智の滝前站“勝浦駅行”方向，按13:59主计划候车；保留前往纪伊胜浦与已订黑潮列车的换乘余量。",
+            "facilities": [
+              "bus"
+            ],
+            "scheduleId": "falls-bus-queue",
+            "localName": {
+              "text": "那智の滝前",
+              "language": "ja"
+            }
+          },
+          {
+            "id": "nov19-kii-katsuura-station",
+            "name": "JR纪伊胜浦站",
+            "description": "用现有换乘空档准备便当、饮水和列车所需物品，再乘已订Kuroshio 30直达大阪。",
+            "facilities": [
+              "food",
+              "bus"
+            ],
+            "scheduleId": "katsuura-train-preparation",
+            "localName": {
+              "text": "紀伊勝浦駅",
+              "language": "ja"
+            }
+          }
+        ],
+        "reminders": [
+          "06:54早班前吃自备早餐，提前退房和归还钥匙已确认；候车位置与方向仍先核对。",
+          "那智山到瀑布之间仍有石阶，按体力慢走，穿插简餐但保留13:59下山车和15:21黑潮。",
+          "当日乘车到那智山终点，走现有社寺与瀑布参拜线路；大门坂、小云取越和大云取越不在本日路线。"
+        ],
+        "notes": [
+          "这些是地区方位图，图中更广的古道、船游或其他景点供理解环境；当前参拜、巴士与回大阪的时间表保留。",
+          "图册月度日照、巴士接驳与设施标志为版本信息，实际出发与返程按已录计划复核。"
+        ],
+        "details": [
+          {
+            "title": "参拜与章册",
+            "points": [
+              "神社一般按净手、奉纳、二礼二拍一礼参拜；寺院按现场指引，授与品与御朱印分别看办理规则。",
+              "沿用既有第7–10章计划；当天参拜与盖章是否完成分别记录，正式Dual Pilgrim资格仍需每人自己的Camino证明。"
+            ],
+            "sourceIds": [
+              "chikatsuyu-map",
+              "dual-pilgrim",
+              "dual-pilgrim-stamp-list"
+            ]
+          },
+          {
+            "title": "看那智山的层次",
+            "points": [
+              "那智大社与青岸渡寺同在山上，三重塔一带可看瀑布远景；飞泷神社位于瀑布下方的参拜区域。",
+              "原册介绍青岸渡寺、熊野信仰与那智瀑布；这段地区游览按现有巴士上山、步行下行的安排理解。"
+            ],
+            "sourceIds": [
+              "chikatsuyu-map",
+              "nachi-taisha-introduction"
+            ]
+          }
+        ],
+        "sourceIds": [
+          "chikatsuyu-map",
+          "hayatama-taisha-introduction",
+          "nachi-taisha-introduction"
         ]
       }
     },
@@ -5887,7 +6441,7 @@ export default {
         "fare": 720,
         "regularFare": 1440,
         "time": "06:54–07:48",
-        "fareNote": "720为当季早班感应支付优惠；各人用自己的卡或手机，上下车保持同一支付方式，结算后调整。现金按原价1,440。计划06:30离店、川汤温泉站提前候车，提前退房与钥匙处理待确认。",
+        "fareNote": "720为当季早班感应支付优惠；各人用自己的卡或手机，上下车保持同一支付方式，结算后调整。现金按原价1,440。计划06:30离店、川汤温泉站提前候车，旅馆提前退房和归还钥匙安排已确认，实际站牌方向仍需核对。",
         "sourceIds": [
           "kawayu-shingu-bus",
           "kumano-bus-payment",
@@ -6068,7 +6622,7 @@ export default {
       },
       {
         "title": "候车与提前退房",
-        "detail": "熊野巴士不预订座位，到站排队。19号计划06:30离开川湯まつや去川汤温泉站候车；须先取得06:30前退房、归还钥匙的确认，准备无需微波的早餐。",
+        "detail": "熊野巴士不预订座位，到站排队。19号约06:30离开川湯まつや，提前退房和归还钥匙安排已确认；带好无需微波的早餐，先核对川汤温泉站的实际候车位置与方向。",
         "sourceIds": [
           "kawayu-shingu-bus",
           "kumano-bus-payment"
@@ -6139,6 +6693,81 @@ export default {
       "确定订单金额不等于已付：当前明确已付JR Pass52,000日元；其他订单付款状态仍待核对，未知不当作未付或零。",
       "交通仍以10/31前买HARUKA、19号早班符合感应支付半价为条件；优惠未适用或改线时按实际支出调整。",
       "SEN已含早晚餐，不重复计餐费；未订候选按预算预留，最终菜单、是否订到及现场选择会改变金额。"
+    ]
+  },
+  "fieldGuide": {
+    "title": "熊野古道随身指南",
+    "sections": [
+      {
+        "title": "背包与脚下",
+        "points": [
+          "穿已磨合、抓地稳的步行鞋，衣物分层并选易干面料；雨具全年带好，避免湿棉衣久穿。",
+          "轻背包装饮水、午餐、能量补给、地图、小急救包与照明；登山杖按个人习惯携带。",
+          "古石阶、苔藓和树根遇雨易滑，上下坡放慢节奏。"
+        ],
+        "sourceIds": [
+          "chikatsuyu-map"
+        ]
+      },
+      {
+        "title": "脚程与日照余量",
+        "points": [
+          "山路由未铺装林径、古石阶和聚落公路组成，按山路而非城市步行估算；盖章、拍照和休息另留时间。",
+          "原册11月日落图约16:56，是月度参考；山谷更早变暗，实际当天日照与天气另核对，预留天黑前结束山路的余量。",
+          "观察天气预报与现场路况，强风、大雨等极端天气时调整步行，保留既定巴士候车和列车换乘余量。"
+        ],
+        "sourceIds": [
+          "chikatsuyu-map"
+        ]
+      },
+      {
+        "title": "饮水、午餐与现金",
+        "points": [
+          "出发前在住处装好饮水，徒步午餐和能量补给提前备齐；聚落商店和饮料机按现场营业、库存与可用情况补给。",
+          "原册提示天然水源未经过检测，图上饮水或旧水源标记不代表已经核实安全；饮水用准备好的安全来源。",
+          "带足日元现金和小额纸币，山间商店与服务不一定收信用卡；提款和兑换时段提前安排。"
+        ],
+        "sourceIds": [
+          "chikatsuyu-map"
+        ]
+      },
+      {
+        "title": "路标、印章与古道礼仪",
+        "points": [
+          "沿线每500米的编号桩可与原册蓝底数字核对；路标编号、行程停靠顺序与官方章号分别看，按地点名称和方向确认。",
+          "印章点按当日既有清单留意，拍照备份；计划盖章与已经采集、完成步行或取得资格分别记录。",
+          "沿官方线路走、带走垃圾、保护动植物；古道穿过聚落和住宅附近时尊重住户隐私。"
+        ],
+        "sourceIds": [
+          "chikatsuyu-map",
+          "kumano-stamp-howto"
+        ]
+      },
+      {
+        "title": "住处、入浴与参拜",
+        "points": [
+          "榻榻米上脱鞋并保持干燥，室内拖鞋与厕所拖鞋按住处要求区分使用。",
+          "泡汤前先洗身体，洗身用水与浴池水分开；浴池、毛巾和公共空间使用按本次住处规则。",
+          "神社一般二礼二拍一礼，寺院遵循现场指引；参拜、自助路线章、御朱印与授与品分别安排。"
+        ],
+        "sourceIds": [
+          "chikatsuyu-map"
+        ]
+      },
+      {
+        "title": "安全与版本信息",
+        "points": [
+          "远离蛇和蜂巢等野生动物，遇伤病及时求助；紧急救援电话119，原册注明多数地区提供多语言协助。",
+          "沿海遇强震立即前往高处；出行前了解所在地的避难方向。",
+          "图页与建议来自2026年5月印刷版。巴士、店铺营业、行李运送、临时绕行与设施可用情况出发前复核，当前行程按已接受的时间表执行。"
+        ],
+        "sourceIds": [
+          "chikatsuyu-map"
+        ]
+      }
+    ],
+    "sourceIds": [
+      "chikatsuyu-map"
     ]
   }
 } satisfies Trip;

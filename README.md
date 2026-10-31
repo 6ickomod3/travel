@@ -94,6 +94,19 @@ than guess. The [data contract](docs/content-workflow.md#daily-map-data) and
 [design guide](docs/trip-design-principles.md#daily-maps) cover phone activation,
 visible-day loading, native labels, stop lists, external links and print fallback.
 
+Optional daily `guide` records add route-specific official map images, original
+terrain profiles, legends and practical checkpoints alongside geographic maps.
+Keep map assets in the trip's `guide/` image folder with publisher, edition,
+printed-page and supplied-file provenance. Guide figures are references, not
+verified GPS tracks or gallery photos. Phones show one manually selected map
+with full-title choices; larger screens retain a grid and each day's selection
+survives viewport and day changes. Reminders, terrain profiles and checkpoints
+use native disclosures. No-JavaScript reading and printing show every figure;
+printing restores selections, disclosures and the image viewer.
+`fieldGuide` holds shared preparation advice, while `confirmedNotes` records
+explicit practical confirmations separately
+from bookings and payment. See [guidebook maps and practical guidance](docs/content-workflow.md#guidebook-maps-and-practical-guidance).
+
 Pending checklist items follow Daily itinerary, grouped into To do actions and To check confirmations through their optional `kind` field. Each group sorts by optional `timing`: immediate actions, referenced reservation openings or calendar dates, then undated items. Related travel dates are labeled separately from deadlines. Optional `priority: "high"` and `priorityReason` identify important dependencies. Ticket comparisons, reservation-opening times, and practical reminders remain in Preparations.
 
 An explicit `selectedTicketOptionId` records a ticket strategy, not a booking or

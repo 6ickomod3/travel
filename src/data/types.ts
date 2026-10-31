@@ -63,6 +63,56 @@ export interface TripDayMap {
   views: TripDayMapView[];
 }
 
+/** A sourced guidebook figure, separate from geographic route geometry and photos. */
+export interface TripGuideFigure {
+  id: string;
+  title: string;
+  image: string;
+  alt: string;
+  printedPages: string;
+  caption?: string;
+}
+
+export type TripGuideFacility = "water" | "toilet" | "rest" | "food" | "stamp" | "view" | "bus" | "stay";
+
+export interface TripGuideCheckpoint {
+  id: string;
+  name: string;
+  localName?: TripLocalName;
+  description: string;
+  /** Facilities explicitly shown in the source, without inferring opening hours. */
+  facilities?: TripGuideFacility[];
+  /** Existing main-schedule anchor; guide notes do not create new timed stops. */
+  scheduleId?: string;
+}
+
+export interface TripGuideSection {
+  title: string;
+  points: string[];
+  sourceIds?: string[];
+}
+
+export interface TripDayGuide {
+  title: string;
+  kind: "hike" | "area";
+  publisher: string;
+  edition: string;
+  figures: TripGuideFigure[];
+  profile?: TripGuideFigure;
+  legend?: TripGuideFigure;
+  checkpoints: TripGuideCheckpoint[];
+  reminders?: string[];
+  notes?: string[];
+  details?: TripGuideSection[];
+  sourceIds?: string[];
+}
+
+export interface TripFieldGuide {
+  title: string;
+  sections: TripGuideSection[];
+  sourceIds?: string[];
+}
+
 export interface TripGalleryPhoto {
   id: string;
   image: string;
@@ -208,12 +258,16 @@ export interface TripDay {
   destinationId: string;
   /** Optional day-specific map with ordered place references and separate scopes. */
   map?: TripDayMap;
+  /** Relevant official maps, terrain figures and practical checkpoint guidance. */
+  guide?: TripDayGuide;
   title: string;
   description: string;
   ideas: string[];
   overnightId?: string;
   schedule?: TripScheduleItem[];
   notes?: string[];
+  /** Explicitly confirmed practical arrangements, independent of reservations/payment. */
+  confirmedNotes?: string[];
   sourceIds?: string[];
   /** Separate fallback or optional itineraries; never interleave with the main schedule. */
   alternatives?: TripDayAlternative[];
@@ -229,6 +283,7 @@ export interface TripDay {
     distanceKm: number;
     duration: string;
     ascentM?: number;
+    descentM?: number;
     route: string;
   };
   type?: "arrival" | "city" | "excursion" | "transfer" | "hike" | "departure";
@@ -456,6 +511,8 @@ export interface Trip {
   /** Trip-owned option details reused by daily meal references and booking reminders. */
   diningOptions?: TripDiningOption[];
   practicalNotes?: string[];
+  /** Shared destination guidance in Preparations; not an outstanding checklist. */
+  fieldGuide?: TripFieldGuide;
   stampGuide?: TripStampGuide;
   walkingSummary?: { distanceKm: number; days: number };
 }

@@ -1,3 +1,5 @@
+import { revealGuideTarget } from './trip-guides';
+
 type ItineraryMode = 'focus' | 'all';
 
 interface StoredItineraryView {
@@ -193,6 +195,7 @@ function initializeTripItinerary(element: HTMLElement) {
   }
 
   function revealAncestors(target: HTMLElement) {
+    revealGuideTarget(target);
     const sectionDisclosure = sectionDisclosures.get(target.id);
     if (sectionDisclosure) setDetailsOpen(sectionDisclosure, true);
     for (let ancestor: Element | null = target; ancestor; ancestor = ancestor.parentElement) {

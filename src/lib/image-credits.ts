@@ -1,6 +1,14 @@
 interface ImageCreditRecord {
   file: string;
-  kind?: 'photo' | 'illustration';
+  kind?: 'photo' | 'illustration' | 'map';
+  sourceKind?: 'user-supplied-pdf';
+  sourceFile?: string;
+  sourceSha256?: string;
+  providedOn?: string;
+  publisher?: string;
+  edition?: string;
+  printedPages?: string | number[];
+  referencePage?: string;
   source?: string;
   originalUrl?: string;
   author?: string;

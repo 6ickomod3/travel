@@ -8,6 +8,7 @@ import TripDining from './TripDining.astro';
 import TripDayPoem from './TripDayPoem.astro';
 import LocalPlaceName from './LocalPlaceName.astro';
 import TripDayMap from './TripDayMap.astro';
+import TripGuideViewer from './TripGuideViewer.astro';
 import type { Trip } from '../data/types';
 import { durationDays, formatDate, formatDateRange } from '../lib/trips';
 import { scheduleRowId } from '../lib/trip-maps';
@@ -78,12 +79,13 @@ const isThisJapan = trip.slug === 'japan-2026';
             <span class="day-title">{day.title}</span><span class="day-city"><span>{cityName(day.destinationId)}</span><LocalPlaceName primaryName={cityName(day.destinationId)} localName={destination?.localName} /></span><Icon name="chevron-down" size={17} class="day-chevron" />
           </summary>
           <div class:list={['day-content', { 'has-schedule': Boolean(day.schedule?.length) }]}>
-            <TripDayMap day={day} places={trip.places ?? []} locale={locale} />
+            <TripDayMap day={day} places={trip.places ?? []} sources={sources} locale={locale} />
             <p class="day-description">{day.description}</p>
             {isThisJapan && (day.type === 'arrival' || day.type === 'departure') && <p class="travel-day-note"><Icon name="train" size={15} />{day.type === 'arrival' ? text('抵达日：办理入境、入住和整理行李，不安排景点。', 'Arrival day: immigration, check-in, and unpacking; no sightseeing planned.') : text('返程日：退房、机场和回程，不安排景点。', 'Departure day: check-out, airport, and the journey home; no sightseeing planned.')}</p>}
 
             <div class="day-essential-info">
               {overnight && <div class="day-stay"><Icon name="pin" size={15} /><span class="day-stay-label">{text('当晚住宿', 'Overnight stay')}</span><a href={`#stay-${overnight.id}`}>{overnight.name}</a><BookingBadge status={overnight.status} locale={locale} /></div>}
+              {Boolean(day.confirmedNotes?.length) && <aside class="day-confirmed-notes" aria-label={text('已确认安排', 'Confirmed arrangements')}><p class="day-note-label">{text('已确认安排', 'Confirmed arrangements')}</p><ul>{day.confirmedNotes!.map(note => <li><Icon name="check" size={16} /><span>{note}</span></li>)}</ul></aside>}
               {Boolean(day.notes?.length) && <aside class="day-important-notes"><p class="day-note-label">{text('当天提醒', 'Daily reminders')}</p><ul>{day.notes!.map(note => <li>{note}</li>)}</ul></aside>}
             </div>
 
@@ -97,7 +99,7 @@ const isThisJapan = trip.slug === 'japan-2026';
             </ol> : day.ideas.length > 0 && <><span class="day-ideas-title">{text('备选活动', 'Suggested activities')} · {cityName(day.destinationId).toUpperCase()}</span><ul class="day-ideas">{day.ideas.map(idea => <li>{idea}</li>)}</ul></>}
 
             <TripSights sights={sightsFor(day.sightIds)} photos={gallery} sources={sources} id={`day-${day.date}`} locale={locale} />
-            {day.hike && <aside class="hike-card" aria-label={text('当天徒步信息', 'Walking information')}>
+            {day.hike && day.guide?.kind !== 'hike' && <aside class="hike-card" aria-label={text('当天徒步信息', 'Walking information')}>
               <p class="hike-route"><Icon name="compass" size={18} /> {day.hike.route}</p>
               <dl class="hike-facts"><div><dt>{text('徒步距离', 'Distance')}</dt><dd>{text('约', 'About ')}{number(day.hike.distanceKm)} {text('公里', 'km')}</dd></div><div><dt>{text('官方参考', 'Official estimate')}</dt><dd>{day.hike.duration}</dd></div>{day.hike.ascentM !== undefined && <div><dt>{text('累计爬升', 'Total ascent')}</dt><dd>{text('约', 'About ')}{number(day.hike.ascentM)} {text('米', 'm')}</dd></div>}</dl>
               <p class="hike-footnote">{text('途中以实际步速、天气和路线情况调整，留好休息时间。', 'Allow time for breaks and adjust to your pace, weather, and trail conditions.')}</p>
@@ -128,6 +130,7 @@ const isThisJapan = trip.slug === 'japan-2026';
       })}
     </div>
   </> : <p class="daily-empty">{text('每日安排待补充。', 'Daily plans are coming soon.')}</p>}
+  {trip.days.some(day => day.guide) && <TripGuideViewer locale={locale} />}
 </section>
 
 <style>
@@ -176,6 +179,10 @@ const isThisJapan = trip.slug === 'japan-2026';
   .daily-itinerary .travel-day-note { display: flex; align-items: flex-start; gap: 8px; margin-top: 14px; color: var(--ink); font-size: 12px; }
   .daily-itinerary .travel-day-note > svg { margin-top: 4px; }
   .day-essential-info:empty { display: none; }
+  .daily-itinerary .day-confirmed-notes { margin-top: 18px; padding: 14px 16px; border: 1px solid var(--confirmed-line); border-radius: 4px; color: var(--confirmed); background: var(--confirmed-soft); }
+  .day-confirmed-notes ul { display: grid; gap: 7px; margin: 8px 0 0; padding: 0; list-style: none; }
+  .day-confirmed-notes li { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; line-height: 1.95; overflow-wrap: anywhere; }
+  .day-confirmed-notes li > svg { margin-top: 4px; }
   .daily-itinerary .day-stay { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 18px; padding: 13px 15px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); font-size: 13px; line-height: 1.8; }
   .day-stay-label { color: var(--ink-soft); font-size: 11px; }
   .daily-itinerary .day-stay > a { min-width: 0; max-width: 100%; min-height: 28px; font-weight: 500; text-decoration: underline; text-underline-offset: 4px; overflow-wrap: anywhere; }
@@ -294,6 +301,8 @@ const isThisJapan = trip.slug === 'japan-2026';
     .daily-itinerary .day-important-notes { padding: 10px 12px; margin-top: 12px; }
     .daily-itinerary .day-note-label { font-size: 10px; }
     .daily-itinerary .day-stay { padding: 8px 10px; margin-top: 12px; font-size: 10px; }
+    .daily-itinerary .day-confirmed-notes { padding: 8px 10px; margin-top: 12px; background: white; }
+    .day-confirmed-notes li { font-size: 10px; }
     .daily-itinerary .hike-card { padding: 12px; margin-top: 14px; }
     .daily-itinerary .hike-route, .daily-itinerary .hike-facts dd { font-size: 11px; }
     .daily-itinerary .hike-facts dt, .daily-itinerary .hike-footnote { font-size: 10px; }

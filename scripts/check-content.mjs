@@ -117,6 +117,21 @@ for (const file of manifests) {
     publicFile(imagePath, file);
     for (const dimension of ['width', 'height']) if (record[dimension] !== undefined) assert.ok(Number.isInteger(record[dimension]) && record[dimension] > 0, `${imagePath}: invalid ${dimension}`);
     if (record.attributionRequired) assert.ok(record.author && record.source && record.license && record.licenseUrl, `${imagePath}: complete the required image attribution`);
+    if (record.sourceKind === 'user-supplied-pdf') {
+      assert.equal(record.kind, 'map', `${imagePath}: identify extracted guide maps`);
+      assert.match(record.sourceFile, /^[^/\\\r\n]+\.pdf$/i, `${imagePath}: record the supplied PDF filename`);
+      assert.match(record.sourceSha256, /^[a-f0-9]{64}$/, `${imagePath}: record the original PDF hash`);
+      calendarDate(record.providedOn, `${imagePath} supplied date`);
+      for (const field of ['publisher', 'edition', 'changes']) {
+        assert.ok(typeof record[field] === 'string' && record[field].trim(), `${imagePath}: record ${field}`);
+      }
+      assert.ok(typeof record.printedPages === 'string' && record.printedPages.trim()
+        || Array.isArray(record.printedPages) && record.printedPages.length > 0
+          && record.printedPages.every(page => Number.isInteger(page) && page > 0)
+          && new Set(record.printedPages).size === record.printedPages.length,
+      `${imagePath}: record the source printed pages`);
+      assert.equal(record.originalUrl, undefined, `${imagePath}: do not invent a downloaded asset URL for a supplied PDF`);
+    }
     imageCredits.set(imagePath, record);
   }
 }
@@ -196,6 +211,19 @@ for (const folder of folders) {
   const checkSights = (ids, label) => {
     for (const id of ids ?? []) assert.ok(sights.has(id), `${label}: unknown sight ${id}`);
   };
+  const checkGuideSections = (sections, label) => {
+    assert.ok(Array.isArray(sections) && sections.length, `${label}: add guidance sections`);
+    for (const section of sections) {
+      assert.ok(typeof section.title === 'string' && section.title.trim(), `${label}: label each section`);
+      assert.ok(Array.isArray(section.points) && section.points.length && section.points.every(point => typeof point === 'string' && point.trim()), `${label}: add readable guidance`);
+      checkSources(section.sourceIds, label);
+    }
+  };
+  if (trip.fieldGuide !== undefined) {
+    assert.ok(typeof trip.fieldGuide.title === 'string' && trip.fieldGuide.title.trim(), `${folder}: name the field guide`);
+    checkGuideSections(trip.fieldGuide.sections, `${folder} field guide`);
+    checkSources(trip.fieldGuide.sourceIds, `${folder} field guide`);
+  }
   for (const option of trip.diningOptions ?? []) {
     assert.match(option.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `${folder}/${option.id}: use a dining fragment ID`);
     assert.ok(option.name && option.description, `${folder}/${option.id}: name and describe the dining option`);
@@ -218,6 +246,50 @@ for (const folder of folders) {
     checkSights(day.sightIds, `${folder}/${date}`);
     const mainScheduleIds = scheduleIds(day.schedule ?? [], `${folder}/${date} schedule`);
     for (const alternative of day.alternatives ?? []) scheduleIds(alternative.schedule, `${folder}/${date}/${alternative.id} schedule`);
+    if (day.confirmedNotes !== undefined) {
+      assert.ok(Array.isArray(day.confirmedNotes) && day.confirmedNotes.length && day.confirmedNotes.every(note => typeof note === 'string' && note.trim()), `${folder}/${date}: confirmed arrangements must contain text`);
+    }
+    if (day.hike) {
+      for (const field of ['distanceKm', 'ascentM', 'descentM']) if (day.hike[field] !== undefined) {
+        assert.ok(Number.isFinite(day.hike[field]) && day.hike[field] >= 0, `${folder}/${date}: invalid hike ${field}`);
+      }
+    }
+    if (day.guide !== undefined) {
+      const guide = day.guide;
+      const label = `${folder}/${date} day guide`;
+      assert.ok(guide && typeof guide === 'object' && !Array.isArray(guide), `${label}: use a guide object`);
+      assert.ok(['hike', 'area'].includes(guide.kind), `${label}: identify walking or area guidance`);
+      if (guide.kind === 'hike') assert.ok(day.hike, `${label}: walking guidance needs the day's hike facts`);
+      for (const field of ['title', 'publisher', 'edition']) assert.ok(typeof guide[field] === 'string' && guide[field].trim(), `${label}: add ${field}`);
+      assert.ok(Array.isArray(guide.figures) && guide.figures.length, `${label}: add relevant maps`);
+      const figures = [...guide.figures, ...(guide.profile ? [guide.profile] : []), ...(guide.legend ? [guide.legend] : [])];
+      uniqueIds(figures, `${label} figures`);
+      for (const figure of figures) {
+        assert.match(figure.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `${label}: use stable figure IDs`);
+        assert.ok(figure.image.startsWith(`/images/trips/${folder}/guide/`), `${label}: keep guide images in their trip folder`);
+        publicFile(figure.image, `${label}/${figure.id}`);
+        assert.ok(imageCredits.has(figure.image), `${label}/${figure.id}: add image provenance`);
+        for (const field of ['title', 'alt', 'printedPages']) assert.ok(typeof figure[field] === 'string' && figure[field].trim(), `${label}/${figure.id}: add ${field}`);
+        assert.equal(imageCredits.get(figure.image).kind, 'map', `${label}/${figure.id}: keep guide figures separate from gallery photos`);
+      }
+      assert.ok(Array.isArray(guide.checkpoints) && guide.checkpoints.length, `${label}: add readable route guidance`);
+      uniqueIds(guide.checkpoints, `${label} checkpoints`);
+      for (const checkpoint of guide.checkpoints) {
+        assert.match(checkpoint.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `${label}: use stable checkpoint IDs`);
+        assert.ok(checkpoint.name && checkpoint.description, `${label}/${checkpoint.id}: describe the checkpoint`);
+        checkLocalName(checkpoint.localName, `${label}/${checkpoint.id}`);
+        if (checkpoint.scheduleId !== undefined) assert.ok(mainScheduleIds.has(checkpoint.scheduleId), `${label}/${checkpoint.id}: unknown main-schedule entry`);
+        if (checkpoint.facilities !== undefined) {
+          assert.ok(Array.isArray(checkpoint.facilities) && checkpoint.facilities.every(facility => ['water', 'toilet', 'rest', 'food', 'stamp', 'view', 'bus', 'stay'].includes(facility)), `${label}/${checkpoint.id}: invalid facility`);
+          assert.equal(new Set(checkpoint.facilities).size, checkpoint.facilities.length, `${label}/${checkpoint.id}: duplicate facility`);
+        }
+      }
+      for (const field of ['reminders', 'notes']) if (guide[field] !== undefined) {
+        assert.ok(Array.isArray(guide[field]) && guide[field].every(note => typeof note === 'string' && note.trim()), `${label}: invalid ${field}`);
+      }
+      if (guide.details !== undefined) checkGuideSections(guide.details, label);
+      checkSources(guide.sourceIds, label);
+    }
     if (day.map !== undefined) {
       const map = day.map;
       assert.ok(map && Array.isArray(map.views) && map.views.length, `${folder}/${date}: add map views`);

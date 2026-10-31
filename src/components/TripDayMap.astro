@@ -2,23 +2,29 @@
 import Icon from './Icon.astro';
 import LocalPlaceName from './LocalPlaceName.astro';
 import TravelMap from './TravelMap.astro';
-import type { TripDay, TripMapPlace } from '../data/types';
+import TripDayGuide from './TripDayGuide.astro';
+import type { TripDay, TripMapPlace, TripSource } from '../data/types';
 import { resolveDayMap } from '../lib/trip-maps';
 import type { TripDayMapView } from '../data/types';
 
 interface Props {
   day: TripDay;
   places: TripMapPlace[];
+  sources?: TripSource[];
   locale?: 'zh-CN' | 'en';
 }
 
-const { day, places, locale = 'en' } = Astro.props;
+const { day, places, sources = [], locale = 'en' } = Astro.props;
 const isZh = locale === 'zh-CN';
 const text = (zh: string, en: string) => isZh ? zh : en;
 const config = resolveDayMap(day, places);
 const id = `day-${day.date}-map`;
 const defaultView = config?.views.find(view => view.id === config.defaultViewId);
 const initialPlaces = defaultView?.stops.map(stop => stop.place) ?? [];
+const hasGeography = Boolean(config && defaultView);
+const primaryPanel = day.guide?.kind === 'hike' ? 'guide' : 'places';
+const panels = (day.guide ? primaryPanel === 'guide' ? ['guide', 'places'] : ['places', 'guide'] : ['places'])
+  .filter(panel => panel === 'guide' ? Boolean(day.guide) : hasGeography);
 const viewKind = (view: TripDayMapView) => {
   const kind = view.scope === 'alternative' ? text('备选', 'Alternative') : view.scope === 'optional' ? text('可选', 'Optional') : undefined;
   return kind && !view.label.toLocaleLowerCase(locale).includes(kind.toLocaleLowerCase(locale)) ? kind : undefined;
@@ -29,7 +35,14 @@ const kindLabel: Record<TripMapPlace['kind'], string> = {
   'bus-stop': text('巴士站', 'Bus stop'), town: text('区域', 'Area'),
 };
 ---
-{config && defaultView && <section class="day-map" id={id} data-day-map={day.date} data-day-map-config={JSON.stringify(config)} data-day-swipe-ignore lang={locale} aria-labelledby={`${id}-title`}>
+{panels.length > 0 && <section class:list={['day-map-group', { 'day-map-group-guide': Boolean(day.guide) }]} data-guide-switch={day.guide ? day.date : undefined} data-guide-default={primaryPanel} data-day-swipe-ignore>
+  {day.guide && hasGeography && <div class="guide-map-tabs" data-guide-tabs role="tablist" aria-label={text('当天地图选择', 'Day map choice')} hidden>
+    {panels.map(panel => <button type="button" role="tab" id={`${id}-tab-${panel}`} data-guide-tab={panel} aria-controls={`${id}-panel-${panel}`} aria-selected={panel === primaryPanel} tabindex={panel === primaryPanel ? 0 : -1} disabled>
+      <Icon name={panel === 'guide' ? 'compass' : 'pin'} size={15} />{panel === 'guide' ? text(day.guide?.kind === 'hike' ? '官方徒步地图' : '官方区域地图', day.guide?.kind === 'hike' ? 'Official trail maps' : 'Official area maps') : text('地点与接驳', 'Stops and transfers')}
+    </button>)}
+  </div>}
+  {panels.map(panel => <div id={`${id}-panel-${panel}`} data-guide-panel={day.guide ? panel : undefined} role={day.guide && hasGeography ? 'tabpanel' : undefined} aria-labelledby={day.guide && hasGeography ? `${id}-tab-${panel}` : undefined}>
+  {panel === 'guide' ? <TripDayGuide day={day} sources={sources} locale={locale} /> : config && defaultView && <section class="day-map" id={id} data-day-map={day.date} data-day-map-config={JSON.stringify(config)} data-day-swipe-ignore lang={locale} aria-labelledby={`${id}-title`}>
   <div class="day-map-heading">
     <h3 id={`${id}-title`}><Icon name="map" size={17} />{text('当天地图', 'Day map')}</h3>
     <button class="day-map-interaction" type="button" data-map-interact aria-pressed="false" aria-controls={`${id}-canvas`} hidden disabled>{text('操作地图', 'Explore map')}</button>
@@ -70,12 +83,21 @@ const kindLabel: Record<TripMapPlace['kind'], string> = {
     .day-map-view-panel > h4 { position: static; width: auto; height: auto; clip: auto; overflow: visible; margin-top: 16px; }
   </style></noscript>
 </section>}
+  </div>)}
+</section>}
 
 <script>
   import '../scripts/daily-maps';
 </script>
 
 <style>
+  .day-map-group { min-width: 0; }
+  .day-map-group-guide { margin-bottom: 22px; padding: 20px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); }
+  .day-map-group-guide .day-map { margin: 0; padding: 0; border: 0; background: none; }
+  .guide-map-tabs { display: flex; gap: 7px; margin-bottom: 21px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+  .guide-map-tabs button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 0; min-height: 44px; padding: 8px 13px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink-soft); background: #fbfaf5; font-size: 12px; line-height: 1.7; }
+  .guide-map-tabs button[aria-selected='true'] { border-color: var(--ink); color: var(--paper); background: var(--ink); }
+  .guide-map-tabs button:disabled { opacity: 1; }
   .day-map { min-width: 0; margin: 0 0 22px; padding: 15px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); }
   .day-map-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
   .day-map-heading h3 { display: inline-flex; align-items: center; gap: 8px; font-family: var(--sans); font-size: 13px; font-weight: 600; line-height: 1.7; }
@@ -106,6 +128,9 @@ const kindLabel: Record<TripMapPlace['kind'], string> = {
   .day-map-line-note, .day-map-status { margin-top: 9px; color: var(--ink-soft); font-size: 10px; line-height: 1.85; }
   .day-map-status { min-height: 1.85em; }
   @media (max-width: 600px) {
+    .day-map-group-guide { padding: 10px; margin-bottom: 19px; }
+    .guide-map-tabs { gap: 6px; margin-bottom: 13px; padding-bottom: 10px; }
+    .guide-map-tabs button { flex: 1; gap: 5px; padding: 8px 7px; font-size: 11px; }
     .day-map { padding: 11px; margin-bottom: 19px; }
     .day-map-heading { margin-bottom: 9px; }
     .day-map-interaction, .day-map-views > button { min-height: 44px; }
@@ -117,6 +142,10 @@ const kindLabel: Record<TripMapPlace['kind'], string> = {
     .day-map-line-note, .day-map-status { font-size: 11px; }
   }
   @media print {
+    .day-map-group-guide { padding: 10px; margin-bottom: 14px; background: white; }
+    .guide-map-tabs { display: none !important; }
+    .day-map-group [data-guide-panel], .day-map-group [data-guide-panel][hidden] { display: block !important; }
+    .day-map-group [data-guide-panel] + [data-guide-panel] { margin-top: 16px; }
     .day-map { padding: 10px; margin-bottom: 14px; background: white; break-inside: auto; }
     .day-map-heading { margin-bottom: 6px; }
     .day-map :global(.travel-map), .day-map-views, .day-map-interaction, .day-map-status { display: none !important; }

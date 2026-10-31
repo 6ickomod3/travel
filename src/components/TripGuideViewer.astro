@@ -1,0 +1,53 @@
+---
+import Icon from './Icon.astro';
+
+interface Props { locale?: 'zh-CN' | 'en'; }
+const { locale = 'en' } = Astro.props;
+const isZh = locale === 'zh-CN';
+const text = (zh: string, en: string) => isZh ? zh : en;
+---
+
+<dialog class="guide-viewer" data-guide-viewer data-day-swipe-ignore aria-labelledby="guide-viewer-title" aria-describedby="guide-viewer-hint" lang={locale}>
+  <div class="guide-viewer-header"><div><h2 id="guide-viewer-title" data-guide-viewer-title>{text('官方地图', 'Official map')}</h2><p data-guide-viewer-caption></p></div><button type="button" data-guide-close aria-label={text('关闭地图', 'Close map')} autofocus><Icon name="close" size={20} /></button></div>
+  <div class="guide-viewer-toolbar" role="group" aria-label={text('地图缩放', 'Map zoom')}>
+    <button type="button" data-guide-zoom-out aria-label={text('缩小', 'Zoom out')}><Icon name="minus" size={17} /></button>
+    <output data-guide-zoom aria-live="polite">100%</output>
+    <button type="button" data-guide-zoom-in aria-label={text('放大', 'Zoom in')}><Icon name="plus" size={17} /></button>
+    <button type="button" class="guide-viewer-reset" data-guide-reset>{text('重置', 'Reset')}</button>
+    <a data-guide-original target="_blank" rel="noopener noreferrer">{text('查看原图', 'Open image')}<Icon name="external" size={13} /></a>
+  </div>
+  <div class="guide-viewer-stage" data-guide-stage tabindex="0" role="region" aria-label={text('可缩放地图，使用方向键移动', 'Zoomable map; use arrow keys to pan')}>
+    <img data-guide-viewer-image alt="" draggable="false" />
+    <p class="guide-viewer-loading" data-guide-loading role="status">{text('正在载入原图…', 'Loading image…')}</p>
+  </div>
+  <p class="guide-viewer-hint" id="guide-viewer-hint">{text('双指缩放 · 拖动查看 · + / − 缩放 · 方向键移动 · Esc 关闭', 'Pinch to zoom · Drag to pan · + / − to zoom · Arrow keys to pan · Esc to close')}</p>
+</dialog>
+
+<script>
+  import '../scripts/trip-guides';
+</script>
+
+<style>
+  .guide-viewer { position: fixed; inset: 0; width: min(1320px, calc(100vw - 48px)); max-width: none; height: calc(100dvh - 48px); max-height: none; margin: auto; padding: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); color: var(--ink); box-shadow: 0 15px 70px #14261d4d; }
+  .guide-viewer[open] { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; }
+  .guide-viewer::backdrop { background: #172b22c4; }
+  .guide-viewer-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; padding: 16px 18px 10px; }
+  .guide-viewer-header > div { min-width: 0; }
+  .guide-viewer-header h2 { margin: 0; font-family: var(--sans); font-size: 16px; font-weight: 600; line-height: 1.7; overflow-wrap: anywhere; }
+  .guide-viewer-header p { margin-top: 4px; color: var(--ink-soft); font-size: 10px; line-height: 1.8; overflow-wrap: anywhere; }
+  .guide-viewer button { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; min-width: 44px; min-height: 44px; padding: 9px; border: 1px solid var(--line); border-radius: 4px; background: #fbfaf5; }
+  .guide-viewer button:hover { background: var(--paper-deep); }
+  .guide-viewer-header button { border: 0; }
+  .guide-viewer-toolbar { display: flex; align-items: center; gap: 6px; padding: 0 18px 12px; }
+  .guide-viewer-toolbar output { min-width: 53px; text-align: center; color: var(--ink-soft); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .guide-viewer-toolbar .guide-viewer-reset { margin-left: 4px; padding-inline: 13px; font-size: 11px; }
+  .guide-viewer-toolbar > a { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; margin-left: auto; font-size: 11px; text-decoration: underline; text-underline-offset: 3px; }
+  .guide-viewer-stage { position: relative; min-width: 0; min-height: 0; overflow: hidden; background: #e7e9e1; touch-action: none; cursor: grab; overscroll-behavior: contain; }
+  .guide-viewer-stage[data-dragging='true'] { cursor: grabbing; }
+  .guide-viewer-stage > img { position: absolute; inset: 0 auto auto 0; width: auto; height: auto; max-width: none; transform-origin: 0 0; user-select: none; -webkit-user-select: none; }
+  .guide-viewer-stage:focus-visible { outline-offset: -4px; }
+  .guide-viewer-loading { position: absolute; inset: 50% 12px auto; transform: translateY(-50%); color: var(--ink-soft); font-size: 13px; text-align: center; }
+  .guide-viewer-hint { padding: 10px 18px 12px; color: var(--ink-soft); font-size: 10px; line-height: 1.8; }
+  @media (max-width: 600px) { .guide-viewer { width: 100vw; height: 100dvh; border: 0; border-radius: 0; } .guide-viewer-header { padding: max(10px, env(safe-area-inset-top)) 12px 8px; gap: 8px; } .guide-viewer-header h2 { font-size: 14px; } .guide-viewer-header p { font-size: 9px; } .guide-viewer-toolbar { gap: 4px; padding: 0 10px 10px; } .guide-viewer-toolbar output { min-width: 44px; } .guide-viewer-toolbar .guide-viewer-reset { margin-left: 0; padding-inline: 10px; } .guide-viewer-toolbar > a { font-size: 10px; } .guide-viewer-hint { padding: 9px 12px max(12px, env(safe-area-inset-bottom)); font-size: 10px; } }
+  @media print { .guide-viewer, .guide-viewer[open] { display: none !important; } }
+</style>

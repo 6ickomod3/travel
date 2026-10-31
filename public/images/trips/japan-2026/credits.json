@@ -219,6 +219,218 @@
       "height": 612,
       "objectPosition": "50% 55%",
       "attributionRequired": true
+    },
+    {
+      "file": "guide/takijiri-takahara.webp",
+      "kind": "map",
+      "source": "User-supplied PDF \"Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf\"; Tanabe City Kumano Tourism Bureau, May2026, printed page(s) 7.",
+      "sourceKind": "user-supplied-pdf",
+      "sourceFile": "Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf",
+      "sourceSha256": "07f92f6881192983ce6b924185e4ba5b3db48349e5b7680ef72a939e54641cfc",
+      "providedOn": "2026-10-31",
+      "publisher": "Tanabe City Kumano Tourism Bureau",
+      "edition": "May2026",
+      "printedPages": [
+        7
+      ],
+      "referencePage": "https://www2.tb-kumano.jp/pdf/nakahechi-map.pdf",
+      "credit": "田边市熊野旅游局 · 2026年5月版 · 第7页",
+      "changes": "按432dpi渲染，裁切第7页图幅并缩放至2800像素宽，转换为WebP；保留原标签、方向、比例尺和各局部图。",
+      "alt": "滝尻王子至高原路线图，含起点、高原村、路标、设施、指北与比例尺。",
+      "caption": "滝尻王子→高原官方路线图 · 2026年5月版，第7页",
+      "width": 2800,
+      "height": 2830
+    },
+    {
+      "file": "guide/takahara-chikatsuyu.webp",
+      "kind": "map",
+      "source": "User-supplied PDF \"Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf\"; Tanabe City Kumano Tourism Bureau, May2026, printed page(s) 8–9.",
+      "sourceKind": "user-supplied-pdf",
+      "sourceFile": "Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf",
+      "sourceSha256": "07f92f6881192983ce6b924185e4ba5b3db48349e5b7680ef72a939e54641cfc",
+      "providedOn": "2026-10-31",
+      "publisher": "Tanabe City Kumano Tourism Bureau",
+      "edition": "May2026",
+      "printedPages": [
+        8,
+        9
+      ],
+      "referencePage": "https://www2.tb-kumano.jp/pdf/nakahechi-map.pdf",
+      "credit": "田边市熊野旅游局 · 2026年5月版 · 第8–9页",
+      "changes": "按432dpi渲染，裁切第8–9页下方路线图至近露村附近，缩放至3800像素宽并转换为WebP；不保留通往比曾原王子及继樱王子的后续图幅。",
+      "alt": "高原附近至近露王子的官方路线图，含大门王子、十丈王子、大坂本王子、牛马童子、近露设施、图例和比例尺。",
+      "caption": "高原→近露官方路线图（近露附近裁切） · 2026年5月版，第8–9页",
+      "width": 3800,
+      "height": 1513
+    },
+    {
+      "file": "guide/takijiri-chikatsuyu-profile.webp",
+      "kind": "map",
+      "source": "User-supplied PDF \"Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf\"; Tanabe City Kumano Tourism Bureau, May2026, printed page(s) 3.",
+      "sourceKind": "user-supplied-pdf",
+      "sourceFile": "Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf",
+      "sourceSha256": "07f92f6881192983ce6b924185e4ba5b3db48349e5b7680ef72a939e54641cfc",
+      "providedOn": "2026-10-31",
+      "publisher": "Tanabe City Kumano Tourism Bureau",
+      "edition": "May2026",
+      "printedPages": [
+        3
+      ],
+      "referencePage": "https://www2.tb-kumano.jp/pdf/nakahechi-map.pdf",
+      "credit": "田边市熊野旅游局 · 2026年5月版 · 第3页",
+      "changes": "从第3页主线图裁切0至13.3公里段；遮白13.3公里以后的曲线和裁切标题残片，保留原纵轴、累计公里数、终点标签与设施图标，并加白边后转换为WebP；无重绘、插值或距离归零。",
+      "alt": "原主线海拔图的滝尻王子0公里至近露王子13.3公里段，纵轴保留1000至200米刻度，横轴保留从滝尻起的原始累计公里数。",
+      "caption": "滝尻王子→近露原图海拔剖面 · 2026年5月版，第3页",
+      "width": 1398,
+      "height": 1090
+    },
+    {
+      "file": "guide/hosshinmon-hongu.webp",
+      "kind": "map",
+      "source": "User-supplied PDF \"Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf\"; Tanabe City Kumano Tourism Bureau, May2026, printed page(s) 12–13.",
+      "sourceKind": "user-supplied-pdf",
+      "sourceFile": "Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf",
+      "sourceSha256": "07f92f6881192983ce6b924185e4ba5b3db48349e5b7680ef72a939e54641cfc",
+      "providedOn": "2026-10-31",
+      "publisher": "Tanabe City Kumano Tourism Bureau",
+      "edition": "May2026",
+      "printedPages": [
+        12,
+        13
+      ],
+      "referencePage": "https://www2.tb-kumano.jp/pdf/nakahechi-map.pdf",
+      "credit": "田边市熊野旅游局 · 2026年5月版 · 第12–13页",
+      "changes": "按432dpi渲染，裁切第12–13页主线路线图，遮除图幅外的非地图文字，保留原位置的原图图例，缩放至3200像素宽并转换为WebP；不重绘路线。",
+      "alt": "发心门王子至熊野本宫大社和大斋原的官方路线图，含水吞王子、伏拜王子、祓殿王子、指北、比例尺、图例及原图周边路径。",
+      "caption": "发心门王子→本宫大社与大斋原官方路线图 · 2026年5月版，第12–13页",
+      "width": 3200,
+      "height": 1545
+    },
+    {
+      "file": "guide/hosshinmon-hongu-profile.webp",
+      "kind": "map",
+      "source": "User-supplied PDF \"Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf\"; Tanabe City Kumano Tourism Bureau, May2026, printed page(s) 12.",
+      "sourceKind": "user-supplied-pdf",
+      "sourceFile": "Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf",
+      "sourceSha256": "07f92f6881192983ce6b924185e4ba5b3db48349e5b7680ef72a939e54641cfc",
+      "providedOn": "2026-10-31",
+      "publisher": "Tanabe City Kumano Tourism Bureau",
+      "edition": "May2026",
+      "printedPages": [
+        12
+      ],
+      "referencePage": "https://www2.tb-kumano.jp/pdf/nakahechi-map.pdf",
+      "credit": "田边市熊野旅游局 · 2026年5月版 · 第12页",
+      "changes": "从第12页主线图裁切黄色30.3至37.8公里段；将同页原始海拔刻度及公里单位复制到左侧并保持垂直对齐，遮除相邻非选定段残片，加白边后转换为WebP；无曲线重绘、插值或距离归零。",
+      "alt": "原主线海拔图的发心门王子至本宫大社和大斋原黄色段，纵轴为米；横轴保留自滝尻王子累计30.3、32、34、35、37.1及37.8公里。",
+      "caption": "发心门王子→本宫大社与大斋原原图海拔剖面 · 2026年5月版，第12页",
+      "width": 953,
+      "height": 1081
+    },
+    {
+      "file": "guide/chikatsuyu-village.webp",
+      "kind": "map",
+      "source": "User-supplied PDF \"Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf\"; Tanabe City Kumano Tourism Bureau, May2026, printed page(s) 9.",
+      "sourceKind": "user-supplied-pdf",
+      "sourceFile": "Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf",
+      "sourceSha256": "07f92f6881192983ce6b924185e4ba5b3db48349e5b7680ef72a939e54641cfc",
+      "providedOn": "2026-10-31",
+      "publisher": "Tanabe City Kumano Tourism Bureau",
+      "edition": "May2026",
+      "printedPages": [
+        9
+      ],
+      "referencePage": "https://www2.tb-kumano.jp/pdf/nakahechi-map.pdf",
+      "credit": "田边市熊野旅游局 · 2026年5月版 · 第9页",
+      "changes": "按432dpi渲染，裁切第9页近露村局部图并转换为WebP；保留原图标题、标签及比例尺，未改变地图方向。",
+      "alt": "近露村官方局部图，标有近露王子、美术馆前巴士站、SEN RETREAT CHIKATSUYU及比例尺。",
+      "caption": "近露村与SEN周边官方局部图 · 2026年5月版，第9页",
+      "width": 1500,
+      "height": 1330
+    },
+    {
+      "file": "guide/kawayu-area.webp",
+      "kind": "map",
+      "source": "User-supplied PDF \"Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf\"; Tanabe City Kumano Tourism Bureau, May2026, printed page(s) 14.",
+      "sourceKind": "user-supplied-pdf",
+      "sourceFile": "Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf",
+      "sourceSha256": "07f92f6881192983ce6b924185e4ba5b3db48349e5b7680ef72a939e54641cfc",
+      "providedOn": "2026-10-31",
+      "publisher": "Tanabe City Kumano Tourism Bureau",
+      "edition": "May2026",
+      "printedPages": [
+        14
+      ],
+      "referencePage": "https://www2.tb-kumano.jp/pdf/nakahechi-map.pdf",
+      "credit": "田边市熊野旅游局 · 2026年5月版 · 第14页",
+      "changes": "按432dpi渲染，裁切第14页下方川汤温泉地区，缩放至2800像素宽并转换为WebP；保留原图标签、比例尺和方向，图内周边地点仅为地理背景。",
+      "alt": "川汤温泉及周边官方局部图，标有川汤温泉、かめや前与ふじや前巴士站、川汤まつや、河道、露天浴场及附近道路。",
+      "caption": "川汤温泉巴士站与旅馆周边官方局部图 · 2026年5月版，第14页",
+      "width": 2800,
+      "height": 945
+    },
+    {
+      "file": "guide/nachisan-area.webp",
+      "kind": "map",
+      "source": "User-supplied PDF \"Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf\"; Tanabe City Kumano Tourism Bureau, May2026, printed page(s) 19.",
+      "sourceKind": "user-supplied-pdf",
+      "sourceFile": "Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf",
+      "sourceSha256": "07f92f6881192983ce6b924185e4ba5b3db48349e5b7680ef72a939e54641cfc",
+      "providedOn": "2026-10-31",
+      "publisher": "Tanabe City Kumano Tourism Bureau",
+      "edition": "May2026",
+      "printedPages": [
+        19
+      ],
+      "referencePage": "https://www2.tb-kumano.jp/pdf/nakahechi-map.pdf",
+      "credit": "田边市熊野旅游局 · 2026年5月版 · 第19页",
+      "changes": "按432dpi渲染，裁切第19页那智山局部图并转换为WebP；保留原图标签、方向和比例尺；大门坂仍是原图背景，不据此增加徒步安排。",
+      "alt": "那智山官方局部图，标有那智瀑布、飞泷神社、三重塔、青岸渡寺、熊野那智大社、巴士站和原图大门坂背景。",
+      "caption": "那智山社寺与巴士站官方局部图 · 2026年5月版，第19页",
+      "width": 1714,
+      "height": 1398
+    },
+    {
+      "file": "guide/shingu-town.webp",
+      "kind": "map",
+      "source": "User-supplied PDF \"Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf\"; Tanabe City Kumano Tourism Bureau, May2026, printed page(s) 20.",
+      "sourceKind": "user-supplied-pdf",
+      "sourceFile": "Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf",
+      "sourceSha256": "07f92f6881192983ce6b924185e4ba5b3db48349e5b7680ef72a939e54641cfc",
+      "providedOn": "2026-10-31",
+      "publisher": "Tanabe City Kumano Tourism Bureau",
+      "edition": "May2026",
+      "printedPages": [
+        20
+      ],
+      "referencePage": "https://www2.tb-kumano.jp/pdf/nakahechi-map.pdf",
+      "credit": "田边市熊野旅游局 · 2026年5月版 · 第20页",
+      "changes": "按432dpi渲染，裁切第20页新宫市区图；将同页原图图例移至图下方并加白色间隔，转换为WebP；保留原图标签、方向及比例尺，不重绘路线。",
+      "alt": "新宫市区官方地图，标有新宫站、熊野速玉大社、神仓神社、巴士站、商店、指北和比例尺；下方附同页原图图例。",
+      "caption": "新宫站与熊野速玉大社官方市区图 · 2026年5月版，第20页",
+      "width": 2313,
+      "height": 2904
+    },
+    {
+      "file": "guide/legend.webp",
+      "kind": "map",
+      "source": "User-supplied PDF \"Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf\"; Tanabe City Kumano Tourism Bureau, May2026, printed page(s) 6.",
+      "sourceKind": "user-supplied-pdf",
+      "sourceFile": "Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf",
+      "sourceSha256": "07f92f6881192983ce6b924185e4ba5b3db48349e5b7680ef72a939e54641cfc",
+      "providedOn": "2026-10-31",
+      "publisher": "Tanabe City Kumano Tourism Bureau",
+      "edition": "May2026",
+      "printedPages": [
+        6
+      ],
+      "referencePage": "https://www2.tb-kumano.jp/pdf/nakahechi-map.pdf",
+      "credit": "田边市熊野旅游局 · 2026年5月版 · 第6页",
+      "changes": "按432dpi渲染，裁切第6页完整图例并转换为WebP；保留全部原符号、文字及边框。",
+      "alt": "官方中边路地图原图图例，含王子神社、厕所、商店、饮水、遮蔽休息处、电话、巴士站、印章、500米路标及铺装与未铺装路径符号。",
+      "caption": "官方地图原图图例 · 2026年5月版，第6页",
+      "width": 1370,
+      "height": 629
     }
   ]
 }

@@ -285,7 +285,7 @@ if (controllers.size) {
   for (const root of controllers.keys()) observer.observe(root);
   const refresh = () => controllers.forEach(controller => controller.refresh());
   const mutations = new MutationObserver(refresh);
-  document.querySelectorAll<HTMLElement>('[data-trip-itinerary], .itinerary-day').forEach(element => mutations.observe(element, { attributes: true, attributeFilter: ['open', 'hidden', 'data-itinerary-printing'] }));
+  document.querySelectorAll<HTMLElement>('[data-trip-itinerary], .itinerary-day, [data-guide-panel]').forEach(element => mutations.observe(element, { attributes: true, attributeFilter: ['open', 'hidden', 'data-itinerary-printing'] }));
   document.addEventListener('visibilitychange', refresh);
   window.addEventListener('pageshow', refresh);
   window.addEventListener('beforeprint', () => { printing = true; refresh(); });

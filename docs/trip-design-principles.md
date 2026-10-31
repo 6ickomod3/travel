@@ -86,6 +86,33 @@ Keep landmark-only positions out of travel-order lines, and state the actual
 viewing area. Identify shared-building or area coordinates in the visible stop
 list when an exact entrance has not been verified.
 
+When a relevant guidebook is supplied, a walking day can lead with its official
+route map after a compact heading. Group multi-part walks into labeled segments
+and offer the existing geographic stop/transfer view alongside it. Area maps
+remain supporting references on transport or sightseeing days. On phones,
+show one map at a time with manually selected, full-title choices; retain the
+map grid on larger screens and remember each day's choice across day and
+viewport changes. Keep distance and recorded ascent/descent compact below the
+map, with the full walking estimate on its own row. Source estimates stay
+distinct from the agreed timetable.
+
+Use native disclosures for route reminders, original terrain profiles and
+linked checkpoints, with useful summaries and list counts. Preserve printed
+scales, native labels and cumulative-distance axes. Keep concise facilities
+and route guidance with the checkpoints, and shared preparation advice in
+Preparations. Explicitly confirmed practical arrangements may use green check
+notes without implying a seat reservation, payment or completed walk.
+
+Provide an enlarged image viewer with accessible controls, pinch zoom, pan and
+focus restoration, plus ordinary full-image links. Keep image credits visible
+and research references closed. Fragment links reveal the selected guide panel
+before opening ancestor disclosures and scrolling to their target. Without
+JavaScript, show all source figures and preserve native text disclosures.
+Printing includes every figure and restores map selection, disclosures and
+viewer state. Load these source figures eagerly with low fetch priority so the
+first print snapshot contains every map and terrain image. Preserve supplied
+PDF provenance and extraction changes with the images.
+
 On phones, ordinary page scrolling is the default. An explicit `操作地图`
 control, localized for other trips, activates map interaction. Exclude the entire
 map wrapper from day-swipe gestures, including before activation. Initialize a

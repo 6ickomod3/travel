@@ -26,7 +26,8 @@
   official English page, stored unchanged in the shared brand asset library.
 - Chikatsuyu's November 17–18 lodging is SEN RETREAT CHIKATSUYU, with dinner
   and breakfast included for two adults in the terrace four-person room.
-  Meal format, allergy handling and early breakfast pickup remain unresolved.
+  Breakfast early pickup or packing for November 18 is user-confirmed.
+  Meal format, actual menu and allergy handling remain unresolved.
 - Comfort Hotel Kii Tanabe is a non-smoking Queen room with breakfast;
   breakfast begins at 06:30, so prepare food before the next day's 06:38 bus.
   A switch to twin beds has not been confirmed.
@@ -39,8 +40,9 @@
   and Kii-Katsuura, returning directly to Osaka on Kuroshio 30 at 19:16.
   The accepted route does not include Daimonzaka walking or the Tanabe
   registration return. Prepare breakfast and checkout during 05:45–06:20,
-  leave around 06:30, and confirm the early key-return and actual bus-stop
-  arrangements. Hayatama is 07:50–08:40; the Nachisan bus is 09:57–10:16,
+  then leave around 06:30. Early checkout and key return are user-confirmed;
+  the actual bus-stop position and direction remain to be checked.
+  Hayatama is 07:50–08:40; the Nachisan bus is 09:57–10:16,
   with one shared shrine/temple/tower window at 10:20–12:15.
 - The JR West All Area seven-day pass for November 13–19 is purchased and
   explicitly paid: JPY 26,000 per person and JPY 52,000 for two. Collect it
@@ -91,6 +93,15 @@
   cannot establish a remaining unpaid balance by subtraction.
 - Stamp stops are plans, not recorded collections or confirmed individual
   pilgrim qualifications. Keep the accepted two-day hiking total of 20.8 km.
+- November 17–19 have route-specific or area guide figures and practical
+  checkpoints from the supplied May 2026 Nakahechi booklet. November 17
+  retains Takijiri–Takahara–Chikatsuyu; November 18 retains the rapid bus to
+  Hosshinmon, the Hongu walk and Kawayu stay; November 19 retains the early
+  Hayatama–Nachi route and direct Osaka return. Approximate supplied descents
+  are 840 m and 460 m for the two hiking days. Figure lines are guidebook
+  references, not newly verified geographic tracks. After reviewing the local
+  preview, the user requested phone refinement and explicitly authorized
+  publishing the reviewed update after verification.
 - Formal Dual Pilgrim registration requires each traveler's qualifying Camino
   proof and completed Kumano conditions. Preserve the eligibility and
   collection guidance; formal registration travel is outside the currently
@@ -1111,16 +1122,160 @@ and licenses.
   61 Astro files and four pages. All 60 generated site files are identical
   to the browser-tested private preview, including its final copy refinement.
 
+### 2026-10-31 — Kumano guide and early-arrangement confirmations
+
+- Archived: October 31, 2026, using the user's America/Los_Angeles date.
+- Origin: four public Chinese chat messages: the initial PDF inspection
+  request, the map-integration discussion, the practical-content scope
+  correction, and the latest confirmation/local-preview approval.
+- Files:
+  [inputs/2026-10-31-01-kumano-pdf-review.md](inputs/2026-10-31-01-kumano-pdf-review.md),
+  [inputs/2026-10-31-02-kumano-map-discussion.md](inputs/2026-10-31-02-kumano-map-discussion.md),
+  [inputs/2026-10-31-03-kumano-practical-content.md](inputs/2026-10-31-03-kumano-practical-content.md),
+  and [inputs/2026-10-31-04-confirmations-local-preview.md](inputs/2026-10-31-04-confirmations-local-preview.md).
+  Their Chinese message bodies are verbatim, including the supplied typo;
+  the English headers and context are authored archive metadata.
+- Explicit confirmations: SEN breakfast early pickup or packing for
+  November 18, and Kawayu lodging early checkout and key return for
+  November 19. The assistant's preceding context identified those two
+  arrangements, so the user's "both" refers to them. The accepted departures
+  remain SEN at 07:10–07:15 and Kawayu around 06:30 for the 06:54 bus.
+  The user supplied no exact pickup method or key-return procedure. Meal
+  format, actual menu, allergy handling, bath access and payment records
+  retain their independent recorded scope.
+- Approved guide scope: route-specific illustrated maps, original terrain
+  profiles and practical checkpoints for November 17–18; area maps for
+  November 19's existing Kawayu–Hayatama–Nachi geography; and reusable
+  preparation guidance from the supplied guide. The examples in the guide
+  do not revise the accepted itinerary.
+- Booklet source: the user-supplied `Kumano-Kodo-Nakahechi-Route-Maps-Complete.pdf`,
+  identified visually as the Tanabe City Kumano Tourism Bureau Nakahechi
+  guide, printed May 2026. It has 16 PDF double spreads, covering the cover
+  and printed booklet pages 1–31. The unchanged private copy is retained at
+  `.local/trips/japan-2026/inputs/2026-10-31-01-nakahechi-route-maps.original.pdf`;
+  SHA-256 `07f92f6881192983ce6b924185e4ba5b3db48349e5b7680ef72a939e54641cfc`.
+  The full PDF is not a tracked public input or website download.
+- Source distinction: the existing `chikatsuyu-map` official reference
+  retains its stable ID and URL. The local May 2026 source establishes the
+  prepared figure content; linking the official download does not claim
+  that its current remote bytes, operator schedules or services were newly
+  verified online.
+- Applied: updated all current public accommodation, daily, dining, map-note,
+  transport and preparation text that treated these two arrangements as
+  pending. Added separate daily confirmed notes for November 18 and 19.
+  Removed only the resolved `kawayu-early-checkout` checklist item; the
+  `ryokan-meals` item now covers the remaining SEN format, menu and allergy
+  questions. Actual bus-pole and direction checks remain. There are now
+  seven outstanding actions and eight confirmation checks.
+- Guide content: added three daily guides with seven, eight and eight
+  checkpoint links to existing main-timetable IDs. Route/area figures draw
+  from printed pages 7–9, 12–14 and 19–20; the original terrain profiles are
+  cropped from printed pages 3 and 12, and the reusable legend from page 6.
+  The Kawayu figure covers its riverside district, bus stops and lodging,
+  rather than the wider Hongu-to-Kawayu transport relationship.
+  The practical guidance draws from
+  pages 22–24 and the route narratives on pages 28–31. The guide retains
+  the local publisher and May 2026 edition attribution, with printed-page
+  captions, original elevation context and a reusable legend. Approximate
+  descent figures of 840 m and 460 m supplement the unchanged distances,
+  ascent and walking-duration records.
+- Practical scope: reusable packing, footwork, daylight margin, drinking
+  water/lunch, cash, trail numbering, etiquette, bathing, shrine and safety
+  guidance is kept in Preparations. Shop hours, transport, luggage services,
+  detours and facility availability remain edition-dependent. Natural water
+  is not asserted safe; the monthly November sunset figure is labeled a
+  guide illustration rather than a date-specific daylight calculation.
+- Retained: all accepted timetable IDs, clock values and titles, the complete
+  alternative schedules, all places/coordinates, seven poems, stamp plans
+  and shared pilgrimage guidance, flights, ticket/payment records, hotel
+  dates and amounts, and the broader budget. No new coordinates, exact trail
+  geometry, purchases, collected stamps, Camino proof or completed pilgrim
+  qualification are inferred. Whole example itineraries are not inserted.
+- Local preservation check: compared the updated public object with its
+  pre-edit snapshot and confirmed the retained fields above. All 23 guide
+  checkpoint IDs resolve to existing main-schedule rows, and guide reference
+  IDs resolve to the official-source catalog.
+- Local verification: the required `pnpm build` passed with zero diagnostics
+  across 65 Astro files and four generated pages. Focused browser checks
+  passed at 1280, 390 and 320 pixels for map defaults, geographic-map reveal,
+  image zoom/pan/pinch, Escape/focus restoration, checkpoint links, confirmation
+  scope, bounded day swipes, source disclosures, no-JavaScript reading and
+  print-state restoration. A fresh native print initially omitted figures
+  that were still lazy; source figures now load eagerly with low fetch priority.
+  The corrected PDF contains all ten unique guide images. Final desktop and
+  phone preview screenshots include fully loaded images, and the phone page
+  has no horizontal overflow or page errors. Accepted-content preservation
+  checks passed again after the caption corrections. The preview uses the
+  existing local server and the unchanged `/travel/` base path.
+- Publication status: the user requested a local preview. No commit, push
+  or deployment is authorized by this message. The subsequent publication
+  approval below supersedes this initial preview-only scope.
+
+### 2026-10-31 — Mobile guide layout and publication approval
+
+- Archived: October 31, 2026, using the user's America/Los_Angeles date.
+- Origin: two public Chinese chat messages following the local guide preview.
+  The first approves the integration direction and requests attention to
+  phone layout. The follow-up authorizes implementation and publication after
+  the changes have been verified.
+- Files:
+  [inputs/2026-10-31-05-guide-mobile-layout.md](inputs/2026-10-31-05-guide-mobile-layout.md)
+  and [inputs/2026-10-31-06-guide-publication-approval.md](inputs/2026-10-31-06-guide-publication-approval.md).
+  Their original Chinese message bodies are verbatim. The English scope and
+  authorization descriptions are contextual archive metadata.
+- Explicit superseding decision: the follow-up authorizes publishing this
+  reviewed guide update to the existing website and GitHub Pages repository,
+  replacing the earlier local-preview-only restriction for these changes.
+  The full supplied PDF and private reservation originals remain in ignored
+  storage; this approval does not publish those documents.
+- Mobile presentation: a compact heading precedes the source map. Phones
+  manually select one route or area figure through its full title; larger
+  screens retain the grid, with each day's selection preserved across viewport
+  and day changes. Distance/ascent/descent stay compact, and the complete
+  walking estimate uses its own row. Route reminders, terrain profiles and
+  checkpoints use native disclosures with useful summaries and list counts.
+  Credits remain visible and source references remain initially closed.
+- Fallback and navigation contract: all ten unique guide images load eagerly
+  with low fetch priority. No-JavaScript reading and printing include all
+  figures; printing restores map selection, disclosures and the image viewer.
+  The minimal synchronous `revealGuideTarget` hook reveals a fragment's guide
+  panel and any hidden target figure before ancestor disclosure and scrolling,
+  including initial loads, same-page links and browser Back/Forward.
+- Shared documentation: recorded the mobile layout, disclosure, fragment,
+  fallback and print behavior in the project context, README, design principles
+  and content workflow. The approval changes presentation and publication
+  scope; accepted itinerary facts, coordinates, bookings, costs, payments,
+  stamp-collection status and pilgrimage eligibility remain as recorded.
+- Local verification: `pnpm build` passed with zero diagnostics across 65 Astro
+  files and four generated pages. Twenty-one focused browser check groups
+  passed at 390px, 320px and 1280px, including a 320×667 phone viewport,
+  manual map choices, bounded day swipes, pinch/pan, initial and same-page
+  fragment links, Back/Forward, resize focus, no-JavaScript reading and print
+  restoration. The swipe probe initially matched multiple choice buttons;
+  selecting its intended first button and rerunning that one probe resolved
+  the test-only ambiguity. No implementation failure remained.
+- Mobile results: the first map starts 469–526px from the viewport top;
+  the guide's initially visible content shrank from 4,014–4,346px to
+  1,014–1,116px at the measured phone widths. No horizontal page overflow
+  or local-resource/page errors were observed. An independent read-only
+  source and screenshot review found no material blockers.
+- Print and content preservation: a fresh native print contains all ten unique
+  guide images and restores the prior map/disclosure state. Accepted-content
+  checks preserve itinerary times, coordinates, epigraphs, alternatives,
+  booking/payment records and budget values; 15 outstanding checklist items
+  remain. These checks do not establish new independent operator verification.
+- Publication scope: the checked guide and mobile refinement are authorized
+  for the existing GitHub Pages workflow. Full private originals remain ignored.
+
 ## Open information
 
-- SEN's dinner and breakfast are included. Confirm cooking versus boxed-meal
-  format, actual menu, shrimp-allergy handling and breakfast ready before
-  07:00 or packed for the November 18 07:10–07:15 departure. Preserve backup
+- SEN's dinner and breakfast are included, and November 18 breakfast early
+  pickup or packing is confirmed. Confirm the remaining cooking versus
+  boxed-meal format, actual menu and shrimp-allergy handling. Preserve backup
   food and verify the walking route/actual museum-front bus pole on arrival.
-- 川湯まつや's normal checkout timing begins at 07:00. Obtain an explicit
-  early-checkout and key-return arrangement by the November 19 06:30
-  departure for the 06:54 bus. Confirm its actual boarding pole/direction;
-  self-check-in does not establish unrestricted early checkout.
+- Confirm the actual Kawayu boarding pole and direction for November 19's
+  06:54 departure. The early-checkout and key-return arrangement for leaving
+  around 06:30 is now user-confirmed; no precise private procedure is published.
 - Prepare November 18 dinner and a November 19 breakfast needing no microwave.
   Confirm Wednesday food-shopping/opening options in Hongu before travel;
   nearby Kawayu shopping cannot be assumed. The lodging's microwave opens
@@ -1245,3 +1400,22 @@ when a source explicitly resolves or changes a decision.
   reference-derived Japan spending range and independent payment statuses,
   resolved completed purchase/reservation tasks, and retained 16 outstanding
   actions/confirmations, included-meal accounting and pilgrim uncertainty.
+- October 31, 2026: archived four public guide-discussion and confirmation
+  messages before applying the approved local preview. Recorded SEN's early
+  breakfast and Kawayu's early checkout/key return as confirmed; retained the
+  independent menu/allergy, food procurement and bus-stop questions. Added
+  sourced daily guide figures, elevation context, 23 linked checkpoints and
+  reusable practical guidance, while preserving the accepted itinerary and
+  separate planned-stamp/pilgrim semantics. Removed the one resolved checkout
+  check, leaving seven actions and eight confirmations. No publication is
+  recorded for this preview request.
+- October 31, 2026: archived the two follow-up messages approving the guide
+  direction, requesting phone layout refinement and explicitly authorizing
+  website publication after verification. Recorded the compact heading before
+  the source map, manual phone figure selection, native practical disclosures,
+  fragment reveal behavior and complete fallback/print state restoration in
+  the English project context. The publication approval supersedes the earlier
+  preview-only restriction for this update. The build, 21 focused browser check
+  groups, fresh all-figure native print and independent mobile/source review
+  passed before preparing the authorized Pages release. Accepted plan and
+  booking facts remain unchanged.
