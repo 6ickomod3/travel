@@ -6,6 +6,7 @@ import TripStamps from './TripStamps.astro';
 import TripSights from './TripSights.astro';
 import TripDining from './TripDining.astro';
 import TripDayPoem from './TripDayPoem.astro';
+import TripDayWeather from './TripDayWeather.astro';
 import LocalPlaceName from './LocalPlaceName.astro';
 import TripDayMap from './TripDayMap.astro';
 import TripGuideViewer from './TripGuideViewer.astro';
@@ -79,7 +80,9 @@ const isThisJapan = trip.slug === 'japan-2026';
             <span class="day-title">{day.title}</span><span class="day-city"><span>{cityName(day.destinationId)}</span><LocalPlaceName primaryName={cityName(day.destinationId)} localName={destination?.localName} /></span><Icon name="chevron-down" size={17} class="day-chevron" />
           </summary>
           <div class:list={['day-content', { 'has-schedule': Boolean(day.schedule?.length) }]}>
+            <TripDayWeather day={day} places={trip.places ?? []} locale={locale} />
             <TripDayMap day={day} places={trip.places ?? []} sources={sources} locale={locale} />
+            <TripDayPoem poem={day.poem} locale={locale} />
             <p class="day-description">{day.description}</p>
             {isThisJapan && (day.type === 'arrival' || day.type === 'departure') && <p class="travel-day-note"><Icon name="train" size={15} />{day.type === 'arrival' ? text('抵达日：办理入境、入住和整理行李，不安排景点。', 'Arrival day: immigration, check-in, and unpacking; no sightseeing planned.') : text('返程日：退房、机场和回程，不安排景点。', 'Departure day: check-out, airport, and the journey home; no sightseeing planned.')}</p>}
 
@@ -88,8 +91,6 @@ const isThisJapan = trip.slug === 'japan-2026';
               {Boolean(day.confirmedNotes?.length) && <aside class="day-confirmed-notes" aria-label={text('已确认安排', 'Confirmed arrangements')}><p class="day-note-label">{text('已确认安排', 'Confirmed arrangements')}</p><ul>{day.confirmedNotes!.map(note => <li><Icon name="check" size={16} /><span>{note}</span></li>)}</ul></aside>}
               {Boolean(day.notes?.length) && <aside class="day-important-notes"><p class="day-note-label">{text('当天提醒', 'Daily reminders')}</p><ul>{day.notes!.map(note => <li>{note}</li>)}</ul></aside>}
             </div>
-
-            <TripDayPoem poem={day.poem} locale={locale} />
 
             {day.schedule?.length ? <ol class="day-timeline" aria-label={text(`${date(day.date)}时间表`, `${date(day.date)} schedule`)} role="list">
               {day.schedule.map((item, scheduleIndex) => <li class:list={['timeline-entry', { 'timeline-entry-optional': item.optional }]} id={scheduleRowId(day.date, scheduleIndex, item.id)}>

@@ -1,0 +1,61 @@
+---
+import type { WeatherLocation } from '../lib/weather';
+
+interface Props {
+  location: WeatherLocation;
+  primary?: boolean;
+  locale?: 'zh-CN' | 'en';
+}
+const { location, primary = false, locale = 'en' } = Astro.props;
+const text = (zh: string, en: string) => locale === 'zh-CN' ? zh : en;
+---
+
+<div class:list={['weather-reading', { 'weather-reading-primary': primary }]} data-weather-reading={location.placeId}>
+  {!primary && <h4 class="weather-location-name">{location.label}</h4>}
+  <div class="weather-observation">
+    <p class="weather-condition" aria-live="polite" aria-atomic="true">
+      <span class="weather-symbol" data-weather-symbol hidden><svg data-weather-icon width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path /></svg></span>
+      <span data-weather-condition>{text('联网后查看该日期预报。', 'Connect to view the forecast for this date.')}</span>
+    </p>
+    <p class="weather-temperature" data-weather-temperature hidden></p>
+  </div>
+  <dl class="weather-metrics" data-weather-metrics hidden>
+    <div><dt>{primary ? <>{text('降雨', 'Rain')}<span class="sr-only">{text('概率', ' chance')}</span></> : text('降雨概率', 'Rain chance')}</dt><dd data-weather-rain>—</dd></div>
+    <div><dt>{primary ? <><span class="sr-only">{text('最大', 'Max ')}</span>{text('风速', 'wind')}</> : text('最大风速', 'Max wind')}</dt><dd data-weather-wind>—</dd></div>
+    {!primary && <div><dt>{text('全天降水', 'Daily rain')}</dt><dd data-weather-precipitation>—</dd></div>}
+  </dl>
+  <p class="weather-notice" data-weather-notice role="status" hidden></p>
+  {!primary && <p class="weather-retrieved" data-weather-retrieved hidden>{text('获取于 ', 'Retrieved ')}<time data-weather-updated></time></p>}
+</div>
+
+<style>
+  .weather-reading { min-width: 0; color: var(--ink); }
+  .weather-location-name { margin-bottom: 7px; font-family: var(--sans); font-size: 13px; font-weight: 600; }
+  .weather-observation { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 28px; }
+  .weather-condition { display: flex; align-items: center; gap: 8px; min-width: 0; color: var(--ink-soft); font-size: 13px; line-height: 1.7; overflow-wrap: anywhere; }
+  .weather-condition svg { flex-shrink: 0; color: #5e7981; }
+  .weather-symbol { display: inline-flex; flex-shrink: 0; }
+  .weather-condition svg[data-weather-kind='sun'], .weather-condition svg[data-weather-kind='partly-cloudy'] { color: #9b793c; }
+  .weather-condition svg[data-weather-kind='storm'] { color: #77627f; }
+  .weather-temperature { flex-shrink: 0; font-size: 21px; font-weight: 500; line-height: 1.4; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .weather-metrics { display: flex; align-items: baseline; flex-wrap: wrap; gap: 5px 18px; margin: 7px 0 0; }
+  .weather-metrics > div { display: inline-flex; align-items: baseline; gap: 7px; min-width: 0; }
+  .weather-metrics dt { color: var(--ink-soft); font-size: 11px; line-height: 1.8; }
+  .weather-metrics dd { margin: 0; color: var(--ink); font-size: 12px; line-height: 1.8; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .weather-notice, .weather-retrieved { margin-top: 7px; color: var(--ink-soft); font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
+  .weather-reading[data-weather-state='stale'] .weather-notice { color: #865924; }
+  @media (max-width: 600px) {
+    .weather-condition { font-size: 12px; }
+    .weather-temperature { font-size: 19px; }
+    .weather-metrics { gap: 5px 15px; }
+    .weather-metrics dt { font-size: 11px; }
+    .weather-metrics dd, .weather-notice { font-size: 12px; }
+  }
+  @media print {
+    .weather-observation { min-height: 0; }
+    .weather-condition, .weather-location-name { font-size: 10px; }
+    .weather-condition svg { width: 16px; height: 16px; }
+    .weather-temperature { font-size: 13px; }
+    .weather-metrics dt, .weather-metrics dd, .weather-notice, .weather-retrieved { font-size: 9px; }
+  }
+</style>

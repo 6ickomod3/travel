@@ -51,9 +51,10 @@ src/data/
   location or matching `context`, and local literary `sources` remain with
   the poem, outside the official-source catalog. Preserve submitted spelling,
   punctuation, spaces and line breaks, and identify borrowed imagery honestly.
-  Show the poem after accommodation and daily reminders, before the timetable,
-  with its interpretation and credit visible. Detailed references start
-  collapsed and open for printing with their previous states restored.
+  Show the poem immediately after the daily map or guide, before the description,
+  accommodation and daily reminders. Keep its interpretation and credit visible.
+  Detailed references start collapsed and open for printing with their previous
+  states restored.
   Epigraph styling may use warm paper tones and a quiet local illustration
   suited to the trip; Japan currently uses sakura. Preserve reading width and contrast, keep decoration
   noninteractive, and remove decorative backgrounds for print and forced colors.
@@ -248,6 +249,69 @@ separate from calculated spending. Known paid amounts sum only records explicitl
 marked paid and must show that limited scope. Unknown payment neither equals
 zero nor proves an order remains unpaid; subtracting an incomplete known-paid
 sum from a budget must not be presented as a remaining unpaid balance.
+
+## Daily weather data
+
+Optional `TripDay.weather` keeps only forecast configuration in the trip's
+structured plan:
+
+```ts
+weather: {
+  timeZone: "Asia/Tokyo",
+  locations: [
+    { placeId: "existing-sourced-place-id", label: "Forecast area" },
+  ],
+  note: "Optional location or terrain scope note.",
+}
+```
+
+`timeZone` must be a valid IANA timezone. Each location references an existing
+trip-owned `places` record with sourced coordinates. An optional `label` names
+the forecast area without changing the referenced place's actual identity.
+The first location is primary; additional locations remain separate rather
+than averaging their forecasts. Validate references, nonempty labels and notes,
+and duplicate locations. Weather references do not add visits to the itinerary
+or atlas. Omit locations whose coordinates are unknown.
+
+The browser fetches Open-Meteo's free noncommercial forecast endpoint with
+explicit units and timezone. Request daily weather code, minimum/maximum
+temperature in °C, maximum precipitation probability in %, total precipitation
+in mm and maximum wind speed in m/s. Match `day.date` against the provider's
+destination-local daily dates. Its forecast range extends up to 16 days including
+local today; dates outside the returned range stay unavailable. Past dates do
+not become forecasts for today. Do not commit forecast snapshots or credentials
+to `trip.ts`, use runtime geocoding, or request the visitor's location.
+
+Display the primary forecast compactly above the map and place additional
+locations, precipitation totals and scope notes in a native disclosure.
+Keep adjacent Open-Meteo attribution and a
+[CC BY 4.0 link](https://creativecommons.org/licenses/by/4.0/) visible, separately
+from the itinerary's official transport or sightseeing sources. A retrieval
+timestamp records when the browser received the data, not when a weather model
+issued it. Identify localized descriptions and rounded values as presentation
+changes. Cache for 30 minutes,
+refresh visible open days on restore, return to visibility, reconnect and
+destination-local midnight, and recheck expiry while the page remains visible.
+Previously retrieved values can remain visible while a refresh is in progress,
+explicitly labeled updating. After a failed refresh, cached values up to 24
+hours old can remain with an explicit stale label. Keep loading, out-of-range,
+past, missing-data and network-failure
+states explicit. Reading without JavaScript
+and printing retain the named location, date, source and an honest data state.
+Print existing forecasts with their retrieval time and restore disclosures.
+Load the primary point only after focused-day/history initialization and while
+its day is open and visible; request secondary points only when the forecast
+disclosure is open. Suspend weather rendering during print snapshots, including
+responses from requests that started before printing.
+
+`pnpm test:weather` runs the focused date, unit, missing-value and cache tests
+without live weather requests. `pnpm build` includes this gate before Astro
+validation and the production build.
+
+Provider documentation: [Forecast API](https://open-meteo.com/en/docs),
+[terms](https://open-meteo.com/en/terms) and
+[licence](https://open-meteo.com/en/licence), with
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 ## Daily-map data
 

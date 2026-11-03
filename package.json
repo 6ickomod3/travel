@@ -7,10 +7,11 @@
   "engines": { "node": ">=22.13.0" },
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
-    "build": "node --experimental-strip-types scripts/check-content.mjs && astro check && astro build",
+    "build": "node --experimental-strip-types scripts/check-content.mjs && node --experimental-strip-types --test tests/weather.test.mjs && astro check && astro build",
     "preview": "astro preview --host 127.0.0.1",
     "check": "node --experimental-strip-types scripts/check-content.mjs && astro check",
-    "check:content": "node --experimental-strip-types scripts/check-content.mjs"
+    "check:content": "node --experimental-strip-types scripts/check-content.mjs",
+    "test:weather": "node --experimental-strip-types --test tests/weather.test.mjs"
   },
   "dependencies": {
     "astro": "7.3.8",

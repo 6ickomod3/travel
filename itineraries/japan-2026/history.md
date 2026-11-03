@@ -111,6 +111,12 @@
   direct image links from sight cards and visible image attribution. These
   additions do not change visits: the real Mount Misen summit remains
   conditional, and Hayatama now belongs to November 19's accepted early route.
+- Each day may show a live forecast for explicitly configured locations from
+  the existing sourced place registry, using Asia/Tokyo and that day's exact
+  date. The compact primary forecast precedes the map; any supplied poem now
+  follows the map or guide before the description, stay and daily reminders.
+  Forecasts do not change the accepted plan, establish weather certainty or
+  introduce new visits. Preserve all seven supplied epigraphs and their credits.
 
 ## Source index
 
@@ -1267,6 +1273,106 @@ and licenses.
 - Publication scope: the checked guide and mobile refinement are authorized
   for the existing GitHub Pages workflow. Full private originals remain ignored.
 
+### 2026-11-02 — Daily forecasts and earlier epigraphs
+
+- Archived: November 2, 2026, using the user's America/Los_Angeles date.
+- Origin: a public Chinese message requesting live daily weather forecasts
+  and a higher position for the existing poems.
+- File:
+  [inputs/2026-11-02-01-daily-weather-and-poem-layout.md](inputs/2026-11-02-01-daily-weather-and-poem-layout.md).
+  Its Chinese body is verbatim; English origin, scope and authorization text
+  is archive context.
+- Presentation decision: day title, compact primary weather forecast, existing
+  map or guide, supplied poem, description, accommodation and daily reminders,
+  then the timetable. The map remains prominent on phones and the poem moves
+  above the longer practical-note block. Preserve its exact original text,
+  translations, visible credits, sakura treatment and initially closed references.
+- Weather configuration: optional `TripDay.weather` uses an explicit IANA
+  `timeZone`, referenced sourced place IDs and optional labels/scope notes.
+  The first point supplies the compact forecast; other points stay distinct
+  in a native disclosure. Coordinates are reused without runtime geocoding,
+  visitor geolocation, new visits or inferred whole-route coverage.
+- Configured sourced places: November 13 uses `osaka-station` with `kix-t1`;
+  November 14 `hiroshima-peace-park`; November 15 `itsukushima-shrine` with
+  `shishiiwa-ropeway`; November 16 `kii-tanabe-station`; November 17
+  `takahara-kumano-jinja` with `chikatsuyu-area`; November 18 `hosshinmon-oji`
+  with `kumano-hongu-taisha` and `kawayu-matsuya`; November 19
+  `kumano-nachi-taisha` with `kumano-hayatama-taisha` and `osaka-station`;
+  November 20 `nara-park`; November 21 `kix-t1` with `osaka-station`.
+  Each first point is primary. Daily values describe the local date's model
+  grid, not a specific train departure, hiking hour or entire mountain route.
+- Forecast behavior: use Open-Meteo browser requests without API keys or paid
+  API billing. Match the trip date in Asia/Tokyo, with minimum/maximum °C,
+  maximum precipitation probability, precipitation total and maximum wind in
+  m/s. Distinguish the retrieval time from a model issuance time, retain visible
+  Open-Meteo attribution and CC BY 4.0 link, use a 30-minute browser cache and
+  refresh visible, open days after restoration, return to visibility, reconnect
+  and destination-local midnight, with expiry rechecks while visible. Previously
+  retrieved values may remain explicitly labeled updating during a refresh.
+  After failure, cached values up to 24 hours old may remain with an explicit
+  stale label. Dates beyond the returned range, past dates, missing values and
+  failures stay explicit. No-JavaScript and print states remain readable.
+- Initial API evidence: a read-only public Osaka-coordinate request returned
+  HTTP 200 and 16 destination-local daily dates, November 3–18. At the user's
+  November 2 Los Angeles date, November 19–21 are outside that response's
+  range and must not receive substituted or invented forecasts. The local
+  probe is a development observation, not canonical itinerary weather data.
+- Provider evidence: narrow read-only requests to official Open-Meteo
+  documentation, features, pricing, licence and terms pages verified free
+  personal noncommercial API use without a key, browser CORS support and
+  CC BY 4.0 data licensing. Preserve adjacent provider credit and the license
+  link, identifying localized descriptions and rounded values as presentation
+  changes. These findings concern the weather provider and do not establish new
+  independent verification of itinerary operators or their schedules.
+- Explicit superseding decision: the requested higher poem placement replaces
+  the former position after accommodation and daily reminders. Weather is an
+  optional live addition; dates, accepted visits, schedules, alternatives,
+  reservations, payments, costs, confirmation scopes and poem wording remain
+  as recorded. This source contains no private booking material.
+- Shared documentation: recorded the optional data contract, exact-date and
+  timezone behavior, free runtime source, mobile layout and fallbacks in the
+  English project context, design principles, workflow and README. Recorded
+  `pnpm test:weather` and the same focused weather-test gate in `pnpm build`.
+- Implementation: all nine dates have forecast configuration. The primary
+  location appears in a compact wrapping grid beside the condition and
+  temperatures. Additional locations and scope details start closed and load
+  only when requested. Weather initialization waits for focused-day/history
+  restoration before issuing a primary request, avoiding an unnecessary
+  first-day request on a direct link to another date. Delayed responses do not
+  alter active print snapshots; rendering resumes after printing.
+- Content preservation: removing only the nine new `day.weather` records
+  restores deep equality with the prior canonical trip. All seven exact poems,
+  accepted dates and times, coordinates and map views, alternatives, bookings,
+  payments and costs remain unchanged.
+- Local build verification: `pnpm build` passed, including ten focused weather
+  date, unit, missing-value and cache tests, content checks and Astro validation
+  with zero diagnostics across 70 checked files. Four production pages build.
+- Browser verification: twenty focused groups passed at 320×667, 390×844 and
+  1280×844. They cover exact Japan dates and units, missing values versus zero,
+  visible-primary requests, disclosure-only secondary requests, cached revisits
+  and reload, future-to-available transitions at destination midnight, expired
+  cache and marked stale fallback, online recovery, initial failure and manual
+  retry, past dates without requests, bounded navigation, weather swipe
+  exclusion, earlier poem order and closed references, no-JavaScript reading
+  with all guide figures, and print-state restoration with delayed responses.
+  Review found a print-response race and it was corrected before the final
+  passing run. The stale-data probe needed to await a completed refresh before
+  advancing its clock; its final run passed. Browser reports remain local.
+- Live browser verification: nine additional smoke checks passed with the
+  real Open-Meteo API, without mocked clocks or responses. One GET using the
+  configured public coordinates returned HTTP 200 JSON with CORS support.
+  The checks confirmed Japan-date lookup, explicit units, the retrieval
+  timestamp, visible attribution and license, and the returned November 3–18
+  range with a truthful unavailable state for November 19. No page errors or
+  horizontal overflow were observed. The request sent no private material,
+  referring-page URL, cookies or authentication. Transient forecast values
+  remain local runtime data and are not copied into this source history.
+- Publication scope: the locally checked implementation falls within the
+  existing authorized website-update workflow. Final release review and
+  deployment verification remain outstanding at this entry;
+  no completed deployment is claimed. No new private records are authorized
+  for publication by this message.
+
 ## Open information
 
 - SEN's dinner and breakfast are included, and November 18 breakfast early
@@ -1419,3 +1525,13 @@ when a source explicitly resolves or changes a decision.
   groups, fresh all-figure native print and independent mobile/source review
   passed before preparing the authorized Pages release. Accepted plan and
   booking facts remain unchanged.
+- November 2, 2026: archived the live-weather and poem-placement request.
+  Added the optional sourced-place/timezone weather convention to the English
+  project context and moved the presentation contract for supplied epigraphs
+  directly after the daily map or guide. Forecast values remain runtime data;
+  dates outside the provider's range stay unavailable. The build, ten focused
+  weather tests, twenty phone/desktop browser groups and canonical-content
+  preservation check passed. A print-response race was corrected before the
+  final pass, followed by nine successful real-API browser smoke checks.
+  Final release and deployment checks remain outstanding; accepted
+  trip and booking facts remain unchanged.

@@ -64,10 +64,40 @@ opens the previous date. Stop at the first and last dates without wrapping.
 Preserve vertical scrolling, scrollable date strips and other horizontal widgets,
 and link/control activation. Full-trip view uses normal scrolling.
 
-When supplied, place the daily map directly below the day title. Follow it with
-the overnight stay and daily reminders, any supplied epigraph, and the timetable.
+After the day title, show a compact forecast when configured, then the daily
+map or guide. Follow it with any supplied epigraph, the description, overnight
+stay and daily reminders, and the timetable.
 Keep optional schedules separate, retain practical walking/stamp details, and
 put meal options at the very bottom.
+
+### Daily weather
+
+Use a compact forecast for the trip date at a named location, with low/high
+temperature, precipitation probability and wind visible. Keep total
+precipitation, other referenced locations and location-scope notes in a native
+disclosure. Use wrapping rows on phones; avoid an hourly chart or another
+carousel above the map. Preserve text labels alongside weather icons and keep
+weather styling distinct from confirmed booking or practical-arrangement badges.
+
+Fetch forecasts in the browser through Open-Meteo's free noncommercial API,
+using sourced trip-place coordinates and the explicit destination timezone.
+Match the requested date exactly. A forecast horizon is not a promise that every
+trip date already has data: show a labeled future, past or unavailable state
+without replacing it with today's weather. Show loading and network failures,
+retain a readable fallback without JavaScript, and keep adjacent Open-Meteo
+credit and its CC BY 4.0 license link visible.
+Name the retrieval time accurately; do not present it as the model's issue time.
+
+Use a 30-minute cache and refresh visible, open days after page restoration,
+return to a visible tab, reconnect and destination-local midnight. Recheck
+expiry while visible. Previously retrieved values may remain labeled updating
+during a refresh. After failure, cached values up to 24 hours old may remain
+with an explicit stale label. Weather can update without another deployment. Print
+available forecast data with its retrieval time, otherwise preserve its labeled no-data
+state, and restore disclosure states. Do not infer a full hiking-route forecast
+from a single model grid point or change the accepted plan from a forecast.
+Request additional locations only after opening their forecast disclosure, and
+suspend rendering during printing so late responses preserve the print snapshot.
 
 ### Daily maps
 

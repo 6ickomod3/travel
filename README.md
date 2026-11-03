@@ -85,7 +85,7 @@ New `*/trip.ts` files are discovered automatically and appear in the homepage co
 
 Use a year-only `TripPlaceholder` until dates and plans are known, following UK 2026. Once an itinerary is ready, change that same file to a dated `Trip`, keeping its slug and URL. Optional schedules, flights, stays, ticket options, reservation opening times, checklists, practical notes, and official sources keep detailed plans together. `mapRoute` records returns and transfers separately from unique destinations; complete alternative day plans have their own labeled schedules.
 
-Optional trip-owned `places` and daily `map` views add maps below day titles.
+Optional trip-owned `places` and daily `map` views add maps near the start of each day.
 Reuse sourced coordinates, number accepted stops, and distinguish local activity,
 whole-day transport, alternative and optional coverage. Stable place and schedule
 IDs link stops to the itinerary. Dashed connections show order; precise tracks
@@ -93,6 +93,20 @@ require verified geometry and a source. Keep unknown locations unmapped rather
 than guess. The [data contract](docs/content-workflow.md#daily-map-data) and
 [design guide](docs/trip-design-principles.md#daily-maps) cover phone activation,
 visible-day loading, native labels, stop lists, external links and print fallback.
+
+Optional daily `weather` references those same sourced place IDs and records
+an explicit destination `timeZone`. A compact primary forecast appears above
+the map; additional locations and scope details start collapsed. Open-Meteo's
+free noncommercial API updates forecasts in the browser without API keys or a
+new deployment. Show the trip date's low/high temperature, precipitation
+probability and wind, with visible source and retrieval time. Dates beyond the
+forecast range, past dates and connection failures have explicit states.
+Keep forecast values out of the plan, use a 30-minute cache, and refresh only
+visible, open days. Previously retrieved values can remain labeled updating
+during a refresh. After failure, cached values up to 24 hours old can remain
+with an explicit stale label. Keep Open-Meteo credit and its CC BY 4.0 license link
+visible. Additional locations load when their forecast disclosure is opened.
+See [daily weather data](docs/content-workflow.md#daily-weather-data).
 
 Optional daily `guide` records add route-specific official map images, original
 terrain profiles, legends and practical checkpoints alongside geographic maps.
@@ -153,7 +167,8 @@ available for page metadata.
 
 Optional daily `poem` stores the exact quotation, language-tagged interpretation,
 author, work, excerpt status, context and literary sources within its trip.
-It appears after daily accommodation and reminders, before the timetable.
+It appears immediately after the daily map or guide, before the description,
+accommodation and daily reminders.
 Credits stay visible; detailed references start collapsed and open for printing.
 Paper tones and cultural motifs are optional per trip. Japan currently uses
 subtle original sakura artwork, with smaller motifs on mobile and a plain print
@@ -180,9 +195,17 @@ local files.
 
 Astro builds static pages, so there is no backend to maintain. The interactive maps use Leaflet and externally fetched OpenStreetMap tiles; no map key is needed. Images and fonts are served locally, and no analytics or tracking scripts are included.
 
+Optional daily weather uses the free noncommercial Open-Meteo API. It sends
+the configured public place coordinates and destination timezone, without
+requesting the visitor's location or adding a paid service.
+
 Accommodation confirmation states are maintained in the trip data.
 
-`pnpm build` runs content validation, type checks, and the static build. Content checks catch missing images, duplicate IDs, invalid dates, and broken destination/stay/source references. Run `pnpm check:content` for the content check alone.
+`pnpm build` runs content validation, the weather date/unit/cache tests, type
+checks, and the static build. Content checks catch missing images, duplicate
+IDs, invalid dates, and broken destination/stay/source/weather references.
+Run `pnpm check:content` for the content check alone, or `pnpm test:weather`
+for the focused weather tests without live API requests.
 
 The default hosting settings are `BASE_PATH=/travel/` and `SITE_URL=https://6ickomod3.github.io`. To build for the root of a custom domain instead:
 

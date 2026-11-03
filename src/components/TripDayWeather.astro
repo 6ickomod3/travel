@@ -1,0 +1,104 @@
+---
+import Icon from './Icon.astro';
+import TripWeatherReading from './TripWeatherReading.astro';
+import type { TripDay, TripMapPlace } from '../data/types';
+import type { WeatherLocation } from '../lib/weather';
+
+interface Props {
+  day: TripDay;
+  places: TripMapPlace[];
+  locale?: 'zh-CN' | 'en';
+}
+const { day, places, locale = 'en' } = Astro.props;
+const text = (zh: string, en: string) => locale === 'zh-CN' ? zh : en;
+const locations: WeatherLocation[] = (day.weather?.locations ?? []).map(location => {
+  const place = places.find(item => item.id === location.placeId);
+  if (!place) throw new Error(day.date + ': unknown weather place ' + location.placeId);
+  return { placeId: place.id, label: location.label ?? place.name, lat: place.lat, lng: place.lng };
+});
+const primary = locations[0];
+const id = 'day-' + day.date + '-weather';
+const config = day.weather && primary ? { date: day.date, timeZone: day.weather.timeZone, locale, locations } : undefined;
+---
+
+{config && primary && <aside class="day-weather" id={id} aria-labelledby={id + '-title'} data-day-weather={JSON.stringify(config)} data-day-swipe-ignore>
+  <header class="weather-heading">
+    <h3 id={id + '-title'}><span>{text('天气预报', 'Weather forecast')}</span><strong>{primary.label}</strong></h3>
+  </header>
+  <TripWeatherReading location={primary} primary locale={locale} />
+  <footer class="weather-footer">
+    <div class="weather-credit">
+      <p><a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a><span aria-hidden="true"> · </span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a></p>
+      <p data-weather-retrieved hidden>{text('获取于 ', 'Retrieved ')}<time data-weather-updated></time></p>
+    </div>
+    <button type="button" class="weather-refresh" data-weather-refresh aria-label={text('刷新当天预报', 'Refresh this day’s forecast')} title={text('刷新预报', 'Refresh forecast')} hidden>
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M6 7a7 7 0 0 1 12-2l2 2M18 17a7 7 0 0 1-12 2l-2-2" /></svg>
+    </button>
+    <details class="weather-details" data-weather-details data-trip-references>
+      <summary><span>{text('更多', 'Details')}</span><Icon name="chevron-down" size={13} /></summary>
+      <div class="weather-details-content">
+        <p class="weather-total-rain" data-weather-total-rain hidden>{text('全天预计降水量：', 'Expected daily precipitation: ')}<strong data-weather-precipitation></strong></p>
+        {locations.length > 1 && <div class="weather-other-locations">{locations.slice(1).map(location => <TripWeatherReading location={location} locale={locale} />)}</div>}
+        {day.weather?.note && <p class="weather-scope-note">{day.weather.note}</p>}
+        <p class="weather-scope-note">{text('气温为当天最低–最高值；降雨概率和风速为全天最高值，并非某一时段。', 'Temperatures show the daily low–high range; rain chance and wind are daily maxima, not conditions at a particular time.')}</p>
+        <p class="weather-scope-note">{text('预报最长覆盖含当地今天在内的16天。页面联网时自动获取，获取时间不是预报发布时间。', 'Forecasts cover up to 16 days including local today. The page updates while online; retrieval time is not the forecast issue time.')}</p>
+        <p class="weather-source-note">{text('天气描述已译为中文，数值经四舍五入。', 'Descriptions are localized and values rounded.')} <a href="https://open-meteo.com/en/docs" target="_blank" rel="noopener noreferrer">{text('数据说明', 'Data documentation')}</a></p>
+      </div>
+    </details>
+  </footer>
+  <noscript><p class="weather-no-script">{text('启用 JavaScript 并联网后可显示实时预报。', 'Enable JavaScript and connect to view live forecasts.')}</p></noscript>
+</aside>}
+
+<script>
+  import '../scripts/daily-weather';
+</script>
+
+<style>
+  .day-weather { position: relative; display: grid; grid-template-columns: 90px minmax(0, 1fr); align-items: center; gap: 0 18px; min-width: 0; margin: 0 0 18px; padding: 10px 16px 9px; border: 1px solid #dae1d7; border-radius: 6px; background: #f4f6f0; }
+  .weather-heading { min-width: 0; }
+  .weather-heading h3 { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-width: 0; font-family: var(--sans); line-height: 1.7; }
+  .weather-heading h3 > span { color: var(--ink-soft); font-size: 11px; font-weight: 400; }
+  .weather-heading h3 > strong { color: var(--ink); font-size: 13px; font-weight: 600; overflow-wrap: anywhere; }
+  .weather-refresh { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; padding: 10px; border: 0; border-radius: 4px; color: var(--ink-soft); background: transparent; cursor: pointer; }
+  .weather-refresh:hover:not(:disabled) { color: var(--ink); background: #e7ece3; }
+  .weather-refresh:disabled { opacity: .45; cursor: default; }
+  .weather-footer { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 0 8px; margin-top: 4px; }
+  .weather-credit { flex: 1; min-width: 0; color: var(--ink-soft); font-size: 10px; line-height: 1.8; }
+  .weather-credit a { display: inline-block; padding-block: 2px; text-decoration: underline; text-underline-offset: 3px; }
+  .weather-details { min-width: 0; }
+  .weather-details > summary { display: flex; align-items: center; justify-content: flex-end; gap: 6px; min-width: 44px; min-height: 44px; color: var(--ink-soft); font-size: 11px; cursor: pointer; list-style: none; }
+  .weather-details > summary::-webkit-details-marker { display: none; }
+  .weather-details > summary::marker { content: ''; }
+  .weather-details[open] { flex-basis: 100%; }
+  .weather-details[open] > summary { width: fit-content; margin-left: auto; }
+  .weather-details[open] > summary svg { transform: rotate(180deg); }
+  .weather-details-content { padding-top: 12px; border-top: 1px solid #dae1d7; }
+  .weather-other-locations { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .weather-total-rain { margin-bottom: 14px; color: var(--ink-soft); font-size: 12px; line-height: 1.8; }
+  .weather-total-rain strong { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .weather-scope-note, .weather-source-note, .weather-no-script { margin-top: 12px; color: var(--ink-soft); font-size: 11px; line-height: 1.9; overflow-wrap: anywhere; }
+  .weather-source-note a { text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 600px) {
+    .day-weather { grid-template-columns: 54px minmax(0, 1fr); gap: 0 10px; margin-bottom: 16px; padding: 9px 12px 7px; }
+    .weather-footer { gap: 0 5px; }
+    .weather-other-locations { grid-template-columns: minmax(0, 1fr); }
+    .weather-other-locations > :global(.weather-reading) + :global(.weather-reading) { padding-top: 14px; border-top: 1px solid #dae1d7; }
+    .weather-credit { font-size: 10px; }
+    .weather-scope-note, .weather-source-note { font-size: 12px; }
+  }
+  @media (forced-colors: active) {
+    .day-weather { border-color: CanvasText; background: Canvas; }
+  }
+  @media print {
+    .day-weather { display: block; margin-bottom: 12px; padding: 8px 10px; background: white; border-color: #ccc; break-inside: avoid; }
+    .weather-heading { min-height: 0; margin-bottom: 4px; }
+    .weather-heading h3 > span, .weather-heading h3 > strong { font-size: 10px; }
+    .weather-heading h3 { flex-direction: row; gap: 10px; }
+    .weather-refresh, .weather-details > summary { display: none !important; }
+    .weather-footer { display: block; margin-top: 5px; }
+    .weather-credit, .weather-total-rain, .weather-scope-note, .weather-source-note { font-size: 9px; }
+    .weather-details::details-content { content-visibility: visible; }
+    .weather-details-content { padding-top: 8px; margin-top: 6px; }
+    .weather-other-locations { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>

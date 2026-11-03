@@ -254,6 +254,22 @@ for (const folder of folders) {
         assert.ok(Number.isFinite(day.hike[field]) && day.hike[field] >= 0, `${folder}/${date}: invalid hike ${field}`);
       }
     }
+    if (day.weather !== undefined) {
+      const weather = day.weather;
+      const label = `${folder}/${date} daily weather`;
+      assert.ok(weather && typeof weather === 'object' && !Array.isArray(weather), `${label}: use a weather object`);
+      assert.ok(typeof weather.timeZone === 'string' && weather.timeZone.trim(), `${label}: use an IANA timezone`);
+      new Intl.DateTimeFormat('en', { timeZone: weather.timeZone }).format(new Date());
+      assert.ok(Array.isArray(weather.locations) && weather.locations.length, `${label}: reference forecast locations`);
+      const weatherPlaceIds = new Set();
+      for (const location of weather.locations) {
+        assert.ok(places.has(location.placeId), `${label}: unknown sourced place ${location.placeId}`);
+        assert.ok(!weatherPlaceIds.has(location.placeId), `${label}: duplicate forecast place ${location.placeId}`);
+        weatherPlaceIds.add(location.placeId);
+        if (location.label !== undefined) assert.ok(typeof location.label === 'string' && location.label.trim(), `${label}: location labels must contain text`);
+      }
+      if (weather.note !== undefined) assert.ok(typeof weather.note === 'string' && weather.note.trim(), `${label}: scope notes must contain text`);
+    }
     if (day.guide !== undefined) {
       const guide = day.guide;
       const label = `${folder}/${date} day guide`;

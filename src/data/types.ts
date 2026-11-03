@@ -63,6 +63,15 @@ export interface TripDayMap {
   views: TripDayMapView[];
 }
 
+export interface TripDayWeather {
+  /** IANA timezone for the itinerary date and the weather provider's daily values. */
+  timeZone: string;
+  /** Reuse sourced places; the first location is the compact daily forecast. */
+  locations: Array<{ placeId: string; label?: string }>;
+  /** Explain geographic or elevation coverage without inventing weather conditions. */
+  note?: string;
+}
+
 /** A sourced guidebook figure, separate from geographic route geometry and photos. */
 export interface TripGuideFigure {
   id: string;
@@ -258,6 +267,8 @@ export interface TripDay {
   destinationId: string;
   /** Optional day-specific map with ordered place references and separate scopes. */
   map?: TripDayMap;
+  /** Live forecasts fetched in the browser; no forecast values belong in the plan. */
+  weather?: TripDayWeather;
   /** Relevant official maps, terrain figures and practical checkpoint guidance. */
   guide?: TripDayGuide;
   title: string;
@@ -277,7 +288,7 @@ export interface TripDay {
   sightIds?: string[];
   /** Meal alternatives shown after the day's existing plan, not schedule changes. */
   dining?: TripDayMeal[];
-  /** Requested daily epigraph displayed before the timetable without changing the plan. */
+  /** Requested daily epigraph below the map and before practical notes. */
   poem?: TripDayPoem;
   hike?: {
     distanceKm: number;

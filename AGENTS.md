@@ -93,6 +93,29 @@ Keep the implementation contracts below aligned with that guide.
   runtime geocoding. Follow the design guide's placement, phone interaction and
   fallback rules: initialize only open, visible days, exclude map wrappers from
   day swipes, and preserve printable stop lists and external-map links.
+- Optional `TripDay.weather` references sourced `Trip.places` through
+  `locations: [{ placeId, label? }]` and records an explicit IANA `timeZone`.
+  Use the day's exact destination-local date. The first location supplies a
+  compact forecast above the map; additional locations and any `note` stay in
+  a native disclosure. Open-Meteo's free noncommercial API supplies browser
+  forecasts without API keys, geolocation or runtime geocoding. Keep forecast
+  values out of the structured plan. Show min/max temperature, precipitation
+  probability, precipitation and wind with explicit units, visible attribution
+  and a retrieval timestamp distinct from a model issuance time. Respect the
+  provider's horizon, show honest past, unavailable and network-error states,
+  and include adjacent Open-Meteo credit and a CC BY 4.0 link. Identify
+  localization and rounding as presentation changes. Cache for 30 minutes and
+  refresh only visible, open days, including page restore, return
+  to a visible tab, reconnect and destination-local midnight. Recheck expiry
+  while visible. Previously retrieved values may remain during a refresh,
+  explicitly labeled updating. After a failed refresh, cached values up to
+  24 hours old may remain with an explicit stale label.
+  Start weather loading after focused-day/history initialization, and fetch
+  additional locations only when their forecast disclosure is opened. Suspend
+  weather rendering during printing so delayed responses cannot change the
+  print snapshot or its restored state.
+  Preserve labeled no-JavaScript and print fallbacks; never substitute today's
+  weather for an unavailable trip date.
 - Optional `TripDay.guide` adds trip-owned guidebook maps, original terrain
   profiles, a source legend and practical checkpoints. Keep figures separate
   from geographic tracks and gallery photos. Reuse existing schedule IDs for
@@ -217,9 +240,10 @@ Keep the implementation contracts below aligned with that guide.
   in budget allowances. Do not count meals included in lodging again.
 - Optional `TripDay.poem` stores a requested epigraph's exact original,
   language-tagged interpretation, author, primary work, excerpt flag,
-  bibliography, context and local literary references. Display it after
-  accommodation and daily reminders, before the timetable. Keep credits
-  visible and detailed references collapsed; printing includes and restores
+  bibliography, context and local literary references. Display it immediately
+  after the daily map or guide, before the description, accommodation and
+  daily reminders. Keep credits visible and detailed references collapsed;
+  printing includes and restores
   their disclosures. Preserve original spelling, spacing and line breaks,
   distinguish borrowed imagery from the original location, and do not invent
   poems for days without a submission. Literary links stay outside the
@@ -271,8 +295,10 @@ Keep the implementation contracts below aligned with that guide.
 
 ## Verification and publication
 
-- Run `pnpm build` to check content references and images, check types, and
-  build the static site. `pnpm check:content` runs only the content checks.
+- Run `pnpm build` to check content references and images, run the weather
+  date/unit/cache tests, check types, and build the static site.
+  `pnpm check:content` runs only the content checks; `pnpm test:weather` runs
+  the focused weather tests.
 - Verify the changed pages and relevant controls in a browser, including a
   narrow mobile viewport when layout changes. Use focused checks.
 - Preserve the existing GitHub Actions Pages workflow. Push authorized site

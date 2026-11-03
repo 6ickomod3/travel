@@ -2712,6 +2712,14 @@ export default {
     {
       "date": "2026-11-13",
       "destinationId": "osaka",
+      "weather": {
+        "timeZone": "Asia/Tokyo",
+        "locations": [
+          { "placeId": "osaka-station", "label": "大阪" },
+          { "placeId": "kix-t1", "label": "关西机场" }
+        ],
+        "note": "大阪和关西机场分别取所在地点附近的全天预报，不代表航班起降时的天气。"
+      },
       "overnightId": "osaka",
       "type": "arrival",
       "title": "关西机场抵达 → 大阪",
@@ -2841,6 +2849,12 @@ export default {
     },
     {
       "date": "2026-11-14",
+      "weather": {
+        "timeZone": "Asia/Tokyo",
+        "locations": [
+          { "placeId": "hiroshima-peace-park", "label": "广岛" }
+        ]
+      },
       "sightIds": [
         "hiroshima-peace-memorials"
       ],
@@ -3141,6 +3155,14 @@ export default {
     },
     {
       "date": "2026-11-15",
+      "weather": {
+        "timeZone": "Asia/Tokyo",
+        "locations": [
+          { "placeId": "itsukushima-shrine", "label": "宫岛海边" },
+          { "placeId": "shishiiwa-ropeway", "label": "狮子岩" }
+        ],
+        "note": "海边和狮子岩分别取参考点附近的网格预报；山上实际风力和缆车运行请另看现场及官方通知。"
+      },
       "sightIds": [
         "misen",
         "itsukushima-shrine",
@@ -3557,6 +3579,12 @@ export default {
     },
     {
       "date": "2026-11-16",
+      "weather": {
+        "timeZone": "Asia/Tokyo",
+        "locations": [
+          { "placeId": "kii-tanabe-station", "label": "纪伊田边" }
+        ]
+      },
       "destinationId": "kii-tanabe",
       "overnightId": "kii-tanabe",
       "type": "transfer",
@@ -3760,6 +3788,14 @@ export default {
     },
     {
       "date": "2026-11-17",
+      "weather": {
+        "timeZone": "Asia/Tokyo",
+        "locations": [
+          { "placeId": "takahara-kumano-jinja", "label": "高原" },
+          { "placeId": "chikatsuyu-area", "label": "近露" }
+        ],
+        "note": "高原和近露预报取各参考点附近网格，不能代表整条山路；林间、山脊和不同海拔的体感可能不同。"
+      },
       "sightIds": [
         "nakahechi"
       ],
@@ -4239,6 +4275,15 @@ export default {
     },
     {
       "date": "2026-11-18",
+      "weather": {
+        "timeZone": "Asia/Tokyo",
+        "locations": [
+          { "placeId": "hosshinmon-oji", "label": "发心门" },
+          { "placeId": "kumano-hongu-taisha", "label": "本宫" },
+          { "placeId": "kawayu-matsuya", "label": "川汤" }
+        ],
+        "note": "发心门、本宫和川汤分别取参考点附近的全天网格预报；步道沿线的海拔和地形不同。"
+      },
       "sightIds": [
         "hongu-taisha",
         "oyunohara"
@@ -4895,6 +4940,15 @@ export default {
     },
     {
       "date": "2026-11-19",
+      "weather": {
+        "timeZone": "Asia/Tokyo",
+        "locations": [
+          { "placeId": "kumano-nachi-taisha", "label": "那智山" },
+          { "placeId": "kumano-hayatama-taisha", "label": "新宫" },
+          { "placeId": "osaka-station", "label": "大阪" }
+        ],
+        "note": "不同地点显示各自的全天预报，不对应早晨新宫、午间那智山或晚间大阪的特定时段。"
+      },
       "sightIds": [
         "hayatama-taisha",
         "nachi-shrines-falls"
@@ -5456,6 +5510,12 @@ export default {
     },
     {
       "date": "2026-11-20",
+      "weather": {
+        "timeZone": "Asia/Tokyo",
+        "locations": [
+          { "placeId": "nara-park", "label": "奈良" }
+        ]
+      },
       "sightIds": [
         "todai-ji",
         "kasuga-taisha",
@@ -5760,6 +5820,14 @@ export default {
     },
     {
       "date": "2026-11-21",
+      "weather": {
+        "timeZone": "Asia/Tokyo",
+        "locations": [
+          { "placeId": "kix-t1", "label": "关西机场" },
+          { "placeId": "osaka-station", "label": "大阪" }
+        ],
+        "note": "这里是出发地当天的天气预报，不作为机场或航班运行信息。"
+      },
       "destinationId": "osaka",
       "type": "departure",
       "title": "大阪 → 关西机场 → 上海",
