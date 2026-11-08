@@ -191,8 +191,11 @@ Each leg has a stable `id`, trip `date`, `route`, `service` and `coverage`
 of `pass`, `additional` or `mixed`. Optional `time` and
 `reservationRequired: true` describe the supplied plan; they do not confirm
 a reservation. A leg's `sourceIds` references the trip's official-source catalog.
-Only explicit seat confirmation records `reservationStatus: "booked"` and a
-public `reservationNote`. Coverage and pass purchase do not supply that status.
+Only explicit reservation confirmation records `reservationStatus: "booked"`
+and a public `reservationNote`. Optional `reservationKind` uses `seat` by default or
+`time-slot` for a reserved boarding window, with distinct confirmation labels.
+Coverage and reservation confirmation do not establish fare purchase or payment.
+Pass purchase does not supply reservation status.
 Temporary reservation receipts remain unresolved until completion is established;
 confirm the existing attempt before prompting another booking.
 
@@ -226,8 +229,8 @@ does not claim independent page-body verification.
 Booking, purchase and payment are separate facts. Optional `paymentStatus` on
 stay costs, ticket options and dated dining costs uses `paid`, `pay-on-arrival`
 or `unknown`. Set it only from explicit evidence. Ticket `purchaseStatus` and
-meal/seat `reservationStatus` do not imply payment. Keep private receipts, exact
-seat records and private management links in ignored storage.
+meal/transport `reservationStatus` do not imply payment. Keep private receipts,
+exact seat records and private management links in ignored storage.
 
 Optional `Trip.budget` has an ISO `currency`, party-total `allowances`, optional
 `suggestedReserve` and `notes` defining its scope. Each allowance has `id`,

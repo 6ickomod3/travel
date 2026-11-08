@@ -158,12 +158,15 @@ Pending confirmations use amber. Booking progress counts recorded flights and
 accommodation nights. Flight times remain airport-local, with marketing and
 operating carriers clear.
 
-Record ticket purchases, seat reservations and payment independently. A purchased
+Record ticket purchases, reservations and payment independently. A purchased
 pass does not confirm every train seat, and a booking does not establish payment.
+Transport `reservationKind` defaults to `seat`; use `time-slot` for a reserved
+boarding window and label its confirmation accordingly. Keep fare purchase and
+payment separate from both kinds of reservation.
 Use paid, pay on arrival or unknown only as supported by the submission. Temporary
 reservation messages remain pending checks; verify an existing attempt before
-prompting a duplicate booking. Confirmed dining or seat badges describe those
-specific bookings, while unresolved arrangements stay visible separately.
+prompting a duplicate booking. Confirmed dining, seat and time-slot badges
+describe those specific bookings, while unresolved arrangements stay visible separately.
 
 Keep a hero link to pending items. Separate To do actions from To check
 confirmations. Sort immediate actions first, actual reservation openings or

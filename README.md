@@ -133,8 +133,11 @@ shows journeys and payment guidance; Costs keeps the transport estimate separate
 from accommodation, with assumptions and exclusions clear. See the
 [transport fare and budget contract](docs/content-workflow.md#transport-fares-and-budgets).
 
-Record purchases, seat bookings and payment separately when confirmed. Optional
-`paymentStatus` distinguishes paid, pay on arrival and unknown; unknown does not
+Record purchases, reservations and payment separately when confirmed. Transport
+`reservationKind` defaults to `seat`; `time-slot` records a reserved boarding
+window with a distinct confirmation label. Neither reservation kind establishes
+fare purchase or payment. Optional `paymentStatus` distinguishes paid, pay on
+arrival and unknown; unknown does not
 mean unpaid. Dated dining `cost` records cover the entire party's meal order.
 Optional `budget` allowances add unbooked meal and other estimates to existing
 lodging, transport and booked-meal amounts without copying totals or repeating

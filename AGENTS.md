@@ -205,7 +205,9 @@ Keep the implementation contracts below aligned with that guide.
   budget. It is an estimate, not evidence of purchase, payment or a complete
   trip budget.
   A leg's `reservationStatus: "booked"` and `reservationNote` record an explicit
-  seat confirmation separately from coverage and payment. Temporary reservation
+  reservation confirmation separately from coverage, fare purchase and payment.
+  Optional `reservationKind` is `seat` by default or `time-slot` for a reserved
+  boarding window; keep their confirmation labels distinct. Temporary reservation
   messages remain checks until completion is established; verify an existing
   attempt before prompting a duplicate booking.
 - Optional `budget` stores one ISO currency, party-total `allowances`, a supplied

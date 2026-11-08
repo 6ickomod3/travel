@@ -523,7 +523,8 @@ for (const folder of folders) {
       if (leg.coverage === 'mixed') assert.ok(typeof leg.fareNote === 'string' && leg.fareNote.trim(), `${label}: explain mixed coverage`);
       if (leg.time !== undefined) assert.ok(typeof leg.time === 'string' && leg.time.trim(), `${label}: add reference time text`);
       assert.ok(leg.reservationRequired === undefined || leg.reservationRequired === true, `${label}: reservation requirement must be true or omitted`);
-      assert.ok(leg.reservationStatus === undefined || leg.reservationStatus === 'booked', `${label}: only explicit seat bookings use a status`);
+      assert.ok(leg.reservationKind === undefined || ['seat', 'time-slot'].includes(leg.reservationKind), `${label}: reservation kind must be seat or time-slot`);
+      assert.ok(leg.reservationStatus === undefined || leg.reservationStatus === 'booked', `${label}: only explicit reservation confirmations use a status`);
       if (leg.reservationNote !== undefined) assert.ok(typeof leg.reservationNote === 'string' && leg.reservationNote.trim(), `${label}: add reservation detail`);
       checkSources(leg.sourceIds, label);
     }

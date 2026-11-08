@@ -428,10 +428,12 @@ export interface TripTransportLeg {
   regularFare?: number;
   /** Explain price conditions, return fares, fees, or a choice of services. */
   fareNote?: string;
-  /** A planning reference, not a confirmed departure or purchased ticket. */
+  /** Supplied departure or reservation time; this alone does not confirm a booking. */
   time?: string;
   reservationRequired?: true;
-  /** A recorded seat confirmation, independent of pass coverage or payment. */
+  /** Omission preserves seat labels; time-slot identifies a reserved boarding window. */
+  reservationKind?: "seat" | "time-slot";
+  /** An explicit reservation confirmation, independent of fare purchase or payment. */
   reservationStatus?: "booked";
   reservationNote?: string;
   sourceIds?: string[];

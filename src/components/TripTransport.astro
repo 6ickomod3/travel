@@ -30,7 +30,7 @@ const references = referenceIds.flatMap(id => { const source = sources.find(sour
 ---
 <section class="trip-transport" id="transport" aria-labelledby="transport-title">
   <div class="transport-heading">
-    <div><h3 id="transport-title">{text('全程交通清单', 'Transport by day')}</h3><p>{text('金额为成人每人，', 'Adult fares per person, ')}{plan.currency}{text('；指定席确认状态见各段。', '. Seat confirmation status is shown for each journey.')}</p></div>
+    <div><h3 id="transport-title">{text('全程交通清单', 'Transport by day')}</h3><p>{text('金额为成人每人，', 'Adult fares per person, ')}{plan.currency}{text('；预约确认状态见各段。', '. Reservation confirmation status is shown for each journey.')}</p></div>
     <a href="#cost-transport-budget">{text('交通预算', 'Transport budget')} <Icon name="arrow-down" size={14} /></a>
   </div>
   <div class="transport-days">
@@ -39,7 +39,7 @@ const references = referenceIds.flatMap(id => { const source = sources.find(sour
       <ol class="transport-legs">
         {plan.legs.filter(leg => leg.date === date).map(leg => <li id={`transport-leg-${leg.id}`} data-transport-leg={leg.id} data-transport-coverage={leg.coverage} data-transport-reservation={leg.reservationStatus}>
           <h4 class="transport-route">{leg.route}</h4>
-          <div class="transport-service"><p>{leg.service}</p>{leg.time && <span class="transport-time">{leg.time}</span>}{leg.reservationStatus === 'booked' ? <BookingBadge status="booked" locale={locale} label={text('指定席已订', 'Seats booked')} /> : leg.reservationRequired && <span class="transport-reservation">{text('需提前预约', 'Reserve in advance')}</span>}{leg.reservationNote && <p class="transport-reservation-note">{leg.reservationNote}</p>}</div>
+          <div class="transport-service"><p>{leg.service}</p>{leg.time && <span class="transport-time">{leg.time}</span>}{leg.reservationStatus === 'booked' ? <BookingBadge status="booked" locale={locale} label={leg.reservationKind === 'time-slot' ? text('时段已预约', 'Time slot booked') : text('指定席已订', 'Seats booked')} /> : leg.reservationRequired && <span class="transport-reservation">{text('需提前预约', 'Reserve in advance')}</span>}{leg.reservationNote && <p class="transport-reservation-note">{leg.reservationNote}</p>}</div>
           <div class="transport-fare"><span class:list={['transport-coverage', `transport-coverage-${leg.coverage}`]}>{coverage[leg.coverage]}</span>{leg.fare !== undefined && <strong data-transport-fare={leg.fare}>{money(leg.fare)}</strong>}{leg.regularFare !== undefined && <small>{text('未满足优惠条件：', 'Without the discount: ')}{money(leg.regularFare)}</small>}</div>
           {leg.fareNote && <p class="transport-fare-note">{leg.fareNote}</p>}
         </li>)}

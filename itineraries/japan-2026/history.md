@@ -26,6 +26,8 @@
   official English page, stored unchanged in the shared brand asset library.
 - Chikatsuyu's November 17–18 lodging is SEN RETREAT CHIKATSUYU, with dinner
   and breakfast included for two adults in the terrace four-person room.
+  JPY 44,115 is explicitly paid; the subsequent successful receipt supersedes
+  the earlier failed-payment warning and does not require another payment.
   Breakfast early pickup or packing for November 18 is user-confirmed.
   Meal format, actual menu and allergy handling remain unresolved.
 - Comfort Hotel Kii Tanabe is a non-smoking Queen room with breakfast;
@@ -35,7 +37,8 @@
   without meals. Prepare the November 18 dinner and a breakfast needing no
   microwave before the November 19 early departure. Use the property's own
   baths; sister-property facilities are not included. A non-smoking room
-  change has not been confirmed.
+  change has not been confirmed. Navigate to Matsuya at Kawayu 29; Kawayu 13
+  belongs to the sister property Midoriya rather than this booked hotel.
 - November 19 uses the 06:54 Kawayu departure, then Hayatama Taisha, Nachi,
   and Kii-Katsuura, returning directly to Osaka on Kuroshio 30 at 19:16.
   The accepted route does not include Daimonzaka walking or the Tanabe
@@ -46,16 +49,28 @@
   with one shared shrine/temple/tower window at 10:20–12:15.
 - The JR West All Area seven-day pass for November 13–19 is purchased and
   explicitly paid: JPY 26,000 per person and JPY 52,000 for two. Collect it
-  at Kansai Airport with the required travel/payment documents. No Kansai
-  five-day pass is planned. Pass coverage does not confirm other reservations.
+  at Kansai Airport on November 13 with the required travel/payment documents,
+  without a separate collection appointment. The submitted route uses the
+  green staffed JR counter outside the station gates via Terminal 1's
+  second-floor walkway, with listed hours of 05:30–23:00. Collect paper
+  tickets for the four already reserved train seats there as well. No Kansai
+  five-day pass is planned. Collection is still a future action, and pass
+  coverage does not confirm other reservations.
 - November 13 HARUKA is covered by the paid pass and will be reserved after
   both travelers complete arrival procedures. The main reference is 19:46,
   with 20:16 as backup and 19:16 only if comfortably early. November 21
   HARUKA remains the unpurchased main airport plan; the separately labeled
   Hankyu Sanbangai bus is an alternative, not a second ticket to buy.
-- The Miyajima ropeway has only a temporary November 15 09:15–09:30 receipt
-  for two. Verify formal completion before booking again, and do not mark
-  it booked. Keep 11:30 descent and the accepted midday/afternoon order.
+- Hiroshima Peace Memorial Museum's November 14 14:00 entry has been ordered
+  by the companion. Obtain a copy of the electronic ticket or QR code and
+  verify the two-person ticket count; do not buy duplicate tickets. Keep the
+  accepted 14:00–16:00 visit. No ticket amount or payment status is supplied.
+- The Miyajima ropeway's November 15 09:15–09:30 upward slot is formally
+  confirmed for two. Arrive at Momijidani before 09:15 and show the formal
+  confirmation QR code; a missed slot becomes invalid. The round-trip tickets
+  remain a separate on-site purchase at JPY 2,000 per person, JPY 4,000 for
+  two. Descent does not require a reserved time. Keep 11:30 descent and the
+  accepted midday/afternoon order; the confirmed slot does not establish payment.
 - November 14 Inaho is booked for two at 18:30, with JPY 32,600 due on
   arrival after a JPY 400 points reduction, including tax and service.
   November 15 Kanawa Seto is booked for two at 19:00 for JPY 19,800, with
@@ -76,21 +91,28 @@
   separate. All eight accommodation nights now have quoted prices: JPY
   294,987 in booking amounts plus JPY 3,200 tax gives JPY 298,187 in the
   current accommodation budget, excluding transport, meals and attractions.
-- The current transport estimate is JPY 37,260 per person and JPY 74,520 for
-  two, assuming November 21 HARUKA is bought by October 31 for JPY 1,800
-  and the November 19 contactless early-bus discount applies. HARUKA becomes
-  JPY 1,900 when bought from November 1. The estimate excludes uncovered
-  city transport, taxis, meals and attraction admissions. It is separate
+- The current transport estimate is JPY 37,360 per person and JPY 74,720 for
+  two, using the JPY 1,900 November 21 HARUKA fare applicable to purchases
+  from November 1 and assuming the November 19 contactless early-bus
+  discount applies. The November 7 source still says that airport ticket is
+  unpurchased, so its older JPY 1,800 by-October-31 condition cannot supply
+  the current main estimate. The separate JPY 1,800 airport-bus alternative
+  remains unselected and is not counted as a second ticket. The estimate
+  excludes uncovered city transport, taxis, meals and attraction admissions. It is separate
   from accommodation costs; payment is recorded only for explicitly paid
   items. The broader Japan estimate counts this transport amount once.
 - The broader two-person Japan budget derives JPY 402,587 in recorded
-  orders plus estimated accommodation taxes, JPY 22,520 in additional
+  orders plus estimated accommodation taxes, JPY 22,720 in additional
   transport, and JPY 69,900–102,900 in unbooked food/admission/city-travel
-  allowances. This yields JPY 495,007–528,007; the source rounds it to
-  JPY 495,000–528,000 and suggests preparing JPY 500,000–530,000. Flights,
-  shopping, extra drinks and major route changes are excluded. Known paid
-  records cover JPY 52,000 for the pass; incomplete payment information
-  cannot establish a remaining unpaid balance by subtraction.
+  allowances. This yields JPY 495,207–528,207 after the current HARUKA tariff
+  adds JPY 200 for two to the source's older conditional calculation.
+  The source retains a rounded JPY 495,000–528,000 range and suggests
+  preparing JPY 500,000–530,000; the preparation reserve stays unchanged.
+  Flights, shopping, extra drinks and major route changes are excluded. Known paid
+  records cover the JPY 52,000 pass and JPY 44,115 SEN stay, totaling
+  JPY 96,115; both amounts were already included in the spending estimate.
+  Incomplete payment information cannot establish a remaining unpaid balance
+  by subtraction.
 - Stamp stops are plans, not recorded collections or confirmed individual
   pilgrim qualifications. Keep the accepted two-day hiking total of 20.8 km.
 - November 17–19 have route-specific or area guide figures and practical
@@ -1373,6 +1395,124 @@ and licenses.
   no completed deployment is claimed. No new private records are authorized
   for publication by this message.
 
+### 2026-11-07-01-updated-itinerary
+
+- Archived: November 7, 2026, using the user's America/Los_Angeles date.
+- Origin: the updated workspace itinerary and the user's request to update
+  the website. The source also states November 7, 2026, US West Coast time;
+  this is its author-supplied review date, not independent operator verification.
+- Private original: retained unchanged (78,387 UTF-8 bytes) in ignored
+  `.local/trips/japan-2026/inputs/2026-11-07-01-updated-itinerary.original.txt`.
+  SHA-256:
+  `6a9e938eb5c889e4de5c3af4ee413f24f41d34739799246921cb5842d7b0089f`.
+  The editable source remains ignored as well. Newly added hotel and ropeway
+  reservation identifiers, private confirmation/payment links and card details,
+  identities, credentials and exact train seat identifiers remain private.
+- Public excerpt:
+  [inputs/2026-11-07-01-updated-itinerary.md](inputs/2026-11-07-01-updated-itinerary.md)
+  (4,297 UTF-8 bytes; SHA-256
+  `8bbb65dc6d09da05309bda7ed733f3ff3a6f55d2e2827426e179f77cba5345e5`).
+  This is a curated selection of seventeen verbatim passages or exact clauses
+  across six planning topics, rather than a full booking document with links
+  removed. English archive context identifies the selected and omitted scope.
+  Private values and unrelated unchanged or stale passages are excluded.
+- Publication scope: the existing explicit October 27 authorization covers
+  these itinerary, lodging, reservation and cost/payment facts. The present
+  request authorizes their routine website update through the established
+  publication workflow; it does not authorize publishing the excluded private
+  material or treating source links as independently verified operator pages.
+- Museum: the companion ordered November 14 14:00 entry. Replace the ticket
+  purchase reminder with obtaining the electronic ticket/QR copy and checking
+  the two-person ticket count. Preserve the accepted 14:00–16:00 timetable;
+  avoid duplicate purchasing and do not infer a cost or payment status.
+- Ropeway supersession: the formal November 15 09:15–09:30 upward-slot
+  confirmation for two replaces the provisional-receipt state. Arrive before
+  09:15, retain the formal QR code and the supplied missed-slot rule, and
+  purchase the round-trip tickets on site for JPY 4,000 for two. Descent is
+  unreserved. The remaining task is credential/ticket preparation rather than
+  checking or repeating the completed slot reservation. Preserve the existing
+  mountain walking, 11:30 descent and midday/afternoon timing. Reservation
+  does not establish ticket purchase or payment, and its private number is omitted.
+- JR collection: no separate collection appointment is needed. The supplied
+  Terminal 1 second-floor walkway route leads to the green staffed counter
+  outside JR Kansai Airport Station gates, listed as open 05:30–23:00.
+  Collect the pass on November 13 and request paper printouts of the four
+  already reserved seats, retaining private credentials separately. Reserve
+  that evening's HARUKA only after arrival and collection, without buying a
+  separate ticket or changing its accepted reference departures. Collection
+  and the arrival HARUKA seat remain future actions.
+- Current airport fare: the November 7 source explicitly leaves November 21
+  HARUKA unpurchased. Its supplied tariff is JPY 1,800 for purchases by
+  October 31 and JPY 1,900 from November 1, so the main plan now uses
+  JPY 1,900 per person. Remove the expired lower-price target from the pending
+  action; this is a purchase-date condition rather than an invented seat-sale
+  deadline. Keep the JPY 1,800 airport-bus alternative separate and unselected.
+  Applying the current fare adds JPY 200 for two: transport is JPY 74,720,
+  additional transport excluding the pass is JPY 22,720 and the broader
+  spending estimate is JPY 495,207–528,207. The source's copied lower-fare
+  conditional totals do not override its explicit still-unpurchased status
+  and tariff. This changes neither the route nor the lodging amounts,
+  allowance ranges or suggested JPY 500,000–530,000 preparation reserve.
+- SEN payment supersession: JPY 44,115 is now explicitly paid. The later
+  successful receipt supersedes the earlier payment-failure warning; remove
+  SEN from unresolved-payment reminders and avoid a duplicate payment.
+  The recorded paid scope becomes JPY 96,115 for the pass and SEN, already
+  counted in the spending estimate; payment confirmation itself adds no new
+  expense. The separate current HARUKA tariff adjustment is recorded above.
+  The two Osaka online-payment stays and Kawayu automatic-charge arrangement remain
+  unknown; Hiroshima, Comfort and Inaho remain pay on arrival, and Kanawa's
+  payment remains unknown. Do not calculate a remaining unpaid balance from
+  this incomplete set of paid records.
+- Address clarification: navigate to the booked Matsuya at Kawayu 29.
+  Kawayu 13 in the booking email belongs to sister property Midoriya.
+  This does not replace the existing coordinate source, establish a new
+  bus-pole location or grant access to the sister property's facilities.
+- Accepted later decisions remain: the October 31 user confirmations for
+  SEN's early breakfast and Kawayu's early checkout/key return supersede
+  untouched pending wording still present in this source. Meal format/menu,
+  shrimp-allergy handling and actual bus-pole/direction checks remain unresolved.
+  Do not restore the older late-bus branch or Tanabe registration return.
+- Retained: trip dates, travelers, accommodation segments and prices,
+  flights and four train bookings, accepted timetable clock values, poems,
+  place IDs and sourced coordinates, maps, guide assets/checkpoints, runtime
+  weather configuration, meal selections, allowances, lodging amounts and
+  suggested reserve. Only the current unpurchased HARUKA price changes the
+  transport and overall estimate as described above.
+  No completed visits, collected stamps, pilgrim eligibility or new exact
+  trail geometry are established by these confirmations.
+- Shared representation: optional transport `reservationKind: "time-slot"`
+  distinguishes the confirmed ropeway boarding window from existing assigned
+  train seats, whose omitted kind retains the seat label. Types, content
+  validation, the transport badge and English project documentation agree.
+  Neither kind records fare purchase or payment.
+- Content verification: nine focused source/snapshot checks passed. They
+  confirmed the original and excerpt hashes, all seventeen verbatim selected
+  passages, preserved dates and timetable clock values, seven poems, all
+  seventy-one places/coordinates, maps, guides, weather and alternatives,
+  independent payment/booking scopes, and the derived current-fare budget.
+  All fifteen checklist IDs remain, now eight actions and seven checks.
+  Source identifiers and private email/account links are absent from the
+  current structured plan, excerpt and generated Japan HTML. An independent
+  read-only review also checked changed public files against private codes,
+  card, seat and email-link tokens and found no matches or material blockers.
+- Build verification: `pnpm build` passed, including content checks, all ten
+  focused weather tests, zero errors/warnings/hints across seventy Astro files
+  and four generated pages. No packages, assets or Pages workflow changed.
+- Browser verification: twenty-five focused groups passed at 320x667,
+  390x844 and 1280x844, using only local production assets. They checked
+  green museum/ropeway confirmations and their remaining credential/fare
+  actions, chronological checklist groups, distinct slot/seat badges,
+  current cost arithmetic and payment scopes, accommodation/cost fragment
+  disclosure reveal, airport collection instructions, earlier confirmations,
+  no-JavaScript reading, print-event disclosure/day-state restoration and
+  page width/error checks. Phone and desktop screenshots were visually
+  reviewed. No horizontal page overflow, page errors or local-resource
+  failures were observed; no new native PDF export is claimed.
+- Publication status: the locally verified update is ready for the existing
+  authorized main/Pages workflow. Commit, deployment and public-response
+  verification remain outstanding at this entry; no successful release is
+  claimed before those steps finish. Private originals remain ignored.
+
 ## Open information
 
 - SEN's dinner and breakfast are included, and November 18 breakfast early
@@ -1390,19 +1530,24 @@ and licenses.
   to the November 19 return. Update the three recorded hotel arrival
   estimates and save SEN's expected self-check-in instructions privately.
 - The pass is paid and the four named train seats are booked. Remaining
-  actions are Kansai Airport collection and the same-day November 13 HARUKA
-  seat reservation after both travelers arrive. The November 21 airport
-  ticket is still unpurchased; choose the main HARUKA or its separate bus
-  alternative without duplicate tickets or charges. The HARUKA lower-price
-  condition ends October 31; it is not a seat-sale deadline.
-- Verify formal completion of the November 15 09:15–09:30 ropeway reservation
-  attempt before booking again. The temporary message does not confirm the
-  reservation; the ropeway ticket remains a separate purchase. Purchase
-  of the November 14 museum WEB ticket also remains unconfirmed.
+  actions are November 13 Kansai Airport collection, paper tickets for those
+  four existing seats and the same-day HARUKA seat reservation after both
+  travelers arrive. Collection itself needs no separate appointment.
+  The November 21 airport ticket is still unpurchased; choose the main
+  JPY 1,900 HARUKA ticket or its separate JPY 1,800 bus alternative without
+  duplicate tickets or charges. The HARUKA lower-price condition expired
+  October 31; it was not a seat-sale deadline.
+- Obtain the companion's November 14 14:00 museum electronic ticket or QR
+  copy and verify its two-person ticket count; purchase is already recorded.
+  Save the formal November 15 09:15–09:30 ropeway QR code and arrive before
+  09:15. Its two-person upward slot is confirmed; buy the JPY 4,000 two-person
+  round-trip tickets on site. No second slot booking or descent reservation is needed.
 - Check actual payment records for Osaka's two online-payment stays and
-  SEN/Kawayu's automatic-charge arrangements. Hiroshima and Comfort are pay
+  Kawayu's automatic-charge arrangement. SEN's JPY 44,115 payment is now
+  confirmed. Hiroshima and Comfort are pay
   on arrival; Inaho is pay on arrival and Kanawa's payment is unknown. The
-  explicitly paid JPY 52,000 pass does not establish other orders' balances.
+  explicitly paid JPY 96,115 covers only the pass and SEN; it does not
+  establish other orders' balances.
 - Confirm the Comfort non-smoking Queen room meets both travelers' needs;
   a twin-room change is unconfirmed. Decide whether Kawayu's smoking twin
   needs a non-smoking change and check availability/price before assuming it.
@@ -1535,3 +1680,20 @@ when a source explicitly resolves or changes a decision.
   final pass, followed by nine successful real-API browser smoke checks.
   Final release and deployment checks remain outstanding; accepted
   trip and booking facts remain unchanged.
+- November 7, 2026: archived the updated original privately and its selected
+  public planning excerpt before canonical changes. Recorded the companion's
+  November 14 museum ticket order, formal November 15 two-person ropeway slot
+  and QR/on-site-ticket preparation, November 13 JR counter collection and
+  four existing seat printouts, SEN's successful JPY 44,115 payment, and the
+  Matsuya/Midoriya address distinction. The known paid scope is JPY 96,115.
+  The still-unpurchased November 21 HARUKA uses the supplied from-November-1
+  JPY 1,900 fare, adding JPY 200 for two to transport and overall spending:
+  JPY 74,720 and JPY 495,207–528,207 respectively. Lodging, allowance/reserve
+  amounts and all accepted schedule clock values remain unchanged.
+  Retained the subsequent early-breakfast and early-checkout confirmations
+  despite stale source prose, with independent food/allergy, bus-stop and
+  other-payment questions unresolved. Nine source/snapshot checks, the
+  required build and weather tests, twenty-five focused phone/desktop browser
+  groups and an independent content/privacy review passed. The verified
+  implementation is prepared for the authorized Pages release; deployment
+  and public-response checks remain outstanding at this entry.
