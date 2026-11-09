@@ -115,6 +115,16 @@
   by subtraction.
 - Stamp stops are plans, not recorded collections or confirmed individual
   pilgrim qualifications. Keep the accepted two-day hiking total of 20.8 km.
+- November 17 keeps A, the original 13.3 km walking day, as its accepted
+  default. B–E are separately labeled bus-based rain alternatives, with
+  complete schedules and conditional stamp stops rather than a new selected
+  route. B retains the steep initial climb; C and D can use the 1.3 km
+  ending and optional 1.6 km Osakamoto extension; E avoids mountain walking.
+  All stated distances exclude the final approximately ten-minute SEN walk.
+  Keep the existing SEN stay, included meals and main transport budget.
+  Earlier arrival does not confirm early check-in. The November 17 souvenir
+  stamps are outside the Japanese option-three required ten, provided the
+  accepted November 18–19 conditions are actually completed.
 - November 17–19 have route-specific or area guide figures and practical
   checkpoints from the supplied May 2026 Nakahechi booklet. November 17
   retains Takijiri–Takahara–Chikatsuyu; November 18 retains the rapid bus to
@@ -137,6 +147,8 @@
   the existing sourced place registry, using Asia/Tokyo and that day's exact
   date. The compact primary forecast precedes the map; any supplied poem now
   follows the map or guide before the description, stay and daily reminders.
+  Each configured location offers initially closed hourly detail for that
+  same local date, fetched only on demand and independently of route choices.
   Forecasts do not change the accepted plan, establish weather certainty or
   introduce new visits. Preserve all seven supplied epigraphs and their credits.
 
@@ -1513,8 +1525,199 @@ and licenses.
   verification remain outstanding at this entry; no successful release is
   claimed before those steps finish. Private originals remain ignored.
 
+### 2026-11-09-01-rain-route-options
+
+- Archived: November 9, 2026, using the user's America/Los_Angeles date.
+- Origin: the user's public chat proposal for possible rain on November 17,
+  followed by the separate implementation request below.
+- Original language: Simplified Chinese. Public archive:
+  [inputs/2026-11-09-01-rain-route-options.md](inputs/2026-11-09-01-rain-route-options.md).
+  The archived file is 4,106 UTF-8 bytes; SHA-256:
+  `4d1a0278abb75cace4ed86ff62ef2c7d2a813d9d3f9e043826b9e83aba66425b`.
+  The supplied wording, Markdown, links and literal escapes are preserved as
+  a chat transcription; no attached original file exists for a byte-copy claim.
+  This contains public route advice rather than private booking material.
+- Scope: retain A, the current 13.3 km route with eight planned stamps and
+  one morning bus, and add independently labeled B–E rain alternatives.
+  B retains the steep first approximately 4 km, descends on the sourced
+  pedestrian connection to Kurisugawa, takes another bus and walks the
+  final 1.3 km: approximately
+  7 km and five planned stamps. C goes directly to Gyuba-doji-guchi for the
+  final 1.3 km, or 2.9 km with the optional Osakamoto return, with two or
+  three planned stamps. D first visits Takijiri and uses two buses for that
+  same short ending, with three or four planned stamps. E stays aboard the
+  second bus to Chikatsuyu, avoiding mountain walking with two planned stamps.
+- A and B share the existing 06:38–07:16 morning bus; C–E depart later.
+  B's proposed 11:14 connection has a 12:22 backup, and retains slippery
+  steep terrain. D and E can decide at Gyuba-doji-guchi whether to alight for
+  the short path or continue to Chikatsuyu. The proposal's walking distances
+  exclude the final approximately ten-minute walk to SEN.
+- No replacement default, taxi booking, bus reservation, completed stamp
+  collection or pilgrim qualification is established by this proposal.
+  All options keep the same SEN stay and included meals; earlier arrival
+  does not establish early check-in.
+- The November 17 souvenir stamps are outside the accepted Japanese
+  condition-three requirement, provided the required November 18 walk and
+  November 19 shrine visits and ten specified stamps are completed.
+  Each traveler's Camino proof and actual qualification remain unresolved.
+- Source verification: the exact official Tanabe–Shirahama–Hongu timetable
+  was retrieved and its single page was extracted and visually inspected.
+  It is 345,378 bytes, SHA-256
+  `ca1ca3b205f0c7c5aaba3700ed901c3800c82d367ec97ebc52b4d36c56a6f312`,
+  printed revision September 19, 2026, with no explicit validity end date.
+  November 17 is Tuesday. The proposed columns have no weekday, weekend or
+  seasonal restriction marked; the April 1–November 30 footnote belongs to
+  starred Hongu/Hosshinmon entries elsewhere. This checks the printed
+  departures rather than guaranteeing service during disruption.
+- Verified times: Tanabe pole No. 2; Meiko 95 06:38–07:16 to Takijiri for
+  A/B; Meiko 93 Kurisugawa 11:14–Gyuba-doji-guchi 11:25 for B; Ryujin 81
+  Tanabe 11:35, Takijiri 12:16, Kurisugawa 12:22, Gyuba-doji-guchi 12:34
+  and Chikatsuyu-oji 12:49 for C, B's backup and D/E's second bus;
+  Meiko 95 Tanabe 10:25–Takijiri 11:03 for D/E.
+- Explicit source correction: the retained May 2026 guide's printed page 7
+  labels Takahara–Kurisugawa as an approximately 25-minute pedestrian
+  connection and says vehicles are not allowed. Replace the submission's
+  vehicle-road wording with the sourced walking connection and local
+  directions. The supplied 30–40 minutes remains a conservative planning
+  allowance; no exact path distance or paved-road trace is established.
+  B's approximately 7 km is a combined source estimate rather than a newly
+  measured route. Its 11:14 connection remains conditional and can be tight
+  after Takahara stamp/rest time; retain the 12:22 backup.
+- Distance evidence: the official tail-route page states 1.3 km, about
+  30 minutes, ascent 52 m and descent 103 m, including descending stone
+  stairs. The retained guide's pages 8–9 give Osakamoto at cumulative
+  11.0 km and the entrance area at 11.8 km, supporting an approximate
+  0.8 km each-way extension and 2.9 km total shortened walk. Its schematic
+  subtraction for the ending differs from the explicit 1.3 km route page;
+  preserve the supplied short-route estimate without inventing GPS geometry.
+  That short distance does not measure D's Takijiri-area wandering or the
+  separate final SEN walk.
+- Qualification verification: the inspected official option-three table
+  lists Hosshinmon, Mizunomi, Fushiogami, Haraido, Hongu, Oyunohara,
+  Hayatama, Nachi, Seiganto and Hirou. These match the existing six
+  November 18 and four November 19 planned stamps. November 17 souvenirs
+  remain outside those ten; the rainy alternatives do not record actual
+  collection, completed qualification, registration or Camino eligibility.
+- Payment and source limits: Tanabe–Takijiri JPY 970 is verified; new
+  variant-only fares remain unknown and excluded from the main budget.
+  Meiko accepts cash or IC cards, while Ryujin's Kumano Hongu Line accepts
+  cash or contactless bank cards, effective September 19, 2026, without
+  Suica/ICOCA. Do not invent local-bus seat reservations. No new exact
+  Kurisugawa or Gyuba-doji-guchi boarding coordinates were verified; preserve
+  existing sourced coordinates and retain those stop names in schedules
+  without fabricated markers. Guide drawings are not georeferenced evidence.
+- Research record: the source manifest, exact retrieved files and concise
+  English verification notes are retained in ignored
+  `.local/trips/japan-2026/research/2026-11-09/`. The retained supplied
+  guide keeps its original publisher, edition, receipt date and SHA-256;
+  this update claims no new guide download or reuse license.
+- Shared representation: optional `routeOptions` references the main
+  schedule and existing B–E alternative IDs; `busCount` counts whole-day
+  rides. Main distance comes from `hike`; alternative `walking` holds
+  the base and any additional optional distance, while E uses a qualitative
+  `walkingNote` rather than a fake zero. Alternatives own planned stamp
+  lists with optional Osakamoto stops, deriving their displayed ranges.
+  Maps remain explicitly scoped to their alternative; optional detours are
+  labeled and excluded from core connection lines. These comparisons store
+  neither copied totals nor an accepted-route selection.
+  The first shared note remains visible as concise guidance; remaining notes
+  start closed in a counted native scope/travel disclosure and restore their
+  manual toggle state after printing.
+- Application status: source archival and official-reference verification
+  and structured implementation are complete. Nine focused source, snapshot
+  and API checks passed. They preserve the other eight days and November 17's
+  accepted main schedule, guide, poem, weather configuration, hike and notes,
+  along with the budgets and explicitly paid amounts. Four independent
+  alternatives, four alternative-scoped map views and one official reference
+  were added; no new visit, stamp collection or route selection is inferred.
+  Local browser review is complete as recorded below; publication and
+  public-response verification remain pending.
+
+### 2026-11-09-02-rain-routes-hourly-weather-request
+
+- Archived: November 9, 2026, using the user's America/Los_Angeles date.
+- Origin: the subsequent public chat request to add the proposed alternatives
+  and hourly weather detail. Public archive:
+  [inputs/2026-11-09-02-rain-routes-hourly-weather-request.md](inputs/2026-11-09-02-rain-routes-hourly-weather-request.md).
+  The archived file is 698 UTF-8 bytes; SHA-256:
+  `96e4ba1e110858d1ea76ab72190619a99fc84cc336dad6429c7c974e853dbf4f`.
+  The original Chinese wording, literal HTML entity and supplied typo are
+  preserved separately from the earlier proposal.
+- Authorized scope: add the rain alternatives without changing the accepted
+  main route, and provide destination-local hourly forecasts on demand.
+  This routine update follows the established public-site publication scope.
+- Presentation decision: retain the compact daily forecast above the map.
+  Hourly details belong in an initially closed control rather than becoming
+  the default daily reading. This explicit request extends the earlier
+  compact-weather design while preserving its map and phone reading layout.
+- Runtime safeguards: use the same free Open-Meteo provider, exact trip date
+  and explicit destination IANA timezone, labeled units and attribution,
+  retrieval-time semantics, cache/stale states and print protection.
+  Forecast values do not belong in the structured plan, determine route
+  selection or substitute today's weather when the trip date is unavailable.
+- Shared implementation contract: every existing weather configuration
+  offers hourly detail without a new canonical field. The primary native
+  disclosure sits alongside its compact card; each secondary location's
+  hourly disclosure stays within the additional-location disclosure.
+  Runtime hourly requests and per-location/date caches are separate from
+  daily requests. Use exact-date Unix timestamps, destination-local GMT
+  offsets, condition, °C temperature, % precipitation probability,
+  preceding-hour mm precipitation and 10 m wind speed in m/s.
+  Label partial coverage and missing values. Preserve 30-minute freshness
+  and the 24-hour failed-refresh fallback with the original retrieval time.
+  Printing reveals already available rows or a labeled no-data state,
+  requests no new forecast and restores disclosure state. Contain the
+  phone table's horizontal scrolling without triggering a day swipe.
+- Live API correction: an actual exact-date request returned HTTP 400 when
+  `forecast_days` was combined with `start_date`/`end_date`. Remove that
+  mutually exclusive parameter from hourly requests while preserving the
+  destination-local horizon check. The corrected exact-date request returned
+  HTTP 200 with 24 Asia/Tokyo rows from 00:00 through 23:00. This is a live
+  retrieval check, not a committed forecast snapshot or weather certainty.
+- Fragment behavior: a direct link to a hidden geographic view now calls
+  `revealDailyMapTarget()` immediately after `revealGuideTarget()`, before
+  opening ancestors and scrolling. It selects the referenced alternative
+  map while preserving native print snapshot/restoration state.
+- Build verification: `pnpm build` passed content-reference and image checks,
+  all eighteen focused weather tests, zero errors, warnings or hints across
+  seventy-three Astro files and four generated static pages.
+  The full gate passed again after the final comparison-layout refinement.
+- Browser verification: thirty focused groups passed at 320, 390 and
+  1280 px widths. The initial twenty-four covered focused-day/history
+  behavior, initially closed native hourly controls, all five comparison
+  rows, four separate alternatives and map-fragment reveal, optional-only
+  detours, exact 24-hour rows and labeled units, null versus zero and cache
+  handling, deferred secondary fetching, phone table scrolling protected
+  from day swipes, and complete print/restoration behavior.
+  Additional browser contexts exercised 31-minute stale fallback, expiry
+  beyond 24 hours, partial/empty data, future/past dates, delayed print
+  responses and no-JavaScript reading. Six final layout groups, two at each
+  width, verified the compact visible guidance and counted scope/travel
+  disclosure, manual toggles and print restoration. Screenshots were
+  visually reviewed.
+- Independent review: the hourly-weather review found no material issues.
+  The rain review confirmed route facts and identified three missing guide
+  references. Existing `chikatsuyu-map` references were added to B's
+  pedestrian-descent row and C/D's optional detour rows; no new source
+  geometry, map coordinates or private guide original was published.
+- Application status: implementation, source/snapshot checks, focused weather
+  tests, production builds and phone/desktop browser review are complete.
+  The locally verified update is ready for the existing authorized main/Pages
+  workflow. Commit, deployment and public-response verification remain
+  pending at this preparation-time record. The post-commit result belongs in
+  the ignored repository-relative local release record
+  `.local/trips/japan-2026/review/2026-11-09-release.md`; consult it to
+  confirm publication without adding a self-referential release commit.
+  No successful release is claimed here before those checks finish.
+
 ## Open information
 
+- Choose a November 17 rain alternative from actual weather and path conditions
+  if needed; A remains the accepted default. B retains the steep climb and
+  its 11:14 transfer is conditional. At Gyuba-doji-guchi, D can keep the
+  short stone-step walk or continue as E if conditions warrant. Confirm the
+  local Takahara–Kurisugawa pedestrian directions and actual boarding poles.
+  New variant-only fares and early SEN check-in are not established.
 - SEN's dinner and breakfast are included, and November 18 breakfast early
   pickup or packing is confirmed. Confirm the remaining cooking versus
   boxed-meal format, actual menu and shrimp-allergy handling. Preserve backup
@@ -1697,3 +1900,27 @@ when a source explicitly resolves or changes a decision.
   groups and an independent content/privacy review passed. The verified
   implementation is prepared for the authorized Pages release; deployment
   and public-response checks remain outstanding at this entry.
+- November 9, 2026: archived the public rain-route proposal and subsequent
+  itinerary/hourly-weather request separately before structured edits.
+  Retained A as the accepted default and documented B–E comparison,
+  whole-day bus counts, conditional walks/stamps and alternative-map scope.
+  Verified the supplied bus times against the September 19 timetable;
+  corrected the vehicle-road descent wording to the guide's pedestrian
+  connection while retaining the conservative 30–40-minute allowance.
+  New stop coordinates and variant-only fares remain unknown.
+  Added the English hourly-weather convention for on-demand, exact-local-date
+  disclosures, explicit units and time offsets, independent caches and
+  protected print snapshots. Accepted booking/payment, meal, main-route
+  budget and qualification states remain unchanged. Added geographic-view
+  fragment reveal before ancestor opening/scrolling. The full build, eighteen
+  weather tests and nine focused source/snapshot/API checks passed, including
+  the corrected live exact-date request after removing mutually exclusive
+  `forecast_days`. Thirty focused phone/desktop browser groups passed;
+  screenshots were visually reviewed. The final compact comparison keeps
+  short guidance visible and folds remaining notes with counts and restored
+  print state. Independent review confirmed facts and weather behavior;
+  three guide-reference gaps were corrected before the final successful build.
+  The verified update is ready for the authorized Pages workflow; commit,
+  deployment and public-response checks remain pending at preparation time.
+  Consult ignored `.local/trips/japan-2026/review/2026-11-09-release.md`
+  for the post-commit publication result.

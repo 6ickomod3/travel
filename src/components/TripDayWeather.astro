@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import TripWeatherReading from './TripWeatherReading.astro';
+import TripWeatherHourly from './TripWeatherHourly.astro';
 import type { TripDay, TripMapPlace } from '../data/types';
 import type { WeatherLocation } from '../lib/weather';
 
@@ -34,11 +35,12 @@ const config = day.weather && primary ? { date: day.date, timeZone: day.weather.
     <button type="button" class="weather-refresh" data-weather-refresh aria-label={text('刷新当天预报', 'Refresh this day’s forecast')} title={text('刷新预报', 'Refresh forecast')} hidden>
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M6 7a7 7 0 0 1 12-2l2 2M18 17a7 7 0 0 1-12 2l-2-2" /></svg>
     </button>
+    <TripWeatherHourly location={primary} date={day.date} timeZone={config.timeZone} primary locale={locale} />
     <details class="weather-details" data-weather-details data-trip-references>
       <summary><span>{text('更多', 'Details')}</span><Icon name="chevron-down" size={13} /></summary>
       <div class="weather-details-content">
         <p class="weather-total-rain" data-weather-total-rain hidden>{text('全天预计降水量：', 'Expected daily precipitation: ')}<strong data-weather-precipitation></strong></p>
-        {locations.length > 1 && <div class="weather-other-locations">{locations.slice(1).map(location => <TripWeatherReading location={location} locale={locale} />)}</div>}
+        {locations.length > 1 && <div class="weather-other-locations">{locations.slice(1).map(location => <TripWeatherReading location={location} date={day.date} timeZone={config.timeZone} locale={locale} />)}</div>}
         {day.weather?.note && <p class="weather-scope-note">{day.weather.note}</p>}
         <p class="weather-scope-note">{text('气温为当天最低–最高值；降雨概率和风速为全天最高值，并非某一时段。', 'Temperatures show the daily low–high range; rain chance and wind are daily maxima, not conditions at a particular time.')}</p>
         <p class="weather-scope-note">{text('预报最长覆盖含当地今天在内的16天。页面联网时自动获取，获取时间不是预报发布时间。', 'Forecasts cover up to 16 days including local today. The page updates while online; retrieval time is not the forecast issue time.')}</p>
@@ -90,7 +92,7 @@ const config = day.weather && primary ? { date: day.date, timeZone: day.weather.
     .day-weather { border-color: CanvasText; background: Canvas; }
   }
   @media print {
-    .day-weather { display: block; margin-bottom: 12px; padding: 8px 10px; background: white; border-color: #ccc; break-inside: avoid; }
+    .day-weather { display: block; margin-bottom: 12px; padding: 8px 10px; background: white; border-color: #ccc; break-inside: auto; }
     .weather-heading { min-height: 0; margin-bottom: 4px; }
     .weather-heading h3 > span, .weather-heading h3 > strong { font-size: 10px; }
     .weather-heading h3 { flex-direction: row; gap: 10px; }

@@ -1,0 +1,86 @@
+---
+import type { TripDay } from '../data/types';
+import Icon from './Icon.astro';
+import { routeMetrics } from '../lib/trip-route-options';
+
+interface Props { day: TripDay; locale?: 'zh-CN' | 'en'; }
+const { day, locale = 'en' } = Astro.props;
+const options = day.routeOptions;
+const isZh = locale === 'zh-CN';
+const text = (zh: string, en: string) => isZh ? zh : en;
+const number = (value: number) => new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(value);
+const range = (values?: { minimum: number; maximum: number }) => !values ? '—'
+  : values.minimum === values.maximum ? number(values.minimum) : `${number(values.minimum)}–${number(values.maximum)}`;
+const rows = options ? [
+  { label: options.mainLabel, href: `#day-${day.date}-main-schedule`, main: true, id: 'main', route: day },
+  ...options.alternativeIds.flatMap(id => {
+    const route = day.alternatives?.find(item => item.id === id);
+    return route ? [{ label: route.title, href: `#alternative-${day.date}-${id}`, main: false, id, route }] : [];
+  }),
+] : [];
+---
+{options && <aside class="route-options" aria-labelledby={`day-${day.date}-route-options-title`} data-day-route-options>
+  <h3 id={`day-${day.date}-route-options-title`}>{options.title}</h3>
+  <p class="route-options-intro">{text('点选方案查看独立时间表，第一行是当前行程。', 'Open an option for its separate schedule. The first row is the main plan.')}</p>
+  <table>
+    <thead><tr><th scope="col">{text('方案', 'Route')}</th><th scope="col">{text('巴士', 'Buses')}</th><th scope="col">{text('步行 · km', 'Walk · km')}</th><th scope="col">{text('章', 'Stamps')}</th></tr></thead>
+    <tbody>{rows.map(row => {
+      const metrics = routeMetrics(row.route);
+      return <tr class:list={{ 'route-main': row.main }}>
+        <th scope="row"><a href={row.href} data-route-option={row.id}><span>{row.label}</span>{row.main && <small>{text('当前', 'Main')}</small>}</a></th>
+        <td>{metrics.busCount ?? '—'}</td>
+        <td>{metrics.walking ? <>{text('约', '~')}{range(metrics.walking)}</> : <span class="route-local-walk">{text('当地短步行', 'Local walks')}</span>}</td>
+        <td>{range(metrics.stamps)}</td>
+      </tr>;
+    })}</tbody>
+  </table>
+  {options.notes?.[0] && <p class="route-options-guidance">{options.notes[0]}</p>}
+  {Boolean(options.notes && options.notes.length > 1) && <details class="route-options-details" data-route-options-details data-trip-references>
+    <summary>{text('范围与乘车提醒', 'Scope and travel notes')}<span>{options.notes!.length - 1} {text('条', 'notes')}</span><Icon name="chevron-down" size={14} /></summary>
+    <ul class="route-options-notes">{options.notes!.slice(1).map(note => <li>{note}</li>)}</ul>
+  </details>}
+</aside>}
+
+<style>
+  .route-options { margin-top: 22px; padding: 18px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper); }
+  h3 { font-family: var(--sans); font-size: 14px; font-weight: 600; line-height: 1.8; }
+  .route-options-intro { margin-top: 5px; color: var(--ink-soft); font-size: 12px; line-height: 1.8; }
+  table { width: 100%; margin-top: 12px; border-collapse: collapse; table-layout: fixed; font-size: 13px; }
+  th, td { padding: 8px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; text-align: left; }
+  thead th { color: var(--ink-soft); font-size: 11px; font-weight: 400; }
+  thead th:first-child { width: 45%; }
+  thead th:nth-child(2) { width: 14%; }
+  thead th:nth-child(3) { width: 27%; }
+  thead th:last-child { width: 14%; }
+  tbody th { font-weight: 500; }
+  tbody a { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; min-height: 44px; text-decoration: underline; text-underline-offset: 4px; line-height: 1.7; overflow-wrap: anywhere; }
+  tbody td { font-variant-numeric: tabular-nums; }
+  small { border: 1px solid var(--line); border-radius: 3px; padding: 1px 5px; color: var(--ink-soft); font-size: 10px; font-weight: 400; text-decoration: none; }
+  .route-main { background: var(--paper-deep); }
+  .route-local-walk { font-size: 11px; line-height: 1.7; }
+  .route-options-guidance { margin-top: 14px; color: var(--ink-soft); font-size: 12px; line-height: 1.9; }
+  .route-options-details { margin-top: 9px; border-top: 1px solid var(--line); }
+  .route-options-details > summary { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 6px 0; font-size: 12px; cursor: pointer; list-style: none; }
+  .route-options-details > summary::-webkit-details-marker { display: none; }
+  .route-options-details > summary::marker { content: ''; }
+  .route-options-details[open] > summary svg { transform: rotate(180deg); }
+  .route-options-details > summary span { margin-left: auto; color: var(--ink-soft); font-size: 10px; }
+  .route-options-notes { margin: 4px 0 0; padding-left: 17px; color: var(--ink-soft); font-size: 12px; line-height: 1.9; }
+  .route-options-notes li + li { margin-top: 6px; }
+  @media (max-width: 600px) {
+    .route-options { padding: 14px 10px; }
+    table { font-size: 12px; }
+    th, td { padding: 6px 3px; }
+    thead th:first-child { width: 42%; }
+    thead th:nth-child(3) { width: 30%; }
+    .route-options-notes { font-size: 12px; }
+  }
+  @media print {
+    .route-options { padding: 12px; background: white; }
+    h3, table { font-size: 10px; }
+    .route-options-intro, .route-options-guidance, .route-options-notes { font-size: 9px; }
+    .route-options-details > summary { min-height: auto; font-size: 9px; }
+    tbody a { min-height: auto; text-decoration: none; }
+    .route-main { background: white; }
+  }
+</style>

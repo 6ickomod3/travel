@@ -85,6 +85,16 @@ New `*/trip.ts` files are discovered automatically and appear in the homepage co
 
 Use a year-only `TripPlaceholder` until dates and plans are known, following UK 2026. Once an itinerary is ready, change that same file to a dated `Trip`, keeping its slug and URL. Optional schedules, flights, stays, ticket options, reservation opening times, checklists, practical notes, and official sources keep detailed plans together. `mapRoute` records returns and transfers separately from unique destinations; complete alternative day plans have their own labeled schedules.
 
+Optional daily `routeOptions` compares the main plan and referenced
+alternatives without selecting one. Reuse `busCount`, the main `hike`,
+alternative `walking` or qualitative `walkingNote`, and each route's
+planned `stamps` rather than copy summary totals. Optional walking extensions
+and stamp stops remain conditional; distances show their supplied scope.
+Keep the first shared note visible; remaining scope/travel notes start
+collapsed with a count and are included in printing.
+Unselected variants stay outside the main route and transport budget.
+See [daily route comparisons](docs/content-workflow.md#daily-route-comparisons).
+
 Optional trip-owned `places` and daily `map` views add maps near the start of each day.
 Reuse sourced coordinates, number accepted stops, and distinguish local activity,
 whole-day transport, alternative and optional coverage. Stable place and schedule
@@ -93,10 +103,14 @@ require verified geometry and a source. Keep unknown locations unmapped rather
 than guess. The [data contract](docs/content-workflow.md#daily-map-data) and
 [design guide](docs/trip-design-principles.md#daily-maps) cover phone activation,
 visible-day loading, native labels, stop lists, external links and print fallback.
+Direct geographic-view links select the referenced view before opening its
+containing disclosures and scrolling, preserving print snapshot state.
 
 Optional daily `weather` references those same sourced place IDs and records
 an explicit destination `timeZone`. A compact primary forecast appears above
-the map; additional locations and scope details start collapsed. Open-Meteo's
+the map; additional locations and scope details start collapsed. Each location
+offers collapsed hourly details with local times, temperature, precipitation
+probability, precipitation and wind in explicit units. Open-Meteo's
 free noncommercial API updates forecasts in the browser without API keys or a
 new deployment. Show the trip date's low/high temperature, precipitation
 probability and wind, with visible source and retrieval time. Dates beyond the
@@ -106,6 +120,9 @@ visible, open days. Previously retrieved values can remain labeled updating
 during a refresh. After failure, cached values up to 24 hours old can remain
 with an explicit stale label. Keep Open-Meteo credit and its CC BY 4.0 license link
 visible. Additional locations load when their forecast disclosure is opened.
+Hourly data loads only after opening that location's hourly disclosure on a
+visible day. Daily and hourly caches remain separate; printing includes
+retrieved detail without fetching new data and restores disclosure states.
 See [daily weather data](docs/content-workflow.md#daily-weather-data).
 
 Optional daily `guide` records add route-specific official map images, original

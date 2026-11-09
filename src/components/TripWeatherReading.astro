@@ -1,12 +1,15 @@
 ---
 import type { WeatherLocation } from '../lib/weather';
+import TripWeatherHourly from './TripWeatherHourly.astro';
 
 interface Props {
   location: WeatherLocation;
   primary?: boolean;
+  date?: string;
+  timeZone?: string;
   locale?: 'zh-CN' | 'en';
 }
-const { location, primary = false, locale = 'en' } = Astro.props;
+const { location, primary = false, date, timeZone, locale = 'en' } = Astro.props;
 const text = (zh: string, en: string) => locale === 'zh-CN' ? zh : en;
 ---
 
@@ -26,6 +29,7 @@ const text = (zh: string, en: string) => locale === 'zh-CN' ? zh : en;
   </dl>
   <p class="weather-notice" data-weather-notice role="status" hidden></p>
   {!primary && <p class="weather-retrieved" data-weather-retrieved hidden>{text('获取于 ', 'Retrieved ')}<time data-weather-updated></time></p>}
+  {!primary && date && timeZone && <TripWeatherHourly location={location} date={date} timeZone={timeZone} locale={locale} />}
 </div>
 
 <style>

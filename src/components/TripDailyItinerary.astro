@@ -7,12 +7,14 @@ import TripSights from './TripSights.astro';
 import TripDining from './TripDining.astro';
 import TripDayPoem from './TripDayPoem.astro';
 import TripDayWeather from './TripDayWeather.astro';
+import TripDayRouteOptions from './TripDayRouteOptions.astro';
 import LocalPlaceName from './LocalPlaceName.astro';
 import TripDayMap from './TripDayMap.astro';
 import TripGuideViewer from './TripGuideViewer.astro';
 import type { Trip } from '../data/types';
 import { durationDays, formatDate, formatDateRange } from '../lib/trips';
 import { scheduleRowId } from '../lib/trip-maps';
+import { routeMetrics } from '../lib/trip-route-options';
 
 interface Props { trip: Trip; }
 const { trip } = Astro.props;
@@ -92,6 +94,8 @@ const isThisJapan = trip.slug === 'japan-2026';
               {Boolean(day.notes?.length) && <aside class="day-important-notes"><p class="day-note-label">{text('当天提醒', 'Daily reminders')}</p><ul>{day.notes!.map(note => <li>{note}</li>)}</ul></aside>}
             </div>
 
+            <TripDayRouteOptions day={day} locale={locale} />
+            {day.routeOptions && <h3 class="main-schedule-title" id={`day-${day.date}-main-schedule`}>{day.routeOptions.mainLabel}</h3>}
             {day.schedule?.length ? <ol class="day-timeline" aria-label={text(`${date(day.date)}时间表`, `${date(day.date)} schedule`)} role="list">
               {day.schedule.map((item, scheduleIndex) => <li class:list={['timeline-entry', { 'timeline-entry-optional': item.optional }]} id={scheduleRowId(day.date, scheduleIndex, item.id)}>
                 <span class="timeline-time">{item.time}</span>
@@ -114,10 +118,19 @@ const isThisJapan = trip.slug === 'japan-2026';
                 <div class="alternative-content">
                   <p class="alternative-description">{alternative.description}</p>
                   <p class="alternative-scope">{text('此方案整体替代上面的对应安排。', 'Use this option in place of the corresponding main schedule.')}</p>
+                  {(alternative.busCount !== undefined || alternative.walking || alternative.walkingNote) && <div class="alternative-facts">
+                    <dl>
+                      {alternative.busCount !== undefined && <div><dt>{text('全天巴士', 'Whole-day buses')}</dt><dd>{alternative.busCount} {text('班', 'rides')}</dd></div>}
+                      {alternative.walking && <div><dt>{text('步行距离', 'Walking distance')}</dt><dd>{text('约', 'About ')}{number(alternative.walking.distanceKm)} {text('公里', 'km')}{alternative.walking.optionalDistanceKm !== undefined && <small>{text('可选折返后约', 'With optional detour: about ')}{number(routeMetrics(alternative).walking!.maximum)} {text('公里', 'km')}</small>}</dd></div>}
+                    </dl>
+                    {(alternative.walking?.note || alternative.walkingNote) && <p>{alternative.walking?.note ?? alternative.walkingNote}</p>}
+                    {day.map?.views.filter(view => view.alternativeId === alternative.id).map(view => <a class="alternative-map-link" href={`#day-${day.date}-map-view-${view.id}`}><Icon name="pin" size={15} />{text('查看此方案地图', 'View this route map')}</a>)}
+                  </div>}
                   <ol class="day-timeline" aria-label={text(`${alternative.title}时间表`, `${alternative.title} schedule`)} role="list">{alternative.schedule.map((item, scheduleIndex) => <li class:list={['timeline-entry', { 'timeline-entry-optional': item.optional }]} id={scheduleRowId(day.date, scheduleIndex, item.id, alternative.id)}>
                     <span class="timeline-time">{item.time}</span>
                     <div class="timeline-copy"><p class="timeline-title">{item.title}{item.optional && <span class="timeline-optional">{text('可选', 'Optional')}</span>}</p>{item.description && <p class="timeline-description">{item.description}</p>}<TripReferences sources={sourcesFor(item.sourceIds)} locale={locale} /></div>
                   </li>)}</ol>
+                  {alternative.stamps && <TripStamps collection={alternative.stamps} sources={sources} locale={locale} />}
                   <TripSights sights={sightsFor(alternative.sightIds)} photos={gallery} sources={sources} id={`alternative-${day.date}-${alternative.id}`} locale={locale} />
                   {alternative.notes.length > 0 && <aside class="day-important-notes"><p class="day-note-label">{text('此方案提醒', 'Alternative reminders')}</p><ul>{alternative.notes.map(note => <li>{note}</li>)}</ul></aside>}
                   <TripReferences sources={sourcesFor(alternative.sourceIds)} locale={locale} />
@@ -193,6 +206,8 @@ const isThisJapan = trip.slug === 'japan-2026';
   .daily-itinerary .day-important-notes ul { margin: 8px 0 0; padding-left: 18px; color: var(--ink-soft); font-size: 13px; line-height: 1.95; overflow-wrap: anywhere; }
   .daily-itinerary .day-important-notes li + li { margin-top: 7px; }
   .daily-itinerary .day-timeline { margin: 24px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .main-schedule-title { margin-top: 22px; font-family: var(--sans); font-size: 14px; font-weight: 600; scroll-margin-top: calc(var(--daily-nav-height) + 18px); }
+  .main-schedule-title + .day-timeline { margin-top: 10px; }
   .daily-itinerary .timeline-entry { display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 24px; min-width: 0; padding: 18px 0; border-bottom: 1px solid var(--line); scroll-margin-top: calc(var(--daily-nav-height) + 18px); }
   .timeline-copy { min-width: 0; overflow-wrap: anywhere; }
   .daily-itinerary .timeline-time { display: block; padding-top: 2px; font-size: 12px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1.8; overflow-wrap: anywhere; }
@@ -223,6 +238,13 @@ const isThisJapan = trip.slug === 'japan-2026';
   .daily-itinerary .alternative-content { min-width: 0; padding: 0 18px 18px; }
   .daily-itinerary .alternative-description { font-size: 13px; line-height: 1.95; overflow-wrap: anywhere; }
   .daily-itinerary .alternative-scope { margin-top: 8px; color: var(--ink-soft); font-size: 12px; }
+  .alternative-facts { margin-top: 14px; padding: 14px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); }
+  .alternative-facts dl { display: flex; flex-wrap: wrap; gap: 12px 28px; }
+  .alternative-facts dt { color: var(--ink-soft); font-size: 11px; }
+  .alternative-facts dd { margin: 4px 0 0; font-size: 14px; font-weight: 500; }
+  .alternative-facts dd small { display: block; margin-top: 3px; color: var(--ink-soft); font-size: 11px; font-weight: 400; }
+  .alternative-facts > p { margin-top: 10px; color: var(--ink-soft); font-size: 12px; line-height: 1.9; overflow-wrap: anywhere; }
+  .alternative-map-link { display: flex; align-items: center; gap: 6px; min-height: 44px; width: fit-content; max-width: 100%; margin-top: 5px; font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
   .daily-empty { color: var(--ink-soft); font-size: 14px; }
 
   @media (max-width: 1000px) {

@@ -93,12 +93,21 @@ Keep the implementation contracts below aligned with that guide.
   runtime geocoding. Follow the design guide's placement, phone interaction and
   fallback rules: initialize only open, visible days, exclude map wrappers from
   day swipes, and preserve printable stop lists and external-map links.
+  Fragment navigation selects the target geographic view with
+  `revealDailyMapTarget()` immediately after `revealGuideTarget()`, before
+  opening ancestor disclosures and scrolling. Skip this selection during
+  printing or print restoration so existing snapshot state remains intact.
 - Optional `TripDay.weather` references sourced `Trip.places` through
   `locations: [{ placeId, label? }]` and records an explicit IANA `timeZone`.
   Use the day's exact destination-local date. The first location supplies a
   compact forecast above the map; additional locations and any `note` stay in
-  a native disclosure. Open-Meteo's free noncommercial API supplies browser
-  forecasts without API keys, geolocation or runtime geocoding. Keep forecast
+  a native disclosure. Each location offers initially closed hourly detail
+  with destination-local times and temperature, precipitation probability,
+  precipitation and wind in explicit units. Identify preceding-hour precipitation,
+  10 m wind speed rather than gusts, GMT offsets and partial hourly coverage.
+  Keep hourly values in runtime data, independent of the selected itinerary.
+  Open-Meteo's free noncommercial API supplies browser forecasts without
+  API keys, geolocation or runtime geocoding. Keep forecast
   values out of the structured plan. Show min/max temperature, precipitation
   probability, precipitation and wind with explicit units, visible attribution
   and a retrieval timestamp distinct from a model issuance time. Respect the
@@ -111,8 +120,15 @@ Keep the implementation contracts below aligned with that guide.
   explicitly labeled updating. After a failed refresh, cached values up to
   24 hours old may remain with an explicit stale label.
   Start weather loading after focused-day/history initialization, and fetch
-  additional locations only when their forecast disclosure is opened. Suspend
-  weather rendering during printing so delayed responses cannot change the
+  additional locations only when their forecast disclosure is opened. Fetch
+  hourly data only when its location and hourly disclosure are open and its
+  day is visible. Daily and hourly caches are separate and share the same
+  expiry, refresh and stale rules. Contain hourly table scrolling on phones
+  and preserve it from day swipes. Printing includes already retrieved hourly
+  detail without initiating new requests and restores its disclosure state.
+  Exact-date hourly API requests use `start_date` and `end_date` without
+  `forecast_days`, which is mutually exclusive with those date bounds.
+  Suspend weather rendering during printing so delayed responses cannot change the
   print snapshot or its restored state.
   Preserve labeled no-JavaScript and print fallbacks; never substitute today's
   weather for an unavailable trip date.
@@ -226,9 +242,29 @@ Keep the implementation contracts below aligned with that guide.
   Printing opens both daily and alternative details, then restores their state.
   Printing also includes ticket details and temporarily shows every day,
   restoring the selected day, viewing mode, and disclosures afterward.
+- Optional `TripDay.routeOptions` has `title`, `mainLabel`,
+  `alternativeIds` and optional `notes`. It compares the existing main
+  schedule with referenced alternatives without storing copied totals or a
+  selected-route state. Keep the first comparison note visible as short
+  guidance; remaining notes use an initially closed native disclosure with a
+  note count, manual toggle and print-state restoration.
+  `TripDay.busCount` and alternative `busCount` count
+  whole-day planned bus rides, including the approach to a walking route.
+  Alternative `walking` records `distanceKm`, optional additional
+  `optionalDistanceKm` and an optional scope `note`; use `walkingNote`
+  for qualitative walking rather than inventing a zero distance.
+  Derive comparison distances from the main `hike` or alternative `walking`,
+  and planned stamp ranges from required/optional stops. Validate references,
+  count/range values and duplicate alternative IDs. Variant maps reference the
+  corresponding alternative; optional detours stay labeled and outside core
+  route connections. Comparison, forecasts and fragment navigation do not
+  establish a changed accepted route, booking or payment. Keep unselected
+  variant fares outside the main transport budget.
 - Optional `TripDay.stamps` records planned stamp stops and official numbering,
   with route or eligibility conditions stated explicitly. It does not assert
   that a stamp was collected or a pilgrimage qualification was completed.
+  Alternatives may own the same stamp-collection structure; a stop's optional
+  `optional: true` identifies a conditional extra stop for comparison ranges.
   Keep shared booklet, collection, and registration guidance in `stampGuide`.
 - Optional `Trip.diningOptions` owns reusable restaurant and meal-option
   details for that trip. `TripDay.dining` groups references by meal, with

@@ -253,6 +253,48 @@ marked paid and must show that limited scope. Unknown payment neither equals
 zero nor proves an order remains unpaid; subtracting an incomplete known-paid
 sum from a budget must not be presented as a remaining unpaid balance.
 
+## Daily route comparisons
+
+Optional `TripDay.routeOptions` compares existing schedules:
+
+- `title` and `mainLabel` name the comparison and accepted main plan.
+- `alternativeIds` lists existing alternatives in the comparison order.
+  IDs must be valid and unique; the comparison creates no extra schedule
+  or selected-route state.
+- Optional `notes` states shared distance scope, decision conditions,
+  connection assumptions or other supplied limits.
+  Its first entry remains visible as short guidance; remaining entries use
+  an initially closed native "Scope and travel notes" disclosure with a
+  count, manual toggle and preserved print state.
+
+`TripDay.busCount` and `TripDayAlternative.busCount` are nonnegative integer
+counts of planned bus rides across the whole day, including travel to a trailhead.
+They are neither stop counts nor counts only after walking begins.
+An omitted count is unknown, not zero.
+
+The main walking distance comes from the existing `TripDay.hike`.
+An alternative's optional `walking` has `distanceKm`, an optional additional
+`optionalDistanceKm` and optional `note`. Calculate the displayed upper
+distance by adding the extension to the base; never store the full extended
+distance in `optionalDistanceKm`. Keep approximate source estimates and
+excluded access walks clear in the note. Use optional `walkingNote` for a
+qualitative walking scope without inventing a numerical distance.
+
+An alternative can own `stamps: TripStampCollection` just like the main day.
+Its stops can have `optional: true` for a conditional extra stamp point.
+Derive the comparison's minimum from required stops and its maximum from all
+stops; do not store copied stamp counts. These are planned stops, not evidence
+of collection or pilgrimage completion. Keep qualification conditions explicit.
+
+Each variant retains its own complete labeled schedule. Its map uses
+`scope: "alternative"` and references that existing `alternativeId`.
+Optional detours remain labeled and separate from core travel-order connections;
+an optional landmark can use `connect: false` without establishing a precise
+trail. Unknown coordinates remain unmapped. Fragment links, comparison controls
+and forecasts do not change the accepted itinerary or establish reservations,
+purchases or payment. Keep alternative-only fares outside main transport budget
+rows until an explicit route decision replaces the accepted journey.
+
 ## Daily weather data
 
 Optional `TripDay.weather` keeps only forecast configuration in the trip's
@@ -307,6 +349,33 @@ its day is open and visible; request secondary points only when the forecast
 disclosure is open. Suspend weather rendering during print snapshots, including
 responses from requests that started before printing.
 
+Hourly detail is runtime presentation for the same configured locations; it
+does not add forecast values or a route decision to `TripDay.weather`.
+Every existing weather configuration offers hourly detail without an additional
+content field. The primary hourly disclosure sits alongside the compact card;
+secondary locations' hourly disclosures stay inside the additional-location
+disclosure. Each starts closed. Request hourly
+weather code, temperature in °C, precipitation probability in %, precipitation
+in mm and wind speed in m/s only when that disclosure and its location are open
+and the day is visible. Request `start_date = end_date = day.date` with Unix
+timestamps and match each hourly instant to that exact trip date in the supplied
+IANA timezone. Omit `forecast_days` from these exact-date requests: Open-Meteo
+treats it as mutually exclusive with `start_date` and `end_date`.
+Retain the same destination-local 16-day horizon eligibility check.
+Display its GMT offset so repeated daylight-saving times remain
+distinct; do not assume the visitor's timezone or a fixed 24-row day.
+Precipitation is the preceding hour's amount; wind is speed at 10 m, not gusts.
+Validate units, physical ranges, timestamp order and missing values. Keep missing
+readings, partial hourly coverage and unavailable days explicit.
+
+Daily and hourly requests use separate cache entries with the same 30-minute
+expiry, 24-hour failed-refresh fallback and visibility-based refresh rules.
+Apply the same source/license credit, localized/rounded presentation note and
+actual retrieval timestamp to hourly data. Contain phone table scrolling within
+the weather card and exclude that gesture from day switching. Printing shows
+already retrieved hourly detail, requests no new forecasts and restores its
+prior disclosure state; delayed responses remain suspended during the snapshot.
+
 `pnpm test:weather` runs the focused date, unit, missing-value and cache tests
 without live weather requests. `pnpm build` includes this gate before Astro
 validation and the production build.
@@ -341,6 +410,12 @@ note. Add stable `id` values to mapped schedule rows without
 changing their times, wording or order. A `scheduleId` resolves to the main
 schedule or the view's referenced alternative schedule. Validate every place,
 schedule, alternative and default-view reference.
+
+Fragment navigation selects a target's geographic view before opening ancestor
+disclosures and scrolling. Call `revealDailyMapTarget(target)` immediately after
+`revealGuideTarget(target)` in the shared reveal path, so a hidden map view
+inside a guide is visible before navigation finishes. The map hook does not
+change selection while printing or restoring a print snapshot.
 
 Optional `track` data has `coordinates` as `[latitude, longitude]` pairs and a
 `source` with the same provenance fields as `coordinateSource`. It requires

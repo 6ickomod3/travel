@@ -147,7 +147,7 @@ class DailyMap {
     this.updateInteraction();
   }
 
-  private selectView(id: string) {
+  selectView(id: string) {
     if (!this.config.views.some(view => view.id === id)) return;
     this.activeViewId = id;
     this.selectedStop = undefined;
@@ -279,6 +279,13 @@ document.querySelectorAll<HTMLElement>('[data-day-map]').forEach(root => {
   try { controllers.set(root, new DailyMap(root)); }
   catch { root.dataset.dayMapState = 'unavailable'; }
 });
+
+export function revealDailyMapTarget(target: HTMLElement): void {
+  if (printing || restoringPrint || printMedia.matches) return;
+  const panel = target.closest<HTMLElement>('[data-day-map-panel]');
+  const root = panel?.closest<HTMLElement>('[data-day-map]');
+  if (panel && root && panel.dataset.dayMapPanel) controllers.get(root)?.selectView(panel.dataset.dayMapPanel);
+}
 
 if (controllers.size) {
   const observer = new IntersectionObserver(entries => { entries.forEach(entry => controllers.get(entry.target as HTMLElement)?.setVisible(entry.isIntersecting)); });

@@ -70,13 +70,33 @@ stay and daily reminders, and the timetable.
 Keep optional schedules separate, retain practical walking/stamp details, and
 put meal options at the very bottom.
 
+When several route variants are supplied, offer a concise comparison linked
+to their complete labeled alternatives. Show whole-day bus rides, the supplied
+walking distance or qualitative walking scope, and planned stamp ranges.
+Keep the first shared note visible as short guidance. Put remaining scope and
+travel notes in an initially closed native disclosure with a count, manual
+toggle and print-state restoration, preserving a compact phone comparison.
+Derive ranges from optional walking extensions and optional stamp stops;
+do not copy totals into another record. State excluded transfers and walking,
+terrain limitations and connection assumptions. Weather can inform a decision
+but does not select a route. Preserve the accepted main schedule, guide and
+budget until an explicit change is recorded; a shorter variant does not imply
+early hotel check-in or a new transport reservation.
+
 ### Daily weather
 
 Use a compact forecast for the trip date at a named location, with low/high
 temperature, precipitation probability and wind visible. Keep total
 precipitation, other referenced locations and location-scope notes in a native
-disclosure. Use wrapping rows on phones; avoid an hourly chart or another
-carousel above the map. Preserve text labels alongside weather icons and keep
+disclosure. Hourly details use an initially closed disclosure for each location,
+with destination-local times, temperature, precipitation probability, precipitation
+and wind in explicit units. Label precipitation as the preceding hour's amount
+and wind as speed at 10 m; show GMT offsets and any partial coverage.
+Keep the compact daily card as the default reading;
+opening hourly detail must not change the selected route. Use wrapping rows on
+phones and contain any horizontal table scrolling within the forecast card,
+preserving that gesture rather than switching days.
+Preserve text labels alongside weather icons and keep
 weather styling distinct from confirmed booking or practical-arrangement badges.
 
 Fetch forecasts in the browser through Open-Meteo's free noncommercial API,
@@ -98,6 +118,12 @@ state, and restore disclosure states. Do not infer a full hiking-route forecast
 from a single model grid point or change the accepted plan from a forecast.
 Request additional locations only after opening their forecast disclosure, and
 suspend rendering during printing so late responses preserve the print snapshot.
+Request hourly data only for an open hourly disclosure whose day and location
+are visible. Keep daily and hourly cache entries separate, with the same expiry,
+refresh, updating and stale rules. Hourly rows use the exact destination-local
+trip date and preserve unavailable readings rather than inventing values.
+Printing includes already retrieved hourly detail without requesting new data,
+then restores its previous disclosure state.
 
 ### Daily maps
 
@@ -115,6 +141,11 @@ Show a precise track only when verified route geometry and its source are suppli
 Keep landmark-only positions out of travel-order lines, and state the actual
 viewing area. Identify shared-building or area coordinates in the visible stop
 list when an exact entrance has not been verified.
+
+Direct geographic-view fragment links select that view before opening containing
+disclosures and scrolling. When maps sit within a guide panel, reveal the guide
+panel first and the geographic view next. Preserve existing print selection and
+restoration while handling these links.
 
 When a relevant guidebook is supplied, a walking day can lead with its official
 route map after a compact heading. Group multi-part walks into labeled segments

@@ -168,6 +168,17 @@ export interface TripDayAlternative {
   notes: string[];
   sourceIds?: string[];
   sightIds?: string[];
+  /** Planned bus rides across the whole day, including access to the trailhead. */
+  busCount?: number;
+  walking?: {
+    distanceKm: number;
+    /** Extra distance added by an explicitly optional extension, not its total. */
+    optionalDistanceKm?: number;
+    note?: string;
+  };
+  /** Qualitative walking scope when no numeric distance is supplied. */
+  walkingNote?: string;
+  stamps?: TripStampCollection;
 }
 
 export interface TripStampCollection {
@@ -180,6 +191,8 @@ export interface TripStampCollection {
     number?: number;
     /** State route or eligibility conditions without implying completion. */
     note?: string;
+    /** A planned stop on a separately labeled optional extension. */
+    optional?: boolean;
   }>;
   notes?: string[];
   sourceIds?: string[];
@@ -282,6 +295,15 @@ export interface TripDay {
   sourceIds?: string[];
   /** Separate fallback or optional itineraries; never interleave with the main schedule. */
   alternatives?: TripDayAlternative[];
+  /** A comparison references existing schedules; it never selects a new plan. */
+  routeOptions?: {
+    title: string;
+    mainLabel: string;
+    alternativeIds: string[];
+    notes?: string[];
+  };
+  /** Whole-day planned bus rides, including access to the trailhead. */
+  busCount?: number;
   /** Planned stamp stops, distinct from completed or qualifying pilgrimages. */
   stamps?: TripStampCollection;
   /** Sight introductions for this day; optional visits remain explicitly labeled. */

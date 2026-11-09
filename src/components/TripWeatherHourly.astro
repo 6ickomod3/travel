@@ -1,0 +1,97 @@
+---
+import Icon from './Icon.astro';
+import type { WeatherLocation } from '../lib/weather';
+
+interface Props {
+  location: WeatherLocation;
+  date: string;
+  timeZone: string;
+  primary?: boolean;
+  locale?: 'zh-CN' | 'en';
+}
+const { location, date, timeZone, primary = false, locale = 'en' } = Astro.props;
+const text = (zh: string, en: string) => locale === 'zh-CN' ? zh : en;
+const id = 'day-' + date + '-weather-hourly-' + location.placeId;
+const zoneLabel = timeZone === 'Asia/Tokyo' ? text('日本时间', 'Japan time (JST)') : timeZone;
+---
+
+<details class:list={['weather-hourly', { 'weather-hourly-primary': primary }]} id={id} data-weather-hourly={location.placeId} data-trip-references data-day-swipe-ignore>
+  <summary aria-label={text(location.label + '的逐小时预报', 'Hourly forecast for ' + location.label)}><span>{text('按小时', 'Hourly')}</span><Icon name="chevron-down" size={13} /></summary>
+  <div class="weather-hourly-content" data-weather-hourly-reading={location.placeId}>
+    <p class="weather-hourly-date">{date}<span aria-hidden="true"> · </span>{zoneLabel}</p>
+    <p class="weather-hourly-status" data-weather-hourly-status role="status">{text('该日期的逐小时预报尚未加载；联网时展开即可获取。', 'Hourly data for this date has not been loaded. Open while online to retrieve it.')}</p>
+    <p class="weather-hourly-notice" data-weather-hourly-notice role="status" hidden></p>
+    <p class="weather-hourly-scroll-hint" data-weather-hourly-scroll-hint hidden>{text('上下滚动查看全天，左右查看全部指标。', 'Scroll down for the full day and across for all measurements.')}</p>
+    <div class="weather-hourly-scroll" data-weather-hourly-scroll data-day-swipe-ignore role="region" tabindex="0" aria-label={text(location.label + '逐小时天气表，可上下和左右滚动', 'Hourly weather table for ' + location.label + '; scroll vertically and horizontally')} hidden>
+      <table class="weather-hourly-table" data-weather-hourly-table>
+        <caption class="sr-only">{text(location.label + ' · ' + date + '逐小时预报，' + zoneLabel, 'Hourly forecast for ' + location.label + ' on ' + date + ', ' + zoneLabel)}</caption>
+        <thead><tr>
+          <th scope="col">{text('当地时间', 'Local time')}</th>
+          <th scope="col">{text('天气', 'Conditions')}</th>
+          <th scope="col">{text('气温', 'Temperature')}<span>°C</span></th>
+          <th scope="col">{text('降水概率', 'Rain chance')}<span>%</span></th>
+          <th scope="col">{text('降水量', 'Precipitation')}<span>mm</span></th>
+          <th scope="col">{text('风速', 'Wind')}<span>m/s</span></th>
+        </tr></thead>
+        <tbody data-weather-hourly-rows></tbody>
+      </table>
+    </div>
+    <p class="weather-hourly-credit"><a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a><span aria-hidden="true"> · </span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a><span data-weather-hourly-retrieved hidden> · {text('获取于 ', 'Retrieved ')}<time data-weather-hourly-updated></time></span></p>
+    <p class="weather-hourly-scope">{text('降水量为前一小时合计，包含雨雪；风速为10米高度风速，不代表阵风。时间属于当天的当地时区，缺少的指标以「—」显示。', 'Precipitation is the preceding hour’s total, including rain and snow; wind is at 10 metres, not gust speed. Times belong to this date in the destination timezone. Missing measurements show “—”.')}</p>
+    <p class="weather-hourly-scope">{text('天气描述已译为中文，数值经四舍五入；获取时间不是预报发布时间。单个地点的预报不能代表整段山路。', 'Descriptions are localized and values rounded; retrieval time is not the forecast issue time. A forecast at one location does not represent an entire trail.')} <a href="https://open-meteo.com/en/docs" target="_blank" rel="noopener noreferrer">{text('数据说明', 'Data documentation')}</a></p>
+    <noscript><p class="weather-hourly-scope">{text('启用 JavaScript 并联网后可查看逐小时预报。', 'Enable JavaScript and connect to view hourly forecasts.')}</p></noscript>
+  </div>
+</details>
+
+<style>
+  .weather-hourly { min-width: 0; margin-top: 9px; }
+  .weather-hourly > summary { display: flex; align-items: center; gap: 6px; width: fit-content; min-height: 44px; color: var(--ink-soft); font-size: 12px; cursor: pointer; list-style: none; }
+  .weather-hourly > summary::-webkit-details-marker { display: none; }
+  .weather-hourly > summary::marker { content: ''; }
+  .weather-hourly[open] > summary svg { transform: rotate(180deg); }
+  .weather-hourly-primary { margin-top: 0; }
+  .weather-hourly-primary > summary { justify-content: flex-end; font-size: 11px; }
+  .weather-hourly-primary[open] { flex-basis: 100%; }
+  .weather-hourly-primary[open] > summary { margin-left: auto; }
+  .weather-hourly-content { min-width: 0; padding-top: 9px; border-top: 1px solid #dae1d7; }
+  .weather-hourly-date { color: var(--ink); font-size: 12px; font-variant-numeric: tabular-nums; line-height: 1.8; }
+  .weather-hourly-status, .weather-hourly-notice, .weather-hourly-scroll-hint, .weather-hourly-credit, .weather-hourly-scope { margin-top: 7px; color: var(--ink-soft); font-size: 11px; line-height: 1.85; overflow-wrap: anywhere; }
+  .weather-hourly-content[data-weather-hourly-state='stale'] .weather-hourly-notice { color: #865924; }
+  .weather-hourly-scroll { max-height: 360px; max-width: 100%; margin-top: 9px; overflow: auto; overscroll-behavior-x: contain; scrollbar-width: thin; border: 1px solid #dae1d7; border-radius: 4px; background: #f8f9f5; }
+  .weather-hourly-scroll:focus-visible { outline: 2px solid #5e7981; outline-offset: 3px; }
+  .weather-hourly-table { width: 100%; min-width: 570px; border-collapse: separate; border-spacing: 0; color: var(--ink); font-size: 12px; font-variant-numeric: tabular-nums; line-height: 1.65; }
+  .weather-hourly-table th, .weather-hourly-table :global(td) { padding: 8px 10px; border-bottom: 1px solid #e1e6de; text-align: left; vertical-align: middle; white-space: nowrap; }
+  .weather-hourly-table thead th { position: sticky; top: 0; z-index: 1; background: #eaf0e5; color: var(--ink-soft); font-size: 11px; font-weight: 500; }
+  .weather-hourly-table thead th > span { display: block; font-size: 10px; }
+  .weather-hourly-table :global(tbody tr:last-child td) { border-bottom: 0; }
+  .weather-hourly-table :global(time) { display: flex; flex-direction: column; line-height: 1.6; }
+  .weather-hourly-table :global(time small) { color: var(--ink-soft); font-size: 10px; }
+  .weather-hourly-table :global(.hourly-condition) { display: flex; align-items: center; gap: 6px; }
+  .weather-hourly-table :global(.hourly-condition svg) { flex-shrink: 0; color: #5e7981; }
+  .weather-hourly-table :global(svg[data-weather-kind='sun']), .weather-hourly-table :global(svg[data-weather-kind='partly-cloudy']) { color: #9b793c; }
+  .weather-hourly-table :global(svg[data-weather-kind='storm']) { color: #77627f; }
+  .weather-hourly-credit a, .weather-hourly-scope a { display: inline-block; padding-block: 2px; text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 600px) {
+    .weather-hourly-status, .weather-hourly-notice, .weather-hourly-scroll-hint, .weather-hourly-scope { font-size: 12px; }
+    .weather-hourly-scroll { max-height: 330px; }
+    .weather-hourly-table { min-width: 545px; }
+    .weather-hourly-table th, .weather-hourly-table :global(td) { padding: 8px; }
+  }
+  @media print {
+    .weather-hourly { margin-top: 8px; break-inside: auto; }
+    .weather-hourly > summary { display: none !important; }
+    .weather-hourly::details-content { content-visibility: visible; }
+    .weather-hourly-content { padding-top: 5px; }
+    .weather-hourly-date { font-size: 9px; }
+    .weather-hourly-scroll { max-height: none; overflow: visible; margin-top: 5px; background: white; }
+    .weather-hourly-scroll-hint { display: none !important; }
+    .weather-hourly-table { min-width: 0; font-size: 8px; }
+    .weather-hourly-table th, .weather-hourly-table :global(td) { padding: 3px 5px; }
+    .weather-hourly-table thead { display: table-header-group; }
+    .weather-hourly-table thead th { position: static; background: white; font-size: 8px; }
+    .weather-hourly-table thead th > span, .weather-hourly-table :global(time small) { font-size: 7px; }
+    .weather-hourly-table :global(tr) { break-inside: avoid; }
+    .weather-hourly-table :global(svg) { width: 13px; height: 13px; }
+    .weather-hourly-status, .weather-hourly-notice, .weather-hourly-credit, .weather-hourly-scope { font-size: 9px; }
+  }
+</style>

@@ -1205,6 +1205,11 @@ export default {
       "url": "https://www.tb-kumano.jp/en/kumano-kodo/nakahechi/takijiri-oji-to-tsugizakura-oji/takijiri-oji-to-chikatsuyu-oji/"
     },
     {
+      "id": "gyuba-chikatsuyu",
+      "label": "牛馬童子口至近露王子：1.3公里尾段与路况",
+      "url": "https://www.tb-kumano.jp/en/kumano-kodo/nakahechi/takijiri-oji-to-tsugizakura-oji/gyuba-doji-guchi-to-chikatsuyu-oji/"
+    },
+    {
       "id": "hosshinmon-hongu",
       "label": "发心门王子至熊野本宫大社：官方徒步路线参考",
       "url": "https://www.tb-kumano.jp/en/kumano-kodo/nakahechi/tsugizakura-oji-to-kumano-hongu-taisha/hosshinmon-oji-to-kumano-hongu-taisha/"
@@ -2738,8 +2743,14 @@ export default {
       "weather": {
         "timeZone": "Asia/Tokyo",
         "locations": [
-          { "placeId": "osaka-station", "label": "大阪" },
-          { "placeId": "kix-t1", "label": "关西机场" }
+          {
+            "placeId": "osaka-station",
+            "label": "大阪"
+          },
+          {
+            "placeId": "kix-t1",
+            "label": "关西机场"
+          }
         ],
         "note": "大阪和关西机场分别取所在地点附近的全天预报，不代表航班起降时的天气。"
       },
@@ -2879,7 +2890,10 @@ export default {
       "weather": {
         "timeZone": "Asia/Tokyo",
         "locations": [
-          { "placeId": "hiroshima-peace-park", "label": "广岛" }
+          {
+            "placeId": "hiroshima-peace-park",
+            "label": "广岛"
+          }
         ]
       },
       "sightIds": [
@@ -3188,8 +3202,14 @@ export default {
       "weather": {
         "timeZone": "Asia/Tokyo",
         "locations": [
-          { "placeId": "itsukushima-shrine", "label": "宫岛海边" },
-          { "placeId": "shishiiwa-ropeway", "label": "狮子岩" }
+          {
+            "placeId": "itsukushima-shrine",
+            "label": "宫岛海边"
+          },
+          {
+            "placeId": "shishiiwa-ropeway",
+            "label": "狮子岩"
+          }
         ],
         "note": "海边和狮子岩分别取参考点附近的网格预报；山上实际风力和缆车运行请另看现场及官方通知。"
       },
@@ -3615,7 +3635,10 @@ export default {
       "weather": {
         "timeZone": "Asia/Tokyo",
         "locations": [
-          { "placeId": "kii-tanabe-station", "label": "纪伊田边" }
+          {
+            "placeId": "kii-tanabe-station",
+            "label": "纪伊田边"
+          }
         ]
       },
       "destinationId": "kii-tanabe",
@@ -3824,8 +3847,14 @@ export default {
       "weather": {
         "timeZone": "Asia/Tokyo",
         "locations": [
-          { "placeId": "takahara-kumano-jinja", "label": "高原" },
-          { "placeId": "chikatsuyu-area", "label": "近露" }
+          {
+            "placeId": "takahara-kumano-jinja",
+            "label": "高原"
+          },
+          {
+            "placeId": "chikatsuyu-area",
+            "label": "近露"
+          }
         ],
         "note": "高原和近露预报取各参考点附近网格，不能代表整条山路；林间、山脊和不同海拔的体感可能不同。"
       },
@@ -3921,7 +3950,9 @@ export default {
         "kumano-bus-payment",
         "sen-chikatsuyu-stay",
         "sen-chikatsuyu-walk",
-        "chikatsuyu-map"
+        "chikatsuyu-map",
+        "gyuba-chikatsuyu",
+        "dual-pilgrim"
       ],
       "stamps": {
         "title": "沿途额外纪念章",
@@ -3974,7 +4005,8 @@ export default {
         {
           "meal": "breakfast",
           "notes": [
-            "Comfort虽含早餐，但06:30才开始，不能从容吃完再赶06:38巴士；吃16号准备好的食品。"
+            "Comfort虽含早餐，但06:30才开始，不能从容吃完再赶06:38巴士；吃16号准备好的食品。",
+            "C／D／E晚出门方案可用Comfort酒店06:30开始的早餐，再按酒店规定退房；A／B仍需吃16号准备好的食品。"
           ],
           "choices": []
         },
@@ -4122,6 +4154,164 @@ export default {
                 "note": "近露住宿区域参考，SEN具体建筑坐标未核定；地址已提供，步行路线见当日安排，不能将区域点当作酒店入口。"
               }
             ]
+          },
+          {
+            "id": "rain-b",
+            "label": "B｜走一半",
+            "scope": "alternative",
+            "alternativeId": "rain-b-half",
+            "stops": [
+              {
+                "placeId": "kii-tanabe-station",
+                "scheduleId": "tanabe-bus-queue"
+              },
+              {
+                "placeId": "takijiri-bus-stop",
+                "scheduleId": "bus-to-takijiri"
+              },
+              {
+                "placeId": "takijiri-oji",
+                "scheduleId": "takijiri-oji-start"
+              },
+              {
+                "placeId": "nezu-oji",
+                "scheduleId": "walk-to-takahara"
+              },
+              {
+                "placeId": "takahara-kumano-jinja",
+                "scheduleId": "walk-to-takahara",
+                "note": "盖章后按步行指引下到栗栖川，预留30–40分钟，在那里接驳巴士。"
+              },
+              {
+                "placeId": "gyuba-doji",
+                "scheduleId": "tail-to-chikatsuyu",
+                "note": "此点是牛马童子石像，不是牛馬童子口巴士站；从站口徒步进入尾段。"
+              },
+              {
+                "placeId": "chikatsuyu-oji",
+                "scheduleId": "tail-to-chikatsuyu"
+              },
+              {
+                "placeId": "chikatsuyu-area",
+                "scheduleId": "sen-arrival",
+                "connect": false,
+                "note": "近露住宿区域参考；SEN具体建筑坐标未核定，不能当作酒店入口。近露王子至SEN另走约10分钟。"
+              }
+            ],
+            "note": "栗栖川与牛馬童子口站坐标未核定，图中略去；牛马童子石像不是站牌。虚线仅表示所列地点顺序，不是实际巴士或步行轨迹。"
+          },
+          {
+            "id": "rain-c",
+            "label": "C｜直达尾段",
+            "scope": "alternative",
+            "alternativeId": "rain-c-tail",
+            "stops": [
+              {
+                "placeId": "kii-tanabe-station",
+                "scheduleId": "tanabe-bus-queue",
+                "note": "站前2号站牌候车；地图标JR站，未核定具体站杆坐标。"
+              },
+              {
+                "placeId": "osakamoto-oji",
+                "scheduleId": "osakamoto-detour",
+                "optional": true,
+                "connect": false,
+                "note": "仅在路况允许时，从牛馬童子口先折返此处；额外来回约1.6公里。不是尾段必经点。"
+              },
+              {
+                "placeId": "gyuba-doji",
+                "scheduleId": "tail-to-chikatsuyu",
+                "note": "此点是牛马童子石像，不是牛馬童子口巴士站；从站口徒步进入尾段。"
+              },
+              {
+                "placeId": "chikatsuyu-oji",
+                "scheduleId": "tail-to-chikatsuyu"
+              },
+              {
+                "placeId": "chikatsuyu-area",
+                "scheduleId": "sen-arrival",
+                "connect": false,
+                "note": "近露住宿区域参考；SEN具体建筑坐标未核定，不能当作酒店入口。近露王子至SEN另走约10分钟。"
+              }
+            ],
+            "note": "牛馬童子口站坐标未核定，图中略去；牛马童子石像不是站牌。虚线仅表示所列地点顺序，不是实际巴士或步行轨迹。"
+          },
+          {
+            "id": "rain-d",
+            "label": "D｜泷尻＋尾段",
+            "scope": "alternative",
+            "alternativeId": "rain-d-takijiri-tail",
+            "stops": [
+              {
+                "placeId": "kii-tanabe-station",
+                "scheduleId": "tanabe-bus-queue",
+                "note": "站前2号站牌候车；地图标JR站，未核定具体站杆坐标。"
+              },
+              {
+                "placeId": "takijiri-bus-stop",
+                "scheduleId": "bus-to-takijiri"
+              },
+              {
+                "placeId": "takijiri-oji",
+                "scheduleId": "takijiri-visit"
+              },
+              {
+                "placeId": "osakamoto-oji",
+                "scheduleId": "osakamoto-detour",
+                "optional": true,
+                "connect": false,
+                "note": "仅在路况允许时，从牛馬童子口先折返此处；额外来回约1.6公里。不是尾段必经点。"
+              },
+              {
+                "placeId": "gyuba-doji",
+                "scheduleId": "tail-to-chikatsuyu",
+                "note": "此点是牛马童子石像，不是牛馬童子口巴士站；从站口徒步进入尾段。"
+              },
+              {
+                "placeId": "chikatsuyu-oji",
+                "scheduleId": "tail-to-chikatsuyu"
+              },
+              {
+                "placeId": "chikatsuyu-area",
+                "scheduleId": "sen-arrival",
+                "connect": false,
+                "note": "近露住宿区域参考；SEN具体建筑坐标未核定，不能当作酒店入口。近露王子至SEN另走约10分钟。"
+              }
+            ],
+            "note": "牛馬童子口站坐标未核定，图中略去；牛马童子石像不是站牌。虚线仅表示所列地点顺序，不是实际巴士或步行轨迹。"
+          },
+          {
+            "id": "rain-e",
+            "label": "E｜全程巴士",
+            "scope": "alternative",
+            "alternativeId": "rain-e-bus",
+            "stops": [
+              {
+                "placeId": "kii-tanabe-station",
+                "scheduleId": "tanabe-bus-queue",
+                "note": "站前2号站牌候车；地图标JR站，未核定具体站杆坐标。"
+              },
+              {
+                "placeId": "takijiri-bus-stop",
+                "scheduleId": "bus-to-takijiri"
+              },
+              {
+                "placeId": "takijiri-oji",
+                "scheduleId": "takijiri-visit"
+              },
+              {
+                "placeId": "chikatsuyu-oji",
+                "scheduleId": "chikatsuyu-stamp",
+                "note": "此点是近露王子，非精确巴士站杆；12:49在近露王子站下车后步行前往。"
+              },
+              {
+                "placeId": "chikatsuyu-area",
+                "scheduleId": "sen-arrival",
+                "connect": false,
+                "note": "近露住宿区域参考；SEN具体建筑坐标未核定，不能当作酒店入口。近露王子至SEN另走约10分钟。"
+              }
+            ],
+            "note": "E留在12:16同一班龙神81上，12:49近露王子下车；虚线是所列地点顺序，不是巴士实际线路。"
           }
         ]
       },
@@ -4304,16 +4494,524 @@ export default {
           "chikatsuyu-map",
           "takijiri-chikatsuyu"
         ]
-      }
+      },
+      "busCount": 1,
+      "routeOptions": {
+        "title": "11/17 雨天路线备选",
+        "mainLabel": "A｜古道全走",
+        "alternativeIds": [
+          "rain-b-half",
+          "rain-c-tail",
+          "rain-d-takijiri-tail",
+          "rain-e-bus"
+        ],
+        "notes": [
+          "小雨且路面稳定可考虑B；持续下雨可考虑D。B保留泷尻陡坡，石阶滑时跳过。",
+          "在牛馬童子口现场决定：能安全走石阶再下车，否则按E留在同一班车，12:49到近露王子。",
+          "巴士数包含纪伊田边出发的接驳；步行数不含最后近露王子到SEN约10分钟。C／D距离仅为尾段与可选折返，不含泷尻周边短步行。全程单次付费、不约出租车，不预订当地巴士座位。",
+          "11/17的章是额外纪念章。选E也不改变所采用日本条件③在11/18–19的计划；资格仍以实际步行、参拜盖章及个人Camino证明为准。",
+          "班次按2026/9/19修订官方巴士表核对，所用班次未标注星期或季节限制；表内未列有效结束日，出发前关注运营变更。"
+        ]
+      },
+      "alternatives": [
+        {
+          "id": "rain-b-half",
+          "title": "B｜走一半",
+          "description": "保留泷尻至高原约4公里上坡，再步行下到栗栖川搭车，最后走牛马童子至近露；小雨且路面稳定时考虑。",
+          "busCount": 2,
+          "walking": {
+            "distanceKm": 7,
+            "note": "约7公里是本次规划估算，包含高原下到栗栖川的连接步行与最后1.3公里尾段；未独立测量。仍保留泷尻出发的陡坡，另加近露王子至SEN约10分钟。"
+          },
+          "schedule": [
+            {
+              "id": "comfort-checkout",
+              "time": "05:45–06:10",
+              "title": "起床、预备早餐、退房",
+              "description": "吃16号提前买好的早餐。"
+            },
+            {
+              "id": "tanabe-bus-queue",
+              "time": "06:15前后",
+              "title": "纪伊田边站前2号巴士站排队"
+            },
+            {
+              "id": "bus-to-takijiri",
+              "time": "06:38–07:16",
+              "title": "明光巴士95系統“栗栖川行”：纪伊田边 → 泷尻",
+              "description": "Takijiri／滝尻，主选明光95单买970日元／人，可刷Suica／ICOCA或现金。备选龙神熊野古道快速06:55–07:27，首到首得、不预约；备选票价另按实际线路核对。",
+              "sourceIds": [
+                "tanabe-hongu-bus",
+                "kumano-fast-bus",
+                "kumano-bus-payment"
+              ]
+            },
+            {
+              "id": "takijiri-oji-start",
+              "time": "07:16–07:35",
+              "title": "厕所、整理装备、泷尻王子参拜盖章"
+            },
+            {
+              "id": "walk-to-takahara",
+              "time": "07:35–10:00／10:30",
+              "title": "泷尻 → 不寝王子 → 高原熊野神社",
+              "description": "先走原计划约4公里上坡，盖泷尻、不寝和高原三章。石阶滑或雨势加大时不选此方案。",
+              "sourceIds": [
+                "takijiri-chikatsuyu"
+              ]
+            },
+            {
+              "id": "walk-to-kurisugawa",
+              "time": "高原出发后 · 预留30–40分钟",
+              "title": "按步行指引下到栗栖川站",
+            "description": "导览图第7页标有高原至栗栖川约25分钟步行连接线，并标注车辆禁行；本次保守预留30–40分钟，现场确认步行入口与路径。先完成盖章，再提前到站等11:14班车。",
+            "sourceIds": [
+              "chikatsuyu-map"
+            ]
+            },
+            {
+              "id": "bus-to-gyuba",
+              "time": "11:14–11:25",
+              "title": "明光93：栗栖川 → 牛馬童子口",
+              "description": "赶不上则改12:22–12:34龙神81。两班是二选一，全天仍为两班车；明光可用IC／现金，龙神可用感应银行卡／现金、不收IC。",
+              "sourceIds": [
+                "tanabe-hongu-bus",
+                "kumano-bus-payment"
+              ]
+            },
+            {
+              "id": "tail-to-chikatsuyu",
+              "time": "下车后 · 官方约30分钟",
+              "title": "牛馬童子口 → 牛马童子 → 近露王子",
+              "description": "按官方尾段约1.3公里走向近露，盖牛马童子、近露两章。途中有下坡石阶，湿滑时缩小步幅；预留盖章、休息时间。",
+              "sourceIds": [
+                "gyuba-chikatsuyu"
+              ]
+            },
+            {
+              "id": "sen-arrival",
+              "time": "到近露后",
+              "title": "近露王子 → SEN，按原订单入住",
+              "description": "另走约10分钟到旅馆；若早到，按原订单入住时间安排在近露休息，不假设可提前入住。确认18号美术馆前站牌与走法。",
+              "sourceIds": [
+                "sen-chikatsuyu-walk",
+                "sen-chikatsuyu-stay"
+              ]
+            },
+            {
+              "id": "sen-evening",
+              "time": "傍晚",
+              "title": "晚餐、洗澡，准备18号早班车",
+              "description": "SEN晚餐已包含；翌日早餐提前领取或打包已确认。具体餐食形式、菜单与虾过敏处理仍需确认。"
+            }
+          ],
+          "stamps": {
+            "title": "此方案沿途纪念章",
+            "description": "按所选路线留意盖章点；带“可选折返”的点只在走额外路段时经过。",
+            "stops": [
+              {
+                "name": "泷尻王子",
+                "englishName": "Takijiri-oji"
+              },
+              {
+                "name": "不寝王子",
+                "englishName": "Nezu-oji"
+              },
+              {
+                "name": "高原熊野神社",
+                "englishName": "Takahara Kumano-jinja"
+              },
+              {
+                "name": "牛马童子",
+                "englishName": "Gyuba-doji"
+              },
+              {
+                "name": "近露王子",
+                "englishName": "Chikatsuyu-oji"
+              }
+            ],
+            "notes": [
+              "这是沿途额外纪念章，不是已收集记录。11/17这些章不属于所采用日本条件③的必盖10章；后续11/18步行与六处、11/19四处参拜盖章仍须实际完成。"
+            ],
+            "sourceIds": [
+              "gyuba-chikatsuyu",
+              "dual-pilgrim",
+              "kumano-stamp-howto"
+            ]
+          },
+          "notes": [
+            "若到高原已接近10:30，盖章休息加30–40分钟下行后，11:14衔接可能很紧；保留12:22后备，不为赶车加快湿滑路段。",
+            "明光巴士可用Suica／ICOCA或现金；龙神81可用感应银行卡或现金，不收Suica／ICOCA。新接驳路段票价尚未核定，按实际车费单次付费，不加入A原计划交通预算。",
+            "所有方案最后仍到SEN RETREAT CHIKATSUYU，近露王子至旅馆另走约10分钟。按原订单规定时间自助入住；提前到近露不代表可提前入住。晚餐与翌日早取／打包早餐安排保持不变。"
+          ],
+          "sourceIds": [
+            "tanabe-hongu-bus",
+            "kumano-bus-payment",
+            "gyuba-chikatsuyu",
+            "dual-pilgrim",
+            "sen-chikatsuyu-walk",
+            "takijiri-chikatsuyu"
+          ]
+        },
+        {
+          "id": "rain-c-tail",
+          "title": "C｜直达，只走尾段",
+          "description": "纪伊田边一班车直达牛馬童子口，跳过泷尻上坡，只走向近露的尾段；不经过泷尻。",
+          "busCount": 1,
+          "walking": {
+            "distanceKm": 1.3,
+            "optionalDistanceKm": 1.6,
+            "note": "官方尾段约1.3公里／30分钟；路况好可先折返大坂本，额外约1.6公里。距离不含最后到SEN约10分钟。"
+          },
+          "schedule": [
+            {
+              "id": "comfort-checkout",
+              "time": "早餐后",
+              "title": "早餐、按酒店规定退房",
+              "description": "晚出门可用Comfort酒店06:30开始的早餐；按酒店规定时间退房，带好行李，留出步行到纪伊田边站和候车的时间。"
+            },
+            {
+              "id": "tanabe-bus-queue",
+              "time": "11:35前",
+              "title": "纪伊田边站前2号站牌候车"
+            },
+            {
+              "id": "bus-to-gyuba",
+              "time": "11:35–12:34",
+              "title": "龙神81：纪伊田边 → 牛馬童子口",
+              "description": "直接到尾段入口，感应银行卡或现金，不收Suica／ICOCA；此方案只有这一班巴士。",
+              "sourceIds": [
+                "tanabe-hongu-bus",
+                "kumano-bus-payment"
+              ]
+            },
+            {
+              "id": "osakamoto-detour",
+              "time": "下车后 · 路况允许才走",
+              "title": "可选：先折返大坂本王子",
+              "description": "从牛馬童子口往高原方向折返大坂本王子，返回尾段起点后再走向近露；来回额外约1.6公里、多一枚章，尾段与折返合计约2.9公里。",
+              "optional": true,
+              "sourceIds": [
+              "gyuba-chikatsuyu",
+              "chikatsuyu-map"
+              ]
+            },
+            {
+              "id": "tail-to-chikatsuyu",
+              "time": "下车后 · 官方约30分钟",
+              "title": "牛馬童子口 → 牛马童子 → 近露王子",
+              "description": "按官方尾段约1.3公里走向近露，盖牛马童子、近露两章。途中有下坡石阶，湿滑时缩小步幅；预留盖章、休息时间。",
+              "sourceIds": [
+                "gyuba-chikatsuyu"
+              ]
+            },
+            {
+              "id": "sen-arrival",
+              "time": "到近露后",
+              "title": "近露王子 → SEN，按原订单入住",
+              "description": "另走约10分钟到旅馆；若早到，按原订单入住时间安排在近露休息，不假设可提前入住。确认18号美术馆前站牌与走法。",
+              "sourceIds": [
+                "sen-chikatsuyu-walk",
+                "sen-chikatsuyu-stay"
+              ]
+            },
+            {
+              "id": "sen-evening",
+              "time": "傍晚",
+              "title": "晚餐、洗澡，准备18号早班车",
+              "description": "SEN晚餐已包含；翌日早餐提前领取或打包已确认。具体餐食形式、菜单与虾过敏处理仍需确认。"
+            }
+          ],
+          "stamps": {
+            "title": "此方案沿途纪念章",
+            "description": "按所选路线留意盖章点；带“可选折返”的点只在走额外路段时经过。",
+            "stops": [
+              {
+                "name": "大坂本王子",
+                "englishName": "Osakamoto-oji",
+                "optional": true,
+                "note": "仅在牛馬童子口下车后、路况允许时折返；来回约1.6公里，再转向近露。"
+              },
+              {
+                "name": "牛马童子",
+                "englishName": "Gyuba-doji"
+              },
+              {
+                "name": "近露王子",
+                "englishName": "Chikatsuyu-oji"
+              }
+            ],
+            "notes": [
+              "这是沿途额外纪念章，不是已收集记录。11/17这些章不属于所采用日本条件③的必盖10章；后续11/18步行与六处、11/19四处参拜盖章仍须实际完成。"
+            ],
+            "sourceIds": [
+              "gyuba-chikatsuyu",
+              "dual-pilgrim",
+              "kumano-stamp-howto"
+            ]
+          },
+          "notes": [
+            "尾段仍有湿了容易滑的石阶，1.3公里不是全平路。若持续下雨且想保留泷尻的章，用D／E更便于在牛馬童子口现场改走法。",
+            "明光巴士可用Suica／ICOCA或现金；龙神81可用感应银行卡或现金，不收Suica／ICOCA。新接驳路段票价尚未核定，按实际车费单次付费，不加入A原计划交通预算。",
+            "所有方案最后仍到SEN RETREAT CHIKATSUYU，近露王子至旅馆另走约10分钟。按原订单规定时间自助入住；提前到近露不代表可提前入住。晚餐与翌日早取／打包早餐安排保持不变。"
+          ],
+          "sourceIds": [
+            "tanabe-hongu-bus",
+            "kumano-bus-payment",
+            "gyuba-chikatsuyu",
+            "dual-pilgrim",
+            "sen-chikatsuyu-walk"
+          ]
+        },
+        {
+          "id": "rain-d-takijiri-tail",
+          "title": "D｜两班车，保留泷尻",
+          "description": "晚出门，先在泷尻盖章和看古道馆，再搭龙神81到牛馬童子口；持续下雨但尾段仍适合行走时考虑。",
+          "busCount": 2,
+          "walking": {
+            "distanceKm": 1.3,
+            "optionalDistanceKm": 1.6,
+            "note": "尾段约1.3公里，可选大坂本折返另加约1.6公里；不含泷尻站、王子与古道馆之间短步行，及最后到SEN约10分钟。"
+          },
+          "schedule": [
+            {
+              "id": "comfort-checkout",
+              "time": "早餐后",
+              "title": "早餐、按酒店规定退房",
+              "description": "晚出门可用Comfort酒店06:30开始的早餐；按酒店规定时间退房，带好行李，留出步行到纪伊田边站和候车的时间。"
+            },
+            {
+              "id": "tanabe-bus-queue",
+              "time": "10:25前",
+              "title": "纪伊田边站前2号站牌候车"
+            },
+            {
+              "id": "bus-to-takijiri",
+              "time": "10:25–11:03",
+              "title": "明光95：纪伊田边 → 泷尻",
+              "description": "纪伊田边站前2号站牌，单买970日元／人，可用Suica／ICOCA或现金。",
+              "sourceIds": [
+                "tanabe-hongu-bus",
+                "kumano-bus-payment"
+              ]
+            },
+            {
+              "id": "takijiri-visit",
+              "time": "11:03–12:16前",
+              "title": "泷尻王子盖章、熊野古道馆",
+              "description": "盖泷尻纪念章，逛对面的熊野古道馆；提前回到泷尻站候车，下一班12:16出发。"
+            },
+            {
+              "id": "bus-to-gyuba",
+              "time": "12:16–12:34",
+              "title": "龙神81：泷尻 → 牛馬童子口",
+              "description": "到牛馬童子口再决定是否下车。若雨大或石阶不适合走，按E继续留在同一班车上，12:49到近露王子；不用多换一班。",
+              "sourceIds": [
+                "tanabe-hongu-bus"
+              ]
+            },
+            {
+              "id": "osakamoto-detour",
+              "time": "下车后 · 路况允许才走",
+              "title": "可选：先折返大坂本王子",
+              "description": "从牛馬童子口往高原方向折返大坂本王子，返回尾段起点后再走向近露；来回额外约1.6公里、多一枚章，尾段与折返合计约2.9公里。",
+              "optional": true,
+              "sourceIds": [
+              "gyuba-chikatsuyu",
+              "chikatsuyu-map"
+              ]
+            },
+            {
+              "id": "tail-to-chikatsuyu",
+              "time": "下车后 · 官方约30分钟",
+              "title": "牛馬童子口 → 牛马童子 → 近露王子",
+              "description": "按官方尾段约1.3公里走向近露，盖牛马童子、近露两章。途中有下坡石阶，湿滑时缩小步幅；预留盖章、休息时间。",
+              "sourceIds": [
+                "gyuba-chikatsuyu"
+              ]
+            },
+            {
+              "id": "sen-arrival",
+              "time": "到近露后",
+              "title": "近露王子 → SEN，按原订单入住",
+              "description": "另走约10分钟到旅馆；若早到，按原订单入住时间安排在近露休息，不假设可提前入住。确认18号美术馆前站牌与走法。",
+              "sourceIds": [
+                "sen-chikatsuyu-walk",
+                "sen-chikatsuyu-stay"
+              ]
+            },
+            {
+              "id": "sen-evening",
+              "time": "傍晚",
+              "title": "晚餐、洗澡，准备18号早班车",
+              "description": "SEN晚餐已包含；翌日早餐提前领取或打包已确认。具体餐食形式、菜单与虾过敏处理仍需确认。"
+            }
+          ],
+          "stamps": {
+            "title": "此方案沿途纪念章",
+            "description": "按所选路线留意盖章点；带“可选折返”的点只在走额外路段时经过。",
+            "stops": [
+              {
+                "name": "泷尻王子",
+                "englishName": "Takijiri-oji"
+              },
+              {
+                "name": "大坂本王子",
+                "englishName": "Osakamoto-oji",
+                "optional": true,
+                "note": "仅在牛馬童子口下车后、路况允许时折返；来回约1.6公里，再转向近露。"
+              },
+              {
+                "name": "牛马童子",
+                "englishName": "Gyuba-doji"
+              },
+              {
+                "name": "近露王子",
+                "englishName": "Chikatsuyu-oji"
+              }
+            ],
+            "notes": [
+              "这是沿途额外纪念章，不是已收集记录。11/17这些章不属于所采用日本条件③的必盖10章；后续11/18步行与六处、11/19四处参拜盖章仍须实际完成。"
+            ],
+            "sourceIds": [
+              "gyuba-chikatsuyu",
+              "dual-pilgrim",
+              "kumano-stamp-howto"
+            ]
+          },
+          "notes": [
+            "D与E前两段巴士相同，区别是牛馬童子口下车徒步，还是留在原车到近露王子。先看路况，再决定是否走尾段或额外折返。",
+            "明光巴士可用Suica／ICOCA或现金；龙神81可用感应银行卡或现金，不收Suica／ICOCA。新接驳路段票价尚未核定，按实际车费单次付费，不加入A原计划交通预算。",
+            "所有方案最后仍到SEN RETREAT CHIKATSUYU，近露王子至旅馆另走约10分钟。按原订单规定时间自助入住；提前到近露不代表可提前入住。晚餐与翌日早取／打包早餐安排保持不变。"
+          ],
+          "sourceIds": [
+            "tanabe-hongu-bus",
+            "kumano-bus-payment",
+            "gyuba-chikatsuyu",
+            "dual-pilgrim",
+            "sen-chikatsuyu-walk"
+          ]
+        },
+        {
+          "id": "rain-e-bus",
+          "title": "E｜雨大，不走山路",
+          "description": "保留泷尻、近露两处纪念章；乘车越过古道，避开牛马童子石阶。",
+          "busCount": 2,
+          "walkingNote": "只走站牌、泷尻王子／古道馆、近露王子和旅馆之间；未提供数值距离，仍需另走近露王子至SEN约10分钟。",
+          "schedule": [
+            {
+              "id": "comfort-checkout",
+              "time": "早餐后",
+              "title": "早餐、按酒店规定退房",
+              "description": "晚出门可用Comfort酒店06:30开始的早餐；按酒店规定时间退房，带好行李，留出步行到纪伊田边站和候车的时间。"
+            },
+            {
+              "id": "tanabe-bus-queue",
+              "time": "10:25前",
+              "title": "纪伊田边站前2号站牌候车"
+            },
+            {
+              "id": "bus-to-takijiri",
+              "time": "10:25–11:03",
+              "title": "明光95：纪伊田边 → 泷尻",
+              "description": "纪伊田边站前2号站牌，单买970日元／人，可用Suica／ICOCA或现金。",
+              "sourceIds": [
+                "tanabe-hongu-bus",
+                "kumano-bus-payment"
+              ]
+            },
+            {
+              "id": "takijiri-visit",
+              "time": "11:03–12:16前",
+              "title": "泷尻王子盖章、熊野古道馆",
+              "description": "盖泷尻纪念章，逛对面的熊野古道馆；提前回到泷尻站候车，下一班12:16出发。"
+            },
+            {
+              "id": "bus-to-chikatsuyu",
+              "time": "12:16–12:49",
+              "title": "龙神81：泷尻 → 近露王子",
+              "description": "12:34经牛馬童子口不下车，留在同一班车上，12:49到近露王子再下；全天两班巴士。",
+              "sourceIds": [
+                "tanabe-hongu-bus"
+              ]
+            },
+            {
+              "id": "chikatsuyu-stamp",
+              "time": "12:49后",
+              "title": "近露王子盖章，前往SEN",
+              "description": "只作站牌、盖章点及旅馆之间短步行，不安排牛马童子或大坂本山路。"
+            },
+            {
+              "id": "sen-arrival",
+              "time": "到近露后",
+              "title": "近露王子 → SEN，按原订单入住",
+              "description": "另走约10分钟到旅馆；若早到，按原订单入住时间安排在近露休息，不假设可提前入住。确认18号美术馆前站牌与走法。",
+              "sourceIds": [
+                "sen-chikatsuyu-walk",
+                "sen-chikatsuyu-stay"
+              ]
+            },
+            {
+              "id": "sen-evening",
+              "time": "傍晚",
+              "title": "晚餐、洗澡，准备18号早班车",
+              "description": "SEN晚餐已包含；翌日早餐提前领取或打包已确认。具体餐食形式、菜单与虾过敏处理仍需确认。"
+            }
+          ],
+          "stamps": {
+            "title": "此方案沿途纪念章",
+            "description": "按所选路线留意盖章点；带“可选折返”的点只在走额外路段时经过。",
+            "stops": [
+              {
+                "name": "泷尻王子",
+                "englishName": "Takijiri-oji"
+              },
+              {
+                "name": "近露王子",
+                "englishName": "Chikatsuyu-oji"
+              }
+            ],
+            "notes": [
+              "这是沿途额外纪念章，不是已收集记录。11/17这些章不属于所采用日本条件③的必盖10章；后续11/18步行与六处、11/19四处参拜盖章仍须实际完成。"
+            ],
+            "sourceIds": [
+              "gyuba-chikatsuyu",
+              "dual-pilgrim",
+              "kumano-stamp-howto"
+            ]
+          },
+          "notes": [
+            "明光巴士可用Suica／ICOCA或现金；龙神81可用感应银行卡或现金，不收Suica／ICOCA。新接驳路段票价尚未核定，按实际车费单次付费，不加入A原计划交通预算。",
+            "所有方案最后仍到SEN RETREAT CHIKATSUYU，近露王子至旅馆另走约10分钟。按原订单规定时间自助入住；提前到近露不代表可提前入住。晚餐与翌日早取／打包早餐安排保持不变。",
+            "雨大时选E不需要为了11/17额外纪念章去走山路；11/18–19正式条件③的步行、参拜与盖章计划仍按原行程。"
+          ],
+          "sourceIds": [
+            "tanabe-hongu-bus",
+            "kumano-bus-payment",
+            "gyuba-chikatsuyu",
+            "dual-pilgrim",
+            "sen-chikatsuyu-walk"
+          ]
+        }
+      ]
     },
     {
       "date": "2026-11-18",
       "weather": {
         "timeZone": "Asia/Tokyo",
         "locations": [
-          { "placeId": "hosshinmon-oji", "label": "发心门" },
-          { "placeId": "kumano-hongu-taisha", "label": "本宫" },
-          { "placeId": "kawayu-matsuya", "label": "川汤" }
+          {
+            "placeId": "hosshinmon-oji",
+            "label": "发心门"
+          },
+          {
+            "placeId": "kumano-hongu-taisha",
+            "label": "本宫"
+          },
+          {
+            "placeId": "kawayu-matsuya",
+            "label": "川汤"
+          }
         ],
         "note": "发心门、本宫和川汤分别取参考点附近的全天网格预报；步道沿线的海拔和地形不同。"
       },
@@ -4978,9 +5676,18 @@ export default {
       "weather": {
         "timeZone": "Asia/Tokyo",
         "locations": [
-          { "placeId": "kumano-nachi-taisha", "label": "那智山" },
-          { "placeId": "kumano-hayatama-taisha", "label": "新宫" },
-          { "placeId": "osaka-station", "label": "大阪" }
+          {
+            "placeId": "kumano-nachi-taisha",
+            "label": "那智山"
+          },
+          {
+            "placeId": "kumano-hayatama-taisha",
+            "label": "新宫"
+          },
+          {
+            "placeId": "osaka-station",
+            "label": "大阪"
+          }
         ],
         "note": "不同地点显示各自的全天预报，不对应早晨新宫、午间那智山或晚间大阪的特定时段。"
       },
@@ -5548,7 +6255,10 @@ export default {
       "weather": {
         "timeZone": "Asia/Tokyo",
         "locations": [
-          { "placeId": "nara-park", "label": "奈良" }
+          {
+            "placeId": "nara-park",
+            "label": "奈良"
+          }
         ]
       },
       "sightIds": [
@@ -5858,8 +6568,14 @@ export default {
       "weather": {
         "timeZone": "Asia/Tokyo",
         "locations": [
-          { "placeId": "kix-t1", "label": "关西机场" },
-          { "placeId": "osaka-station", "label": "大阪" }
+          {
+            "placeId": "kix-t1",
+            "label": "关西机场"
+          },
+          {
+            "placeId": "osaka-station",
+            "label": "大阪"
+          }
         ],
         "note": "这里是出发地当天的天气预报，不作为机场或航班运行信息。"
       },

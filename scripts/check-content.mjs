@@ -211,6 +211,19 @@ for (const folder of folders) {
   const checkSights = (ids, label) => {
     for (const id of ids ?? []) assert.ok(sights.has(id), `${label}: unknown sight ${id}`);
   };
+  const checkStampCollection = (collection, label) => {
+    if (collection === undefined) return;
+    assert.ok(typeof collection.title === 'string' && collection.title.trim() && Array.isArray(collection.stops) && collection.stops.length, `${label}: name the stamp collection and add its stops`);
+    for (const stop of collection.stops) {
+      assert.ok(typeof stop.name === 'string' && stop.name.trim(), `${label}: name each stamp stop`);
+      if (stop.number !== undefined) assert.ok(Number.isInteger(stop.number) && stop.number > 0, `${label}: invalid official stamp number`);
+      assert.ok(stop.optional === undefined || typeof stop.optional === 'boolean', `${label}: optional stamp must be a boolean`);
+    }
+    checkSources(collection.sourceIds, label);
+  };
+  const checkBusCount = (count, label) => {
+    if (count !== undefined) assert.ok(Number.isInteger(count) && count >= 0, `${label}: bus count must be a nonnegative whole-day count`);
+  };
   const checkGuideSections = (sections, label) => {
     assert.ok(Array.isArray(sections) && sections.length, `${label}: add guidance sections`);
     for (const section of sections) {
@@ -382,21 +395,33 @@ for (const folder of folders) {
         }
       }
     }
-    if (day.stamps) {
-      assert.ok(day.stamps.title && day.stamps.stops.length, `${folder}/${date}: name the stamp collection and add its stops`);
-      for (const stop of day.stamps.stops) {
-        assert.ok(typeof stop.name === 'string' && stop.name.trim(), `${folder}/${date}: name each stamp stop`);
-        if (stop.number !== undefined) assert.ok(Number.isInteger(stop.number) && stop.number > 0, `${folder}/${date}: invalid official stamp number`);
-      }
-      checkSources(day.stamps.sourceIds, `${folder}/${date} stamps`);
-    }
+    checkStampCollection(day.stamps, `${folder}/${date} stamps`);
+    checkBusCount(day.busCount, `${folder}/${date}`);
     for (const item of day.schedule ?? []) checkSources(item.sourceIds, `${folder}/${date} schedule`);
-    uniqueIds(day.alternatives ?? [], `${folder}/${date} alternatives`);
+    const alternativeIds = uniqueIds(day.alternatives ?? [], `${folder}/${date} alternatives`);
     for (const alternative of day.alternatives ?? []) {
-      assert.ok(alternative.title && alternative.description && alternative.schedule.length, `${folder}/${date}/${alternative.id}: complete the separate alternative plan`);
-      checkSources(alternative.sourceIds, `${folder}/${date}/${alternative.id}`);
-      checkSights(alternative.sightIds, `${folder}/${date}/${alternative.id}`);
-      for (const item of alternative.schedule) checkSources(item.sourceIds, `${folder}/${date}/${alternative.id} schedule`);
+      const label = `${folder}/${date}/${alternative.id}`;
+      assert.ok(alternative.title && alternative.description && alternative.schedule.length, `${label}: complete the separate alternative plan`);
+      checkSources(alternative.sourceIds, label);
+      checkSights(alternative.sightIds, label);
+      checkBusCount(alternative.busCount, label);
+      checkStampCollection(alternative.stamps, `${label} stamps`);
+      if (alternative.walking !== undefined) {
+        assert.ok(Number.isFinite(alternative.walking.distanceKm) && alternative.walking.distanceKm > 0, `${label}: use a known positive walking distance`);
+        if (alternative.walking.optionalDistanceKm !== undefined) assert.ok(Number.isFinite(alternative.walking.optionalDistanceKm) && alternative.walking.optionalDistanceKm > 0, `${label}: optional walking distance must be a positive additional distance`);
+        if (alternative.walking.note !== undefined) assert.ok(typeof alternative.walking.note === 'string' && alternative.walking.note.trim(), `${label}: add readable walking scope`);
+      }
+      if (alternative.walkingNote !== undefined) assert.ok(typeof alternative.walkingNote === 'string' && alternative.walkingNote.trim(), `${label}: add readable qualitative walking scope`);
+      for (const item of alternative.schedule) checkSources(item.sourceIds, `${label} schedule`);
+    }
+    if (day.routeOptions !== undefined) {
+      const options = day.routeOptions;
+      const label = `${folder}/${date} route comparison`;
+      for (const field of ['title', 'mainLabel']) assert.ok(typeof options[field] === 'string' && options[field].trim(), `${label}: ${field} must contain text`);
+      assert.ok(day.schedule?.length && Array.isArray(options.alternativeIds) && options.alternativeIds.length, `${label}: reference a main schedule and alternatives`);
+      assert.equal(new Set(options.alternativeIds).size, options.alternativeIds.length, `${label}: do not repeat alternatives`);
+      for (const id of options.alternativeIds) assert.ok(alternativeIds.has(id), `${label}: unknown alternative ${id}`);
+      if (options.notes !== undefined) assert.ok(Array.isArray(options.notes) && options.notes.every(note => typeof note === 'string' && note.trim()), `${label}: add readable comparison notes`);
     }
   }
   for (const photo of trip.gallery ?? []) {

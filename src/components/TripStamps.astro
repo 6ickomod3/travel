@@ -11,6 +11,8 @@ interface Props {
 
 const { collection, sources, locale = 'en' } = Astro.props;
 const isZh = locale === 'zh-CN';
+const minimumStops = collection.stops.filter(stop => !stop.optional).length;
+const stopCount = minimumStops === collection.stops.length ? String(minimumStops) : `${minimumStops}–${collection.stops.length}`;
 const references = (collection.sourceIds ?? []).flatMap(id => {
   const source = sources.find(item => item.id === id);
   return source ? [source] : [];
@@ -20,14 +22,14 @@ const references = (collection.sourceIds ?? []).flatMap(id => {
   <div class="stamp-heading">
     <Icon name="list" size={18} />
     <h3>{collection.title}</h3>
-    <span>{collection.stops.length} {isZh ? '个盖章点' : 'stamp stops'}</span>
+    <span>{stopCount} {isZh ? '个盖章点' : 'stamp stops'}</span>
   </div>
   {collection.description && <p class="stamp-description">{collection.description}</p>}
   <ol class="stamp-stops" role="list">
     {collection.stops.map((stop, index) => <li value={stop.number ?? index + 1}>
       <span class="stamp-number" aria-hidden="true">{stop.number ?? index + 1}</span>
       <div class="stamp-stop-copy">
-        <strong>{stop.name}</strong>
+        <strong>{stop.name}{stop.optional && <span class="stamp-optional">{isZh ? '可选折返' : 'Optional detour'}</span>}</strong>
         {stop.englishName && <small lang="en">{stop.englishName}</small>}
         {stop.note && <p class="stamp-stop-note">{stop.note}</p>}
       </div>
@@ -49,6 +51,7 @@ const references = (collection.sourceIds ?? []).flatMap(id => {
   .stamp-number { display: grid; place-items: center; flex-shrink: 0; width: 24px; height: 24px; border: 1px solid #36574330; border-radius: 50%; background: #36574306; color: #365743; font-size: 10px; font-variant-numeric: tabular-nums; }
   .stamp-stop-copy { min-width: 0; overflow-wrap: anywhere; }
   .stamp-stop-copy strong { display: block; font-size: 13px; line-height: 1.8; font-weight: 500; }
+  .stamp-optional { display: inline-block; margin-left: 7px; padding: 1px 5px; border: 1px solid var(--line); border-radius: 3px; color: var(--ink-soft); font-size: 10px; font-weight: 400; vertical-align: middle; }
   .stamp-stop-copy small { display: block; color: var(--ink-soft); font-size: 10px; line-height: 1.7; }
   .stamp-stop-note { margin-top: 4px; color: var(--accent-deep); font-size: 11px; line-height: 1.8; }
   .stamp-notes { margin: 18px 0 0; padding: 14px 0 0 17px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 12px; line-height: 1.9; }

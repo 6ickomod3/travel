@@ -1,4 +1,5 @@
 import { revealGuideTarget } from './trip-guides';
+import { revealDailyMapTarget } from './daily-maps';
 
 type ItineraryMode = 'focus' | 'all';
 
@@ -196,6 +197,7 @@ function initializeTripItinerary(element: HTMLElement) {
 
   function revealAncestors(target: HTMLElement) {
     revealGuideTarget(target);
+    revealDailyMapTarget(target);
     const sectionDisclosure = sectionDisclosures.get(target.id);
     if (sectionDisclosure) setDetailsOpen(sectionDisclosure, true);
     for (let ancestor: Element | null = target; ancestor; ancestor = ancestor.parentElement) {

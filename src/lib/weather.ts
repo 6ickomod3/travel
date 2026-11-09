@@ -31,6 +31,27 @@ export interface WeatherSnapshot {
   days: WeatherForecastDay[];
 }
 
+export interface WeatherHourlyRequest extends WeatherRequest {
+  date: string;
+}
+
+export interface WeatherForecastHour {
+  /** UTC milliseconds, retained so repeated destination-local hours stay distinct. */
+  timestamp: number;
+  code: number | null;
+  temperatureC: number | null;
+  rainProbability: number | null;
+  precipitationMm: number | null;
+  windMps: number | null;
+}
+
+export interface WeatherHourlySnapshot {
+  fetchedAt: number;
+  timeZone: string;
+  date: string;
+  hours: WeatherForecastHour[];
+}
+
 type WeatherLocale = 'zh-CN' | 'en';
 type WeatherIcon = 'sun' | 'partly-cloudy' | 'cloud' | 'fog' | 'rain' | 'snow' | 'storm';
 
@@ -81,6 +102,7 @@ export function describeWeather(code: number | null, locale: WeatherLocale) {
   return {
     label: description?.[locale === 'zh-CN' ? 0 : 1] ?? (locale === 'zh-CN' ? '天气概况待更新' : 'Conditions unavailable'),
     icon: description?.[2] ?? 'cloud' as WeatherIcon,
+    known: Boolean(description),
   };
 }
 
@@ -106,6 +128,24 @@ export function forecastUrl(request: WeatherRequest): string {
     timezone: request.timeZone,
     forecast_days: String(FORECAST_DAYS),
     daily: 'weather_code,temperature_2m_min,temperature_2m_max,precipitation_probability_max,precipitation_sum,wind_speed_10m_max',
+    temperature_unit: 'celsius',
+    precipitation_unit: 'mm',
+    wind_speed_unit: 'ms',
+  }).toString();
+  return url.href;
+}
+
+export function hourlyForecastUrl(request: WeatherHourlyRequest): string {
+  if (!calendarDate(request.date)) throw new Error('Hourly forecast requires an exact calendar date');
+  const url = new URL('https://api.open-meteo.com/v1/forecast');
+  url.search = new URLSearchParams({
+    latitude: String(request.lat),
+    longitude: String(request.lng),
+    timezone: request.timeZone,
+    start_date: request.date,
+    end_date: request.date,
+    hourly: 'temperature_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m',
+    timeformat: 'unixtime',
     temperature_unit: 'celsius',
     precipitation_unit: 'mm',
     wind_speed_unit: 'ms',
@@ -172,7 +212,7 @@ export function hasWeatherValues(day: WeatherForecastDay): boolean {
   return [day.code, day.minimumC, day.maximumC, day.rainProbability, day.precipitationMm, day.windMps].some(value => value !== null);
 }
 
-export function isFreshWeather(snapshot: WeatherSnapshot, now = Date.now()): boolean {
+export function isFreshWeather(snapshot: Pick<WeatherSnapshot, 'fetchedAt' | 'timeZone'>, now = Date.now()): boolean {
   return now >= snapshot.fetchedAt && now - snapshot.fetchedAt < WEATHER_CACHE_MS
     && localWeatherDate(snapshot.timeZone, snapshot.fetchedAt) === localWeatherDate(snapshot.timeZone, now);
 }
@@ -190,4 +230,122 @@ export function readWeatherSnapshot(value: unknown, timeZone: string, now = Date
   const normalized = snapshot as unknown as WeatherSnapshot;
   if (new Set(normalized.days.map(day => day.date)).size !== normalized.days.length) return;
   return normalized;
+}
+
+function unixSeconds(value: unknown): value is number {
+  return typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 && value <= 253_402_300_799;
+}
+
+export function parseHourlyWeatherResponse(value: unknown, request: WeatherHourlyRequest, fetchedAt: number): WeatherHourlySnapshot {
+  if (!calendarDate(request.date)) throw new Error('Hourly forecast requires an exact calendar date');
+  const response = record(value);
+  const hourly = record(response?.hourly);
+  const units = record(response?.hourly_units);
+  const times = hourly?.time;
+  if (!hourly || !units || units.time !== 'unixtime' || !Array.isArray(times)
+    || times.length > FORECAST_DAYS * 26 || !times.every(unixSeconds)) {
+    throw new Error('Weather provider did not return hourly Unix timestamps and units');
+  }
+  if (times.some((time, index) => index > 0 && time <= times[index - 1])) {
+    throw new Error('Weather provider returned duplicate or unordered hours');
+  }
+  const fields = {
+    temperature_2m: '°C', precipitation_probability: '%', precipitation: 'mm',
+    weather_code: 'wmo code', wind_speed_10m: 'm/s',
+  };
+  for (const [field, unit] of Object.entries(fields)) {
+    if (units[field] !== unit || !Array.isArray(hourly[field]) || hourly[field].length !== times.length) {
+      throw new Error('Weather provider returned incomplete hourly values or unexpected units');
+    }
+  }
+  const at = (field: string, index: number, minimum: number, maximum: number) =>
+    numberOrNull((hourly[field] as unknown[])[index], minimum, maximum);
+  return {
+    fetchedAt,
+    timeZone: request.timeZone,
+    date: request.date,
+    hours: times.flatMap((seconds, index) => {
+      const timestamp = seconds * 1000;
+      if (localWeatherDate(request.timeZone, timestamp) !== request.date) return [];
+      return [{
+        timestamp,
+        code: at('weather_code', index, 0, 999),
+        temperatureC: at('temperature_2m', index, -100, 100),
+        rainProbability: at('precipitation_probability', index, 0, 100),
+        precipitationMm: at('precipitation', index, 0, 2000),
+        windMps: at('wind_speed_10m', index, 0, 150),
+      }];
+    }),
+  };
+}
+
+export function hasHourlyWeatherValues(hour: WeatherForecastHour): boolean {
+  return [hour.code, hour.temperatureC, hour.rainProbability, hour.precipitationMm, hour.windMps].some(value => value !== null);
+}
+
+const hourPeriods = new Map<string, number[]>();
+
+/** Locate actual local-day boundaries rather than assuming a 24-hour DST day. */
+export function weatherDayHours(date: string, timeZone: string): number[] {
+  if (!calendarDate(date)) throw new Error('Hourly forecast requires an exact calendar date');
+  const key = timeZone + '.' + date;
+  const cached = hourPeriods.get(key);
+  if (cached) return [...cached];
+  const formatter = new Intl.DateTimeFormat('en', { timeZone, year: 'numeric', month: '2-digit', day: '2-digit' });
+  const localDate = (seconds: number) => {
+    const parts = formatter.formatToParts(seconds * 1000);
+    const value = (type: string) => parts.find(part => part.type === type)!.value;
+    return value('year') + '-' + value('month') + '-' + value('day');
+  };
+  const beginning = (target: string) => {
+    const nominal = Date.parse(target + 'T00:00:00Z') / 1000;
+    let low = nominal - 36 * 3600;
+    let high = nominal + 36 * 3600;
+    while (low < high) {
+      const middle = Math.floor((low + high) / 2);
+      if (localDate(middle) < target) low = middle + 1;
+      else high = middle;
+    }
+    return low * 1000;
+  };
+  const nextDate = new Date(Date.parse(date + 'T00:00:00Z') + 86_400_000).toISOString().slice(0, 10);
+  const end = beginning(nextDate);
+  const periods: number[] = [];
+  for (let timestamp = beginning(date); timestamp < end; timestamp += 3_600_000) {
+    if (localDate(timestamp / 1000) === date) periods.push(timestamp);
+  }
+  if (hourPeriods.size >= 64) hourPeriods.delete(hourPeriods.keys().next().value!);
+  hourPeriods.set(key, periods);
+  return [...periods];
+}
+
+export function hourlyWeatherCoverage(snapshot: WeatherHourlySnapshot) {
+  const expected = weatherDayHours(snapshot.date, snapshot.timeZone);
+  return {
+    expectedHours: expected.length,
+    suppliedHours: snapshot.hours.length,
+    availableHours: snapshot.hours.filter(hasHourlyWeatherValues).length,
+    complete: snapshot.hours.length === expected.length && snapshot.hours.every((hour, index) => hour.timestamp === expected[index]),
+  };
+}
+
+export function readHourlyWeatherSnapshot(value: unknown, request: WeatherHourlyRequest, now = Date.now()): WeatherHourlySnapshot | undefined {
+  const snapshot = record(value);
+  if (!snapshot || snapshot.timeZone !== request.timeZone || snapshot.date !== request.date || !calendarDate(snapshot.date)
+    || typeof snapshot.fetchedAt !== 'number' || !Number.isFinite(snapshot.fetchedAt) || snapshot.fetchedAt > now
+    || now - snapshot.fetchedAt > WEATHER_STALE_MS || !Array.isArray(snapshot.hours) || snapshot.hours.length > 26) return;
+  const limits: Record<string, [number, number]> = {
+    code: [0, 999], temperatureC: [-100, 100], rainProbability: [0, 100], precipitationMm: [0, 2000], windMps: [0, 150],
+  };
+  const hours = snapshot.hours;
+  if (!hours.every((hour, index) => {
+    const item = record(hour);
+    const previous = record(hours[index - 1]);
+    if (!item || typeof item.timestamp !== 'number' || !unixSeconds(item.timestamp / 1000)
+      || localWeatherDate(request.timeZone, item.timestamp) !== request.date
+      || index > 0 && item.timestamp <= (previous?.timestamp as number)) return false;
+    return Object.entries(limits).every(([field, [minimum, maximum]]) =>
+      item[field] === null || typeof item[field] === 'number' && numberOrNull(item[field], minimum, maximum) !== null);
+  })) return;
+  return snapshot as unknown as WeatherHourlySnapshot;
 }
