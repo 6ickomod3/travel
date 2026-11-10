@@ -1828,9 +1828,10 @@ and licenses.
   short access branches; no new figure extraction, exact coordinate,
   geocoding, precise trail or reuse-license claim is introduced.
 - Application status: source archival, scope-specific official research,
-  canonical implementation, the initial required build and independent
-  fact review are complete. Final browser review, build rerun after the
-  focus-restoration correction and publication are pending at this
+  canonical implementation, final required build, independent fact review
+  and phone/desktop browser review are complete. The verified update is
+  ready for the existing authorized main/Pages workflow. Commit,
+  deployment and public-response checks remain pending at this
   preparation-time entry.
 
 ### 2026-11-09-04-nov18-rain-update-approval
@@ -1914,9 +1915,12 @@ and licenses.
   17 A–E data, guide references, unknown-coordinate omissions and the
   unchanged costs/paid records. Transport, budget, stays, flights,
   checklist, dining and ticket-option records remain unchanged.
-- Build verification: `pnpm build` passed content, image and reference
-  checks, all eighteen focused weather tests, zero errors, warnings or
+- Build verification: the final corrected `pnpm build` passed content,
+  image and reference checks, all eighteen focused weather tests, zero
+  errors, warnings or
   hints across seventy-five Astro files and four generated static pages.
+  The final gate completed November 9 at 20:53:44 America/Los_Angeles
+  after the C-decision wording and viewer-focus corrections.
   This implementation selects no branch and establishes no purchase,
   payment, collection or qualification.
 - Independent fact review: the verified timetable and route facts passed
@@ -1928,10 +1932,20 @@ and licenses.
   to close. The viewer snapshot now retains the actual focused control
   and restores it after reopening without scrolling. The existing map
   and viewer state restoration remains intact; no route content changed.
+- Final browser verification: nineteen focused groups passed with no
+  remaining issues. Eighteen JavaScript groups passed at 320, 390 and
+  1280 px widths, including full print/state restoration. The combined
+  no-JavaScript group verifies
+  native reading at 320 and 390 px using visible touchscreen taps.
+  Print checks restore the exact zoom-in viewer control as well as day,
+  disclosure, figure, map and viewer state. Four key phone screenshots
+  were visually reviewed after the corrections.
 - Application status: source archival, canonical changes, focused
-  content/source checks, initial build and independent fact review are
-  complete. Final phone/desktop browser checks, build rerun after the
-  viewer correction and release remain pending.
+  content/source checks, final required build, independent fact review
+  and phone/desktop browser checks are complete. The verified
+  implementation is ready for the existing authorized main/Pages
+  workflow. Commit, deployment and public-response verification remain
+  pending at this preparation-time record.
   The post-commit publication result belongs in ignored
   `.local/trips/japan-2026/review/2026-11-09-nov18-release.md` so the
   public history can retain honest preparation-time verification status.
@@ -2159,3 +2173,29 @@ when a source explicitly resolves or changes a decision.
   deployment and public-response checks remain pending at preparation time.
   Consult ignored `.local/trips/japan-2026/review/2026-11-09-release.md`
   for the post-commit publication result.
+- November 9, 2026: archived the November 18 rain proposal and subsequent
+  website-update approval separately before canonical changes. Kept the
+  accepted 07:51 main plan and existing November 17 A–E routes unchanged.
+  Reused the full/missed-rapid fallback as rain A and added separate B,
+  C, D and midday-full schedules/maps. Added the explicit unselected
+  November 17 full-walk/November 18 no-mountain linked plan, same-day
+  alternative links, existing attributed guide-figure links and compact
+  entrances after weather/before the daily map. November 17 adds two
+  sourced secondary forecast points; route links reuse the existing
+  exact-date hourly disclosures without storing forecasts.
+  Verified regular stop times, route 80's Hongu-to-museum return, the
+  trial rapid's JPY 3,000 adult fare, short access times and current
+  museum opening. B/C distances remain supplied approximations and new
+  coordinates/ordinary variant fares remain unknown. Retained full-walk
+  completion requirements, the midday time margin, Wednesday food
+  procurement uncertainty and all recorded booking/payment/budget facts.
+  Ten source/content/snapshot groups, the final full build with eighteen
+  weather tests, nineteen focused phone/desktop browser groups and
+  independent fact review passed. Corrected C's decision to happen before
+  boarding and preserved the exact focused guide-viewer control through
+  printing. Four key phone screenshots were visually reviewed. The
+  verified update is ready for the authorized Pages release; commit,
+  deployment and public-response checks remain pending at preparation time.
+  Consult ignored
+  `.local/trips/japan-2026/review/2026-11-09-nov18-release.md` for the
+  post-commit publication result.
