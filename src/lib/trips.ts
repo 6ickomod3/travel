@@ -47,6 +47,14 @@ export function tripYear(trip: TripEntry): number {
   return isPlaceholderTrip(trip) ? trip.year : Number(trip.startDate.slice(0, 4));
 }
 
+/** Identify a trip by country and its supplied start month, or its known year. */
+export function formatTripLabel(trip: Pick<Trip, "country" | "startDate"> | Pick<TripPlaceholder, "country" | "year">): string {
+  const period = "startDate" in trip
+    ? trip.startDate.slice(0, 7).replace("-", "/")
+    : String(trip.year);
+  return `${trip.country} ${period}`;
+}
+
 /** Keep year-only entries after dated trips within the same year. */
 export function compareTripEntries(a: TripEntry, b: TripEntry): number {
   const yearDifference = tripYear(b) - tripYear(a);

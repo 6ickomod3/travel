@@ -3,7 +3,7 @@ import Brand from './Brand.astro';
 import Icon from './Icon.astro';
 import { withBase } from '../lib/urls';
 import { trips } from '../data/trips';
-import { selectNextTrip } from '../lib/trips';
+import { formatTripLabel, selectNextTrip } from '../lib/trips';
 import { toTripPreview } from '../lib/trip-previews';
 interface Props { lang?: 'zh-CN' | 'en'; }
 const { lang = 'en' } = Astro.props;
@@ -19,7 +19,7 @@ const previewJSON = JSON.stringify(previews).replace(/</g, '\\u003c');
       <a href={`${withBase()}#collection`}>{isZh ? '旅行' : 'Trips'}</a>
       <a href={`${withBase()}#atlas`}>{isZh ? '足迹地图' : 'Atlas'}</a>
     </nav>
-    <a class="header-trip" data-next-trip-header hidden={!nextTrip} href={nextTrip ? withBase(`trips/${nextTrip.slug}/`) : withBase()} aria-label={nextTrip ? `View ${nextTrip.title}` : undefined} data-astro-prefetch><span class="status-dot"></span><span data-next-trip-header-label>{nextTrip && `${nextTrip.country} ${isZh ? nextTrip.startDate.slice(0, 4) : `’${nextTrip.startDate.slice(2, 4)}`}`}</span><Icon name="arrow-up-right" size={16} /></a>
+    <a class="header-trip" data-next-trip-header hidden={!nextTrip} href={nextTrip ? withBase(`trips/${nextTrip.slug}/`) : withBase()} aria-label={nextTrip ? `View ${nextTrip.title}` : undefined} data-astro-prefetch><span class="status-dot"></span><span data-next-trip-header-label>{nextTrip && formatTripLabel(nextTrip)}</span><Icon name="arrow-up-right" size={16} /></a>
   </div>
 </header>
 <script type="application/json" is:inline data-next-trip-candidates set:html={previewJSON}></script>

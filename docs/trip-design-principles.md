@@ -14,6 +14,10 @@ Use year-only placeholders until actual dates and plans are supplied.
 Keep the homepage concise: the current or next qualifying trip, compact trip
 cards and a visited atlas. Cards show covers, titles, countries, dates, status
 and links. Detailed routes, schedules and accommodation belong on trip pages.
+Compact trip identifiers use the supplied country name and start month in
+`YYYY/MM` form. Year-only placeholders use the country and known year.
+Do not label trips by their position in the collection. Derive the same label
+for covers, breadcrumbs, cards and header refreshes; stable slugs remain independent.
 Use shared Astro components, local images/fonts and the existing
 GitHub Pages workflow, preserving `/travel/`, trailing slashes and `withBase()`.
 Keep Leaflet/OpenStreetMap free of map API billing; ordinary external navigation

@@ -1,4 +1,4 @@
-import { displayStatus, formatDateRange, placeholderStatusLabel, selectNextTrip, statusLabel } from '../lib/trips';
+import { displayStatus, formatDateRange, formatTripLabel, placeholderStatusLabel, selectNextTrip, statusLabel } from '../lib/trips';
 import type { TripStatus } from '../data/trips';
 import type { TripPreview } from '../lib/trip-previews';
 import { withBase } from '../lib/urls';
@@ -29,8 +29,7 @@ function refreshNextTrip() {
     if (trip) {
       header.href = withBase(`trips/${trip.slug}/`);
       header.setAttribute('aria-label', `View ${trip.title}`);
-      const isZh = document.documentElement.lang === 'zh-CN';
-      setText('[data-next-trip-header-label]', `${trip.country} ${isZh ? trip.startDate.slice(0, 4) : `’${trip.startDate.slice(2, 4)}`}`);
+      setText('[data-next-trip-header-label]', formatTripLabel(trip));
     }
   }
 

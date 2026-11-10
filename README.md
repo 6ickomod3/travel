@@ -14,6 +14,10 @@ with language-tagged local names, quotations and translations.
 
 The homepage highlights the current or next dated trip, links to each trip through compact cards, and shows a visited atlas. Routes, schedules, accommodation, and other itinerary details live on the individual trip pages. The next-trip highlight and date-based status labels update with the calendar in the browser, including after returning to an open tab.
 
+Compact trip labels use the country and supplied start month (`YYYY/MM`),
+or only the known year for placeholders. Labels do not depend on a trip's
+position in the collection, and the header uses the same format after refresh.
+
 Trip pages combine practical schedules, recorded booking progress, local brand
 marks, focused-day navigation and a full-trip view. The design guide defines
 section order, disclosure defaults, bounded day swipes and reservation/cost

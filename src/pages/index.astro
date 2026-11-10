@@ -5,7 +5,7 @@ import NextTrip from '../components/NextTrip.astro';
 import TripStatus from '../components/TripStatus.astro';
 import VisitedAtlas from '../components/VisitedAtlas.astro';
 import { trips, tripCollection } from '../data/trips';
-import { aggregateVisitedAtlas, compareTripEntries, formatDateRange, isPlaceholderTrip, selectNextTrip } from '../lib/trips';
+import { aggregateVisitedAtlas, compareTripEntries, formatDateRange, formatTripLabel, isPlaceholderTrip, selectNextTrip } from '../lib/trips';
 import { toTripPreview } from '../lib/trip-previews';
 import { withBase } from '../lib/urls';
 import { getImageCredit, getLicensedImageCredit } from '../lib/image-credits';
@@ -34,7 +34,7 @@ const collectionCredits = [...new Set(orderedTrips.map(trip => trip.cover))].fla
         return <article class:list={['trip-card', { 'trip-card-coming-soon': placeholder }]} data-trip-card data-trip-kind={trip.status === 'completed' ? 'completed' : 'planned'} lang={trip.language ?? 'en'}>
           <a class="trip-card-cover" href={tripUrl} data-astro-prefetch aria-label={isZh ? `查看${trip.title}` : `View ${trip.title}`}><img src={withBase(trip.cover)} alt={trip.coverAlt} width={image?.width ?? 1800} height={image?.height ?? 1200} loading="lazy" /></a>
           <div class="trip-card-body">
-            <div class="trip-card-meta"><span>{trip.country}</span><TripStatus trip={trip} /></div>
+            <div class="trip-card-meta"><span>{formatTripLabel(trip)}</span><TripStatus trip={trip} /></div>
             <h3><a href={tripUrl} data-astro-prefetch><span>{trip.title}</span><Icon name="arrow-up-right" size={18} /></a></h3>
             <p class="trip-card-date">{placeholder ? `${trip.year} · ${isZh ? '日期待定' : 'Dates to be decided'}` : formatDateRange(trip, isZh ? 'zh-CN' : 'en-US')}</p>
           </div>

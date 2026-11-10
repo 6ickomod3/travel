@@ -64,6 +64,10 @@ Keep the implementation contracts below aligned with that guide.
   inventing a direct website asset URL or claiming an independent download.
 - Only dated trips may enter date formatting, duration, and travel-status
   calculations. Do not supply fake dates for placeholders.
+- `formatTripLabel()` identifies a trip by its country and supplied start
+  month (`YYYY/MM`); year-only placeholders use their known year. Use the
+  same compact label for covers, breadcrumbs, cards and static/runtime
+  header rendering. Do not assign collection-order trip numbers.
 - `selectNextTrip()` chooses a trip whose inclusive UTC date range is current,
   then the earliest upcoming dated trip. Completed trips, ended plans, and
   year-only placeholders cannot be selected. Show an honest empty state when

@@ -2199,3 +2199,19 @@ when a source explicitly resolves or changes a decision.
   Consult ignored
   `.local/trips/japan-2026/review/2026-11-09-nov18-release.md` for the
   post-commit publication result.
+- November 9, 2026: archived the shared trip-label preference as
+  `inputs/2026-11-09-05-trip-labels.md`. Removed the collection-order
+  ordinal from the trip cover and replaced compact identifiers with the
+  supplied country and start month, such as `日本 2026/11`. Breadcrumbs,
+  collection metadata and both static/runtime header rendering share the
+  same helper. Year-only placeholders retain their genuine year without
+  an invented month. Recorded the convention in the English project context.
+  The full build passed content/image/reference checks, eighteen weather
+  tests, zero diagnostics across seventy-five Astro files and four pages.
+  Six focused browser groups passed for phone/print labels, year-only cards,
+  medium/desktop header layout and refresh, placeholder exclusion and daily
+  navigation bounds. Independent review found no label integration defects.
+  The verified presentation update is ready for the authorized Pages release;
+  commit, deployment and public-response checks remain pending at preparation.
+  Consult ignored `.local/trips/japan-2026/review/2026-11-09-trip-labels-release.md`
+  for the post-commit publication result.

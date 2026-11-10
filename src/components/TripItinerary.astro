@@ -17,8 +17,8 @@ import TripDiningReservations from './TripDiningReservations.astro';
 import BrandMark from './BrandMark.astro';
 import BookingBadge from './BookingBadge.astro';
 import LocalPlaceName from './LocalPlaceName.astro';
-import { tripCollection, type Trip, type TripDestination, type TripStay } from '../data/trips';
-import { durationDays, formatDateRange, formatDate } from '../lib/trips';
+import type { Trip, TripDestination, TripStay } from '../data/types';
+import { durationDays, formatDateRange, formatDate, formatTripLabel } from '../lib/trips';
 import { withBase } from '../lib/urls';
 import { getImageCredit, getLicensedImageCredit } from '../lib/image-credits';
 import { getDiningBookings, getDiningReservationReminders } from '../lib/trip-dining';
@@ -33,7 +33,7 @@ const date = (value: string, options: Intl.DateTimeFormatOptions = {}) => format
 const dateRange = formatDateRange(trip, dateLocale);
 const number = (value: number) => new Intl.NumberFormat(dateLocale, { maximumFractionDigits: 1 }).format(value);
 const money = (value: number, currency: string) => new Intl.NumberFormat(dateLocale, { style: 'currency', currency }).format(value);
-const chapter = String(tripCollection.findIndex(item => item.slug === trip.slug) + 1).padStart(2, '0');
+const tripLabel = formatTripLabel(trip);
 const titleBreak = trip.title.search(/[，,]/);
 const titleParts = titleBreak >= 0
   ? [trip.title.slice(0, titleBreak + 1), trip.title.slice(titleBreak + 1).trim()]
@@ -84,13 +84,13 @@ const heroCredit = getLicensedImageCredit(trip.cover);
     <div class="trip-breadcrumb container">
       <a href={`${withBase()}#collection`}><Icon name="arrow-left" size={14} /> {text('旅行列表', 'Trips')}</a>
       <span aria-hidden="true">/</span>
-      <span>{trip.country} {trip.startDate.slice(0, 4)}</span>
+      <span>{tripLabel}</span>
     </div>
 
     <section class:list={['trip-hero', 'container', { 'trip-hero-with-gallery': gallery.length > 0 }]} aria-labelledby="trip-title">
       <div class="trip-hero-copy">
         <div class="trip-hero-heading">
-          <p class="eyebrow"><span class="tiny-star" aria-hidden="true">✳</span> {text('旅行', 'TRIP')} {chapter} / {trip.country.toUpperCase()}</p>
+          <p class="eyebrow"><span class="tiny-star" aria-hidden="true">✳</span> {tripLabel}</p>
           <h1 id="trip-title">{titleParts.map((part, index) => <>{index > 0 && <wbr />}<span class="trip-title-part">{part}</span></>)}</h1>
           <p class="trip-summary">{trip.coverIntroduction?.text ?? trip.summary}</p>
           {(trip.coverIntroduction?.translations ?? []).map(translation => <p class="trip-summary-translation" lang={translation.language}>{translation.text}</p>)}
