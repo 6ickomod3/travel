@@ -404,6 +404,32 @@ for (const folder of folders) {
       assert.ok(alternative.title && alternative.description && alternative.schedule.length, `${label}: complete the separate alternative plan`);
       checkSources(alternative.sourceIds, label);
       checkSights(alternative.sightIds, label);
+      if (alternative.relatedAlternativeIds !== undefined) {
+        const related = alternative.relatedAlternativeIds;
+        assert.ok(Array.isArray(related), `${label}: use an array of related alternative IDs`);
+        assert.equal(new Set(related).size, related.length, `${label}: duplicate related alternatives`);
+        for (const id of related) {
+          assert.match(id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `${label}: use a stable related alternative ID`);
+          assert.notEqual(id, alternative.id, `${label}: do not link an alternative to itself`);
+          assert.ok(day.alternatives.some(item => item.id === id), `${label}: unknown related alternative ${id}`);
+        }
+      }
+      if (alternative.guideFigureRefs !== undefined) {
+        assert.ok(Array.isArray(alternative.guideFigureRefs), `${label}: use an array of guide figure references`);
+        const referencedFigures = new Set();
+        for (const reference of alternative.guideFigureRefs) {
+          assert.ok(reference && typeof reference === 'object' && !Array.isArray(reference), `${label}: use dated guide figure references`);
+          const figureDate = calendarDate(reference.date, `${label} guide figure`);
+          const guideDay = trip.days.find(item => item.date === figureDate);
+          assert.ok(guideDay, `${label}: unknown guide figure day ${figureDate}`);
+          assert.ok(guideDay.guide, `${label}: day ${figureDate} has no guide`);
+          assert.match(reference.figureId, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `${label}: use a stable guide figure ID`);
+          assert.ok(guideDay.guide.figures.some(figure => figure.id === reference.figureId), `${label}/${figureDate}: unknown guide map figure ${reference.figureId}`);
+          const pair = `${figureDate}/${reference.figureId}`;
+          assert.ok(!referencedFigures.has(pair), `${label}: duplicate guide figure reference ${pair}`);
+          referencedFigures.add(pair);
+        }
+      }
       checkBusCount(alternative.busCount, label);
       checkStampCollection(alternative.stamps, `${label} stamps`);
       if (alternative.walking !== undefined) {
@@ -422,6 +448,30 @@ for (const folder of folders) {
       assert.equal(new Set(options.alternativeIds).size, options.alternativeIds.length, `${label}: do not repeat alternatives`);
       for (const id of options.alternativeIds) assert.ok(alternativeIds.has(id), `${label}: unknown alternative ${id}`);
       if (options.notes !== undefined) assert.ok(Array.isArray(options.notes) && options.notes.every(note => typeof note === 'string' && note.trim()), `${label}: add readable comparison notes`);
+    }
+  }
+  if (trip.linkedPlans !== undefined) {
+    assert.ok(Array.isArray(trip.linkedPlans), `${folder}: use an array of linked plans`);
+    uniqueIds(trip.linkedPlans, `${folder} linked plans`);
+    for (const plan of trip.linkedPlans) {
+      const label = `${folder}/${plan.id} linked plan`;
+      assert.match(plan.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `${label}: use a stable fragment ID`);
+      for (const field of ['title', 'description']) assert.ok(typeof plan[field] === 'string' && plan[field].trim(), `${label}: ${field} must contain text`);
+      assert.ok(Array.isArray(plan.notes) && plan.notes.length && plan.notes.every(note => typeof note === 'string' && note.trim()), `${label}: add readable scope and decision notes`);
+      assert.ok(Array.isArray(plan.days) && plan.days.length >= 2, `${label}: reference at least two itinerary dates`);
+      let previousDate;
+      for (const reference of plan.days) {
+        assert.ok(reference && typeof reference === 'object' && !Array.isArray(reference), `${label}: use dated alternative references`);
+        const date = calendarDate(reference.date, `${label} day`);
+        assert.ok(dates.has(date), `${label}: unknown itinerary day ${date}`);
+        assert.ok(previousDate === undefined || date > previousDate, `${label}: dates must be distinct and strictly ordered`);
+        assert.match(reference.alternativeId, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `${label}/${date}: use a stable alternative ID`);
+        const day = trip.days.find(item => item.date === date);
+        assert.ok(day.alternatives?.some(alternative => alternative.id === reference.alternativeId), `${label}/${date}: unknown alternative ${reference.alternativeId}`);
+        previousDate = date;
+      }
+      if (plan.sourceIds !== undefined) assert.ok(Array.isArray(plan.sourceIds), `${label}: use an array of source IDs`);
+      checkSources(plan.sourceIds, label);
     }
   }
   for (const photo of trip.gallery ?? []) {

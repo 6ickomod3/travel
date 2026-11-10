@@ -1,0 +1,118 @@
+---
+import type { Trip } from '../data/types';
+import { linkedPlansForDate } from '../lib/trip-linked-plans';
+import { formatDate } from '../lib/trips';
+import Icon from './Icon.astro';
+import TripReferences from './TripReferences.astro';
+
+interface Props { trip: Trip; date: string; }
+const { trip, date } = Astro.props;
+const locale = trip.language ?? 'en';
+const isZh = locale === 'zh-CN';
+const text = (zh: string, en: string) => isZh ? zh : en;
+const number = (value: number) => new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(value);
+const range = (values: { minimum: number; maximum: number }) => values.minimum === values.maximum
+  ? number(values.minimum) : `${number(values.minimum)}–${number(values.maximum)}`;
+const shortDate = (value: string) => formatDate(value, { month: 'short', day: 'numeric' }, locale);
+const plans = linkedPlansForDate(trip, date);
+---
+{plans.map(({ plan, days, anchorId, lastDate }) => {
+  const current = days.find(item => item.day.date === date)!;
+  const dateRange = `${shortDate(days[0].day.date)} – ${shortDate(lastDate)}`;
+  const sources = (trip.sources ?? []).filter(source => plan.sourceIds?.includes(source.id));
+  return date !== lastDate
+    ? <aside class="linked-plan-preview" data-linked-plan-preview={plan.id} lang={locale}>
+      <span class="linked-plan-kicker">{text('跨日联动备选', 'Linked alternative')}</span>
+      <a class="linked-plan-preview-title" href={`#${anchorId}`}><span>{plan.title}</span><Icon name="arrow-right" size={15} /></a>
+      <div class="linked-plan-preview-footer">
+        <span>{dateRange}</span>
+        <a href={`#${current.alternativeAnchor}`}>{text('查看当天调整', 'View this day’s alternative')}</a>
+      </div>
+    </aside>
+    : <details class="linked-plan" id={anchorId} data-linked-plan={plan.id} data-trip-references lang={locale}>
+      <summary>
+        <span class="linked-plan-summary-text">
+          <span class="linked-plan-kicker">{text('跨日联动备选', 'Linked alternative')}</span>
+          <span class="linked-plan-title">{plan.title}</span>
+          <span class="linked-plan-date-range">{dateRange} · {days.length} {text('天', 'days')}</span>
+        </span>
+        <span class="linked-plan-chevron"><Icon name="chevron-down" size={17} /></span>
+      </summary>
+      <div class="linked-plan-content">
+        <p class="linked-plan-description">{plan.description}</p>
+        <p class="linked-plan-scope">{text('此备选需按所列日期配合使用。查看方案不会更改当前行程。', 'Use the listed days together. Viewing this alternative does not change the current itinerary.')}</p>
+        <ol class="linked-plan-days" role="list">
+          {days.map(({ day, alternative, metrics, alternativeAnchor }) => <li>
+            <time datetime={day.date}>{shortDate(day.date)}</time>
+            <a class="linked-plan-day-link" href={`#${alternativeAnchor}`}><span>{alternative.title}</span><Icon name="arrow-up-right" size={15} /></a>
+            {(metrics.walking || alternative.walkingNote || metrics.stamps || metrics.busCount !== undefined) && <dl class="linked-plan-metrics">
+              {metrics.busCount !== undefined && <div><dt>{text('全天巴士', 'Whole-day buses')}</dt><dd>{number(metrics.busCount)} {text('班', 'rides')}</dd></div>}
+              {(metrics.walking || alternative.walkingNote) && <div><dt>{text('步行', 'Walking')}</dt><dd>{metrics.walking ? `${text('约', '~')}${range(metrics.walking)} km` : alternative.walkingNote}</dd></div>}
+              {metrics.stamps && <div><dt>{text('计划盖章点', 'Planned stamp stops')}</dt><dd>{range(metrics.stamps)} {text('处', 'stops')}</dd></div>}
+            </dl>}
+            {alternative.walking?.note && <p class="linked-plan-walking-note">{alternative.walking.note}</p>}
+          </li>)}
+        </ol>
+        <ul class="linked-plan-notes">{plan.notes.map(note => <li>{note}</li>)}</ul>
+        <TripReferences sources={sources} locale={locale} />
+      </div>
+    </details>;
+})}
+
+<style>
+  .linked-plan, .linked-plan-preview { min-width: 0; max-width: 100%; margin-top: 18px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper); font-family: var(--sans); }
+  .linked-plan-kicker { display: block; color: var(--ink-soft); font-size: 11px; font-weight: 400; line-height: 1.7; }
+  .linked-plan > summary { display: flex; align-items: center; gap: 14px; min-height: 44px; padding: 15px 18px; cursor: pointer; list-style: none; }
+  .linked-plan > summary::-webkit-details-marker { display: none; }
+  .linked-plan > summary::marker { content: ''; }
+  .linked-plan-summary-text { min-width: 0; flex: 1; }
+  .linked-plan-title { display: block; margin-top: 2px; color: var(--ink); font-size: 14px; font-weight: 600; line-height: 1.8; overflow-wrap: anywhere; }
+  .linked-plan-date-range { display: block; margin-top: 3px; color: var(--ink-soft); font-size: 11px; line-height: 1.8; }
+  .linked-plan-chevron { flex-shrink: 0; color: var(--ink-soft); }
+  .linked-plan[open] > summary .linked-plan-chevron { transform: rotate(180deg); }
+  .linked-plan > summary:hover .linked-plan-title { color: var(--accent-deep); }
+  .linked-plan-content { min-width: 0; padding: 0 18px 18px; }
+  .linked-plan-description { color: var(--ink); font-size: 13px; line-height: 1.9; }
+  .linked-plan-scope { margin-top: 7px; color: var(--ink-soft); font-size: 12px; line-height: 1.9; }
+  .linked-plan-days { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; list-style: none; margin: 16px 0 0; padding: 0; }
+  .linked-plan-days > li { min-width: 0; padding: 12px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper-deep); }
+  .linked-plan-days time { display: block; color: var(--ink-soft); font-size: 11px; line-height: 1.8; }
+  .linked-plan-day-link { display: flex; align-items: center; gap: 8px; min-height: 44px; color: var(--accent-deep); font-size: 13px; line-height: 1.8; text-decoration: underline; text-underline-offset: 4px; }
+  .linked-plan-day-link > span { min-width: 0; flex: 1; overflow-wrap: anywhere; }
+  .linked-plan-day-link > svg { flex-shrink: 0; }
+  .linked-plan-metrics { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 5px; }
+  .linked-plan-metrics > div { min-width: 0; max-width: 100%; }
+  .linked-plan-metrics dt { color: var(--ink-soft); font-size: 10px; line-height: 1.8; }
+  .linked-plan-metrics dd { margin: 0; color: var(--ink); font-size: 12px; line-height: 1.8; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .linked-plan-walking-note { margin-top: 7px; color: var(--ink-soft); font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
+  .linked-plan-notes { margin: 14px 0 0; padding-left: 17px; color: var(--ink-soft); font-size: 12px; line-height: 1.9; }
+  .linked-plan-notes li { overflow-wrap: anywhere; }
+  .linked-plan-notes li + li { margin-top: 6px; }
+  .linked-plan-preview { padding: 12px 18px; }
+  .linked-plan-preview-title { display: flex; align-items: center; gap: 8px; min-height: 44px; color: var(--accent-deep); font-size: 13px; font-weight: 500; line-height: 1.8; text-decoration: underline; text-underline-offset: 4px; }
+  .linked-plan-preview-title > span { min-width: 0; flex: 1; overflow-wrap: anywhere; }
+  .linked-plan-preview-title > svg { flex-shrink: 0; }
+  .linked-plan-preview-footer { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 14px; color: var(--ink-soft); font-size: 11px; line-height: 1.8; }
+  .linked-plan-preview-footer > a { display: inline-flex; align-items: center; min-height: 44px; max-width: 100%; color: var(--accent-deep); text-decoration: underline; text-underline-offset: 4px; overflow-wrap: anywhere; }
+  @media (max-width: 600px) {
+    .linked-plan > summary, .linked-plan-preview { padding: 12px; }
+    .linked-plan-content { padding: 0 12px 12px; }
+    .linked-plan-days { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+    .linked-plan-days > li { padding: 10px; }
+  }
+  @media print {
+    .linked-plan, .linked-plan-preview { margin-top: 12px; background: white; }
+    .linked-plan::details-content { content-visibility: visible; }
+    .linked-plan > summary { min-height: 0; padding: 10px 12px; }
+    .linked-plan-title, .linked-plan-description, .linked-plan-day-link { font-size: 10px; }
+    .linked-plan-kicker, .linked-plan-date-range, .linked-plan-scope, .linked-plan-notes, .linked-plan-walking-note { font-size: 9px; }
+    .linked-plan-chevron { display: none; }
+    .linked-plan-content { padding: 0 12px 12px; }
+    .linked-plan-days { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .linked-plan-days > li { break-inside: avoid; background: white; }
+    .linked-plan-metrics dt, .linked-plan-metrics dd, .linked-plan-days time { font-size: 9px; }
+    .linked-plan-day-link, .linked-plan-preview-title, .linked-plan-preview-footer > a { min-height: 0; text-decoration: none; }
+    .linked-plan-preview-title { font-size: 10px; }
+    .linked-plan-preview-footer { margin-top: 4px; font-size: 9px; }
+  }
+</style>

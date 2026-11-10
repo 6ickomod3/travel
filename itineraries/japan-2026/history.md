@@ -125,6 +125,25 @@
   Earlier arrival does not confirm early check-in. The November 17 souvenir
   stamps are outside the Japanese option-three required ten, provided the
   accepted November 18–19 conditions are actually completed.
+- November 18 keeps the accepted 07:51 rapid departure and complete
+  Hosshinmon–Hongu walk as its main plan. The approved rain proposal adds
+  separate A–D choices after the 09:42 museum-front departure to Hongu:
+  full walking, half walking, the final section, or Hongu-area visits.
+  Rain A overlaps the existing full/missed-rapid fallback and can reuse
+  that route rather than create a duplicate. The proposal includes a later
+  Hongu departure if rain persists, subject to the remaining walking,
+  shrine/stamp, Oyunohara, shopping and Kawayu-connection time.
+- The optional linked November 17–18 variant moves the complete
+  Hosshinmon–Hongu walk and its six planned stamps to November 17, returns
+  to the existing SEN night, and pairs it with November 18's no-mountain
+  option. This is an unselected two-day alternative, not a change to either
+  accepted main schedule. November 18's short or no-mountain choices retain
+  the selected Japanese condition-three walking plan only after that
+  complete walk was actually performed on November 17. November 19's four
+  required shrine/temple stamps remain part of the plan. Preserve hotel
+  dates, confirmed meal arrangements, bookings, payment records and the
+  main budget until a branch is explicitly chosen; moving a walk does not
+  establish collection, qualification or formal registration.
 - November 17–19 have route-specific or area guide figures and practical
   checkpoints from the supplied May 2026 Nakahechi booklet. November 17
   retains Takijiri–Takahara–Chikatsuyu; November 18 retains the rapid bus to
@@ -1710,6 +1729,213 @@ and licenses.
   confirm publication without adding a self-referential release commit.
   No successful release is claimed here before those checks finish.
 
+### 2026-11-09-03-nov18-rain-route-options
+
+- Archived: November 9, 2026, using the user's America/Los_Angeles date.
+- Origin: the user's public chat message asking whether the supplied
+  November 18 rain proposal was understood, including a linked two-day
+  change. Public archive:
+  [inputs/2026-11-09-03-nov18-rain-route-options.md](inputs/2026-11-09-03-nov18-rain-route-options.md).
+  The archived file is 4,436 UTF-8 bytes; SHA-256:
+  `0681a1dc7ff5492f5cdaaebbff045aacbd762a6a9a7ed06d334969bb3e082a39`.
+  Preserve the full question preface and supplied Chinese Markdown,
+  Japanese place names, tables and reference URLs with tracking parameters.
+  This is a public chat transcription rather than a byte-copy claim for
+  an original file; no private booking document is included.
+- Proposed same-day scope: retain the 07:51 accepted main plan. The rain
+  choices first use Meiko 93 at 09:42 from the museum-front stop to Hongu
+  at 10:12. A–C then use the same Ryujin 81 departing Hongu at 10:30,
+  alighting at Hosshinmon, Fushiogami-guchi or Hiraiwa-guchi respectively.
+  D stays in the Hongu area. A keeps the complete approximately 7.5 km
+  required walk and six planned stamps; B has approximately 4 km and four
+  stamps, C approximately 2.5 km and three, and D up to two shrine-area
+  stamps subject to weather. Sangen-jaya is a route waypoint, not another
+  required stamp in the selected official ten.
+- The supplied later connection departs Hongu at 12:15. Treat a full walk
+  after the proposed 12:30 Hosshinmon arrival as time-constrained: the
+  existing plan uses three hours or more with breaks, plus starting-shrine
+  access, stamps, Hongu/Oyunohara visits, food procurement and bus waiting.
+  The current 10:45 full-walk fallback already targets the 16:40 Kawayu
+  bus. Preserve the 15:05 and 16:40 options as conditional connections,
+  without guaranteeing the earlier one or assuming 16:40 is the final
+  bus of the day.
+- Proposed linked scope: on a drier November 17, use the 06:55 Tanabe
+  rapid to Hosshinmon, perform the complete walk and its six stamps,
+  and return from Hongu to the museum-front stop for the existing SEN
+  night. Pair this with November 18 D and retain November 19's Hayatama
+  and Nachi route. Both dates must be understood together; November 18 D
+  does not by itself meet condition three's walking requirement. No
+  acceptance of this variant, completed walk, collected stamp or personal
+  Camino qualification is inferred from the proposal.
+- Lodging and food scope: retain SEN's included dinner and confirmed
+  early breakfast pickup/packing capability, Matsuya's no-meals booking,
+  and the existing early November 19 breakfast/checkout conditions.
+  November 18 is Wednesday; Hongu food-shopping opening and stock remain
+  unresolved, so retain food backups rather than promise an on-site
+  dinner/breakfast purchase. Unknown variant fares and coordinates remain
+  absent and outside the main transport budget.
+- Reference status at archival: the proposal supplies public official
+  links and known times already represented in the main/fallback plan.
+  Independent checks of the new timetable entries, return branch,
+  shortened-route access, museum opening and any new coordinates remain
+  pending at the point of archival. Record verified facts and
+  effective-period limits separately from this preserved submission;
+  never silently rewrite the archive.
+- Subsequent official research: the supplied 09:42 museum-front to 10:12
+  Hongu connection, Ryujin 81's 10:30 and 12:15 stop times, and Hongu's
+  15:05/16:40 Kawayu connections were verified against the operator/tourism
+  timetables. The 06:55 Tanabe to 08:54 Hosshinmon rapid is the September
+  19–December 10, 2026 trial service, with a verified JPY 3,000 adult fare.
+  The linked afternoon return is Ryujin 80 toward Tanabe, from Hongu at
+  15:05 through Kawayu at 15:16 and Chikatsuyu-oji at 15:59 to the
+  museum-front stop at 16:10; it is neither the rapid nor route 81.
+  Its fare remains unknown. These unselected branch fares do not replace
+  or enter the accepted transport/budget totals.
+- Timetable provenance: the dated 2024 tourism walking article's 09:42
+  connection agrees with the retained September 19, 2026 inbound PDF.
+  Ryujin's supplied stop page is Fushiogami-guchi, with an April 1, 2026
+  timetable; the September 19 announcement changes only the other W1
+  departure and leaves the selected 10:30/12:15 services unchanged.
+  The visually reviewed return timetable is dated September 19, 2026;
+  the selected Hongu-onward connections carry no seasonal star.
+  The downloaded fare PDF is explicitly the trial express/rapid tariff,
+  despite a duplicated regular-line label on the announcement. Do not
+  infer ordinary short-route fares from that label or matrix.
+- Short-route access and museum research: the official Watarase page
+  supports about fifteen minutes from Fushiogami-guchi to Fushiogami-oji
+  and ten minutes from Hiraiwa-guchi to Sangen-jaya. B's
+  approximately 4 km and C's approximately 2.5 km remain the user's
+  supplied approximations rather than newly measured routes. The official
+  Hongu Heritage Center currently lists year-round 09:00–17:00 opening.
+  New bus-stop coordinates remain unverified and omitted from map pins;
+  the existing guide figure supplies labeled route/access context without
+  establishing a surveyed track.
+- Opening-source distinction: the current
+  [tourism information-center listing](https://www.tb-kumano.jp/en/resources/information-centers/#kumano-hongu-heritage-center)
+  gives 09:00–17:00 year-round, while the older Dual Pilgrim contact text
+  gives 08:30. Use the conservative current 09:00 opening for the proposed
+  10:12 visit. It does not establish Wednesday shop opening or food stock.
+- Retained research: exact public GET URLs, UTC retrieval times, response
+  sizes and SHA-256 values are in ignored
+  `.local/trips/japan-2026/research/2026-11-09-nov18/manifest.json`, with
+  the method and visual checks in `verification-notes.md` beside it.
+  Retrievals occurred November 10 UTC, still November 9 in Los Angeles.
+  The original September 19 return PDF SHA-256 is
+  `897a83ba4aa1a00f01c5b068d247a59ef6a93773d497a4d6677ad6d93dac49db`;
+  the rapid-fare PDF is
+  `c9c691828a50bf7deda7f741f68d4a76ed73cfd8870df38f17c8a5732e64054f`.
+  The already public May 2026 guide's printed pages 12–13 illustrate the
+  short access branches; no new figure extraction, exact coordinate,
+  geocoding, precise trail or reuse-license claim is introduced.
+- Application status: source archival, scope-specific official research,
+  canonical implementation, the initial required build and independent
+  fact review are complete. Final browser review, build rerun after the
+  focus-restoration correction and publication are pending at this
+  preparation-time entry.
+
+### 2026-11-09-04-nov18-rain-update-approval
+
+- Archived: November 9, 2026, using the user's America/Los_Angeles date.
+- Origin: the user's subsequent public approval and website-update request.
+  Public archive:
+  [inputs/2026-11-09-04-nov18-rain-update-approval.md](inputs/2026-11-09-04-nov18-rain-update-approval.md).
+  The archived file is 661 UTF-8 bytes; SHA-256:
+  `fa28402d9048107f8671f419d253df12f25ead9e45e3334c1cf536ee7a74f2e5`.
+  The exact original Chinese request is preserved without adding a route
+  choice or confirmation of fares, reservations, visits or qualification.
+- Authorized scope: implement and publish the rain proposal under the
+  existing public-site workflow. This supersedes the prior understanding-
+  only stage while retaining all accepted main schedules and confirmations
+  outside the explicitly added alternatives.
+- Preparation constraints: reuse the current route comparison, separate
+  schedules and maps where possible, and represent the optional two-day
+  dependency explicitly. Keep the precise full/partial-walk qualification
+  condition and the late-departure/Wednesday-food limitations visible.
+  Do not create a selected-route state or change costs from a design
+  approval. The agreed shared contract below keeps implementation choices
+  separate from reference verification and actual route selection.
+- Shared representation: `Trip.linkedPlans` owns a labeled joint plan
+  referencing each existing date/alternative pair. At least two distinct
+  ascending trip dates are required; each reference must belong to its
+  stated day. Keep complete schedules and maps in those day alternatives
+  and the full native linked panel only on the last referenced date.
+  Earlier dates provide compact links to the full panel and their own
+  alternative. The linked record stores no selected state or copied
+  route/budget totals and does not establish completion.
+  The linked plan `advance-required-walk` references November 17's
+  `hongu-walk-ahead` and November 18's `rain-d-hongu`. Rain A retains
+  the existing `missed-fast-bus` alternative ID for its 10:45 full route.
+  The later complete walk is `rain-a-midday`, with its own 12:15 departure,
+  12:30 Hosshinmon arrival and explicitly tight-margin 16:40 Kawayu target.
+  B and C use `rain-b-fushiogami` and `rain-c-sangenjaya`. Whole-day bus
+  counts include the Kawayu connection: two for the main plan or D, and
+  three for A, the midday full walk, B or C.
+  Rain A's `relatedAlternativeIds` references `rain-a-midday`, providing
+  an ordinary same-day fragment link to that complete alternative rather
+  than interleaving the later timetable or storing a selected-route state.
+- Presentation scope: keep route-comparison and linked-plan jump links
+  compact after the weather card and before the map. Preserve the
+  immediate map-to-poem sequence. A materially later full-walk departure
+  has its own complete alternative and map, reachable from rain A;
+  alternative times for the other same-route choices remain explicitly
+  labeled conditions rather than changes to the accepted timeline.
+- Guide scope: alternative `guideFigureRefs` references an existing day's
+  guide figure by date and stable ID. The advanced November 17 walk can
+  open November 18's existing Hosshinmon–Hongu figure without leaving the
+  focused November 17 day. November 18's rain routes can refer to that
+  same source figure for their relevant access/ending sections or the
+  existing Kawayu area figure. Preserve visible publisher, edition and
+  printed-page captions, existing full-image/zoom behavior and canonical
+  print figures. No copied images, new extraction or precise trail geometry
+  is introduced by these references.
+- Weather scope: November 17 can add already sourced Hosshinmon and Hongu
+  as clearly labeled secondary forecast points for the linked walk,
+  retaining Takahara as primary and Chikatsuyu as the existing secondary.
+  November 18's configured points remain unchanged. Use the existing
+  on-demand forecast, cache, attribution and print safeguards; no forecast
+  values or selected-weather route state enter the linked plan.
+- Applied content: added five new complete alternatives: the November 17
+  advanced full walk and November 18's midday full walk, B, C and D.
+  Reused and relabeled the existing `missed-fast-bus` full route as rain A,
+  preserving its ID. Added two official-source records,
+  `hongu-hosshinmon-regular-bus` and `hongu-short-walk-access`; reused
+  `kumano-information-centers` for the existing information-center URL.
+  New variant maps omit unknown bus-stop/building coordinates.
+- Applied presentation: reused the route comparison and added compact
+  jump links after weather/before the map, the dated linked-plan panel,
+  attributed existing figure/viewer links, related-alternative links and
+  route-derived hourly links to already configured weather points. No
+  forecast values or new image assets were stored. November 17 adds the
+  two sourced secondary points; November 18's weather is unchanged.
+- Canonical verification: ten focused content/source/snapshot groups
+  passed, recorded in local `japan-nov18-content-check.json`. These cover
+  the raw-archive SHA-256 values, all nine accepted main schedules,
+  complete preservation of the seven other dates and existing November
+  17 A–E data, guide references, unknown-coordinate omissions and the
+  unchanged costs/paid records. Transport, budget, stays, flights,
+  checklist, dining and ticket-option records remain unchanged.
+- Build verification: `pnpm build` passed content, image and reference
+  checks, all eighteen focused weather tests, zero errors, warnings or
+  hints across seventy-five Astro files and four generated static pages.
+  This implementation selects no branch and establishes no purchase,
+  payment, collection or qualification.
+- Independent fact review: the verified timetable and route facts passed
+  review. C's rain decision was corrected to happen in Hongu before
+  boarding the uphill bus; choosing D at that point keeps the traveler
+  in Hongu rather than implying an impossible post-boarding stay there.
+- Browser correction: printing from the open guide viewer previously
+  restored the map/viewer state but moved focus from the zoom-in control
+  to close. The viewer snapshot now retains the actual focused control
+  and restores it after reopening without scrolling. The existing map
+  and viewer state restoration remains intact; no route content changed.
+- Application status: source archival, canonical changes, focused
+  content/source checks, initial build and independent fact review are
+  complete. Final phone/desktop browser checks, build rerun after the
+  viewer correction and release remain pending.
+  The post-commit publication result belongs in ignored
+  `.local/trips/japan-2026/review/2026-11-09-nov18-release.md` so the
+  public history can retain honest preparation-time verification status.
+
 ## Open information
 
 - Choose a November 17 rain alternative from actual weather and path conditions
@@ -1718,6 +1944,15 @@ and licenses.
   short stone-step walk or continue as E if conditions warrant. Confirm the
   local Takahara–Kurisugawa pedestrian directions and actual boarding poles.
   New variant-only fares and early SEN check-in are not established.
+- Choose a November 18 rain alternative from actual conditions if needed,
+  retaining the 07:51 main plan until a change is explicit. A full walk
+  after midday needs enough time for all visits and the Kawayu connection;
+  a partial walk alone does not satisfy the selected walking condition.
+  The optional two-day variant requires completing the full walk on
+  November 17 before treating November 18 D as qualification-compatible.
+  Exact boarding poles, local access conditions and the linked route 80
+  return fare remain unverified. The verified rapid fare is not included
+  in the unchanged main budget.
 - SEN's dinner and breakfast are included, and November 18 breakfast early
   pickup or packing is confirmed. Confirm the remaining cooking versus
   boxed-meal format, actual menu and shrimp-allergy handling. Preserve backup

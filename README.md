@@ -93,7 +93,17 @@ and stamp stops remain conditional; distances show their supplied scope.
 Keep the first shared note visible; remaining scope/travel notes start
 collapsed with a count and are included in printing.
 Unselected variants stay outside the main route and transport budget.
+Alternative `relatedAlternativeIds` links to distinct existing schedules on
+the same day without interleaving their timetables or selecting a route.
 See [daily route comparisons](docs/content-workflow.md#daily-route-comparisons).
+
+Optional trip-owned `linkedPlans` connects existing alternatives across two or
+more distinct, ordered trip dates. Each date/alternative reference keeps its
+complete schedule; the shared panel states the dependency without selecting a
+route or copying totals. Show its full initially closed panel on the final
+referenced date and compact links on earlier dates. Print the full panel once
+and restore disclosure state. See
+[linked alternatives across dates](docs/content-workflow.md#linked-alternatives-across-dates).
 
 Optional trip-owned `places` and daily `map` views add maps near the start of each day.
 Reuse sourced coordinates, number accepted stops, and distinguish local activity,
@@ -103,6 +113,9 @@ require verified geometry and a source. Keep unknown locations unmapped rather
 than guess. The [data contract](docs/content-workflow.md#daily-map-data) and
 [design guide](docs/trip-design-principles.md#daily-maps) cover phone activation,
 visible-day loading, native labels, stop lists, external links and print fallback.
+Compact jump links after the weather card and before the map provide direct
+access to a day's route comparison or linked-date option; epigraphs retain
+their immediate placement after the map or guide.
 Direct geographic-view links select the referenced view before opening its
 containing disclosures and scrolling, preserving print snapshot state.
 
@@ -123,6 +136,8 @@ visible. Additional locations load when their forecast disclosure is opened.
 Hourly data loads only after opening that location's hourly disclosure on a
 visible day. Daily and hourly caches remain separate; printing includes
 retrieved detail without fetching new data and restores disclosure states.
+Alternative panels can link directly to that day's configured hourly forecast
+locations represented in their geographic views without selecting a route.
 See [daily weather data](docs/content-workflow.md#daily-weather-data).
 
 Optional daily `guide` records add route-specific official map images, original
@@ -133,7 +148,11 @@ verified GPS tracks or gallery photos. Phones show one manually selected map
 with full-title choices; larger screens retain a grid and each day's selection
 survives viewport and day changes. Reminders, terrain profiles and checkpoints
 use native disclosures. No-JavaScript reading and printing show every figure;
-printing restores selections, disclosures and the image viewer.
+printing restores selections, disclosures, the image viewer and its previously
+focused control without moving the page.
+Alternative `guideFigureRefs` reuses dated figures from existing daily guides
+through attributed full-image/viewer links without changing the focused day,
+copying assets or repeating figures in print.
 `fieldGuide` holds shared preparation advice, while `confirmedNotes` records
 explicit practical confirmations separately
 from bookings and payment. See [guidebook maps and practical guidance](docs/content-workflow.md#guidebook-maps-and-practical-guidance).

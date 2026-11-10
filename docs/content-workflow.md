@@ -295,6 +295,46 @@ and forecasts do not change the accepted itinerary or establish reservations,
 purchases or payment. Keep alternative-only fares outside main transport budget
 rows until an explicit route decision replaces the accepted journey.
 
+### Linked alternatives across dates
+
+Optional `Trip.linkedPlans` is an array of `TripLinkedPlan` records:
+
+- `id`, `title` and `description` identify the shared alternative.
+- `days: [{ date, alternativeId }]` references complete existing alternatives
+  on at least two distinct trip dates, in ascending order. Each date must be
+  an existing day in the dated trip, and its alternative must exist on that
+  same day. Validate unique linked-plan IDs and reference integrity.
+- `notes` states the cross-date dependencies, completion requirements and
+  supplied limits; optional `sourceIds` references the official catalog.
+
+Keep each complete schedule and map under its own day. The shared record
+does not duplicate schedules, store aggregate walking/stamp/budget totals,
+or create a selected-route state. State dependencies such as an earlier
+complete walk required before treating a later short day as compatible with
+the same overall eligibility plan. Navigation and a proposed combination do
+not establish that any prerequisite was actually completed.
+
+Render the full native, initially closed panel only on the last referenced
+date, with ID `day-${lastDate}-linked-plan-${id}`. Earlier dates offer compact
+links to this complete panel and their own referenced alternative. Direct
+fragment navigation reveals the containing day and disclosures before
+scrolling. Printing includes the shared panel once alongside the full daily
+alternatives, then restores selected-day and disclosure state.
+
+Compact local jump links can follow the weather card and precede the map to
+reach route comparisons and linked plans. Keep the daily map/guide followed
+immediately by any supplied epigraph. A later-departure variation with its
+own timetable remains a separate full alternative and map, linked from the
+related route rather than interleaved into its timeline. Existing accepted
+transport/budget records remain unchanged until a route is explicitly chosen
+and any replacement fares are known.
+
+Optional `TripDayAlternative.relatedAlternativeIds` links to other existing
+alternatives on the same day. Validate unique IDs, their same-day ownership
+and the absence of self references. Ordinary fragment links use the existing
+day/disclosure reveal path and accessible touch targets. Related departures
+retain their complete schedules and maps; these links create no route state.
+
 ## Daily weather data
 
 Optional `TripDay.weather` keeps only forecast configuration in the trip's
@@ -317,6 +357,12 @@ The first location is primary; additional locations remain separate rather
 than averaging their forecasts. Validate references, nonempty labels and notes,
 and duplicate locations. Weather references do not add visits to the itinerary
 or atlas. Omit locations whose coordinates are unknown.
+
+Alternative forecast links derive from the intersection of that day's
+configured weather locations and its alternative geographic-view stops.
+Link to the existing hourly disclosure for the same local date rather than
+copying configuration or values. Fragment navigation follows the existing
+day/disclosure reveal behavior without selecting a route.
 
 The browser fetches Open-Meteo's free noncommercial forecast endpoint with
 explicit units and timezone. Request daily weather code, minimum/maximum
@@ -434,6 +480,17 @@ main-schedule ID and explicitly sourced facilities. Unknown opening hours and
 water quality remain unspecified. A figure does not establish a new visit,
 precise trail geometry or navigation accuracy.
 
+Optional `TripDayAlternative.guideFigureRefs` is an array of
+`{ date, figureId }` references to figures in an existing day's `guide`.
+Validate the owning trip date, guide and figure ID, and reject duplicate
+date/figure pairs. Reuse the original local full-image link and zoom viewer
+with the owning guide's publisher, edition and printed-page caption. Opening
+a referenced figure keeps the currently focused day; the reference does not
+select its owning day or copy its schedule. Identify the portion relevant
+to a shortened route. Keep assets, image provenance and geometry in their
+original records. Printing shows the canonical guides once rather than
+repeating each figure alongside every alternative reference.
+
 Use `kind: "hike"` only with the day's recorded hike data. Keep distance and
 walking estimates distinct from timetable reservations; optional `descentM`
 records a sourced approximate descent. Preserve the guide's original cumulative
@@ -460,7 +517,8 @@ days or legends, so the first native print snapshot includes their images.
 Keep source image files compressed and verify that a fresh-page print contains
 the expected figures. Without JavaScript, show all figures. Printing also
 shows every figure and restores map selection, native disclosures and the
-image viewer afterward.
+image viewer afterward. Restore the viewer's previously focused control
+without scrolling the page, rather than resetting focus to its close button.
 
 Store figures in `public/images/trips/<slug>/guide/` and their provenance in the
 trip's image manifest. For a supplied PDF, use `kind: "map"` and

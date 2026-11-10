@@ -8,13 +8,16 @@ import TripDining from './TripDining.astro';
 import TripDayPoem from './TripDayPoem.astro';
 import TripDayWeather from './TripDayWeather.astro';
 import TripDayRouteOptions from './TripDayRouteOptions.astro';
+import TripLinkedPlans from './TripLinkedPlans.astro';
 import LocalPlaceName from './LocalPlaceName.astro';
 import TripDayMap from './TripDayMap.astro';
 import TripGuideViewer from './TripGuideViewer.astro';
-import type { Trip } from '../data/types';
+import type { Trip, TripDay, TripDayAlternative } from '../data/types';
 import { durationDays, formatDate, formatDateRange } from '../lib/trips';
+import { withBase } from '../lib/urls';
 import { scheduleRowId } from '../lib/trip-maps';
 import { routeMetrics } from '../lib/trip-route-options';
+import { linkedPlansForDate } from '../lib/trip-linked-plans';
 
 interface Props { trip: Trip; }
 const { trip } = Astro.props;
@@ -39,6 +42,15 @@ const sightsFor = (ids?: string[]) => (ids ?? []).flatMap(id => {
 const destinationById = (id: string) => trip.destinations.find(stop => stop.id === id);
 const cityName = (id: string) => destinationById(id)?.name || id;
 const stayById = (id?: string) => (trip.stays ?? []).find(stay => stay.id === id);
+const weatherForAlternative = (day: TripDay, alternative: TripDayAlternative) => {
+  const placeIds = new Set(day.map?.views.filter(view => view.alternativeId === alternative.id).flatMap(view => view.stops.map(stop => stop.placeId)) ?? []);
+  return (day.weather?.locations ?? []).filter(location => placeIds.has(location.placeId));
+};
+const guideFiguresFor = (alternative: TripDayAlternative) => (alternative.guideFigureRefs ?? []).flatMap(reference => {
+  const guide = trip.days.find(day => day.date === reference.date)?.guide;
+  const figure = guide?.figures.find(item => item.id === reference.figureId);
+  return guide && figure ? [{ guide, figure }] : [];
+});
 const isThisJapan = trip.slug === 'japan-2026';
 ---
 
@@ -75,6 +87,7 @@ const isThisJapan = trip.slug === 'japan-2026';
       {trip.days.map((day, index) => {
         const overnight = stayById(day.overnightId);
         const destination = destinationById(day.destinationId);
+        const linkedPlans = linkedPlansForDate(trip, day.date);
         return <details class="itinerary-day" id={`day-${day.date}`} data-itinerary-date={day.date} data-day-title={day.title} data-day-label={date(day.date)} open={index === 0}>
           <summary>
             <span class="day-index">{text('第', 'DAY ')}{String(dayNumber(day.date)).padStart(2, '0')}{isZh && '天'}</span>
@@ -83,6 +96,10 @@ const isThisJapan = trip.slug === 'japan-2026';
           </summary>
           <div class:list={['day-content', { 'has-schedule': Boolean(day.schedule?.length) }]}>
             <TripDayWeather day={day} places={trip.places ?? []} locale={locale} />
+            {(day.routeOptions || linkedPlans.length > 0) && <nav class="day-plan-shortcuts" aria-label={text('当天备选入口', 'Alternatives for this day')} data-day-swipe-ignore>
+              {day.routeOptions && <a href={`#day-${day.date}-route-options-title`}><Icon name="list" size={15} /><span>{day.routeOptions.title}</span><Icon name="arrow-down" size={14} /></a>}
+              {linkedPlans.map(({ anchorId, days }) => <a href={`#${anchorId}`}><Icon name="calendar" size={15} /><span>{text('跨日备选', 'Linked alternative')} · {days.length} {text('天', 'days')}</span><Icon name="arrow-down" size={14} /></a>)}
+            </nav>}
             <TripDayMap day={day} places={trip.places ?? []} sources={sources} locale={locale} />
             <TripDayPoem poem={day.poem} locale={locale} />
             <p class="day-description">{day.description}</p>
@@ -95,6 +112,7 @@ const isThisJapan = trip.slug === 'japan-2026';
             </div>
 
             <TripDayRouteOptions day={day} locale={locale} />
+            <TripLinkedPlans trip={trip} date={day.date} />
             {day.routeOptions && <h3 class="main-schedule-title" id={`day-${day.date}-main-schedule`}>{day.routeOptions.mainLabel}</h3>}
             {day.schedule?.length ? <ol class="day-timeline" aria-label={text(`${date(day.date)}时间表`, `${date(day.date)} schedule`)} role="list">
               {day.schedule.map((item, scheduleIndex) => <li class:list={['timeline-entry', { 'timeline-entry-optional': item.optional }]} id={scheduleRowId(day.date, scheduleIndex, item.id)}>
@@ -125,7 +143,13 @@ const isThisJapan = trip.slug === 'japan-2026';
                     </dl>
                     {(alternative.walking?.note || alternative.walkingNote) && <p>{alternative.walking?.note ?? alternative.walkingNote}</p>}
                     {day.map?.views.filter(view => view.alternativeId === alternative.id).map(view => <a class="alternative-map-link" href={`#day-${day.date}-map-view-${view.id}`}><Icon name="pin" size={15} />{text('查看此方案地图', 'View this route map')}</a>)}
+                    {weatherForAlternative(day, alternative).map(location => <a class="alternative-map-link" href={`#day-${day.date}-weather-hourly-${location.placeId}`}><Icon name="sun" size={15} />{text('逐小时天气', 'Hourly weather')} · {location.label ?? trip.places?.find(place => place.id === location.placeId)?.name}</a>)}
                   </div>}
+                  {day.alternatives!.filter(item => alternative.relatedAlternativeIds?.includes(item.id)).map(related => <a class="alternative-map-link" href={`#alternative-${day.date}-${related.id}`}><Icon name="arrow-right" size={15} />{text('另看方案', 'Related alternative')} · {related.title}</a>)}
+                  {guideFiguresFor(alternative).map(({ guide, figure }) => <a class="alternative-guide-link" href={withBase(figure.image)} target="_blank" rel="noopener noreferrer" data-guide-open data-guide-title={figure.title} data-guide-alt={figure.alt} data-guide-caption={`${guide.publisher} · ${guide.edition} · ${text('指南第', 'Guide pages ')}${figure.printedPages}${text('页', '')}`}>
+                    <span><Icon name="map" size={15} />{text('官方路线图', 'Official route map')} · {figure.title}</span>
+                    <small>{guide.publisher} · {guide.edition} · {text('指南第', 'Guide pages ')}{figure.printedPages}{text('页', '')}</small>
+                  </a>)}
                   <ol class="day-timeline" aria-label={text(`${alternative.title}时间表`, `${alternative.title} schedule`)} role="list">{alternative.schedule.map((item, scheduleIndex) => <li class:list={['timeline-entry', { 'timeline-entry-optional': item.optional }]} id={scheduleRowId(day.date, scheduleIndex, item.id, alternative.id)}>
                     <span class="timeline-time">{item.time}</span>
                     <div class="timeline-copy"><p class="timeline-title">{item.title}{item.optional && <span class="timeline-optional">{text('可选', 'Optional')}</span>}</p>{item.description && <p class="timeline-description">{item.description}</p>}<TripReferences sources={sourcesFor(item.sourceIds)} locale={locale} /></div>
@@ -189,6 +213,11 @@ const isThisJapan = trip.slug === 'japan-2026';
   .daily-itinerary .itinerary-day[open] > summary .day-chevron { transform: rotate(180deg); color: var(--ink); }
   .daily-itinerary .itinerary-day[open] .day-title, .daily-itinerary .itinerary-day > summary:hover .day-title { color: var(--ink); }
   .daily-itinerary .day-content, .daily-itinerary .day-content.has-schedule { min-width: 0; padding: 0 24px 27px; }
+  .day-plan-shortcuts { display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; margin: 12px 0 16px; }
+  .day-plan-shortcuts > a { display: flex; align-items: center; gap: 7px; min-height: 44px; min-width: 0; max-width: 100%; padding: 8px 12px; border: 1px solid var(--line); border-radius: 4px; color: var(--accent-deep); background: var(--paper); font-size: 12px; line-height: 1.8; }
+  .day-plan-shortcuts > a > span { min-width: 0; overflow-wrap: anywhere; }
+  .day-plan-shortcuts > a > svg { flex-shrink: 0; }
+  .day-plan-shortcuts > a:hover { background: var(--paper-deep); }
   .daily-itinerary .day-content > p, .daily-itinerary .day-description { max-width: none; color: var(--ink-soft); font-size: 14px; line-height: 1.95; overflow-wrap: anywhere; }
   .daily-itinerary .travel-day-note { display: flex; align-items: flex-start; gap: 8px; margin-top: 14px; color: var(--ink); font-size: 12px; }
   .daily-itinerary .travel-day-note > svg { margin-top: 4px; }
@@ -245,6 +274,10 @@ const isThisJapan = trip.slug === 'japan-2026';
   .alternative-facts dd small { display: block; margin-top: 3px; color: var(--ink-soft); font-size: 11px; font-weight: 400; }
   .alternative-facts > p { margin-top: 10px; color: var(--ink-soft); font-size: 12px; line-height: 1.9; overflow-wrap: anywhere; }
   .alternative-map-link { display: flex; align-items: center; gap: 6px; min-height: 44px; width: fit-content; max-width: 100%; margin-top: 5px; font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
+  .alternative-guide-link { display: flex; flex-direction: column; justify-content: center; gap: 4px; min-height: 44px; min-width: 0; margin-top: 12px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 4px; color: var(--accent-deep); background: var(--paper); overflow-wrap: anywhere; }
+  .alternative-guide-link > span { display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 1.9; text-decoration: underline; text-underline-offset: 4px; }
+  .alternative-guide-link > span > svg { flex-shrink: 0; }
+  .alternative-guide-link > small { color: var(--ink-soft); font-size: 10px; line-height: 1.8; }
   .daily-empty { color: var(--ink-soft); font-size: 14px; }
 
   @media (max-width: 1000px) {
@@ -305,6 +338,10 @@ const isThisJapan = trip.slug === 'japan-2026';
   @media print {
     .daily-itinerary { padding-block: 24px; }
     .daily-itinerary .daily-navigation { display: none; }
+    .day-plan-shortcuts { display: none; }
+    .alternative-guide-link { min-height: 0; padding: 8px 10px; background: white; }
+    .alternative-guide-link > span { font-size: 10px; }
+    .alternative-guide-link > small { font-size: 9px; }
     .daily-itinerary .section-heading { margin-bottom: 15px; }
     .daily-itinerary .itinerary-day, .daily-itinerary .itinerary-day[hidden] { display: block !important; margin-top: 14px !important; break-inside: auto; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: white; }
     .daily-itinerary .itinerary-day::details-content, .daily-itinerary .day-alternative::details-content { content-visibility: visible; }

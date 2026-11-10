@@ -65,8 +65,10 @@ Preserve vertical scrolling, scrollable date strips and other horizontal widgets
 and link/control activation. Full-trip view uses normal scrolling.
 
 After the day title, show a compact forecast when configured, then the daily
-map or guide. Follow it with any supplied epigraph, the description, overnight
-stay and daily reminders, and the timetable.
+map or guide. When route choices or linked-date options are present, add a
+compact jump-link row after the forecast and before the map so readers can
+reach them directly. Follow the map or guide immediately with any supplied
+epigraph, the description, overnight stay and daily reminders, and the timetable.
 Keep optional schedules separate, retain practical walking/stamp details, and
 put meal options at the very bottom.
 
@@ -83,7 +85,24 @@ but does not select a route. Preserve the accepted main schedule, guide and
 budget until an explicit change is recorded; a shorter variant does not imply
 early hotel check-in or a new transport reservation.
 
+When an alternative changes several dates together, describe it as one linked
+plan referencing the existing complete daily alternatives. Keep its dependency
+and any completion requirements explicit. Show the complete native disclosure
+once on its final date, initially closed, and provide compact links from earlier
+affected days. An earlier-day link can also open that day's own alternative.
+Following these links does not select the plan or establish its prerequisites
+as completed. Print the complete linked panel once with the daily schedules
+and restore the previous day and disclosure state.
+Keep a materially later departure in its own full schedule and map, reachable
+from the related alternative, with connection assumptions beside that timeline.
+Use explicit related-alternative references for those same-day links so
+the schedules remain independently editable without selecting a route.
+
 ### Daily weather
+
+An alternative can link to the existing hourly forecast for configured
+locations along its mapped route. Keep those links on the same trip date;
+opening a forecast does not select the alternative.
 
 Use a compact forecast for the trip date at a named location, with low/high
 temperature, precipitation probability and wind visible. Keep total
@@ -170,9 +189,15 @@ and research references closed. Fragment links reveal the selected guide panel
 before opening ancestor disclosures and scrolling to their target. Without
 JavaScript, show all source figures and preserve native text disclosures.
 Printing includes every figure and restores map selection, disclosures and
-viewer state. Load these source figures eagerly with low fetch priority so the
+viewer state, including its previously focused control without scrolling the
+page. Load these source figures eagerly with low fetch priority so the
 first print snapshot contains every map and terrain image. Preserve supplied
 PDF provenance and extraction changes with the images.
+
+When another daily alternative uses an existing guide figure, provide an
+attributed full-image/viewer link and identify the relevant route portion.
+Opening it preserves the current day. Reuse the original figure and source
+record; print the canonical figure without repeating it for each alternative.
 
 On phones, ordinary page scrolling is the default. An explicit `操作地图`
 control, localized for other trips, activates map interaction. Exclude the entire

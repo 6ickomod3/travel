@@ -1,6 +1,6 @@
 type Point = { x: number; y: number };
 type ImageView = { zoom: number; centerX: number; centerY: number };
-type ViewerSnapshot = { opener: HTMLAnchorElement; view?: ImageView };
+type ViewerSnapshot = { opener: HTMLAnchorElement; view?: ImageView; focus?: HTMLElement };
 type Gesture = { points: Point[]; zoom: number; x: number; y: number };
 
 const clamp = (value: number, minimum: number, maximum: number) => Math.min(maximum, Math.max(minimum, value));
@@ -240,7 +240,9 @@ class GuideImageViewer {
 
   beforePrint(): ViewerSnapshot | undefined {
     if (!this.dialog.open || !this.opener) return;
-    const snapshot = { opener: this.opener, view: this.ready ? this.view() : undefined };
+    const focus = document.activeElement instanceof HTMLElement && this.dialog.contains(document.activeElement)
+      ? document.activeElement : undefined;
+    const snapshot = { opener: this.opener, view: this.ready ? this.view() : undefined, focus };
     this.skipCloseFocus = true;
     this.close();
     return snapshot;
@@ -408,7 +410,9 @@ window.addEventListener('afterprint', () => {
   if (snapshot.viewer) {
     const saved = snapshot.viewer;
     window.requestAnimationFrame(() => window.requestAnimationFrame(() => {
-      if (saved.opener.isConnected) viewer?.open(saved.opener, saved.view);
+      if (saved.opener.isConnected && viewer?.open(saved.opener, saved.view)) {
+        if (saved.focus?.isConnected && !saved.focus.closest('[hidden], [inert]')) saved.focus.focus({ preventScroll: true });
+      }
     }));
   }
   window.requestAnimationFrame(() => figureControllers.forEach(controller => controller.refresh()));

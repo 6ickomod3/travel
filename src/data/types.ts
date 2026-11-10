@@ -168,6 +168,10 @@ export interface TripDayAlternative {
   notes: string[];
   sourceIds?: string[];
   sightIds?: string[];
+  /** Reuse existing guide maps without copying assets or selecting their day. */
+  guideFigureRefs?: Array<{ date: string; figureId: string }>;
+  /** Links to distinct alternatives on this same day, such as a later departure. */
+  relatedAlternativeIds?: string[];
   /** Planned bus rides across the whole day, including access to the trailhead. */
   busCount?: number;
   walking?: {
@@ -179,6 +183,16 @@ export interface TripDayAlternative {
   /** Qualitative walking scope when no numeric distance is supplied. */
   walkingNote?: string;
   stamps?: TripStampCollection;
+}
+
+/** An ordered group of existing alternatives; viewing it does not select a route. */
+export interface TripLinkedPlan {
+  id: string;
+  title: string;
+  description: string;
+  days: Array<{ date: string; alternativeId: string }>;
+  notes: string[];
+  sourceIds?: string[];
 }
 
 export interface TripStampCollection {
@@ -523,6 +537,8 @@ export interface Trip {
   places?: TripMapPlace[];
   routeNote: string;
   days: TripDay[];
+  /** Cross-day alternatives reuse the canonical schedules and their planned metrics. */
+  linkedPlans?: TripLinkedPlan[];
   language?: "zh-CN" | "en";
   travelers?: number;
   itineraryStatus?: "agreed" | "draft";

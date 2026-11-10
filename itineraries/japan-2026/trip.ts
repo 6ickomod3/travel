@@ -1568,6 +1568,16 @@ export default {
       "id": "kawayu-midoriya-access",
       "label": "川湯みどりや：姐妹馆交通与川湯13地址",
       "url": "https://www.urashimaresortsandspa.jp/wakayama-kawayumidoriya/access/"
+    },
+    {
+      "id": "hongu-hosshinmon-regular-bus",
+      "label": "龙神81：伏拝口、平岩口与发心门时刻（2026年4月1日起）",
+      "url": "https://www.ryujinbus.com/busstop/246/"
+    },
+    {
+      "id": "hongu-short-walk-access",
+      "label": "渡濑温泉：伏拝口、平岩口的短程徒步入口",
+      "url": "https://watarase-onsen.jp/activity.php"
     }
   ],
   "practicalNotes": [
@@ -3854,9 +3864,17 @@ export default {
           {
             "placeId": "chikatsuyu-area",
             "label": "近露"
+          },
+          {
+            "placeId": "hosshinmon-oji",
+            "label": "发心门（跨日备选）"
+          },
+          {
+            "placeId": "kumano-hongu-taisha",
+            "label": "本宫（跨日备选）"
           }
         ],
-        "note": "高原和近露预报取各参考点附近网格，不能代表整条山路；林间、山脊和不同海拔的体感可能不同。"
+        "note": "高原和近露预报取各参考点附近网格，不能代表整条山路；林间、山脊和不同海拔的体感可能不同。发心门与本宫仅供17–18跨日备选判断，同样取附近网格，不是实时步道路况。"
       },
       "sightIds": [
         "nakahechi"
@@ -4312,6 +4330,65 @@ export default {
               }
             ],
             "note": "E留在12:16同一班龙神81上，12:49近露王子下车；虚线是所列地点顺序，不是巴士实际线路。"
+          },
+          {
+            "id": "hongu-walk-ahead",
+            "label": "跨日：先走发心门至本宫",
+            "scope": "alternative",
+            "alternativeId": "hongu-walk-ahead",
+            "stops": [
+              {
+                "placeId": "kii-tanabe-station",
+                "scheduleId": "ahead-tanabe-queue"
+              },
+              {
+                "placeId": "hosshinmon-bus-stop",
+                "scheduleId": "ahead-tanabe-hosshinmon"
+              },
+              {
+                "placeId": "hosshinmon-oji",
+                "scheduleId": "ahead-hosshinmon-hongu-walk"
+              },
+              {
+                "placeId": "mizunomi-oji",
+                "scheduleId": "ahead-hosshinmon-hongu-walk"
+              },
+              {
+                "placeId": "fushiogami-oji",
+                "scheduleId": "ahead-hosshinmon-hongu-walk"
+              },
+              {
+                "placeId": "sangenjaya",
+                "scheduleId": "ahead-hosshinmon-hongu-walk"
+              },
+              {
+                "placeId": "haraido-oji",
+                "scheduleId": "ahead-hosshinmon-hongu-walk"
+              },
+              {
+                "placeId": "kumano-hongu-taisha",
+                "scheduleId": "ahead-hongu-oyunohara"
+              },
+              {
+                "placeId": "oyunohara",
+                "scheduleId": "ahead-hongu-oyunohara"
+              },
+              {
+                "placeId": "hongu-taisha-bus-stop",
+                "scheduleId": "ahead-hongu-museum-return"
+              },
+              {
+                "placeId": "nakahechi-museum-bus-stop",
+                "scheduleId": "ahead-hongu-museum-return"
+              },
+              {
+                "placeId": "chikatsuyu-area",
+                "scheduleId": "ahead-sen-arrival",
+                "connect": false,
+                "note": "近露住宿区域参考，SEN具体建筑坐标未核定；不能将区域点当作酒店入口。"
+              }
+            ],
+            "note": "17号改走发心门至本宫；返程是15:05龙神80→16:10美术馆前，回SEN住宿。虚线仅示已知地点顺序，不是巴士路线或徒步GPS轨迹。"
           }
         ]
       },
@@ -4564,10 +4641,10 @@ export default {
               "id": "walk-to-kurisugawa",
               "time": "高原出发后 · 预留30–40分钟",
               "title": "按步行指引下到栗栖川站",
-            "description": "导览图第7页标有高原至栗栖川约25分钟步行连接线，并标注车辆禁行；本次保守预留30–40分钟，现场确认步行入口与路径。先完成盖章，再提前到站等11:14班车。",
-            "sourceIds": [
-              "chikatsuyu-map"
-            ]
+              "description": "导览图第7页标有高原至栗栖川约25分钟步行连接线，并标注车辆禁行；本次保守预留30–40分钟，现场确认步行入口与路径。先完成盖章，再提前到站等11:14班车。",
+              "sourceIds": [
+                "chikatsuyu-map"
+              ]
             },
             {
               "id": "bus-to-gyuba",
@@ -4692,8 +4769,8 @@ export default {
               "description": "从牛馬童子口往高原方向折返大坂本王子，返回尾段起点后再走向近露；来回额外约1.6公里、多一枚章，尾段与折返合计约2.9公里。",
               "optional": true,
               "sourceIds": [
-              "gyuba-chikatsuyu",
-              "chikatsuyu-map"
+                "gyuba-chikatsuyu",
+                "chikatsuyu-map"
               ]
             },
             {
@@ -4817,8 +4894,8 @@ export default {
               "description": "从牛馬童子口往高原方向折返大坂本王子，返回尾段起点后再走向近露；来回额外约1.6公里、多一枚章，尾段与折返合计约2.9公里。",
               "optional": true,
               "sourceIds": [
-              "gyuba-chikatsuyu",
-              "chikatsuyu-map"
+                "gyuba-chikatsuyu",
+                "chikatsuyu-map"
               ]
             },
             {
@@ -4992,6 +5069,165 @@ export default {
             "dual-pilgrim",
             "sen-chikatsuyu-walk"
           ]
+        },
+        {
+          "id": "hongu-walk-ahead",
+          "title": "17–18联动｜17号先走发心门至本宫",
+          "description": "仅当17号明显比18号适合步行、且希望保留条件③必走段时采用。17号从纪伊田边直达发心门，走完本宫与大斋原，下午返近露住SEN；18号按D避雨去川汤。",
+          "busCount": 2,
+          "walking": {
+            "distanceKm": 7.5,
+            "note": "所列步行距离到本宫大社为止，不含大斋原的额外往返和住宿步行；本宫至大斋原单程另走约10分钟。"
+          },
+          "guideFigureRefs": [
+            {
+              "date": "2026-11-18",
+              "figureId": "nov18-hosshinmon-hongu"
+            }
+          ],
+          "schedule": [
+            {
+              "id": "ahead-tanabe-checkout",
+              "time": "05:45–06:10",
+              "title": "预备早餐、Comfort退房",
+              "description": "按原早起安排吃16号准备的早餐，携带午餐、饮水和雨具；不是等酒店早餐开放。"
+            },
+            {
+              "id": "ahead-tanabe-queue",
+              "time": "06:30前",
+              "title": "纪伊田边站前候快速",
+              "description": "06:55快速不预订座位，提前候车；站前登车位置和目的地现场核对。",
+              "sourceIds": [
+                "kumano-fast-bus"
+              ]
+            },
+            {
+              "id": "ahead-tanabe-hosshinmon",
+              "time": "06:55–08:54",
+              "title": "龙神熊野古道快速：纪伊田边 → 発心門王子",
+              "description": "2026/9/19–12/10每日运营、不接受预约；单买3,000日元／成人。感应银行卡或现金，不收Suica／ICOCA。",
+              "sourceIds": [
+                "kumano-fast-bus",
+                "kumano-fast-bus-fare",
+                "kumano-bus-payment"
+              ]
+            },
+            {
+              "id": "ahead-hosshinmon-hongu-walk",
+              "time": "下车、起点盖章后",
+              "title": "発心門王子 → 水吞 → 伏拝 → 三轩茶屋 → 祓殿 → 本宫",
+              "description": "先到発心門王子社盖第1章，再完整徒步约7.5公里。官方步行2–3小时，盖章、休息、参拜另留时间；以15:05本宫发车为约束。",
+              "sourceIds": [
+                "hosshinmon-hongu",
+                "dual-pilgrim"
+              ]
+            },
+            {
+              "id": "ahead-hongu-oyunohara",
+              "time": "抵达本宫后",
+              "title": "本宫、大斋原：参拜与计划第5、6章",
+              "description": "大斋原单程另走约10分钟。六处需实际参拜盖章；本宫完成章不是正式资格，19号速玉与那智四处仍需完成。",
+              "sourceIds": [
+                "dual-pilgrim-stamp-list"
+              ]
+            },
+            {
+              "id": "ahead-food-rest",
+              "time": "返回前",
+              "title": "午餐、休息，回本宫站候车",
+              "description": "提前带午餐和饮水，不依赖途中商店。下午回近露，17号SEN晚餐仍按原订单；18号避雨也要准备川汤晚餐及19号早班早餐。"
+            },
+            {
+              "id": "ahead-hongu-museum-return",
+              "time": "15:05–16:10",
+              "title": "龙神80系統“紀伊田辺駅行”：本宫 → なかへち美術館前",
+              "description": "在本宫大社前上车，16:10美术馆前下车回近露。这是普通80系統，不是临时快速或上山81系統；返程票价待核对。",
+              "sourceIds": [
+                "hongu-kawayu-bus",
+                "kumano-bus-payment"
+              ]
+            },
+            {
+              "id": "ahead-sen-arrival",
+              "time": "16:10下车后",
+              "title": "美术馆前 → SEN，按原订单入住",
+              "description": "沿已核对走法步行约10–15分钟回SEN，住宿晚数不变。区域图不是精确酒店入口导航；自助入住及18号退房安排按原订单。",
+              "sourceIds": [
+                "chikatsuyu-map",
+                "sen-chikatsuyu-stay"
+              ]
+            },
+            {
+              "id": "ahead-sen-evening",
+              "time": "傍晚",
+              "title": "SEN晚餐，按18号天气决定D",
+              "description": "晚餐仍含在SEN订单。18号若采用D，09:42坐车去本宫，不再把发心门完整段重复算作第二次必须徒步。"
+            }
+          ],
+          "stamps": {
+            "title": "此方案计划盖章点",
+            "description": "把原18号完整段与六处计划盖章提前到17号；不同时计原泷尻—近露额外八章。",
+            "stops": [
+              {
+                "number": 1,
+                "name": "发心门王子",
+                "englishName": "Hosshinmon-oji"
+              },
+              {
+                "number": 2,
+                "name": "水吞／水呑王子",
+                "englishName": "Mizunomi-oji"
+              },
+              {
+                "number": 3,
+                "name": "伏拝王子",
+                "englishName": "Fushiogami-oji"
+              },
+              {
+                "number": 4,
+                "name": "祓殿王子",
+                "englishName": "Haraido-oji"
+              },
+              {
+                "number": 5,
+                "name": "熊野本宫大社",
+                "englishName": "Kumano Hongu Taisha",
+                "note": "完成章在札所附近，盖在手账日本一面首页的“COMPLETION OF PILGRIMAGE”栏。"
+              },
+              {
+                "number": 6,
+                "name": "旧社地大斋原",
+                "englishName": "Oyunohara",
+                "note": "参拜旧社地时找盖章点，不只拍大鸟居。"
+              }
+            ],
+            "notes": [
+              "只有实际走完整段，并完成各点参拜盖章及19号速玉、那智四处，才满足所采用日本条件③的路线与印章要求；正式资格仍另需个人另一条朝圣路证明与登记。",
+              "这是计划盖章点，不是已收集记录。大斋原是否前往按天气与实际时间决定。三轩茶屋是路标地点，不另计为条件③印章。"
+            ],
+            "sourceIds": [
+              "dual-pilgrim",
+              "dual-pilgrim-stamp-list",
+              "kumano-stamp-howto"
+            ]
+          },
+          "notes": [
+            "这是替代17号原泷尻—近露A–E的跨日备选，需与18号D一起阅读；没有改变当前主行程或确认选择。",
+            "17号实际走完発心門王子至本宫，才保住条件③的徒步部分；18号D的本宫、大斋原可能是重复参拜，不能与17号六处相加当作八个不同必盖章。",
+            "去程快速3,000日元／成人已按专门票价表核对；返程普通巴士票价未知。按实际车费单次付费，本方案费用未并入原计划交通预算。",
+            "官方图沿用18号的发心门—本宫全段图，在这里打开可直接阅读当天提前走的路线。",
+            "最后一段仍有石畳和石阶，湿了会滑。是否下车走古道，按当天降雨、现场路况和步道通行信息决定。"
+          ],
+          "sourceIds": [
+            "kumano-fast-bus",
+            "kumano-fast-bus-fare",
+            "hongu-kawayu-bus",
+            "kumano-bus-payment",
+            "hosshinmon-hongu",
+            "dual-pilgrim",
+            "dual-pilgrim-stamp-list",
+            "chikatsuyu-map"
+          ]
         }
       ]
     },
@@ -5023,7 +5259,7 @@ export default {
       "overnightId": "kawayu",
       "type": "hike",
       "title": "近露 → 发心门 → 本宫 → 川汤",
-      "description": "美术馆前快速直达发心门，徒步约7.5公里经王子遗迹到本宫，再参拜大斋原、乘巴士去川汤。快速满员／错过备选另列。",
+      "description": "原计划美术馆前07:51快速直达发心门，徒步约7.5公里到本宫，再参拜大斋原、乘巴士去川汤。雨天A–D、12:15晚发完整段及17–18跨日调整另列。",
       "ideas": [
         "美术馆前07:51快速到发心门，注意不停近露王子。",
         "徒步发心门至本宫，参拜本宫与大斋原。",
@@ -5127,9 +5363,22 @@ export default {
       "alternatives": [
         {
           "id": "missed-fast-bus",
-          "title": "快速满员／错过时：经本宫转发心门",
-          "description": "用明光93到本宫，再转龙神81到发心门，约11点开始徒步；下午行程调整，改16:40去川汤。",
+          "title": "A｜晚出发，走完整段",
+          "relatedAlternativeIds": [
+            "rain-a-midday"
+          ],
+          "description": "先09:42坐车到本宫，雨缓且步道通行正常时，再搭10:30龙神81至发心门。完整步行约7.5公里，计划盖第1–6章；也适用于原07:51快速满员或错过。",
           "schedule": [
+            {
+              "id": "rain-sen-checkout",
+              "time": "09:00前后",
+              "title": "早餐、退房，步行去美术馆前",
+              "description": "按SEN原订单退房规定，预留约10–15分钟到なかへち美術館前；提早到站候车，不假设晚出门会改变旅馆早餐供应。",
+              "sourceIds": [
+                "sen-chikatsuyu-stay",
+                "chikatsuyu-map"
+              ]
+            },
             {
               "id": "museum-to-hongu",
               "time": "09:42–10:12",
@@ -5143,14 +5392,15 @@ export default {
               "time": "10:30–10:45",
               "title": "龙神81系統：本宫 → 发心门王子",
               "sourceIds": [
-                "kumano-bus-overview"
-              ]
+                "hongu-hosshinmon-regular-bus"
+              ],
+              "description": "本宫10:30发车，発心門王子10:45下车；先去王子社盖起点章，再沿古道步行。"
             },
             {
               "id": "fallback-hongu-walk",
               "time": "11:00左右",
               "title": "开始发心门至本宫徒步",
-              "description": "约7.5公里，按脚程调整下午参拜和拍照时间。",
+              "description": "从発心門王子社出发，经水吞、伏拝、三轩茶屋、祓殿王子至本宫。官方步行2–3小时，盖章、休息和拍照另留时间；不要跳过起点王子社。",
               "sourceIds": [
                 "hosshinmon-hongu"
               ]
@@ -5159,27 +5409,724 @@ export default {
               "id": "fallback-hongu-oyunohara",
               "time": "下午",
               "title": "本宫大社、大斋原",
-              "description": "保留16:40巴士候车余量。"
+              "description": "参拜本宫、盖完成章，再按路况和时间去大斋原。预留采购及16:40候车时间；本宫完成章不等于正式资格或登记。"
+            },
+            {
+              "id": "rain-food-and-queue",
+              "time": "发车前",
+              "title": "采购晚餐、次日早餐并回站候车",
+              "description": "18号是周三：珍重庵本宫店、しもじ本宫店按原资料休息。上车去川汤前准备好晚餐及19号无需微波的早班早餐；其他商店营业、库存与虾过敏处理仍需核对，随身带备用食品。",
+              "sourceIds": [
+                "dining-hongu-directory",
+                "dining-chinchoan-hongu"
+              ]
             },
             {
               "id": "fallback-kawayu-bus",
               "time": "16:40–16:51",
               "title": "本宫 → 川汤",
-              "description": "藤屋前16:48、龟屋前16:49、川汤温泉16:51；下车站按旅馆位置决定。",
+              "description": "龙神80系統“紀伊田辺駅行”，川汤温泉16:51下车，步行约1–2分钟到まつや。",
               "sourceIds": [
                 "hongu-kawayu-bus"
+              ]
+            },
+            {
+              "id": "rain-kawayu-check-in",
+              "time": "到川汤后",
+              "title": "川湯まつや入住、泡汤、自备晚餐",
+              "description": "按原订单自助入住。本宫町川湯29为まつや，不供早晚餐；仅使用本馆浴池。微波炉07:00–22:00，19号离店前不要依赖微波加热。",
+              "sourceIds": [
+                "kawayu-matsuya-policy",
+                "kawayu-matsuya-facilities",
+                "kawayu-matsuya-official-access"
               ]
             }
           ],
           "notes": [
-            "用于07:51快速满员或错过，整套行程按较晚开始调整。",
-            "不临时改成从近露全程步行到本宫，那是另一种长距离行程。"
+            "10:30若仍下雨，可以等12:15一班。下方“A｜12:15再出发”列出独立时间表；12:30才到发心门，完整徒步、盖章、采购和16:40发车之间余量较小。",
+            "条件③要求从发心门王子到本宫大社完整步行，并在19号完成速玉与那智相关参拜盖章。改半程不能只靠补章替代完整徒步。",
+            "最后一段仍有石畳和石阶，湿了会滑。是否下车走古道，按当天降雨、现场路况和步道通行信息决定。",
+            "18号是周三：珍重庵本宫店、しもじ本宫店按原资料休息。上车去川汤前准备好晚餐及19号无需微波的早班早餐；其他商店营业、库存与虾过敏处理仍需核对，随身带备用食品。",
+            "明光93可用Suica／ICOCA或现金；龙神81、80可用感应银行卡或现金，不收Suica／ICOCA。单次付费、不预订座位。新增普通巴士接驳票价尚未核定，备选费用不并入原计划交通预算。",
+            "官方图为完整发心门—本宫线路及周边入口；本方案从発心門王子社开始读图。"
           ],
           "sourceIds": [
             "tanabe-hongu-bus",
-            "kumano-bus-overview",
+            "hongu-hosshinmon-regular-bus",
             "hongu-kawayu-bus",
-            "hosshinmon-hongu"
+            "kumano-bus-payment",
+            "hosshinmon-hongu",
+            "dual-pilgrim",
+            "dual-pilgrim-stamp-list",
+            "hongu-short-walk-access"
+          ],
+          "busCount": 3,
+          "walking": {
+            "distanceKm": 7.5,
+            "note": "所列步行距离到本宫大社为止，不含大斋原的额外往返和住宿步行；本宫至大斋原单程另走约10分钟。"
+          },
+          "guideFigureRefs": [
+            {
+              "date": "2026-11-18",
+              "figureId": "nov18-hosshinmon-hongu"
+            }
+          ],
+          "stamps": {
+            "title": "此方案计划盖章点",
+            "description": "发心门起步走完整段，再参拜本宫、大斋原，计划六处。",
+            "stops": [
+              {
+                "number": 1,
+                "name": "发心门王子",
+                "englishName": "Hosshinmon-oji"
+              },
+              {
+                "number": 2,
+                "name": "水吞／水呑王子",
+                "englishName": "Mizunomi-oji"
+              },
+              {
+                "number": 3,
+                "name": "伏拝王子",
+                "englishName": "Fushiogami-oji"
+              },
+              {
+                "number": 4,
+                "name": "祓殿王子",
+                "englishName": "Haraido-oji"
+              },
+              {
+                "number": 5,
+                "name": "熊野本宫大社",
+                "englishName": "Kumano Hongu Taisha",
+                "note": "完成章在札所附近，盖在手账日本一面首页的“COMPLETION OF PILGRIMAGE”栏。"
+              },
+              {
+                "number": 6,
+                "name": "旧社地大斋原",
+                "englishName": "Oyunohara",
+                "note": "参拜旧社地时找盖章点，不只拍大鸟居。"
+              }
+            ],
+            "notes": [
+              "只有实际走完整段，并完成各点参拜盖章及19号速玉、那智四处，才满足所采用日本条件③的路线与印章要求；正式资格仍另需个人另一条朝圣路证明与登记。",
+              "这是计划盖章点，不是已收集记录。大斋原是否前往按天气与实际时间决定。三轩茶屋是路标地点，不另计为条件③印章。"
+            ],
+            "sourceIds": [
+              "dual-pilgrim",
+              "dual-pilgrim-stamp-list",
+              "kumano-stamp-howto"
+            ]
+          }
+        },
+        {
+          "id": "rain-a-midday",
+          "title": "A｜12:15再出发（余量较小）",
+          "description": "先09:42到本宫等雨，12:15再搭龙神81，12:30发心门下车并从王子社走完整段。保留条件③的徒步部分，但下午余量较小；路况或时间不足时留在本宫。",
+          "busCount": 3,
+          "walking": {
+            "distanceKm": 7.5,
+            "note": "所列步行距离到本宫大社为止，不含大斋原的额外往返和住宿步行；本宫至大斋原单程另走约10分钟。"
+          },
+          "guideFigureRefs": [
+            {
+              "date": "2026-11-18",
+              "figureId": "nov18-hosshinmon-hongu"
+            }
+          ],
+          "schedule": [
+            {
+              "id": "rain-sen-checkout",
+              "time": "09:00前后",
+              "title": "早餐、退房，步行去美术馆前",
+              "description": "按SEN原订单退房规定，预留约10–15分钟到なかへち美術館前；提早到站候车，不假设晚出门会改变旅馆早餐供应。",
+              "sourceIds": [
+                "sen-chikatsuyu-stay",
+                "chikatsuyu-map"
+              ]
+            },
+            {
+              "id": "museum-to-hongu",
+              "time": "09:42–10:12",
+              "title": "明光93系統：美术馆前 → 本宫大社前",
+              "description": "先到本宫，再按天气决定上山或留在镇上。",
+              "sourceIds": [
+                "tanabe-hongu-bus"
+              ]
+            },
+            {
+              "id": "midday-hongu-wait",
+              "time": "10:12–12:15",
+              "title": "本宫休息、避雨，重新判断路况",
+              "description": "可参观世界遺産熊野本宮館，官方常规开放09:00–17:00、全年开放。上山前准备食品；仍下大雨或步道不适合步行时采用D。",
+              "sourceIds": [
+                "kumano-information-centers"
+              ]
+            },
+            {
+              "id": "midday-hongu-to-hosshinmon",
+              "time": "12:15–12:30",
+              "title": "龙神81系統：本宫 → 发心门王子",
+              "description": "同班途经平岩口12:19、伏拝口12:23；此方案在终点発心門王子下车，先去王子社盖起点章。",
+              "sourceIds": [
+                "hongu-hosshinmon-regular-bus"
+              ]
+            },
+            {
+              "id": "midday-full-walk",
+              "time": "12:30后",
+              "title": "发心门王子 → 本宫，全段步行",
+              "description": "约7.5公里；官方2–3小时仅为步行参考，实际还要盖章、休息及参拜。不要将16:40巴士当作保证可赶上的连接。",
+              "sourceIds": [
+                "hosshinmon-hongu"
+              ]
+            },
+            {
+              "id": "midday-hongu-oyunohara",
+              "time": "抵达本宫后",
+              "title": "本宫参拜、大斋原与剩余盖章",
+              "description": "大斋原单程另走约10分钟，按实际时间决定。若无法在16:40发车前留出参拜、购物和候车余量，这套晚发全走方案不适合当天使用。",
+              "sourceIds": [
+                "dual-pilgrim"
+              ]
+            },
+            {
+              "id": "rain-food-and-queue",
+              "time": "发车前",
+              "title": "采购晚餐、次日早餐并回站候车",
+              "description": "18号是周三：珍重庵本宫店、しもじ本宫店按原资料休息。上车去川汤前准备好晚餐及19号无需微波的早班早餐；其他商店营业、库存与虾过敏处理仍需核对，随身带备用食品。",
+              "sourceIds": [
+                "dining-hongu-directory",
+                "dining-chinchoan-hongu"
+              ]
+            },
+            {
+              "id": "fallback-kawayu-bus",
+              "time": "16:40–16:51",
+              "title": "龙神80系統“紀伊田辺駅行”：本宫 → 川汤",
+              "description": "全程徒步后以16:40为目标，提前留候车时间。",
+              "sourceIds": [
+                "hongu-kawayu-bus",
+                "kawayu-matsuya-access"
+              ]
+            },
+            {
+              "id": "rain-kawayu-check-in",
+              "time": "到川汤后",
+              "title": "川湯まつや入住、泡汤、自备晚餐",
+              "description": "按原订单自助入住。本宫町川湯29为まつや，不供早晚餐；仅使用本馆浴池。微波炉07:00–22:00，19号离店前不要依赖微波加热。",
+              "sourceIds": [
+                "kawayu-matsuya-policy",
+                "kawayu-matsuya-facilities",
+                "kawayu-matsuya-official-access"
+              ]
+            }
+          ],
+          "stamps": {
+            "title": "此方案计划盖章点",
+            "description": "仅在实际走完全段并能完成本宫、大斋原时，计划第1–6章。",
+            "stops": [
+              {
+                "number": 1,
+                "name": "发心门王子",
+                "englishName": "Hosshinmon-oji"
+              },
+              {
+                "number": 2,
+                "name": "水吞／水呑王子",
+                "englishName": "Mizunomi-oji"
+              },
+              {
+                "number": 3,
+                "name": "伏拝王子",
+                "englishName": "Fushiogami-oji"
+              },
+              {
+                "number": 4,
+                "name": "祓殿王子",
+                "englishName": "Haraido-oji"
+              },
+              {
+                "number": 5,
+                "name": "熊野本宫大社",
+                "englishName": "Kumano Hongu Taisha",
+                "note": "完成章在札所附近，盖在手账日本一面首页的“COMPLETION OF PILGRIMAGE”栏。"
+              },
+              {
+                "number": 6,
+                "name": "旧社地大斋原",
+                "englishName": "Oyunohara",
+                "note": "参拜旧社地时找盖章点，不只拍大鸟居。"
+              }
+            ],
+            "notes": [
+              "只有实际走完整段，并完成各点参拜盖章及19号速玉、那智四处，才满足所采用日本条件③的路线与印章要求；正式资格仍另需个人另一条朝圣路证明与登记。",
+              "这是计划盖章点，不是已收集记录。大斋原是否前往按天气与实际时间决定。三轩茶屋是路标地点，不另计为条件③印章。"
+            ],
+            "sourceIds": [
+              "dual-pilgrim",
+              "dual-pilgrim-stamp-list",
+              "kumano-stamp-howto"
+            ]
+          },
+          "notes": [
+            "12:30到登山口至16:40发车约4小时10分钟；从巴士站到起点王子社、完整徒步、盖章参拜、大斋原往返、购物和候车都需包含在内。不要为赶车或认证在湿滑路上加速。",
+            "最后一段仍有石畳和石阶，湿了会滑。是否下车走古道，按当天降雨、现场路况和步道通行信息决定。",
+            "18号是周三：珍重庵本宫店、しもじ本宫店按原资料休息。上车去川汤前准备好晚餐及19号无需微波的早班早餐；其他商店营业、库存与虾过敏处理仍需核对，随身带备用食品。",
+            "明光93可用Suica／ICOCA或现金；龙神81、80可用感应银行卡或现金，不收Suica／ICOCA。单次付费、不预订座位。新增普通巴士接驳票价尚未核定，备选费用不并入原计划交通预算。"
+          ],
+          "sourceIds": [
+            "tanabe-hongu-bus",
+            "hongu-hosshinmon-regular-bus",
+            "hongu-kawayu-bus",
+            "kumano-bus-payment",
+            "hosshinmon-hongu",
+            "dual-pilgrim",
+            "dual-pilgrim-stamp-list",
+            "hongu-short-walk-access",
+            "kumano-information-centers"
+          ]
+        },
+        {
+          "id": "rain-b-fushiogami",
+          "title": "B｜伏拝口下车，走约一半",
+          "description": "同坐10:30龙神81，10:38伏拝口下车，沿村路上坡约15分钟到伏拝王子，再经三轩茶屋、祓殿王子走到本宫。",
+          "busCount": 3,
+          "walking": {
+            "distanceKm": 4,
+            "note": "按所提供方案估计，从伏拝口步行至本宫大社约4公里；不是独立测量值。所列步行距离到本宫大社为止，不含大斋原的额外往返和住宿步行；本宫至大斋原单程另走约10分钟。"
+          },
+          "guideFigureRefs": [
+            {
+              "date": "2026-11-18",
+              "figureId": "nov18-hosshinmon-hongu"
+            }
+          ],
+          "schedule": [
+            {
+              "id": "rain-sen-checkout",
+              "time": "09:00前后",
+              "title": "早餐、退房，步行去美术馆前",
+              "description": "按SEN原订单退房规定，预留约10–15分钟到なかへち美術館前；提早到站候车，不假设晚出门会改变旅馆早餐供应。",
+              "sourceIds": [
+                "sen-chikatsuyu-stay",
+                "chikatsuyu-map"
+              ]
+            },
+            {
+              "id": "museum-to-hongu",
+              "time": "09:42–10:12",
+              "title": "明光93系統：美术馆前 → 本宫大社前",
+              "description": "先到本宫，再按天气决定上山或留在镇上。",
+              "sourceIds": [
+                "tanabe-hongu-bus"
+              ]
+            },
+            {
+              "id": "hongu-to-fushiogami-guchi",
+              "time": "10:30–10:38",
+              "title": "龙神81系統：本宫 → 伏拝口",
+              "description": "伏拝口／Fushiogami-guchi是巴士站；不要坐到発心門王子终点。",
+              "sourceIds": [
+                "hongu-hosshinmon-regular-bus"
+              ]
+            },
+            {
+              "id": "fushiogami-access",
+              "time": "下车后约15分钟",
+              "title": "伏拝口 → 伏拝王子",
+              "description": "沿村路上坡接到王子社，盖第3章。巴士站不等于神社位置；入口分支见官方路线图。",
+              "sourceIds": [
+                "hongu-short-walk-access"
+              ]
+            },
+            {
+              "id": "fushiogami-hongu-walk",
+              "time": "随后",
+              "title": "伏拝王子 → 三轩茶屋 → 祓殿王子 → 本宫",
+              "description": "仍会经过最后一段古道的湿滑石畳、石阶。三轩茶屋是途经点，不另计条件③章。",
+              "sourceIds": [
+                "hosshinmon-hongu",
+                "hongu-short-walk-access"
+              ]
+            },
+            {
+              "id": "short-hongu-oyunohara",
+              "time": "中午至下午",
+              "title": "本宫大社、大斋原参拜盖章",
+              "description": "计划伏拝、祓殿、本宫、大斋原四处；大斋原按天气决定。",
+              "sourceIds": [
+                "dual-pilgrim-stamp-list"
+              ]
+            },
+            {
+              "id": "rain-food-and-queue",
+              "time": "发车前",
+              "title": "采购晚餐、次日早餐并回站候车",
+              "description": "18号是周三：珍重庵本宫店、しもじ本宫店按原资料休息。上车去川汤前准备好晚餐及19号无需微波的早班早餐；其他商店营业、库存与虾过敏处理仍需核对，随身带备用食品。",
+              "sourceIds": [
+                "dining-hongu-directory",
+                "dining-chinchoan-hongu"
+              ]
+            },
+            {
+              "id": "fallback-kawayu-bus",
+              "time": "15:05–15:16／16:40–16:51",
+              "title": "龙神80系統“紀伊田辺駅行”：本宫 → 川汤",
+              "description": "优先原定15:05发车，需多留时间可改16:40；川汤温泉站下车，再步行约1–2分钟到まつや。",
+              "sourceIds": [
+                "hongu-kawayu-bus",
+                "kawayu-matsuya-access"
+              ]
+            },
+            {
+              "id": "rain-kawayu-check-in",
+              "time": "到川汤后",
+              "title": "川湯まつや入住、泡汤、自备晚餐",
+              "description": "按原订单自助入住。本宫町川湯29为まつや，不供早晚餐；仅使用本馆浴池。微波炉07:00–22:00，19号离店前不要依赖微波加热。",
+              "sourceIds": [
+                "kawayu-matsuya-policy",
+                "kawayu-matsuya-facilities",
+                "kawayu-matsuya-official-access"
+              ]
+            }
+          ],
+          "stamps": {
+            "title": "此方案计划盖章点",
+            "description": "计划四处：伏拝、祓殿、本宫、大斋原。",
+            "stops": [
+              {
+                "number": 3,
+                "name": "伏拝王子",
+                "englishName": "Fushiogami-oji"
+              },
+              {
+                "number": 4,
+                "name": "祓殿王子",
+                "englishName": "Haraido-oji"
+              },
+              {
+                "number": 5,
+                "name": "熊野本宫大社",
+                "englishName": "Kumano Hongu Taisha",
+                "note": "完成章在札所附近，盖在手账日本一面首页的“COMPLETION OF PILGRIMAGE”栏。"
+              },
+              {
+                "number": 6,
+                "name": "旧社地大斋原",
+                "englishName": "Oyunohara",
+                "note": "参拜旧社地时找盖章点，不只拍大鸟居。"
+              }
+            ],
+            "notes": [
+              "此方案不完成发心门至本宫的全程徒步；单有这些章不满足所采用日本条件③的徒步要求。若17号已按跨日备选实际走完全段，18号可用于避雨和重访。",
+              "这是计划盖章点，不是已收集记录。大斋原是否前往按天气与实际时间决定。三轩茶屋是路标地点，不另计为条件③印章。"
+            ],
+            "sourceIds": [
+              "dual-pilgrim",
+              "dual-pilgrim-stamp-list",
+              "kumano-stamp-howto"
+            ]
+          },
+          "notes": [
+            "最后一段仍有石畳和石阶，湿了会滑。是否下车走古道，按当天降雨、现场路况和步道通行信息决定。",
+            "若10:30仍下雨，同路线可等12:15发车、12:23伏拝口下车；按实际进度选择15:05或16:40去川汤，不额外增加一段徒步。",
+            "官方图包含完整线路；B只读伏拝口接到伏拝王子，再到本宫这一段。伏拝口站坐标未核定，地理地图仅显示已知地点。",
+            "18号是周三：珍重庵本宫店、しもじ本宫店按原资料休息。上车去川汤前准备好晚餐及19号无需微波的早班早餐；其他商店营业、库存与虾过敏处理仍需核对，随身带备用食品。",
+            "明光93可用Suica／ICOCA或现金；龙神81、80可用感应银行卡或现金，不收Suica／ICOCA。单次付费、不预订座位。新增普通巴士接驳票价尚未核定，备选费用不并入原计划交通预算。"
+          ],
+          "sourceIds": [
+            "tanabe-hongu-bus",
+            "hongu-hosshinmon-regular-bus",
+            "hongu-kawayu-bus",
+            "kumano-bus-payment",
+            "hosshinmon-hongu",
+            "dual-pilgrim",
+            "dual-pilgrim-stamp-list",
+            "hongu-short-walk-access"
+          ]
+        },
+        {
+          "id": "rain-c-sangenjaya",
+          "title": "C｜平岩口下车，只走最后一段",
+          "description": "同坐10:30龙神81，10:34平岩口下车，步行约10分钟接到三軒茶屋跡，再经祓殿王子走到本宫。",
+          "busCount": 3,
+          "walking": {
+            "distanceKm": 2.5,
+            "note": "按所提供方案估计，从平岩口步行至本宫大社约2.5公里；不是独立测量值。所列步行距离到本宫大社为止，不含大斋原的额外往返和住宿步行；本宫至大斋原单程另走约10分钟。"
+          },
+          "guideFigureRefs": [
+            {
+              "date": "2026-11-18",
+              "figureId": "nov18-hosshinmon-hongu"
+            }
+          ],
+          "schedule": [
+            {
+              "id": "rain-sen-checkout",
+              "time": "09:00前后",
+              "title": "早餐、退房，步行去美术馆前",
+              "description": "按SEN原订单退房规定，预留约10–15分钟到なかへち美術館前；提早到站候车，不假设晚出门会改变旅馆早餐供应。",
+              "sourceIds": [
+                "sen-chikatsuyu-stay",
+                "chikatsuyu-map"
+              ]
+            },
+            {
+              "id": "museum-to-hongu",
+              "time": "09:42–10:12",
+              "title": "明光93系統：美术馆前 → 本宫大社前",
+              "description": "先到本宫，再按天气决定上山或留在镇上。",
+              "sourceIds": [
+                "tanabe-hongu-bus"
+              ]
+            },
+            {
+              "id": "hongu-to-hiraiwa-guchi",
+              "time": "10:30–10:34",
+              "title": "龙神81系統：本宫 → 平岩口",
+              "description": "平岩口／Hiraiwa-guchi下车；不坐到伏拝口或発心門王子。",
+              "sourceIds": [
+                "hongu-hosshinmon-regular-bus"
+              ]
+            },
+            {
+              "id": "sangenjaya-access",
+              "time": "下车后约10分钟",
+              "title": "平岩口 → 三軒茶屋跡",
+              "description": "按入口村路接到最后一段古道，分支见官方路线图。三轩茶屋不另计条件③章。",
+              "sourceIds": [
+                "hongu-short-walk-access"
+              ]
+            },
+            {
+              "id": "sangenjaya-hongu-walk",
+              "time": "随后",
+              "title": "三轩茶屋 → 祓殿王子 → 本宫",
+              "description": "短程仍有石阶与石畳。上山前在本宫判断路况；雨大则不搭上山巴士，采用D留在本宫。",
+              "sourceIds": [
+                "hosshinmon-hongu",
+                "hongu-short-walk-access"
+              ]
+            },
+            {
+              "id": "short-hongu-oyunohara",
+              "time": "中午至下午",
+              "title": "本宫、大斋原参拜盖章",
+              "description": "计划祓殿、本宫、大斋原三处；不补计未经过的发心门、水吞和伏拝章。",
+              "sourceIds": [
+                "dual-pilgrim-stamp-list"
+              ]
+            },
+            {
+              "id": "rain-food-and-queue",
+              "time": "发车前",
+              "title": "采购晚餐、次日早餐并回站候车",
+              "description": "18号是周三：珍重庵本宫店、しもじ本宫店按原资料休息。上车去川汤前准备好晚餐及19号无需微波的早班早餐；其他商店营业、库存与虾过敏处理仍需核对，随身带备用食品。",
+              "sourceIds": [
+                "dining-hongu-directory",
+                "dining-chinchoan-hongu"
+              ]
+            },
+            {
+              "id": "fallback-kawayu-bus",
+              "time": "15:05–15:16／16:40–16:51",
+              "title": "龙神80系統“紀伊田辺駅行”：本宫 → 川汤",
+              "description": "优先原定15:05发车，需多留时间可改16:40；川汤温泉站下车，再步行约1–2分钟到まつや。",
+              "sourceIds": [
+                "hongu-kawayu-bus",
+                "kawayu-matsuya-access"
+              ]
+            },
+            {
+              "id": "rain-kawayu-check-in",
+              "time": "到川汤后",
+              "title": "川湯まつや入住、泡汤、自备晚餐",
+              "description": "按原订单自助入住。本宫町川湯29为まつや，不供早晚餐；仅使用本馆浴池。微波炉07:00–22:00，19号离店前不要依赖微波加热。",
+              "sourceIds": [
+                "kawayu-matsuya-policy",
+                "kawayu-matsuya-facilities",
+                "kawayu-matsuya-official-access"
+              ]
+            }
+          ],
+          "stamps": {
+            "title": "此方案计划盖章点",
+            "description": "计划三处：祓殿、本宫、大斋原。",
+            "stops": [
+              {
+                "number": 4,
+                "name": "祓殿王子",
+                "englishName": "Haraido-oji"
+              },
+              {
+                "number": 5,
+                "name": "熊野本宫大社",
+                "englishName": "Kumano Hongu Taisha",
+                "note": "完成章在札所附近，盖在手账日本一面首页的“COMPLETION OF PILGRIMAGE”栏。"
+              },
+              {
+                "number": 6,
+                "name": "旧社地大斋原",
+                "englishName": "Oyunohara",
+                "note": "参拜旧社地时找盖章点，不只拍大鸟居。"
+              }
+            ],
+            "notes": [
+              "此方案不完成发心门至本宫的全程徒步；单有这些章不满足所采用日本条件③的徒步要求。若17号已按跨日备选实际走完全段，18号可用于避雨和重访。",
+              "这是计划盖章点，不是已收集记录。大斋原是否前往按天气与实际时间决定。三轩茶屋是路标地点，不另计为条件③印章。"
+            ],
+            "sourceIds": [
+              "dual-pilgrim",
+              "dual-pilgrim-stamp-list",
+              "kumano-stamp-howto"
+            ]
+          },
+          "notes": [
+            "最后一段仍有石畳和石阶，湿了会滑。是否下车走古道，按当天降雨、现场路况和步道通行信息决定。",
+            "若10:30仍下雨，同路线可等12:15发车、12:19平岩口下车；按实际进度选择15:05或16:40去川汤。",
+            "官方图包含完整线路；C只读平岩口接到三轩茶屋，再到本宫这一段。平岩口站坐标未核定，地理地图仅显示已知地点。",
+            "18号是周三：珍重庵本宫店、しもじ本宫店按原资料休息。上车去川汤前准备好晚餐及19号无需微波的早班早餐；其他商店营业、库存与虾过敏处理仍需核对，随身带备用食品。",
+            "明光93可用Suica／ICOCA或现金；龙神81、80可用感应银行卡或现金，不收Suica／ICOCA。单次付费、不预订座位。新增普通巴士接驳票价尚未核定，备选费用不并入原计划交通预算。"
+          ],
+          "sourceIds": [
+            "tanabe-hongu-bus",
+            "hongu-hosshinmon-regular-bus",
+            "hongu-kawayu-bus",
+            "kumano-bus-payment",
+            "hosshinmon-hongu",
+            "dual-pilgrim",
+            "dual-pilgrim-stamp-list",
+            "hongu-short-walk-access"
+          ]
+        },
+        {
+          "id": "rain-d-hongu",
+          "title": "D｜留在本宫，不走山路",
+          "description": "09:42从近露坐车，10:12到本宫后不换上山巴士。先到世界遺産熊野本宮館避雨，雨小再参拜本宫与大斋原，下午按原班次去川汤。",
+          "busCount": 2,
+          "walkingNote": "只走站牌、本宫馆、神社和住宿之间的当地短步行；不走山路。大斋原视天气而定。",
+          "guideFigureRefs": [
+            {
+              "date": "2026-11-18",
+              "figureId": "nov18-hosshinmon-hongu"
+            },
+            {
+              "date": "2026-11-18",
+              "figureId": "nov18-kawayu-area"
+            }
+          ],
+          "schedule": [
+            {
+              "id": "rain-sen-checkout",
+              "time": "09:00前后",
+              "title": "早餐、退房，步行去美术馆前",
+              "description": "按SEN原订单退房规定，预留约10–15分钟到なかへち美術館前；提早到站候车，不假设晚出门会改变旅馆早餐供应。",
+              "sourceIds": [
+                "sen-chikatsuyu-stay",
+                "chikatsuyu-map"
+              ]
+            },
+            {
+              "id": "museum-to-hongu",
+              "time": "09:42–10:12",
+              "title": "明光93系統：美术馆前 → 本宫大社前",
+              "description": "先到本宫，再按天气决定上山或留在镇上。",
+              "sourceIds": [
+                "tanabe-hongu-bus"
+              ]
+            },
+            {
+              "id": "heritage-center",
+              "time": "10:12到本宫后",
+              "title": "世界遺産熊野本宮館：避雨、展览与游客信息",
+              "description": "在本宫大社前对面的馆内休息。官方常规开放09:00–17:00、全年开放；未核定建筑精确坐标，方位见官方区域图。",
+              "sourceIds": [
+                "kumano-information-centers"
+              ]
+            },
+            {
+              "id": "short-hongu-oyunohara",
+              "time": "雨小时",
+              "title": "本宫大社、大斋原",
+              "description": "按天气参拜和计划盖第5、6章；若雨大或不适合前往，则不硬走。",
+              "sourceIds": [
+                "dual-pilgrim-stamp-list"
+              ]
+            },
+            {
+              "id": "rain-food-and-queue",
+              "time": "发车前",
+              "title": "采购晚餐、次日早餐并回站候车",
+              "description": "18号是周三：珍重庵本宫店、しもじ本宫店按原资料休息。上车去川汤前准备好晚餐及19号无需微波的早班早餐；其他商店营业、库存与虾过敏处理仍需核对，随身带备用食品。",
+              "sourceIds": [
+                "dining-hongu-directory",
+                "dining-chinchoan-hongu"
+              ]
+            },
+            {
+              "id": "fallback-kawayu-bus",
+              "time": "15:05–15:16／16:40–16:51",
+              "title": "龙神80系統“紀伊田辺駅行”：本宫 → 川汤",
+              "description": "优先原定15:05发车，需多留时间可改16:40；川汤温泉站下车，再步行约1–2分钟到まつや。",
+              "sourceIds": [
+                "hongu-kawayu-bus",
+                "kawayu-matsuya-access"
+              ]
+            },
+            {
+              "id": "rain-kawayu-check-in",
+              "time": "到川汤后",
+              "title": "川湯まつや入住、泡汤、自备晚餐",
+              "description": "按原订单自助入住。本宫町川湯29为まつや，不供早晚餐；仅使用本馆浴池。微波炉07:00–22:00，19号离店前不要依赖微波加热。",
+              "sourceIds": [
+                "kawayu-matsuya-policy",
+                "kawayu-matsuya-facilities",
+                "kawayu-matsuya-official-access"
+              ]
+            }
+          ],
+          "stamps": {
+            "title": "此方案计划盖章点",
+            "description": "本宫、大斋原两处，视天气能否安全参拜而定。",
+            "stops": [
+              {
+                "number": 5,
+                "name": "熊野本宫大社",
+                "englishName": "Kumano Hongu Taisha",
+                "note": "完成章在札所附近，盖在手账日本一面首页的“COMPLETION OF PILGRIMAGE”栏。"
+              },
+              {
+                "number": 6,
+                "name": "旧社地大斋原",
+                "englishName": "Oyunohara",
+                "note": "参拜旧社地时找盖章点，不只拍大鸟居。"
+              }
+            ],
+            "notes": [
+              "此方案不完成发心门至本宫的全程徒步；单有这些章不满足所采用日本条件③的徒步要求。若17号已按跨日备选实际走完全段，18号可用于避雨和重访。",
+              "这是计划盖章点，不是已收集记录。大斋原是否前往按天气与实际时间决定。三轩茶屋是路标地点，不另计为条件③印章。"
+            ],
+            "sourceIds": [
+              "dual-pilgrim",
+              "dual-pilgrim-stamp-list",
+              "kumano-stamp-howto"
+            ]
+          },
+          "notes": [
+            "D本身不完成条件③的必走段。若17号已实际走完発心門王子至本宫，再按跨日备选使用D，19号速玉与那智安排照旧；不能仅凭18号两个章认定认证已完成。",
+            "官方图仅用于本宫馆、本宫和大斋原方位，以及川汤下车与住宿；本方案不走图上的山中古道。",
+            "18号是周三：珍重庵本宫店、しもじ本宫店按原资料休息。上车去川汤前准备好晚餐及19号无需微波的早班早餐；其他商店营业、库存与虾过敏处理仍需核对，随身带备用食品。",
+            "明光93可用Suica／ICOCA或现金；龙神81、80可用感应银行卡或现金，不收Suica／ICOCA。单次付费、不预订座位。新增普通巴士接驳票价尚未核定，备选费用不并入原计划交通预算。"
+          ],
+          "sourceIds": [
+            "tanabe-hongu-bus",
+            "hongu-hosshinmon-regular-bus",
+            "hongu-kawayu-bus",
+            "kumano-bus-payment",
+            "kumano-information-centers",
+            "dual-pilgrim",
+            "dual-pilgrim-stamp-list"
           ]
         }
       ],
@@ -5404,7 +6351,7 @@ export default {
           },
           {
             "id": "missed-fast-bus",
-            "label": "错过快速：经本宫转车",
+            "label": "雨天A：晚出发走全段",
             "scope": "alternative",
             "alternativeId": "missed-fast-bus",
             "stops": [
@@ -5460,11 +6407,222 @@ export default {
               },
               {
                 "placeId": "kawayu-matsuya",
-                "scheduleId": "fallback-kawayu-bus",
+                "scheduleId": "rain-kawayu-check-in",
                 "note": "按川汤温泉站下车步行约1–2分钟到酒店；19号约06:30离店前的提前退房和归还钥匙已确认。地图未标定站杆，仍需核对实际候车位置与方向。"
               }
             ],
-            "note": "仅快速满员或错过时使用；经本宫转车后徒步，保留16:40回川汤的候车余量。"
+            "note": "A也适用于07:51快速满员或错过；09:42经本宫转10:30至发心门，完整徒步后目标16:40去川汤。虚线仅是所列地点顺序，不是实际道路或GPS轨迹。"
+          },
+          {
+            "id": "rain-a-midday",
+            "label": "雨天A：12:15晚发",
+            "scope": "alternative",
+            "alternativeId": "rain-a-midday",
+            "stops": [
+              {
+                "placeId": "chikatsuyu-area",
+                "scheduleId": "rain-sen-checkout",
+                "connect": false,
+                "note": "近露住宿区域参考，SEN具体建筑坐标未核定；不能将区域点当作酒店入口。"
+              },
+              {
+                "placeId": "nakahechi-museum-bus-stop",
+                "scheduleId": "museum-to-hongu"
+              },
+              {
+                "placeId": "hongu-taisha-bus-stop",
+                "scheduleId": "museum-to-hongu"
+              },
+              {
+                "placeId": "hosshinmon-bus-stop",
+                "scheduleId": "midday-hongu-to-hosshinmon"
+              },
+              {
+                "placeId": "hosshinmon-oji",
+                "scheduleId": "midday-full-walk"
+              },
+              {
+                "placeId": "mizunomi-oji",
+                "scheduleId": "midday-full-walk"
+              },
+              {
+                "placeId": "fushiogami-oji",
+                "scheduleId": "midday-full-walk"
+              },
+              {
+                "placeId": "sangenjaya",
+                "scheduleId": "midday-full-walk"
+              },
+              {
+                "placeId": "haraido-oji",
+                "scheduleId": "midday-full-walk"
+              },
+              {
+                "placeId": "kumano-hongu-taisha",
+                "scheduleId": "midday-hongu-oyunohara"
+              },
+              {
+                "placeId": "oyunohara",
+                "scheduleId": "midday-hongu-oyunohara",
+                "optional": true
+              },
+              {
+                "placeId": "hongu-taisha-bus-stop",
+                "scheduleId": "fallback-kawayu-bus"
+              },
+              {
+                "placeId": "kawayu-matsuya",
+                "scheduleId": "rain-kawayu-check-in",
+                "note": "地图标まつや酒店，不是川汤站杆；川汤温泉站下车后步行约1–2分钟。"
+              }
+            ],
+            "note": "12:30发心门到16:40本宫发车余量有限，步行与所有参拜、购物、候车都要算入；虚线只示地点顺序。"
+          },
+          {
+            "id": "rain-b-fushiogami",
+            "label": "雨天B：伏拝至本宫",
+            "scope": "alternative",
+            "alternativeId": "rain-b-fushiogami",
+            "stops": [
+              {
+                "placeId": "chikatsuyu-area",
+                "scheduleId": "rain-sen-checkout",
+                "connect": false,
+                "note": "近露住宿区域参考，SEN具体建筑坐标未核定；不能将区域点当作酒店入口。"
+              },
+              {
+                "placeId": "nakahechi-museum-bus-stop",
+                "scheduleId": "museum-to-hongu"
+              },
+              {
+                "placeId": "hongu-taisha-bus-stop",
+                "scheduleId": "museum-to-hongu"
+              },
+              {
+                "placeId": "fushiogami-oji",
+                "scheduleId": "fushiogami-access"
+              },
+              {
+                "placeId": "sangenjaya",
+                "scheduleId": "fushiogami-hongu-walk"
+              },
+              {
+                "placeId": "haraido-oji",
+                "scheduleId": "fushiogami-hongu-walk"
+              },
+              {
+                "placeId": "kumano-hongu-taisha",
+                "scheduleId": "short-hongu-oyunohara"
+              },
+              {
+                "placeId": "oyunohara",
+                "scheduleId": "short-hongu-oyunohara",
+                "optional": true,
+                "note": "参拜旧社地并盖章，按天气决定。"
+              },
+              {
+                "placeId": "hongu-taisha-bus-stop",
+                "scheduleId": "fallback-kawayu-bus"
+              },
+              {
+                "placeId": "kawayu-matsuya",
+                "scheduleId": "rain-kawayu-check-in",
+                "note": "地图标まつや酒店，不是川汤站杆；川汤温泉站下车后步行约1–2分钟。"
+              }
+            ],
+            "note": "伏拝口巴士站精确坐标未核定，不用伏拝神社替代站杆；下车后约15分钟上坡接神社，入口分支见官方图。虚线仅示已知地点顺序。"
+          },
+          {
+            "id": "rain-c-sangenjaya",
+            "label": "雨天C：三轩茶屋至本宫",
+            "scope": "alternative",
+            "alternativeId": "rain-c-sangenjaya",
+            "stops": [
+              {
+                "placeId": "chikatsuyu-area",
+                "scheduleId": "rain-sen-checkout",
+                "connect": false,
+                "note": "近露住宿区域参考，SEN具体建筑坐标未核定；不能将区域点当作酒店入口。"
+              },
+              {
+                "placeId": "nakahechi-museum-bus-stop",
+                "scheduleId": "museum-to-hongu"
+              },
+              {
+                "placeId": "hongu-taisha-bus-stop",
+                "scheduleId": "museum-to-hongu"
+              },
+              {
+                "placeId": "sangenjaya",
+                "scheduleId": "sangenjaya-access"
+              },
+              {
+                "placeId": "haraido-oji",
+                "scheduleId": "sangenjaya-hongu-walk"
+              },
+              {
+                "placeId": "kumano-hongu-taisha",
+                "scheduleId": "short-hongu-oyunohara"
+              },
+              {
+                "placeId": "oyunohara",
+                "scheduleId": "short-hongu-oyunohara",
+                "optional": true,
+                "note": "参拜旧社地并盖章，按天气决定。"
+              },
+              {
+                "placeId": "hongu-taisha-bus-stop",
+                "scheduleId": "fallback-kawayu-bus"
+              },
+              {
+                "placeId": "kawayu-matsuya",
+                "scheduleId": "rain-kawayu-check-in",
+                "note": "地图标まつや酒店，不是川汤站杆；川汤温泉站下车后步行约1–2分钟。"
+              }
+            ],
+            "note": "平岩口巴士站精确坐标未核定；下车后约10分钟接三轩茶屋，入口分支见官方图。虚线仅示已知地点顺序。"
+          },
+          {
+            "id": "rain-d-hongu",
+            "label": "雨天D：本宫避雨",
+            "scope": "alternative",
+            "alternativeId": "rain-d-hongu",
+            "stops": [
+              {
+                "placeId": "chikatsuyu-area",
+                "scheduleId": "rain-sen-checkout",
+                "connect": false,
+                "note": "近露住宿区域参考，SEN具体建筑坐标未核定；不能将区域点当作酒店入口。"
+              },
+              {
+                "placeId": "nakahechi-museum-bus-stop",
+                "scheduleId": "museum-to-hongu"
+              },
+              {
+                "placeId": "hongu-taisha-bus-stop",
+                "scheduleId": "museum-to-hongu"
+              },
+              {
+                "placeId": "kumano-hongu-taisha",
+                "scheduleId": "short-hongu-oyunohara"
+              },
+              {
+                "placeId": "oyunohara",
+                "scheduleId": "short-hongu-oyunohara",
+                "optional": true,
+                "note": "参拜旧社地并盖章，按天气决定。"
+              },
+              {
+                "placeId": "hongu-taisha-bus-stop",
+                "scheduleId": "fallback-kawayu-bus"
+              },
+              {
+                "placeId": "kawayu-matsuya",
+                "scheduleId": "rain-kawayu-check-in",
+                "note": "地图标まつや酒店，不是川汤站杆；川汤温泉站下车后步行约1–2分钟。"
+              }
+            ],
+            "note": "留在本宫，不换上山巴士。世界遗产本宫馆坐标未核定，方位见官方图；大斋原视天气。虚线仅示已知地点顺序。"
           }
         ]
       },
@@ -5668,6 +6826,24 @@ export default {
           "chikatsuyu-map",
           "hosshinmon-hongu",
           "kawayu-matsuya-policy"
+        ]
+      },
+      "busCount": 2,
+      "routeOptions": {
+        "title": "11/18 雨天备选",
+        "mainLabel": "原计划｜07:51快速直达，走完整段",
+        "alternativeIds": [
+          "missed-fast-bus",
+          "rain-b-fushiogami",
+          "rain-c-sangenjaya",
+          "rain-d-hongu"
+        ],
+        "notes": [
+          "雨天先09:42到本宫，再按降雨与路况选A、B、C或D；A–C同坐10:30龙神81，在10:45发心门、10:38伏拝口、10:34平岩口分别下车。",
+          "全天巴士班数包含近露出发、上山（若有）和最后去川汤；所列步行距离不含大斋原往返及住宿接驳。B约4公里、C约2.5公里为所提供方案的估计。",
+          "原计划与A都从発心門王子社走至本宫，才保留所采用条件③的完整徒步部分。B、C、D当天不满足这段要求；若17号先实际走完全段，可按跨日备选调整18号。",
+          "10:30还在下雨可等12:15一班：平岩口12:19、伏拝口12:23、発心門王子12:30。晚发完整A另列时间表，需特别核对16:40连接余量。",
+          "去川汤原定15:05→15:16，较晚可用16:40→16:51。完整A默认以16:40为目标；雨大或路况不稳时留在本宫，不为盖章赶路。"
         ]
       }
     },
@@ -7590,5 +8766,37 @@ export default {
     "sourceIds": [
       "chikatsuyu-map"
     ]
-  }
+  },
+  "linkedPlans": [
+    {
+      "id": "advance-required-walk",
+      "title": "17号先走必走段，18号在本宫避雨",
+      "description": "如果17号明显比18号干、且更在意保留双朝圣日本条件③：17号用发心门—本宫全段替代泷尻—近露，下午回SEN；18号采用D，在本宫避雨后去川汤。酒店与19号路线照原订单安排。",
+      "days": [
+        {
+          "date": "2026-11-17",
+          "alternativeId": "hongu-walk-ahead"
+        },
+        {
+          "date": "2026-11-18",
+          "alternativeId": "rain-d-hongu"
+        }
+      ],
+      "notes": [
+        "必须在17号实际从発心門王子社走到本宫大社，并完成原第1–6处参拜盖章；查看地图或盖部分章不等于走完。",
+        "18号D的第5、6章可能是重复点。所采用10个必盖章仍由17号六处与19号速玉、那智四处组成，不把18号两处重复相加。",
+        "个人另一条朝圣路证明与正式登记要求独立存在；此备选不宣称已完成认证。",
+        "两天都用单次巴士，不新增出租车或座位预约。新增返程及普通接驳票价待核对；费用区仍是当前主方案估算。",
+        "17号仍住SEN RETREAT CHIKATSUYU，18号仍住川湯まつや；18号在本宫采购晚餐和19号早班早餐，周三营业问题仍需确认。"
+      ],
+      "sourceIds": [
+        "dual-pilgrim",
+        "dual-pilgrim-stamp-list",
+        "kumano-fast-bus",
+        "kumano-fast-bus-fare",
+        "hongu-kawayu-bus",
+        "kumano-information-centers"
+      ]
+    }
+  ]
 } satisfies Trip;

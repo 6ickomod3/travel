@@ -93,6 +93,9 @@ Keep the implementation contracts below aligned with that guide.
   runtime geocoding. Follow the design guide's placement, phone interaction and
   fallback rules: initialize only open, visible days, exclude map wrappers from
   day swipes, and preserve printable stop lists and external-map links.
+  Optional compact daily jump links sit after the weather card and before
+  the map, making route comparisons and linked-date options easy to reach.
+  Keep any supplied poem immediately after the map or guide.
   Fragment navigation selects the target geographic view with
   `revealDailyMapTarget()` immediately after `revealGuideTarget()`, before
   opening ancestor disclosures and scrolling. Skip this selection during
@@ -105,6 +108,9 @@ Keep the implementation contracts below aligned with that guide.
   with destination-local times and temperature, precipitation probability,
   precipitation and wind in explicit units. Identify preceding-hour precipitation,
   10 m wind speed rather than gusts, GMT offsets and partial hourly coverage.
+  Alternative panels can link to configured forecast locations represented
+  in their geographic views, reusing the same day's hourly disclosures.
+  These links add neither forecast configuration nor route selection.
   Keep hourly values in runtime data, independent of the selected itinerary.
   Open-Meteo's free noncommercial API supplies browser forecasts without
   API keys, geolocation or runtime geocoding. Keep forecast
@@ -150,7 +156,16 @@ Keep the implementation contracts below aligned with that guide.
   useful summaries and list counts. Fragment links reveal the target guide
   panel before opening ancestor disclosures and scrolling. No-JavaScript
   reading and printing show all figures; printing restores map selection,
-  disclosures and viewer state.
+  disclosures, viewer state and its previously focused control without
+  moving the page scroll position.
+- Optional `TripDayAlternative.guideFigureRefs: [{ date, figureId }]` reuses
+  figures from an existing day's `guide.figures`. Validate the owning date,
+  guide, figure ID and unique date/figure pairs. Link to the original local
+  full image and existing zoom viewer with the owning guide's publisher,
+  edition and printed-page caption; keep the focused day when opening it.
+  Explain which portion applies to a shortened route. Do not copy image
+  assets, provenance or geometry; printing includes the canonical figures
+  without duplicating them for every reference.
 - Store guide assets under `public/images/trips/<slug>/guide/`. A supplied PDF
   keeps its full original in ignored storage; image provenance records the
   publisher, edition, printed pages, source filename, receipt date, original
@@ -239,9 +254,27 @@ Keep the implementation contracts below aligned with that guide.
   payment record cannot establish remaining unpaid spending by subtraction.
 - Keep `TripDay.alternatives` as separate labeled schedules. Never interleave
   an optional or fallback route into the main day's itinerary or map route.
+  Optional `relatedAlternativeIds` references existing alternatives on the
+  same day, with unique nonself IDs. Render ordinary fragment links with
+  accessible touch targets and the existing disclosure-reveal behavior.
+  Related schedules remain separate and viewing them does not select one.
   Printing opens both daily and alternative details, then restores their state.
   Printing also includes ticket details and temporarily shows every day,
   restoring the selected day, viewing mode, and disclosures afterward.
+- Optional `Trip.linkedPlans: TripLinkedPlan[]` describes an unselected
+  alternative spanning at least two dates. Each record has a stable `id`,
+  `title`, `description`, `days: [{ date, alternativeId }]`, `notes` and
+  optional `sourceIds`. Validate distinct ascending existing trip dates,
+  every referenced day's alternative, unique IDs and official-source
+  references. Reuse those complete schedules rather than copy them, store
+  aggregate totals or establish selection, visits or qualification.
+  Show the full native, initially closed panel only on its last
+  referenced date, with ID `day-${lastDate}-linked-plan-${id}`. Earlier
+  dates show compact links to that panel and their own referenced alternative.
+  Keep cross-date dependencies and any completion conditions explicit.
+  Fragment links reveal the target day and containing disclosures; printing
+  includes the complete panel once and restores prior disclosure state.
+  Linked-plan navigation does not change the accepted schedule or budget.
 - Optional `TripDay.routeOptions` has `title`, `mainLabel`,
   `alternativeIds` and optional `notes`. It compares the existing main
   schedule with referenced alternatives without storing copied totals or a
