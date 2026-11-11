@@ -58,9 +58,12 @@
   coverage does not confirm other reservations.
 - November 13 HARUKA is covered by the paid pass and will be reserved after
   both travelers complete arrival procedures. The main reference is 19:46,
-  with 20:16 as backup and 19:16 only if comfortably early. November 21
-  HARUKA remains the unpurchased main airport plan; the separately labeled
-  Hankyu Sanbangai bus is an alternative, not a second ticket to buy.
+  with 20:16 as backup and 19:16 only if comfortably early. The user has
+  explicitly chosen the Hankyu Sanbangai airport bus for November 21,
+  superseding the outgoing HARUKA plan and its advance-purchase/seat reminders.
+  The booked departure airport remains Kansai International Airport, Terminal 1.
+  The bus is first-come, without seat reservations, and can be paid for on
+  the travel day; its selection does not establish purchase or payment.
 - Hiroshima Peace Memorial Museum's November 14 14:00 entry has been ordered
   by the companion. Obtain a copy of the electronic ticket or QR code and
   verify the two-person ticket count; do not buy duplicate tickets. Keep the
@@ -79,7 +82,7 @@
 - Update hotel arrival estimates: Osaka November 13 at 20:50–21:30,
   South Gate November 14 around 21:00 after dinner, and Osaka November 19
   at 19:45–20:00. Times are estimates rather than guaranteed arrivals.
-- November 20 Nara JR travel, November 21 HARUKA, Kumano buses, Miyajima
+- November 20 Nara JR travel, November 21 airport bus, Kumano buses, Miyajima
   ropeway, the Miyajima visitor tax, and uncovered city or taxi journeys
   remain additional costs. Kumano buses use single fares without a bus pass.
 - Keep outstanding actions and missing confirmations in separate To do and
@@ -91,21 +94,19 @@
   separate. All eight accommodation nights now have quoted prices: JPY
   294,987 in booking amounts plus JPY 3,200 tax gives JPY 298,187 in the
   current accommodation budget, excluding transport, meals and attractions.
-- The current transport estimate is JPY 37,360 per person and JPY 74,720 for
-  two, using the JPY 1,900 November 21 HARUKA fare applicable to purchases
-  from November 1 and assuming the November 19 contactless early-bus
-  discount applies. The November 7 source still says that airport ticket is
-  unpurchased, so its older JPY 1,800 by-October-31 condition cannot supply
-  the current main estimate. The separate JPY 1,800 airport-bus alternative
-  remains unselected and is not counted as a second ticket. The estimate
+- The current transport estimate is JPY 37,260 per person and JPY 74,520 for
+  two, using the selected November 21 airport bus at JPY 1,800 per adult
+  and assuming the November 19 contactless early-bus discount applies.
+  The bus fare is independently supported by the current official operator
+  page; no outgoing HARUKA fare remains in the main calculation. The estimate
   excludes uncovered city transport, taxis, meals and attraction admissions. It is separate
   from accommodation costs; payment is recorded only for explicitly paid
   items. The broader Japan estimate counts this transport amount once.
 - The broader two-person Japan budget derives JPY 402,587 in recorded
-  orders plus estimated accommodation taxes, JPY 22,720 in additional
+  orders plus estimated accommodation taxes, JPY 22,520 in additional
   transport, and JPY 69,900–102,900 in unbooked food/admission/city-travel
-  allowances. This yields JPY 495,207–528,207 after the current HARUKA tariff
-  adds JPY 200 for two to the source's older conditional calculation.
+  allowances. This yields JPY 495,007–528,007 after the selected airport bus
+  reduces the previous outgoing HARUKA estimate by JPY 200 for two.
   The source retains a rounded JPY 495,000–528,000 range and suggests
   preparing JPY 500,000–530,000; the preparation reserve stays unchanged.
   Flights, shopping, extra drinks and major route changes are excluded. Known paid
@@ -1950,6 +1951,77 @@ and licenses.
   `.local/trips/japan-2026/review/2026-11-09-nov18-release.md` so the
   public history can retain honest preparation-time verification status.
 
+### 2026-11-10-01-airport-bus-decision
+
+- Origin: public user chat choosing a bus for the last day's airport transfer,
+  followed by a request to retry the update.
+- Archive: `inputs/2026-11-10-01-airport-bus-decision.md`, saved before
+  changing the structured plan. The original Chinese wording is preserved.
+- Explicit supersession: November 21 airport travel will use a bus. Remove
+  the outgoing HARUKA purchase and seat-reservation reminders and replace
+  its current route and budget references. This changes neither the booked
+  MU226 departure from Kansai Airport Terminal 1 nor November 13's inbound
+  HARUKA covered by the paid seven-day pass.
+- Archive SHA-256:
+  `661cc12e84b7ee690259838ff6daac5afec5fc19fd35d25df546bba7c9604f54`.
+- Applied route: promoted the previously supplied Hankyu Sanbangai bus into
+  the November 21 main schedule, replacing the rail-specific stops and the
+  duplicate bus alternative. Preserve the daily map's `airport-transfer`
+  view and use the sourced hotel and Terminal 1 endpoints; no bus-stop
+  coordinates or precise street/vehicle geometry are invented. The hotel's
+  departure is now 08:00, allowing its approximately five-minute walk plus
+  ticket and queue time before the 08:30 planning reference. Breakfast,
+  checkout, the 13:10 MU226 flight and all other dates remain unchanged.
+- Official verification: the current native
+  [operator timetable and fare page](https://www.hankyu-kankobus.co.jp/limousine/timetable/UM/)
+  and linked May 1, 2026 printable timetable agree on Hankyu Sanbangai
+  08:30 to KIX Terminal 1 09:30, adult JPY 1,800. The published schedule
+  applies to weekdays, weekends and holidays. The listed arrival is a
+  planning reference subject to road delays, not a guaranteed arrival.
+  The [specific boarding-stop page](https://www.hankyu-kankobus.co.jp/limousine/busstop/12394)
+  identifies platform 0 at Hankyu's Osaka Umeda highway-bus terminal
+  (Hankyu Sanbangai), its ticket machine and onboard IC payment.
+- Walking/dropoff sources: the hotel's official access page and
+  [walking map](https://www.hankyu-hotel.com/-/media/hotel/res/osaka/access/pdf/airportbus0127_map.pdf)
+  show the ground-floor exit and red KIX route to the correct boarding stop;
+  the hotel-front airport bus stop is inbound dropoff only. The
+  [operator timetable PDF](https://www.hankyu-kankobus.co.jp/limousine/uploads/AdminRoute/1986/timetable_pdf/20260501KIX-UM_06.pdf)
+  identifies the north side of Terminal 1's fourth-floor international
+  departure lobby as the airport dropoff. Keep that attribution with the
+  operator reference, distinct from the hotel's walking map. Both PDFs were
+  visually reviewed; exact eight-source bodies, sizes, hashes and English
+  findings remain in ignored
+  `.local/trips/japan-2026/review/2026-11-10-airport-bus-sources/`.
+- Reminder and status scope: remove only `haruka-airport-ticket` and the
+  now-unused `jr-nov-21` opening. The bus has no seat reservation system;
+  buy on the travel day or use supported onboard IC payment, then board in
+  queue order. Keep practical directions in daily/preparation notes rather
+  than create another advance-purchase prompt. Seven actions and seven
+  checks remain. Selection does not establish purchase, booked seats,
+  payment, actual arrival or a completed trip.
+- Budget scope: replace the JPY 1,900 outgoing train fare with the verified
+  JPY 1,800 bus fare and count it once through the existing referenced
+  transport calculation. Transport is JPY 37,260 per adult and JPY 74,520
+  for two; additional transport excluding the paid pass is JPY 22,520.
+  Overall spending is JPY 495,007–528,007 for two, a JPY 200 decrease.
+  Lodging, allowances, suggested reserve and the JPY 96,115 explicitly paid
+  scope are unchanged. Retire only the unused HARUKA one-way source; retain
+  November 13 HARUKA, pass collection and existing JR reservation references.
+- Application status: source archival, official research and canonical
+  updates are complete. Six focused snapshot/arithmetic/source groups and
+  independent content review passed. The final full build passed content,
+  image and reference checks, eighteen weather tests, zero diagnostics
+  across seventy-five Astro files and four static pages. Eight focused
+  phone/desktop browser groups passed for bus/map links, reminder removal,
+  budgets, source/disclosure navigation, final-day bounds, print restoration
+  and no-JavaScript reading. The final dropoff reference uses the operator
+  source after visually checking both source PDFs; two phone screenshots
+  were also visually reviewed. The verified update is ready for the existing
+  authorized main/Pages workflow. Commit, deployment and public-response
+  checks remain pending at this preparation-time record; consult ignored
+  `.local/trips/japan-2026/review/2026-11-10-airport-bus-release.md` for the
+  post-commit result.
+
 ## Open information
 
 - Choose a November 17 rain alternative from actual weather and path conditions
@@ -1985,10 +2057,11 @@ and licenses.
   actions are November 13 Kansai Airport collection, paper tickets for those
   four existing seats and the same-day HARUKA seat reservation after both
   travelers arrive. Collection itself needs no separate appointment.
-  The November 21 airport ticket is still unpurchased; choose the main
-  JPY 1,900 HARUKA ticket or its separate JPY 1,800 bus alternative without
-  duplicate tickets or charges. The HARUKA lower-price condition expired
-  October 31; it was not a seat-sale deadline.
+- The November 21 airport bus is selected; payment is not recorded. Check
+  the Hankyu Sanbangai boarding point and current departure timetable,
+  allowing for tickets, queues and road delays. The hotel's nearby airport
+  bus stop is for drop-off, not outbound KIX boarding. No advance bus seat
+  reservation or outgoing HARUKA purchase remains in the plan.
 - Obtain the companion's November 14 14:00 museum electronic ticket or QR
   copy and verify its two-person ticket count; purchase is already recorded.
   Save the formal November 15 09:15–09:30 ropeway QR code and arrive before
@@ -2215,3 +2288,20 @@ when a source explicitly resolves or changes a decision.
   commit, deployment and public-response checks remain pending at preparation.
   Consult ignored `.local/trips/japan-2026/review/2026-11-09-trip-labels-release.md`
   for the post-commit publication result.
+- November 10, 2026: archived the explicit final-day bus decision before
+  replacing the outgoing HARUKA plan. Promoted the previously supplied
+  Hankyu Sanbangai bus, verified its 08:30–09:30 reference and JPY 1,800
+  adult fare, and added official boarding/walking links, platform 0,
+  onsite-payment guidance and the correct Terminal 1 fourth-floor dropoff.
+  The hotel departure now leaves ticket/queue margin; all other dates,
+  flights, stays, dining, poems, hiking alternatives and recorded purchases
+  or payments remain unchanged. Removed the HARUKA action and seat-opening
+  record without replacing them with an advance bus-purchase reminder.
+  Derived transport and overall spending estimates decrease by JPY 200
+  for two; seven actions and seven checks remain. Six focused content and
+  arithmetic groups, the final required build with eighteen weather tests,
+  eight phone/desktop browser groups and independent fact review passed.
+  Source PDFs and phone screenshots were visually reviewed. The verified
+  implementation is ready for the authorized Pages release; post-commit
+  checks belong in ignored
+  `.local/trips/japan-2026/review/2026-11-10-airport-bus-release.md`.

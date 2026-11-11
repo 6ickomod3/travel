@@ -824,7 +824,7 @@ export default {
       ],
       "excludes": [
         "11/20奈良JR往返：Pass已过期，约1,680日元／人另付。",
-        "11/21大阪到关西机场的HARUKA：另买优惠单程票。",
+        "11/21阪急三番街到关西机场T1的机场巴士：单程1,800日元／人，现场另付。",
         "熊野巴士、宫岛缆车、宫岛访问税，以及广岛路面电车、奈良市内巴士与出租车。"
       ],
       "notes": [
@@ -841,18 +841,6 @@ export default {
       ],
       "purchaseStatus": "purchased",
       "paymentStatus": "paid"
-    }
-  ],
-  "bookingWindows": [
-    {
-      "id": "jr-nov-21",
-      "label": "11/21 HARUKA 11指定席",
-      "travelDate": "2026-11-21",
-      "opensAt": "2026-10-21T10:00:00+09:00",
-      "timeZone": "Asia/Tokyo",
-      "sourceIds": [
-        "haruka-timetable"
-      ]
     }
   ],
   "checklist": [
@@ -903,22 +891,6 @@ export default {
         "miyajima-ropeway",
         "miyajima-ropeway-booking",
         "miyajima-ropeway-fare"
-      ]
-    },
-    {
-      "id": "haruka-airport-ticket",
-      "kind": "todo",
-      "timing": {
-        "kind": "asap"
-      },
-      "priority": "high",
-      "priorityReason": "返程机场接驳需另购票并安排指定席",
-      "title": "购买11/21 HARUKA优惠票并划座",
-      "detail": "21号机场交通未购买，主计划HARUKA 11（08:50–09:34）；按11/1起的价格1,900日元／人购买，10/31前的较低票价已不适用。阪急三番街机场巴士为另列替代，不与HARUKA重复购买或计费。13号已付Pass内HARUKA无需另买票。",
-      "sourceIds": [
-        "haruka-oneway",
-        "haruka-timetable",
-        "jrwest-reservations"
       ]
     },
     {
@@ -1108,11 +1080,6 @@ export default {
       "id": "jrwest-all-area",
       "label": "JR-WEST All Area Pass：范围、价格与资格",
       "url": "https://www.westjr.co.jp/travel-information/en/tickets-passes/jrwest-rail-pass/all/"
-    },
-    {
-      "id": "haruka-oneway",
-      "label": "外国游客HARUKA单程优惠",
-      "url": "https://www.westjr.co.jp/travel-information/en/tickets-passes/oneway/haruka/"
     },
     {
       "id": "peace-museum",
@@ -1578,6 +1545,21 @@ export default {
       "id": "hongu-short-walk-access",
       "label": "渡濑温泉：伏拝口、平岩口的短程徒步入口",
       "url": "https://watarase-onsen.jp/activity.php"
+    },
+    {
+      "id": "kix-osaka-airport-bus",
+      "label": "关西机场巴士：阪急三番街时刻、票价与支付方式",
+      "url": "https://www.hankyu-kankobus.co.jp/limousine/timetable/UM/"
+    },
+    {
+      "id": "kix-sanbangai-boarding",
+      "label": "阪急三番街：关西机场巴士上车位置",
+      "url": "https://www.hankyu-kankobus.co.jp/limousine/busstop/12394"
+    },
+    {
+      "id": "respire-airport-bus-walk",
+      "label": "RESPIRE：机场巴士上车步行图（红色路线）",
+      "url": "https://www.hankyu-hotel.com/-/media/hotel/res/osaka/access/pdf/airportbus0127_map.pdf"
     }
   ],
   "practicalNotes": [
@@ -7758,10 +7740,10 @@ export default {
       "destinationId": "osaka",
       "type": "departure",
       "title": "大阪 → 关西机场 → 上海",
-      "description": "08:15带全部行李离开RESPIRE，主选08:50 HARUKA 11去KIX T1；两人13:10乘已订MU226回上海，不安排景点。",
+      "description": "08:00带全部行李离开RESPIRE，步行到阪急三番街；主选08:30机场巴士，预计09:30到关西机场KIX T1。两人13:10乘已订MU226回上海，不安排景点。",
       "ideas": [
         "早餐、退房，带齐全部行李。",
-        "08:50 HARUKA 11主选到机场T1国际出发层。",
+        "从阪急三番街乘机场巴士到关西机场T1，现场购票。",
         "13:10 MU226起飞、上海当地15:10抵达。"
       ],
       "schedule": [
@@ -7771,30 +7753,33 @@ export default {
           "title": "早餐、整理、退房"
         },
         {
-          "id": "hotel-to-umekita",
-          "time": "08:15",
-          "title": "带全部行李离开RESPIRE",
-          "description": "到JR大阪站梅北地下口，含电梯、进站与步行预留30分钟以上。",
+          "id": "hotel-to-sanbangai",
+          "time": "08:00",
+          "title": "带全部行李离开RESPIRE，步行到阪急三番街",
+          "description": "从酒店1楼地面出发，按官方步行图的红色路线到阪急三番街0号站台（阪急高速巴士大阪梅田总站），步行约5分钟；预留购票与排队时间。酒店门口只下客。",
           "sourceIds": [
-            "respire-access"
+            "respire-access",
+            "kix-sanbangai-boarding",
+            "respire-airport-bus-walk"
           ]
         },
         {
-          "id": "haruka-to-kix",
-          "time": "08:50–09:34",
-          "title": "主选HARUKA 11：大阪 → 关西机场",
-          "description": "大阪地下21站台为现行安排，现场再看；计划班次不代表已出票。后备HARUKA 13为09:19–10:04，到T1出发层约10:15，主方案不主动依赖后备。已超出7日Pass有效期，须另买优惠单程票并划座；车票仍未购买，现按11/1起1,900日元／人计算，购买与指定席均未确认。",
+          "id": "sanbangai-airport-bus",
+          "time": "08:30–09:30参考",
+          "title": "机场巴士：阪急三番街 → 关西机场T1",
+          "description": "单程1,800日元／人、两人3,600日元，现场购票、不预约，按排队顺序乘车。官方现行时刻为08:30发车、09:30到T1；这是计划班次，实际到达受路况影响。出发前查看最新官方时刻。",
           "sourceIds": [
-            "haruka-timetable",
-            "haruka-oneway",
-            "jrwest-reservations"
+            "kix-osaka-airport-bus"
           ]
         },
         {
           "id": "walk-to-t1-departures",
-          "time": "09:34–约09:50",
-          "title": "机场站连廊 → T1国际出发层",
-          "description": "到4楼东航／上海航空柜台。"
+          "time": "抵达后",
+          "title": "T1 4楼下车、取行李、办理值机",
+          "description": "巴士在T1的4楼国际出发大厅北侧下车，取齐行李后前往东航／上海航空柜台，办理值机、托运及安检。",
+          "sourceIds": [
+            "kix-osaka-airport-bus"
+          ]
         },
         {
           "time": "13:10–15:10",
@@ -7803,15 +7788,16 @@ export default {
         }
       ],
       "notes": [
-        "当天不安排景点。",
-        "主选08:50 HARUKA 11，09:19 HARUKA 13仅作后备；机场列车与站台出发前复核。",
-        "21号HARUKA仍需另购票，不计入已选Pass；10/31前的较低票价已不适用，现按1,900日元／人准备。",
-        "阪急三番街08:30–09:30机场巴士另列为参考替代，单程1,800日元／人、现场排队；酒店门口下客站不能当去机场上客站。"
+        "当天不安排景点；MU226仍为13:10从关西机场KIX T1起飞。",
+        "已改乘阪急三番街机场巴士，现场购票；无需提前预约，按排队顺序乘车。",
+        "主选08:30发车、预计09:30抵达T1；现行时刻适用于平日、周末及节假日，出发前查看最新官方时刻，预留道路延误余量。",
+        "前往阪急三番街0号站台；酒店门口机场巴士停靠处为下客站。"
       ],
       "sourceIds": [
-        "haruka-timetable",
         "respire-access",
-        "haruka-oneway"
+        "kix-osaka-airport-bus",
+        "kix-sanbangai-boarding",
+        "respire-airport-bus-walk"
       ],
       "dining": [
         {
@@ -7839,48 +7825,20 @@ export default {
             "stops": [
               {
                 "placeId": "respire-osaka",
-                "scheduleId": "respire-checkout"
-              },
-              {
-                "placeId": "umekita-gate",
-                "scheduleId": "hotel-to-umekita"
-              },
-              {
-                "placeId": "osaka-station",
-                "scheduleId": "haruka-to-kix"
-              },
-              {
-                "placeId": "kix-station",
-                "scheduleId": "haruka-to-kix"
+                "scheduleId": "hotel-to-sanbangai",
+                "note": "从酒店步行到阪急三番街上车点；酒店门口只下客。"
               },
               {
                 "placeId": "kix-t1",
-                "scheduleId": "walk-to-t1-departures",
-                "note": "从机场站连廊到T1国际出发层4楼，按现场指引前往东航／上海航空柜台。"
+                "scheduleId": "sanbangai-airport-bus",
+                "note": "巴士在T1的4楼国际出发大厅北侧下车，取齐行李后办理值机。"
               }
             ],
-            "note": "HARUKA仍为参考班次；带齐全部行李并留足进站、连廊与电梯时间。"
+            "note": "机场巴士接驳；阪急三番街的上车位置以官方站点图为准。连线仅表示出行顺序，不是实际行车轨迹。"
           }
         ]
       },
-      "alternatives": [
-        {
-          "id": "airport-bus",
-          "title": "机场交通替代：阪急三番街机场巴士",
-          "description": "当前仍以08:50 HARUKA 11为主；只有确定改用巴士时才替换机场段，不与HARUKA同时购票或计费。",
-          "schedule": [
-            {
-              "id": "sanbangai-airport-bus",
-              "time": "08:30–09:30参考",
-              "title": "阪急三番街 → 关西机场",
-              "description": "单程1,800日元／人，现场排队、不预约；实际班次和上车站先复核，酒店门口的下客站不是去机场上客站。提前确认阪急三番街的正确上车站台。"
-            }
-          ],
-          "notes": [
-            "此为参考班次，未购买，也不改变13:10航班。选择前确认从酒店到正确上车站的步行、候车及机场到T1的时间，当前基本预算仍按HARUKA优惠票。"
-          ]
-        }
-      ]
+      "busCount": 1
     }
   ],
   "stampGuide": {
@@ -8523,19 +8481,17 @@ export default {
         "fareNote": "按单次付费，其余以步行为主；乘坐次数与实际金额未定，不预先买当地交通通票，未计入基本预算。"
       },
       {
-        "id": "departure-haruka",
+        "id": "departure-airport-bus",
         "date": "2026-11-21",
-        "route": "大阪站 → 关西机场",
-        "service": "HARUKA机场特急11号",
+        "route": "阪急三番街 → 关西机场T1",
+        "service": "关西机场利木津巴士",
         "coverage": "additional",
-        "fare": 1900,
-        "time": "08:50–09:34",
-        "reservationRequired": true,
-        "fareNote": "Pass已过期，车票仍未购买，按11/1起1,900日元／人的优惠单程票计算；购买与指定席尚未确认。阪急三番街机场巴士1,800日元／人为另列替代，不与HARUKA重复购票或计费，当前主预算按HARUKA。",
+        "fare": 1800,
+        "time": "08:30–09:30参考",
+        "fareNote": "已选择巴士，单程1,800日元／人、两人3,600日元，现场购票、不预约，按排队顺序乘车。08:30–09:30为官方现行时刻的计划班次，实际到达受路况影响；上车点为阪急三番街。",
         "sourceIds": [
-          "haruka-oneway",
-          "haruka-timetable",
-          "jrwest-reservations"
+          "kix-osaka-airport-bus",
+          "kix-sanbangai-boarding"
         ]
       }
     ],
@@ -8553,10 +8509,10 @@ export default {
         ]
       },
       {
-        "id": "airport-haruka",
-        "label": "11/21 HARUKA",
+        "id": "airport-bus",
+        "label": "11/21机场巴士",
         "legIds": [
-          "departure-haruka"
+          "departure-airport-bus"
         ]
       },
       {
@@ -8588,7 +8544,7 @@ export default {
       }
     ],
     "budgetNotes": [
-      "11/21 HARUKA仍未购买，现按11/1起1,900日元／人计算；11/19按06:54早班感应支付优惠720日元／人计算，现金或不适用优惠为1,440。机场巴士为另列替代，不重复计费。",
+      "11/21机场巴士按单程1,800日元／人计算，现场购票；11/19按06:54早班感应支付优惠720日元／人计算，现金或不适用优惠为1,440。",
       "熊野巴士按17–19号当前主路线逐段计费，优惠后5,680日元／人；不购买当地巴士通票。",
       "另加广岛／奈良市内交通与实际出租车费；景点门票和餐费未计入本交通预算。奈良JR往返为估算，未知费用不按零计算。",
       "Pass已购买、已付，四段长途指定席已确认；其他交通仍为待现场支付或待购票的条件预算，未知付款状态不等于未付。"
@@ -8624,17 +8580,30 @@ export default {
           "kawayu-shingu-bus",
           "kumano-bus-payment"
         ]
+      },
+      {
+        "title": "11/21 关西机场巴士",
+        "detail": "从酒店1楼步行约5分钟到阪急三番街0号站台，按官方步行图红色路线前往，酒店门口只下客。可在上车点售票机购票，或上车刷交通IC卡付车费；无需提前预约，按排队顺序乘车。预留候车与道路延误余量，巴士在关西机场T1的4楼下车。",
+        "sourceIds": [
+          "respire-access",
+          "kix-osaka-airport-bus",
+          "kix-sanbangai-boarding",
+          "respire-airport-bus-walk"
+        ]
       }
     ],
     "sourceIds": [
       "jrwest-all-area",
       "jrwest-reservations",
-      "haruka-oneway",
       "kumano-fast-bus-fare",
       "miyajima-ropeway-fare",
       "kumano-bus-payment",
       "kumano-early-discount",
-      "hiroshima-meipuru-bus"
+      "hiroshima-meipuru-bus",
+      "respire-access",
+      "kix-osaka-airport-bus",
+      "kix-sanbangai-boarding",
+      "respire-airport-bus-walk"
     ]
   },
   "budget": {
@@ -8678,7 +8647,7 @@ export default {
         "label": "景点门票与市内交通",
         "minimum": 10000,
         "maximum": 20000,
-        "note": "两人博物馆、神社寺院门票，广岛／奈良市内电车、公交及实际出租车；不重复计已列交通预算中的Pass、熊野巴士、奈良JR、HARUKA、缆车和登岛税。"
+        "note": "两人博物馆、神社寺院门票，广岛／奈良市内电车、公交及实际出租车；不重复计已列交通预算中的Pass、熊野巴士、奈良JR、机场巴士、缆车和登岛税。"
       }
     ],
     "suggestedReserve": {
@@ -8688,7 +8657,7 @@ export default {
     "notes": [
       "金额为两人日本境内预算，机票价格未提供；不含机票、购物、额外酒水及重大改线。",
       "目前明确付款记录覆盖JR Pass与SEN住宿，均已计入预算；其他订单仍需核对，未知不当作未付或零，也不据此计算剩余未付余额。",
-      "交通按仍未购买的HARUKA现价计算，19号早班符合感应支付半价仍为条件；优惠未适用或改线时按实际支出调整。",
+      "21号交通按已选机场巴士1,800日元／人计算；19号早班的感应支付半价仍为条件，优惠未适用或改线时按实际支出调整。",
       "SEN已含早晚餐，不重复计餐费；未订候选按预算预留，最终菜单、是否订到及现场选择会改变金额。"
     ]
   },
